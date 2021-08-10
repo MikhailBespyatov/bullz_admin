@@ -62,7 +62,6 @@ build/deploy-prod:
         - echo > pk.txt "$SSH_PRIVATE_KEY" | tr -d '\r'
         - chmod 400 pk.txt
         - chmod -R 755 build
-        - sshpass ssh -i pk.txt -p 1122 -oStrictHostKeyChecking=no -tt admin-bullz@stage-srv.xc.io 'rm -rf /home/admin-bullz/adminbullz/static;rm -rf /home/admin-bullz/adminbullz/precache*'
         - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* admin-bullz@stage-srv.xc.io:/home/admin-bullz/adminbullz/
         - echo "Deployed"
     only:
