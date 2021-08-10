@@ -16,7 +16,7 @@ export const Table = ({ columns, columnSizes = new Array<number>(columns.length)
 
     return (
         <>
-            <TableHeader alignCenter backgroundColor={grey12} border={tableDataBorder} height="45px">
+            <TableHeader alignCenter backgroundColor={grey12} height="45px">
                 {columns.map((title, index) => (
                     <Cell key={title} justifyCenter flexBasis={flexBasisValues[index]}>
                         <TableHeaderColumnSpan color={black}>{title}</TableHeaderColumnSpan>
@@ -25,7 +25,7 @@ export const Table = ({ columns, columnSizes = new Array<number>(columns.length)
             </TableHeader>
             <TableBody>
                 {data?.map(({ cells, alignment = new Array<AlignmentType>(columns.length).fill('start') }, index) => (
-                    <RowWrapper key={index.toString()} alignCenter justifyAround borderBottom={tableDataBorder}>
+                    <RowWrapper key={index.toString()} alignCenter justifyAround border={tableDataBorder}>
                         {cells.map((cell, index) => (
                             <Cell
                                 key={index.toString()}

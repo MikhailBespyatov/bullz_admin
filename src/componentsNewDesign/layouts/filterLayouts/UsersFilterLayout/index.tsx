@@ -129,7 +129,7 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
               });
     };
 
-    const onLocaleSelect = ({ selectorType, selectorName }: FilterParameters) => {
+    const onLocaleSelect = ({ selectorType, selectorName, selectorCode }: FilterParameters) => {
         //console.log('received { selectorType, selectorName }', { selectorType, selectorName });
 
         const newValues: LocaleSelectorProps = { country: '', region: '', locale: '' };
@@ -139,7 +139,7 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
         let key: SelectorKeyType;
 
         for (key in newValues) {
-            key === selectorType && (newValues[key] = selectorName);
+            key === selectorType && (newValues[key] = selectorCode || selectorName);
         }
 
         //console.log('newValues', newValues);

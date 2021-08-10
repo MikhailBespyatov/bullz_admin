@@ -1,23 +1,17 @@
-import { Loader } from 'components/common/dynamic/Loader';
 import { EmptyTrendingVideoCard } from 'components/layouts/cards/videos/TrendingVideoCard';
 import {
     cardsInBlock,
     cardsInLastBlock,
-    indexOfLastBlock,
-    plugHeight,
-    plugWidth
+    indexOfLastBlock
 } from 'componentsNewDesign/layouts/DraggableLayout/constants';
 import { StyledDiv, TrendingVideoWrapper } from 'componentsNewDesign/layouts/DraggableLayout/styles';
 import {
     DraggableProps,
     DraggableTrendingVideoItemType,
     DraggableTrendingVideosProps,
-    Loading,
     StyledDivProps,
     WrapperProps
 } from 'componentsNewDesign/layouts/DraggableLayout/types';
-import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { trendingVideoLimit } from 'constants/defaults/trendings';
 import React, { FC, useState } from 'react';
 
@@ -62,47 +56,97 @@ export const DraggableItems = ({ items, onDragEnded }: WrapperProps) => {
     );
 };
 
-const TrendingVideoBlock: FC<Loading> = ({ children, loading }) => (
-    <TrendingVideoWrapper loading={loading}>
-        {loading && (
-            <AbsoluteWrapper height={plugHeight} width={plugWidth} zIndex="29">
-                <Column alignCenter justifyCenter height="100%" margin="auto" width="100%">
-                    <Loader size="large" />
-                </Column>
-            </AbsoluteWrapper>
-        )}
-        {children}
-    </TrendingVideoWrapper>
-);
+const TrendingVideoBlock: FC = ({ children }) => <TrendingVideoWrapper>{children}</TrendingVideoWrapper>;
 
 //TODO: make it with display-grid
 export const parseItemsByBlocksWithEmptyItems = (items: DraggableTrendingVideoItemType[]) => {
     //const lastPosition = items?.length ? items[items.length - 1].position : 0;
     const blocksQuantity = Math.ceil(trendingVideoLimit / cardsInBlock) || 1;
 
+    //console.log('*******PARSE items from videos', items);
+
     let array: DraggableTrendingVideoItemType[][] = [];
     let i = 0;
-    for (let j = 0; j < blocksQuantity; j++) {
+    // let skippedCardIndexes: FreCardIndexesType[] = [];
+    // let itemsWithDuplicatedPositions: DraggableTrendingVideoItemType[] = [];
+
+    for (let blockOrderNumber = 0; blockOrderNumber < blocksQuantity; blockOrderNumber++) {
         let subArray: DraggableTrendingVideoItemType[] = [];
-        for (let v = 0; v < (indexOfLastBlock - 1 === j ? cardsInLastBlock : cardsInBlock); v++) {
-            if (items[i]?.position === j * cardsInBlock + v) {
+
+        for (
+            let videoCardOrderNumber = 0;
+            videoCardOrderNumber < (indexOfLastBlock - 1 === blockOrderNumber ? cardsInLastBlock : cardsInBlock);
+            videoCardOrderNumber++
+        ) {
+            if (items[i]?.position === blockOrderNumber * cardsInBlock + videoCardOrderNumber) {
+                // console.log(
+                //     'Match __ item position',
+                //     items[i]?.position,
+                //     ' order number',
+                //     blockOrderNumber * cardsInBlock + videoCardOrderNumber
+                // );
+
                 subArray.push(items[i]);
                 i++;
-            } else
+
+                // if (items[i]?.position === items[i + 1]?.position) {
+                //     itemsWithDuplicatedPositions.push(items[i + 1]);
+
+                //     subArray[i + 1] = {
+                //         item: (
+                //             <EmptyTrendingVideoCard
+                //                 position={blockOrderNumber * cardsInBlock + videoCardOrderNumber + 1}
+                //             />
+                //         ),
+                //         position: blockOrderNumber * cardsInBlock + videoCardOrderNumber + 1,
+                //         isEmpty: true
+                //     };
+
+                //     console.log('****subArray', subArray);
+
+                //     i = i + 2;
+                // } else {
+                //     i++;
+                // }
+            } else {
+                // console.log(
+                //     'EMPTY __ item position',
+                //     items[i]?.position,
+                //     ' order number',
+                //     blockOrderNumber * cardsInBlock + videoCardOrderNumber
+                // );
+                // skippedCardIndexes.push({
+                //     blockOrderNumber: blockOrderNumber,
+                //     cardOrderNumber: videoCardOrderNumber
+                // });
+
                 subArray.push({
-                    item: <EmptyTrendingVideoCard position={j * cardsInBlock + v} />,
-                    position: j * cardsInBlock + v,
+                    item: <EmptyTrendingVideoCard position={blockOrderNumber * cardsInBlock + videoCardOrderNumber} />,
+                    position: blockOrderNumber * cardsInBlock + videoCardOrderNumber,
                     isEmpty: true
                 });
+            }
         }
+        //console.log('****subArray', subArray);
+
         array.push(subArray);
     }
+
+    // console.log('itemsWithDuplicatedPositions', itemsWithDuplicatedPositions);
+    // console.log('skippedCardIndexes', skippedCardIndexes);
+
+    // itemsWithDuplicatedPositions.length &&
+    //     skippedCardIndexes.forEach(({ blockOrderNumber, cardOrderNumber }, i) => {
+    //         array[blockOrderNumber][cardOrderNumber] = itemsWithDuplicatedPositions[i];
+    //     });
+
+    //console.log('****final array', array);
 
     return array;
 };
 
 //TODO: make it with display-grid
-export const DraggableTrendingVideos = ({ items, onDragEnded, loading }: DraggableTrendingVideosProps) => {
+export const DraggableTrendingVideos = ({ items, onDragEnded }: DraggableTrendingVideosProps) => {
     const [firstIndex, setIsFirstIndex] = useState<undefined | number>();
     const [secondIndex, setIsSecondIndex] = useState<undefined | number>();
 
@@ -122,16 +166,19 @@ export const DraggableTrendingVideos = ({ items, onDragEnded, loading }: Draggab
     return (
         <>
             {parseItemsByBlocksWithEmptyItems(items).map((block, i) => (
-                <TrendingVideoBlock key={i.toString()} loading={loading}>
-                    {block.map(({ item, isEmpty }, j) => (
+                <TrendingVideoBlock key={i.toString()}>
+                    {block.map(({ item, isEmpty }, blockOrderNumber) => (
                         <DraggableItem
-                            key={j.toString()}
+                            key={blockOrderNumber.toString()}
                             draggable={!isEmpty}
-                            isHovered={i * cardsInBlock + j === secondIndex || i * cardsInBlock + j === firstIndex}
+                            isHovered={
+                                i * cardsInBlock + blockOrderNumber === secondIndex ||
+                                i * cardsInBlock + blockOrderNumber === firstIndex
+                            }
                             onDragEnd={onDragEnd}
                             //onDragLeave={onDragLeave}
-                            onDragOver={() => onDragOver(i * cardsInBlock + j)}
-                            onDragStart={() => onDragStart(i * cardsInBlock + j)}
+                            onDragOver={() => onDragOver(i * cardsInBlock + blockOrderNumber)}
+                            onDragStart={() => onDragStart(i * cardsInBlock + blockOrderNumber)}
                         >
                             {item}
                         </DraggableItem>

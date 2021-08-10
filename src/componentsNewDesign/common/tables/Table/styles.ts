@@ -29,19 +29,18 @@ export const TableHeader = styled(Section)<TableHeaderProps>`
     ${({ height }) => height && `height: ${height}`};
     ${({ border }) => border && `border: ${border}`};
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
-    border-radius: 4px;
-    margin-bottom: 8px;
+    border-radius: 4px 4px 0px 0px;
 `;
 
 export const TableBody = styled(Column)`
     width: 100%;
 `;
 
-interface RowWrapperProps extends Pick<BorderProperties, 'borderBottom'> {}
+interface RowWrapperProps extends Pick<BorderProperties, 'border'> {}
 
 export const RowWrapper = styled(Section)<RowWrapperProps>`
     height: 70px;
-    ${({ borderBottom }) => borderBottom && `border-bottom: ${borderBottom}`};
+    ${({ border }) => border && `border: ${border}`};
     box-sizing: border-box;
     flex-wrap: nowrap;
 `;

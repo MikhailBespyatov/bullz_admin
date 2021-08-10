@@ -47,16 +47,16 @@ export const parseCreateTrendingVideoPosition = (
 
     if (definedPosition === undefined) {
         const length = items?.length || 0;
-        let isSparsed = false;
+        let isEmptyCardPositionFound = false;
 
         for (let i = 0; i < length; i++)
             if (i !== items?.[i]?.position) {
                 position = i;
-                isSparsed = true;
+                isEmptyCardPositionFound = true;
                 break;
             }
 
-        !isSparsed && (position = length);
+        !isEmptyCardPositionFound && (position = length);
     } else position = definedPosition;
 
     return position;

@@ -96,6 +96,19 @@ const removeItem = createEffect({
     }
 });
 
+const removeDuplicatedItem = createEffect({
+    handler: async ({ id = '' }: RemoveTrendingModal) => {
+        try {
+            updateRemoveLoading();
+            await API.trendings.removeItemById({ id });
+            updateRemoveLoading();
+        } catch {
+            updateRemoveLoading();
+            //console.log('error with removing duplicated item', id);
+        }
+    }
+});
+
 const setTags = createEvent<YEAY.QueryTrendingOverridesResponse>();
 const setVideos = createEvent<YEAY.QueryTrendingOverridesResponse>();
 const setUsers = createEvent<YEAY.QueryTrendingOverridesResponse>();
@@ -116,7 +129,7 @@ const users = createStore<YEAY.QueryTrendingOverridesResponse>({}).on([getUsers.
 }));
 // !!! this console.log is necessary to check validity so far
 videos.watch(state => {
-    // console.log('videos: ');
+    //console.log('STORE video items', state?.items);
     state?.items?.map(item => console.log('position:', (item?.position || 0) + 1, 'id:', item?.id));
 });
 
@@ -129,6 +142,7 @@ const createItem = createEffect({
                 : videoId
                 ? (position = videos.getState()?.items?.length || 0)
                 : (position = users.getState()?.items?.length || 0);
+
             updateCreateLoading();
             await API.trendings.createTrending({
                 type: text ? 100 : videoId ? 200 : 300,
@@ -174,6 +188,11 @@ const createVideo = createEffect({
                 updateCreateLoading();
                 return;
             }
+
+            // console.log(
+            //     'Store create video position',
+            //     parseCreateTrendingVideoPosition(videos.getState().items, definedPosition)
+            // );
 
             await API.trendings.createTrending({
                 type: 200,
@@ -277,6 +296,7 @@ export const trendingsEffects = {
     getVideos,
     getUsers,
     removeItem,
+    removeDuplicatedItem,
     createItem,
     swapAndUpdateTags,
     swapAndUpdateUsers,

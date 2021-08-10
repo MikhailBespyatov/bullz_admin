@@ -1,3 +1,4 @@
+import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ellipsisMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import {
@@ -10,7 +11,6 @@ import {
     TextAlignment,
     TextProperties
 } from 'types/styles';
-import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 
 interface TableProps
     extends BackgroundColor,
@@ -35,9 +35,7 @@ export const EllipsisTableText = styled.span<TableProps>`
 export const TableWrapper = styled.div<TableProps>`
     margin-top: 8px;
     width: 100%;
-    ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
-    ${({ border }) => border && `border: ${border}`};
 `;
 
 export const Table = styled.table<TableProps>`

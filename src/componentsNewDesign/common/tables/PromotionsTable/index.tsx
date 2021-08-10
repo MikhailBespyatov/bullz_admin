@@ -1,10 +1,6 @@
+import noImageIcon from 'assets/no_product_icon.svg';
 import { CustomImage } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
-import {
-    cellPadding,
-    promotionsTableColumnTitles,
-    tableBorderRadius,
-    tableDataBorder
-} from 'componentsNewDesign/common/tables/PromotionsTable/constants';
+import { cellPadding, promotionsTableColumnTitles } from 'componentsNewDesign/common/tables/PromotionsTable/constants';
 import { Table } from 'componentsNewDesign/common/tables/Table';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { TableWrapper } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/styles';
@@ -22,7 +18,7 @@ export const PromotionsTable = ({ items }: PromotionsTableProps) => {
     const dataTable: DataTable[] | undefined = items?.map(({ id, icon, pageLocation, isActive }) => ({
         cells: [
             <Row key={id} alignCenter noWrap margin={cellPadding}>
-                <CustomImage src={icon} width="30px" />
+                <CustomImage src={icon || noImageIcon} width="30px" />
             </Row>,
 
             <Row key={id} margin={cellPadding}>
@@ -46,7 +42,7 @@ export const PromotionsTable = ({ items }: PromotionsTableProps) => {
     }));
 
     return (
-        <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
+        <TableWrapper>
             <Table columnSizes={[1, 2, 2, 1]} columns={promotionsTableColumnTitles} data={dataTable} />
         </TableWrapper>
     );

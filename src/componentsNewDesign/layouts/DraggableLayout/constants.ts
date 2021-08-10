@@ -1,6 +1,6 @@
-import { antdTrendingCardStyle, padding, sideBarWidth } from 'constants/styles/sizes';
-import { multiplyPixels, pixelsAddition } from 'utils/parsers';
 import { trendingVideoLimit } from 'constants/defaults/trendings';
+import { antdTrendingCardStyle, sideBarWidth } from 'constants/styles/sizes';
+import { multiplyPixels, pixelsAddition } from 'utils/parsers';
 
 export const cardsInRow = 3;
 export const cardsInColumns = 4;
@@ -20,6 +20,3 @@ export const trendingVideoWrapperHeight = multiplyPixels(
 // TODO: + side paddings (now as 100px)
 export const adaptiveWidth = pixelsAddition(pixelsAddition(trendingVideoWrapperWidth, sideBarWidth), '100px');
 export const trendingVideoWrapperPadding = '40px';
-
-export const plugWidth = `calc(100% - ${padding})`;
-export const plugHeight = plugWidth;

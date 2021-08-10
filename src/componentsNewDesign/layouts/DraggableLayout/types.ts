@@ -35,3 +35,8 @@ export interface DraggableTrendingVideosProps extends OnDragEnded, Loading {
 export interface Loading {
     loading?: boolean;
 }
+
+// export interface FreCardIndexesType {
+//     blockOrderNumber: number;
+//     cardOrderNumber: number;
+// }

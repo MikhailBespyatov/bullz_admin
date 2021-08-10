@@ -1,6 +1,7 @@
 import { ArrowImg } from 'componentsNewDesign/common/imgComponents/ArrowImg';
 import { BackArrowTitle } from 'componentsNewDesign/common/inputs/BackArrowTitle';
 import {
+    countryCodeCountryNameConverter,
     FilterParameters,
     findIndexOfSelector,
     findNestedSelectorsList,
@@ -141,7 +142,7 @@ export const NestedSelect = ({
         }
     };
 
-    const setSelectedItemAndSendRequest = (selectorName: string, selectorType: string) => {
+    const setSelectedItemAndSendRequest = (selectorName: string, selectorType: string, selectorCode?: string) => {
         // console.log(selectorType, selectorName, selectedItem);
 
         if (selectedItem === selectorName && selectedItemType === selectorType) {
@@ -149,19 +150,21 @@ export const NestedSelect = ({
 
             setSelectedItem('');
             setSelectedItemType('');
-            onSelect({ selectorType, selectorName });
+            onSelect({ selectorType, selectorName, selectorCode });
             setCommonSelectorVariables();
         } else {
             setSelectedItem(selectorName);
             setSelectedItemType(selectorType);
-            onSelect({ selectorType, selectorName });
+            onSelect({ selectorType, selectorName, selectorCode });
             setSearchInputValue('');
         }
     };
 
     const onSelectorClick = (item: SelectorsItemProps) => {
-        const { selectorName, selectorType } = item;
-        selectorType && setSelectedItemAndSendRequest(selectorName, selectorType);
+        const { selectorName, selectorType, selectorCode } = item;
+        selectorCode
+            ? selectorType && setSelectedItemAndSendRequest(selectorName, selectorType, selectorCode)
+            : selectorType && setSelectedItemAndSendRequest(selectorName, selectorType);
     };
 
     const startSearch = (value: string) => {
@@ -170,11 +173,21 @@ export const NestedSelect = ({
 
         if (nestedSelectors?.length) {
             const { selectorType } = nestedSelectors?.[0];
-            // console.log(selectorType);
-            // console.log(currentSelector);
-            //console.log(value);
+            // console.log('selectorType', selectorType);
+            // console.log('currentSelector', currentSelector);
+            // console.log('value', value);
 
-            selectorType && setSelectedItemAndSendRequest(value, selectorType);
+            if (selectorType === 'country') {
+                const array = findNestedSelectorsList(path, selector);
+                const countryData =
+                    array?.nestedSelectors &&
+                    countryCodeCountryNameConverter(array?.nestedSelectors, { countryName: value });
+
+                countryData?.countryName &&
+                    setSelectedItemAndSendRequest(countryData?.countryName, selectorType, countryData?.countryCode);
+            } else {
+                selectorType && setSelectedItemAndSendRequest(value, selectorType);
+            }
         }
     };
 
@@ -240,9 +253,21 @@ export const NestedSelect = ({
     //useCloseClick(componentRef, close);
 
     useEffect(() => {
-        setSelectedItem(defaultSelectedItem);
+        if (defaultSelectedItemType === 'country') {
+            const array = path ? findNestedSelectorsList(path, selector) : selector[1];
+
+            const countryData =
+                array?.nestedSelectors &&
+                countryCodeCountryNameConverter(array?.nestedSelectors, { countryCode: defaultSelectedItem });
+
+            countryData?.countryName && setSelectedItem(countryData?.countryName);
+        } else {
+            setSelectedItem(defaultSelectedItem);
+        }
+
         setSelectedItemType(defaultSelectedItemType);
-    }, [defaultSelectedItem, defaultSelectedItemType]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultSelectedItem, defaultSelectedItemType, selector]);
 
     useEffect(() => {
         /*selectedItem &&*/ visible && close();

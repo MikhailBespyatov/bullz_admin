@@ -30,6 +30,42 @@ export const findIndexOfSelector = (title: string, array: SelectorsItemProps[]):
     return foundedIndex;
 };
 
+interface SelectorProps {
+    countryName?: string;
+    countryCode?: string;
+}
+
+export const countryCodeCountryNameConverter = (
+    array: SelectorsItemProps[],
+    { countryName, countryCode }: SelectorProps
+): SelectorProps => {
+    let countryData: SelectorProps = {};
+
+    if (countryCode) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].selectorType === 'country' && array[i].selectorCode === countryCode) {
+                return { countryName: array[i].selectorName, countryCode: array[i].selectorCode };
+            }
+            if (array[i].nestedSelectors) {
+                countryData = countryCodeCountryNameConverter(array[i].nestedSelectors || [], { countryCode });
+            }
+        }
+    }
+
+    if (countryName) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].selectorName.toLowerCase() === countryName.toLowerCase()) {
+                return { countryName: array[i].selectorName, countryCode: array[i].selectorCode };
+            }
+            if (array[i].nestedSelectors) {
+                countryData = countryCodeCountryNameConverter(array[i].nestedSelectors || [], { countryName });
+            }
+        }
+    }
+
+    return countryData;
+};
+
 export interface SelectorType {
     selectorType: string;
 }
@@ -41,7 +77,7 @@ export interface SelectorCode {
     selectorCode?: string;
 }
 
-export interface FilterParameters extends SelectorType, SelectorName {}
+export interface FilterParameters extends SelectorType, SelectorName, SelectorCode {}
 
 export interface SelectorsItemProps extends Partial<SelectorType>, SelectorName, SelectorCode {
     searchPlaceholder?: string;

@@ -12,12 +12,14 @@ import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
 import { AsyncDeleteTrendingModal } from 'componentsNewDesign/modals/AsyncDeleteTrendingModal';
 import { CreateTrendingUserFilterModal } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal';
 import { CreateTrendingVideoFilterModal } from 'componentsNewDesign/modals/filterModals/CreateTrendingVideoFilterModal';
-import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
+import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { trendingVideoLimit } from 'constants/defaults/trendings';
 import { black, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
-import { trendingFeaturesHeight } from 'pages/Trendings/constants';
+import { plugHeight, plugWidth, trendingFeaturesHeight } from 'pages/Trendings/constants';
 import React, { FC, useEffect, useState } from 'react';
 import {
     createTrendingVideoModal,
@@ -45,7 +47,15 @@ const TrendingButton: FC<ButtonProps> = ({ children, onClick, disabled }) => (
     </SimpleButton>
 );
 
-const { getTags, getVideos, getUsers, swapAndUpdateVideos, swapAndUpdateTags, swapAndUpdateUsers } = trendingsEffects;
+const {
+    getTags,
+    getVideos,
+    getUsers,
+    swapAndUpdateVideos,
+    swapAndUpdateTags,
+    swapAndUpdateUsers,
+    removeDuplicatedItem
+} = trendingsEffects;
 
 const onTagsDragEnded = (i: number, j: number) => swapAndUpdateTags({ i, j });
 const onUsersDragEnded = (i: number, j: number) => swapAndUpdateUsers({ i, j });
@@ -71,12 +81,37 @@ export const Trendings = () => {
             id
         });
 
+    const removeVideoItemsWithDuplicatedPositions = (array: YEAY.GetTrendingOverridesResponse[]) => {
+        let uniqPositions: number[] = [];
+        //console.log('remove func');
+
+        array.forEach(item => {
+            //console.log('item.position', item.position);
+
+            if (item.position) {
+                if (uniqPositions.includes(item?.position)) {
+                    //console.log('***Duplicated position', item.position, item.id);
+                    removeDuplicatedItem({ id: item.id });
+                    getVideos();
+                } else {
+                    uniqPositions.push(item?.position);
+                }
+            }
+        });
+    };
+
     useEffect(() => {
         getTags();
         getVideos();
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        videos.items && removeVideoItemsWithDuplicatedPositions(videos.items);
+    }, [videos]);
+
+    //console.log('Trendings videos items ', videos.items);
 
     return (
         <MainLayout>
@@ -197,42 +232,51 @@ export const Trendings = () => {
                 </InfoTitle>
             </Section>
             <Section> */}
-                <TrendingContainer
-                    features={
-                        <TrendingButton
-                            disabled={(videos?.items?.length || 0) >= trendingVideoLimit}
-                            onClick={() => createTrendingVideoModal.openModal({})}
+                <RelativeWrapper>
+                    {loadingVideos ? (
+                        <AbsoluteWrapper height={plugHeight} top="30px" width={plugWidth} zIndex="29">
+                            <Column alignCenter justifyCenter height="100%" margin="auto" width="100%">
+                                <Loader size="large" />
+                            </Column>
+                        </AbsoluteWrapper>
+                    ) : (
+                        <TrendingContainer
+                            features={
+                                <TrendingButton
+                                    disabled={(videos?.items?.length || 0) >= trendingVideoLimit}
+                                    onClick={() => createTrendingVideoModal.openModal({})}
+                                >
+                                    Add video
+                                </TrendingButton>
+                            }
+                            title="Videos"
+                            totalRecords={videos?.totalRecords}
                         >
-                            Add video
-                        </TrendingButton>
-                    }
-                    title="Videos"
-                    totalRecords={videos?.totalRecords}
-                >
-                    {!!videos?.items?.length && (
-                        <DraggableTrendingVideos
-                            items={videos.items.map(({ id = '', video, position = 0 }) => {
-                                console.log(position, 'position');
-                                return {
-                                    item: (
-                                        <TrendingVideoCard
-                                            key={id}
-                                            position={position}
-                                            {...video}
-                                            onRemove={() => onRemove('video', (position + 1).toString(), id)}
-                                        />
-                                    ),
-                                    position
-                                };
-                            })}
-                            loading={loadingVideos}
-                            onDragEnded={onVideosDragEnded}
-                        />
-                    )}
-                    {/* {(videos?.items?.length || 0) < trendingVideoLimit && (
+                            {!!videos?.items?.length && (
+                                <DraggableTrendingVideos
+                                    items={
+                                        videos?.items?.map(({ id = '', video, position = 0 }) => ({
+                                            item: (
+                                                <TrendingVideoCard
+                                                    key={id}
+                                                    position={position}
+                                                    {...video}
+                                                    onRemove={() => onRemove('video', (position + 1).toString(), id)}
+                                                />
+                                            ),
+                                            position
+                                        })) || []
+                                    }
+                                    loading={loadingVideos}
+                                    onDragEnded={onVideosDragEnded}
+                                />
+                            )}
+                            {/* {(videos?.items?.length || 0) < trendingVideoLimit && (
                         <AddTrendingButton onClick={() => createTrendingVideoModal.openModal({})} />
                     )} */}
-                </TrendingContainer>
+                        </TrendingContainer>
+                    )}
+                </RelativeWrapper>
                 {/* </Section> */}
             </CatalogContainer>
         </MainLayout>
