@@ -1,0 +1,117 @@
+# Using the node alpine image to build the React app
+image: node:14-alpine
+
+# Cache node modules - speeds up future builds
+cache:
+    paths:
+        - node_modules
+
+# Name the stages involved in the pipeline
+stages:
+    - lint/build
+    # Deploying development version with new design to "Digital Ocean Dev Droplet"
+    - build/deploy-stage-newdesign-dev
+    # Deploying production version with new design to "Digital Ocean Dev Droplet"
+    - build/deploy-stage-newdesign-prod
+    # Deploying production version with new design to "YEAY server"
+    - build/deploy-newdesign-prod
+    # Deploying production version to "YEAY server"
+    - build/deploy-prod
+
+lint/build:
+    stage: lint/build
+    script:
+        - echo "Linting"
+        - yarn
+        - yarn lint
+        - echo "Linting successful"
+        - echo "Building deploy package"
+        - yarn build:stage
+        - echo "Build successful"
+    only:
+        - merge_requests
+
+build/deploy-stage-newdesign-dev:
+    stage: build/deploy-stage-newdesign-dev
+    variables:
+        SERVER: '$USER_DEV_DO@$HOST_DEV_DO'
+    before_script:
+        - apk update
+        - apk add --update --no-cache openssh sshpass
+        - apk add --no-cache python make g++
+        - export SSHPASS=$USER_PASS_DEV_DO
+    script:
+        - echo "Building dev version deploy package"
+        - yarn
+        - yarn build:stage
+        - echo "Build successful"
+        - echo "Deploying to DO (dev droplet) server"
+        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/static'
+        - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_DEV"
+        - echo "Deployed"
+    only:
+        - feat/design-2.0
+
+
+build/deploy-stage-newdesign-prod:
+    stage: build/deploy-stage-newdesign-prod
+    variables:
+        SERVER: '$USER_PROD_DO@$HOST_PROD_DO'
+    before_script:
+        - apk update
+        - apk add --update --no-cache openssh sshpass
+        - apk add --no-cache python make g++
+        - export SSHPASS=$USER_PASS_PROD_DO
+    script:
+        - echo "Building prod version deploy package"
+        - yarn
+        - yarn build:feat
+        - echo "Build successful"
+        - echo "Deploying to DO (dev droplet) server"
+        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_PROD"/static'
+        - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_PROD"
+        - echo "Deployed"
+    only:
+        - feat/design-2.0
+
+build/deploy-newdesign-prod:
+    stage: build/deploy-newdesign-prod
+    before_script:
+        - apk update
+        - apk add --update --no-cache openssh sshpass
+        - export SSHPASS=$SSH_PRIVATE_KEY_DEVYEAYADMIN
+    script:
+        - echo "Building production new design version deploy package"
+        - yarn
+        - yarn build:prod
+        - echo "Build successful"
+        - echo "Deploying New Design to prod server"
+        - echo > pk.txt "$SSH_PRIVATE_KEY_DEVYEAYADMIN" | tr -d '\r'
+        - chmod 400 pk.txt
+        - chmod -R 755 build
+        - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* dev-yeayadmin@stage-srv.xc.io:~/dev-yeayadmin/
+        - echo "Deployed"
+    only:
+        - feat/design-2.0
+    when: manual
+
+build/deploy-prod:
+    stage: build/deploy-prod
+    before_script:
+        - apk update
+        - apk add --update --no-cache openssh sshpass
+        - export SSHPASS=$SSH_PRIVATE_KEY
+    script:
+        - echo "Building production deploy package"
+        - yarn
+        - yarn build:prod
+        - echo "Build successful"
+        - echo "Deploying to prod server"
+        - echo > pk.txt "$SSH_PRIVATE_KEY" | tr -d '\r'
+        - chmod 400 pk.txt
+        - chmod -R 755 build
+        - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* admin-yeay@stage-srv.xc.io:~/adminyeay/
+        - echo "Deployed"
+    only:
+        - master
+    when: manual

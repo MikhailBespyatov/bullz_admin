@@ -1,0 +1,521 @@
+import backArrowImg from 'assets/back_arrow.svg';
+import history from 'browserHistory';
+import { AdministratorLayout, SuperAdministratorLayout } from 'components/layouts/RolesLayouts';
+import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
+import { GenerateReportButton } from 'componentsNewDesign/common/buttons/GenerateReportButton';
+import { AvatarImg } from 'componentsNewDesign/common/imgComponents/AvatarImg';
+import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
+import { localeSelector } from 'componentsNewDesign/common/inputs/NestedSelect/constants';
+import { ClosableTag } from 'componentsNewDesign/common/tags/ClosableTag';
+import { ChangeablePropertyBlock, PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
+import {
+    assigningTitle,
+    assignRoleTitle,
+    copyEmailMessage,
+    copyFacilitatorIdMessage,
+    copyPhoneMessage,
+    copyUserIdMessage,
+    copyUsernameMessage,
+    parseAssignSuccessMessage,
+    parseDisableDescription,
+    parseDisableSuccessMessage,
+    parseDisableTitle,
+    parseRemoveRoleDescription,
+    parseRemoveRoleSuccessMessage,
+    parseVerifyDescription,
+    parseVerifySuccessMessage,
+    parseVerifyTitle,
+    removeRoleTitle,
+    rolesAbsentMessage
+} from 'componentsNewDesign/layouts/cards/UserCard/constants';
+import { VideoCard } from 'componentsNewDesign/layouts/cards/VideoCard';
+import {
+    backImgDiameter,
+    propertyBlockWidth
+} from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
+import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
+import { TitleText } from 'componentsNewDesign/modals/AsyncModal/styles';
+import { RolesPopover } from 'componentsNewDesign/modals/popovers/RolesPopover';
+import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
+import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { assignedUserRoles, assignedUserRolesForSuperAdmin, defaultUserRoles, Roles } from 'constants/defaults/users';
+import { asyncError, videosNotFoundMessage } from 'constants/notifications';
+import { usersLink } from 'constants/routes';
+import { useStore } from 'effector-react';
+import { contentDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
+import React, { useMemo } from 'react';
+import { API } from 'services';
+import { message } from 'stores/alerts';
+import { userReportModal } from 'stores/initialize/initialize.modal.store';
+import { modalEvents } from 'stores/modals/asyncModal';
+import { userStores } from 'stores/users/user';
+import { usersEffects, usersEvents } from 'stores/users/users';
+import { SubjectType } from 'types/types';
+import { parseAssignRoleDescription } from 'utils/usefulFunctions';
+import { BlockInformationText, UserPropertyWrapper } from './styles';
+
+const { removeRoleByUserId, addRoleByUserId, changeAbilityByUserId } = usersEvents;
+const { updateAsyncModalLoading, closeAsyncModal, openAsyncModal } = modalEvents;
+
+interface Props extends YEAY.AdminGetUserCommon {}
+
+export const UserDescription = ({
+    username,
+    id = '',
+    facilitatorId,
+    freeStakingRemaining,
+    locale,
+    location,
+    primaryLanguage,
+    profileImageUrl,
+    roles,
+    utcCreated,
+    utcUpdated,
+    /*@ts-ignore - Removing from API Model*/
+    email,
+    /*@ts-ignore - Removing from API Model*/
+    mobileNumber,
+    isAccountVerified,
+    utcLastAuthentication,
+    isDisabled,
+    isTrusted
+}: Props) => {
+    const { access } = useStore(userStores.auth);
+
+    const assignedRoles = useMemo(
+        () =>
+            access === Roles.SuperAdministrator
+                ? assignedUserRolesForSuperAdmin.filter(i => !roles?.includes(i))
+                : assignedUserRoles.filter(i => !roles?.includes(i)),
+        [roles, access]
+    );
+    // const assignedRolesForSuperAdmin = useMemo(() => assignedUserRolesForSuperAdmin.filter(i => !roles?.includes(i)), [
+    //     roles
+    // ]);
+
+    const removeRoleOkHandler = async (subject: SubjectType) => {
+        const sub = subject.toString();
+        try {
+            updateAsyncModalLoading();
+            const newRoles = roles?.filter(i => i !== sub);
+            await API.adminUsers.updateUserById({
+                id: id,
+                roles: newRoles
+            });
+            updateAsyncModalLoading();
+
+            closeAsyncModal();
+            message.success(parseRemoveRoleSuccessMessage(sub, username || ''));
+            removeRoleByUserId({ id, role: sub });
+        } catch {
+            updateAsyncModalLoading();
+            closeAsyncModal();
+            message.error(asyncError);
+        }
+    };
+
+    const assignRoleOkHandler = async (subject: SubjectType) => {
+        const sub = subject.toString();
+        try {
+            updateAsyncModalLoading();
+            const newRoles = roles ? [...roles, sub] : [sub];
+            await API.adminUsers.updateUserById({
+                id: id,
+                roles: newRoles
+            });
+            updateAsyncModalLoading();
+
+            closeAsyncModal();
+            message.success(parseAssignSuccessMessage(sub, username || ''));
+            addRoleByUserId({ id, role: sub });
+        } catch {
+            updateAsyncModalLoading();
+            closeAsyncModal();
+            message.error(asyncError);
+        }
+    };
+    const verifyOkHandler = async (subject: SubjectType) => {
+        const sub = !!subject;
+        try {
+            updateAsyncModalLoading();
+            const {
+                facilitatorId,
+                firstName,
+                lastName,
+                country,
+                gender,
+                dateOfBirth,
+                primaryLanguage,
+                locale,
+                freeStakingRemaining,
+                isFreeStakingEligible,
+                roles,
+                isDisabled
+            } = await API.adminUsers.getUserById({ id });
+            await API.adminUsers.updateUserById({
+                id,
+                facilitatorId,
+                firstName,
+                lastName,
+                country,
+                gender,
+                dateOfBirth,
+                primaryLanguage,
+                locale,
+                freeStakingRemaining,
+                isFreeStakingEligible,
+                roles,
+                isDisabled,
+                isTrusted: sub
+            });
+            updateAsyncModalLoading();
+
+            closeAsyncModal();
+            message.success(parseVerifySuccessMessage(sub, username || ''));
+            changeAbilityByUserId({ id, isTrusted: sub });
+        } catch {
+            updateAsyncModalLoading();
+            closeAsyncModal();
+            message.error(asyncError);
+        }
+    };
+    const disableOkHandler = async (subject: SubjectType) => {
+        const sub = !!subject;
+        try {
+            updateAsyncModalLoading();
+            await API.adminUsers.updateUserById({
+                id: id,
+                isDisabled: sub
+            });
+            updateAsyncModalLoading();
+
+            closeAsyncModal();
+            message.success(parseDisableSuccessMessage(sub, username || ''));
+            changeAbilityByUserId({ id, isDisabled: sub });
+        } catch {
+            updateAsyncModalLoading();
+            closeAsyncModal();
+            message.error(asyncError);
+        }
+    };
+
+    const callRemoveRoleModal = (role: SubjectType) =>
+        openAsyncModal({
+            visible: true,
+            title: removeRoleTitle,
+            content: parseRemoveRoleDescription(username || '', role.toString()),
+            subject: role,
+            onOk: removeRoleOkHandler
+        });
+
+    const callAssignModal = (role: SubjectType) =>
+        openAsyncModal({
+            visible: true,
+            title: assigningTitle,
+            content: parseAssignRoleDescription(username || '', role.toString()),
+            subject: role,
+            onOk: assignRoleOkHandler
+        });
+    const callVerifyModal = (userVerified: SubjectType) =>
+        openAsyncModal({
+            visible: true,
+            title: parseVerifyTitle(!!userVerified),
+            content: parseVerifyDescription(!!userVerified, username || ''),
+            subject: userVerified,
+            onOk: verifyOkHandler
+        });
+    const callDisableModal = (userDisabled: SubjectType) =>
+        openAsyncModal({
+            visible: true,
+            title: parseDisableTitle(!!userDisabled),
+            content: parseDisableDescription(!!userDisabled, username || ''),
+            subject: userDisabled,
+            onOk: disableOkHandler
+        });
+
+    const deleteOkHandler = async (subject: SubjectType) => {
+        if (typeof subject !== 'string') return;
+
+        await usersEffects.deleteUsersById([subject]);
+        modalEvents.closeAsyncModal();
+        await usersEffects.loadSingleItemById(id);
+        // history.push(usersLink);
+    };
+    const callDeleteUserModal = (userDeleted: string) =>
+        openAsyncModal({
+            visible: true,
+            title: `Are you sure to want to delete ${username} (${id}) user?`,
+            content: contentDeleteUserAsyncModal,
+            subject: userDeleted,
+            onOk: deleteOkHandler,
+            modalHeight: '310px'
+        });
+    const onBack = () => history.goBack();
+
+    const localeOkHandler = async (subject: SubjectType) => {
+        if (typeof subject !== 'string') return;
+
+        try {
+            updateAsyncModalLoading();
+            await API.adminUsers.updateUserById({
+                id: id,
+                locale: subject
+            });
+            await usersEffects.loadSingleItemById(id);
+            updateAsyncModalLoading();
+
+            closeAsyncModal();
+            message.success('Locale have been updated!');
+            changeAbilityByUserId({ id, locale: subject });
+        } catch {
+            await usersEffects.loadSingleItemById(id);
+            updateAsyncModalLoading();
+            closeAsyncModal();
+            message.error(asyncError);
+        }
+    };
+
+    const onLocaleSave = (locale: string) => {
+        openAsyncModal({
+            visible: true,
+            title: `Are you sure you want to change ${username} locale?`,
+            content: '',
+            subject: locale,
+            onOk: localeOkHandler,
+            modalHeight: '220px'
+        });
+    };
+
+    return (
+        <ContentWrapper /*height="280px"*/ padding="16px 32px" /*width="1120px"*/>
+            <Column width="100%">
+                <Section justifyBetween marginBottom="28px">
+                    <Row alignCenter>
+                        <Column marginRight="24px">
+                            <CustomImg
+                                pointer
+                                height={backImgDiameter}
+                                src={backArrowImg}
+                                width={backImgDiameter}
+                                onClick={onBack}
+                            />
+                        </Column>
+                        <TitleText>User info</TitleText>
+                    </Row>
+                    <Row alignCenter>
+                        <AdministratorLayout>
+                            <Column marginRight="8px">
+                                <GenerateReportButton onClick={() => userReportModal.openModal({ id })} />
+                            </Column>
+                        </AdministratorLayout>
+                        {isDisabled ? (
+                            <MarginWrapper marginRight="8px">
+                                <BlockInformationText>This User is Blocked or Deleted</BlockInformationText>
+                            </MarginWrapper>
+                        ) : (
+                            <AdministratorLayout>
+                                <Column marginRight="8px">
+                                    <CardButton onClick={() => callVerifyModal(!isTrusted)}>
+                                        {isTrusted ? 'Unverify' : 'Verify'}
+                                    </CardButton>
+                                </Column>
+                                <Column marginRight="8px">
+                                    <RolesPopover
+                                        disabled={!assignedRoles.length}
+                                        setSubject={callAssignModal}
+                                        subjects={assignedRoles}
+                                        title={assignRoleTitle}
+                                        type="down"
+                                    >
+                                        <CardButton disabled={!assignedRoles.length}>Assign Role</CardButton>
+                                    </RolesPopover>
+                                </Column>
+                            </AdministratorLayout>
+                        )}
+                        <AdministratorLayout>
+                            <CardButton marginRight="8px" type="danger" onClick={() => callDisableModal(!isDisabled)}>
+                                {isDisabled ? 'Unblock' : 'Block'}
+                            </CardButton>
+                        </AdministratorLayout>
+                        {!isDisabled && (
+                            <AdministratorLayout>
+                                <CardButton type="danger" onClick={() => callDeleteUserModal(id)}>
+                                    Delete
+                                </CardButton>
+                            </AdministratorLayout>
+                        )}
+                    </Row>
+                </Section>
+                <Section noWrap marginBottom="0">
+                    <Column marginRight="24px">
+                        <AvatarImg
+                            isAccountVerified={isAccountVerified}
+                            isDisabled={isDisabled}
+                            isTrusted={isTrusted}
+                            src={profileImageUrl || ''}
+                        />
+                    </Column>
+                    <Row>
+                        <Column width="100%">
+                            <Section>
+                                <SuperAdministratorLayout>
+                                    <UserPropertyWrapper>
+                                        <PropertyBlock
+                                            copiable
+                                            notVerified={!isAccountVerified}
+                                            subtitle={email}
+                                            success={copyEmailMessage}
+                                            title="EMAIL ADDRESS"
+                                            width={propertyBlockWidth}
+                                        />
+                                    </UserPropertyWrapper>
+                                </SuperAdministratorLayout>
+                                <SuperAdministratorLayout>
+                                    <UserPropertyWrapper>
+                                        <PropertyBlock
+                                            copiable
+                                            subtitle={mobileNumber}
+                                            success={copyPhoneMessage}
+                                            title="Phone"
+                                            width={propertyBlockWidth}
+                                        />
+                                    </UserPropertyWrapper>
+                                </SuperAdministratorLayout>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        copiable
+                                        // titleUppercase
+                                        subtitle={username || ''}
+                                        success={copyUsernameMessage}
+                                        title="User Name"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        copiable
+                                        // titleUppercase
+                                        linkRoute={usersLink}
+                                        subtitle={id}
+                                        success={copyUserIdMessage}
+                                        title="Id"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        copiable
+                                        // titleUppercase
+                                        subtitle={facilitatorId}
+                                        success={copyFacilitatorIdMessage}
+                                        title="Facilitator ID"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        // titleUppercase
+                                        subtitle={freeStakingRemaining?.toString()}
+                                        title="Free stakes remaining"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                {/*<UserPropertyWrapper>*/}
+                                {/*    <PropertyBlock subtitle={locale || ''} title="LOCALE" width={propertyBlockWidth} />*/}
+                                {/*</UserPropertyWrapper>*/}
+                                <UserPropertyWrapper>
+                                    <ChangeablePropertyBlock
+                                        disabled={access !== Roles.Administrator && access !== Roles.SuperAdministrator}
+                                        searchPlaceholder="Input a locale"
+                                        selector={localeSelector.nestedSelectors?.map(
+                                            ({ selectorName }) => selectorName || ''
+                                        )}
+                                        subtitle={locale || ''}
+                                        title="LOCALE"
+                                        width={propertyBlockWidth}
+                                        onSave={onLocaleSave}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        isDate
+                                        // titleUppercase
+                                        subtitle={utcCreated}
+                                        title="Created account"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        isDate
+                                        // titleUppercase
+                                        subtitle={utcUpdated}
+                                        title="Updated account"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        isDate
+                                        // titleUppercase
+                                        subtitle={utcLastAuthentication}
+                                        title="Last logged in"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        // titleUppercase
+                                        subtitle={location?.countryName || ''}
+                                        title="Country"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                                <UserPropertyWrapper>
+                                    <PropertyBlock
+                                        // titleUppercase
+                                        subtitle={location?.area?.region || ''}
+                                        title="Region"
+                                        width={propertyBlockWidth}
+                                    />
+                                </UserPropertyWrapper>
+                            </Section>
+                            <Row>
+                                {roles?.length
+                                    ? roles.map((item: string) => (
+                                          <MarginWrapper key={item} marginBottom="8px" marginRight="8px">
+                                              <ClosableTag
+                                                  subject={item}
+                                                  untouchable={
+                                                      defaultUserRoles.includes(item) || access > Roles.Administrator
+                                                  }
+                                                  onClose={callRemoveRoleModal}
+                                              />
+                                          </MarginWrapper>
+                                      ))
+                                    : rolesAbsentMessage}
+                            </Row>
+                        </Column>
+                    </Row>
+                </Section>
+            </Column>
+        </ContentWrapper>
+    );
+};
+
+interface UserVideosProps {
+    videos?: YEAY.AdminGetVideoResponse[];
+}
+
+export const UserVideos = ({ videos = [] }: UserVideosProps) => (
+    <>
+        <Section>
+            {videos.length ? (
+                videos.map(item => <VideoCard key={item.id} {...item} />)
+            ) : (
+                <Empty title={videosNotFoundMessage} />
+            )}
+        </Section>
+    </>
+);
