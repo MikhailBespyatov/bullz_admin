@@ -10,12 +10,8 @@ cache:
 stages:
     - lint/build
     # Deploying development version with new design to "Digital Ocean Dev Droplet"
-    - build/deploy-stage-newdesign-dev
-    # Deploying production version with new design to "Digital Ocean Dev Droplet"
-    - build/deploy-stage-newdesign-prod
-    # Deploying production version with new design to "YEAY server"
-    - build/deploy-newdesign-prod
-    # Deploying production version to "YEAY server"
+    - build/deploy-stage-dev
+    # Deploying production version to "BULLZ server"
     - build/deploy-prod
 
 lint/build:
@@ -31,14 +27,13 @@ lint/build:
     only:
         - merge_requests
 
-build/deploy-stage-newdesign-dev:
-    stage: build/deploy-stage-newdesign-dev
+build/deploy-stage-dev:
+    stage: build/deploy-stage-dev
     variables:
         SERVER: '$USER_DEV_DO@$HOST_DEV_DO'
     before_script:
         - apk update
         - apk add --update --no-cache openssh sshpass
-        - apk add --no-cache python make g++
         - export SSHPASS=$USER_PASS_DEV_DO
     script:
         - echo "Building dev version deploy package"
@@ -46,57 +41,16 @@ build/deploy-stage-newdesign-dev:
         - yarn build:stage
         - echo "Build successful"
         - echo "Deploying to DO (dev droplet) server"
-        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/static'
+        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/static;rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/precache*'
         - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_DEV"
         - echo "Deployed"
     only:
-        - feat/design-2.0
-
-
-build/deploy-stage-newdesign-prod:
-    stage: build/deploy-stage-newdesign-prod
-    variables:
-        SERVER: '$USER_PROD_DO@$HOST_PROD_DO'
-    before_script:
-        - apk update
-        - apk add --update --no-cache openssh sshpass
-        - apk add --no-cache python make g++
-        - export SSHPASS=$USER_PASS_PROD_DO
-    script:
-        - echo "Building prod version deploy package"
-        - yarn
-        - yarn build:feat
-        - echo "Build successful"
-        - echo "Deploying to DO (dev droplet) server"
-        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_PROD"/static'
-        - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_PROD"
-        - echo "Deployed"
-    only:
-        - feat/design-2.0
-
-build/deploy-newdesign-prod:
-    stage: build/deploy-newdesign-prod
-    before_script:
-        - apk update
-        - apk add --update --no-cache openssh sshpass
-        - export SSHPASS=$SSH_PRIVATE_KEY_DEVYEAYADMIN
-    script:
-        - echo "Building production new design version deploy package"
-        - yarn
-        - yarn build:prod
-        - echo "Build successful"
-        - echo "Deploying New Design to prod server"
-        - echo > pk.txt "$SSH_PRIVATE_KEY_DEVYEAYADMIN" | tr -d '\r'
-        - chmod 400 pk.txt
-        - chmod -R 755 build
-        - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* dev-yeayadmin@stage-srv.xc.io:~/dev-yeayadmin/
-        - echo "Deployed"
-    only:
-        - feat/design-2.0
-    when: manual
+        - master
 
 build/deploy-prod:
     stage: build/deploy-prod
+    variables:
+        SERVER: '$USER_PROD@$HOST_PROD'
     before_script:
         - apk update
         - apk add --update --no-cache openssh sshpass
@@ -110,7 +64,8 @@ build/deploy-prod:
         - echo > pk.txt "$SSH_PRIVATE_KEY" | tr -d '\r'
         - chmod 400 pk.txt
         - chmod -R 755 build
-        - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* admin-yeay@stage-srv.xc.io:~/adminyeay/
+        - sshpass ssh -i pk.txt -p 1122 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_PROD"/static;rm -rf "$TARGET_DIR_ON_PROD"/precache*'
+        - sshpass scp -i pk.txt -P 1122 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_PROD"
         - echo "Deployed"
     only:
         - master
