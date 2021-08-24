@@ -1,4 +1,4 @@
-import defaultUserImg from 'assets/yeay_logo.svg';
+import defaultUserImg from 'assets/bullz_logo_black.svg';
 import history from 'browserHistory';
 import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
