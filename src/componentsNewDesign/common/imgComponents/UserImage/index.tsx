@@ -1,4 +1,4 @@
-import defaultUserImg from 'assets/yeay_logo.svg';
+import defaultUserImg from 'assets/bullz_logo_black.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import {
     userImageBorderRadius,

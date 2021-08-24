@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import avatarImg from 'assets/avatar.svg';
-import logoImg from 'assets/yeay_logo.svg';
+import logoImg from 'assets/bullz_logo_black.svg';
 import history from 'browserHistory';
 import { Button } from 'components/common/buttons/Button';
 import {
@@ -20,6 +20,7 @@ import {
     PopupWrapper
 } from 'components/grid/Header/styles';
 import { DesktopWrapper } from 'components/grid/wrappers/DesktopWrapper';
+import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import {
@@ -35,7 +36,6 @@ import React, { FC } from 'react';
 import { userEvents, userStores } from 'stores/users/user';
 import { NoopClick } from 'types/global';
 import { triggerCopy } from 'utils/usefulFunctions';
-import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 
 interface Props extends NoopClick {}
 

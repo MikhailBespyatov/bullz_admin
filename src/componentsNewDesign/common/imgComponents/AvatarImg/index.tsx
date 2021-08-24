@@ -1,4 +1,4 @@
-import defaultAvatarImg from 'assets/yeay_logo.svg';
+import defaultAvatarImg from 'assets/bullz_logo_black.svg';
 import { BannedIcon } from 'componentsNewDesign/common/icons/BannedIcon';
 import { NotVerifiedIcon } from 'componentsNewDesign/common/icons/NotVerifiedIcon';
 import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';

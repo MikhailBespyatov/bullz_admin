@@ -55,7 +55,7 @@ export const SideBar = () => {
     return (
         <>
             <Wrapper isExpanded={isExpanded}>
-                <MarginWrapper marginBottom="25px">
+                <MarginWrapper marginBottom="35px">
                     <LogoImg />
                 </MarginWrapper>
 

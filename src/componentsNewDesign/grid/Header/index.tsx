@@ -10,7 +10,7 @@ import {
     deleteUserLink,
     deleteUserLinkName
 } from 'constants/routes';
-import { appVersion, environmentWOM, environmentYEAY } from 'constants/services';
+import { appVersion, environmentBASY } from 'constants/services';
 import { errorColor } from 'constants/styles/colors';
 import React from 'react';
 import { HeaderWrapper, VersionSpan } from './styles';
@@ -24,7 +24,7 @@ export const Header = () => {
         <HeaderWrapper>
             <Row alignCenter>
                 <VersionSpan>
-                    {appVersion} YEAY: {environmentYEAY} \ WOM: {environmentWOM}
+                    {appVersion} BASY: {environmentBASY}
                     {/*{appVersion} YEAY: {environmentYEAY}*/}
                 </VersionSpan>
                 <AdministratorLayout>
