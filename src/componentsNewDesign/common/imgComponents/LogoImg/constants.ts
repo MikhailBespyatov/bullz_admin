@@ -1,2 +1,2 @@
-export const headerLogoHeight = '40px';
-export const logoDivider = 0.5;
+export const headerLogoHeight = '28px';
+export const logoDivider = 2.7826;
