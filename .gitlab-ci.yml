@@ -12,7 +12,7 @@ stages:
     # Deploying development version with new design to "Digital Ocean Dev Droplet"
     - build/deploy-stage-dev
     # Deploying production version to "Digital Ocean KONTUR-A Production"
-    - build/deploy-stage
+    - build/deploy-stage-prod
     # Deploying production version to "BULLZ server"
     - build/deploy-prod
 
@@ -49,9 +49,8 @@ build/deploy-stage-dev:
     only:
         - master
 
-
- build/deploy-stage:
-    stage:  build/deploy-stage
+build/deploy-stage-prod:
+    stage:  build/deploy-stage-prod
     variables:
         SERVER: '$USER_PROD_DO@$HOST_PROD_DO'
     before_script:
