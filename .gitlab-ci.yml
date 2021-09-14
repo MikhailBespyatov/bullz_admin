@@ -11,6 +11,8 @@ stages:
     - lint/build
     # Deploying development version with new design to "Digital Ocean Dev Droplet"
     - build/deploy-stage-dev
+    # Deploying production version to "Digital Ocean KONTUR-A Production"
+    - build/deploy-stage
     # Deploying production version to "BULLZ server"
     - build/deploy-prod
 
@@ -43,6 +45,27 @@ build/deploy-stage-dev:
         - echo "Deploying to DO (dev droplet) server"
         - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/static;rm -rf "$TARGET_DIR_ON_DO_FOR_DEV"/precache*'
         - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_DEV"
+        - echo "Deployed"
+    only:
+        - master
+
+
+ build/deploy-stage:
+    stage:  build/deploy-stage
+    variables:
+        SERVER: '$USER_PROD_DO@$HOST_PROD_DO'
+    before_script:
+        - apk update
+        - apk add --update --no-cache openssh sshpass
+        - export SSHPASS=$USER_PASS_PROD_DO
+    script:
+        - echo "Building prod version deploy package"
+        - yarn
+        - yarn build:prod
+        - echo "Build successful"
+        - echo "Deploying to DO (prod droplet) server"
+        - sshpass -e ssh -p 22 -oStrictHostKeyChecking=no -tt "$SERVER" 'rm -rf "$TARGET_DIR_ON_DO_FOR_PROD"/static;rm -rf "$TARGET_DIR_ON_DO_FOR_PROD"/precache*'
+        - sshpass -e scp -P 22 -o stricthostkeychecking=no -r build/* "$SERVER":"$TARGET_DIR_ON_DO_FOR_PROD"
         - echo "Deployed"
     only:
         - master
