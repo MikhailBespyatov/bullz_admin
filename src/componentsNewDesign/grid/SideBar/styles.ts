@@ -8,7 +8,7 @@ import { SideBarProps } from 'componentsNewDesign/grid/SideBar/types';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey3, white } from 'constants/styles/colors';
+import { black, grey22, white } from 'constants/styles/colors';
 import {
     bigScreenDisplayNoneMixin,
     disableDefaultButtonStyleMixin,
@@ -34,7 +34,7 @@ export const Wrapper = styled.aside<SideBarProps>`
     // flex-wrap: nowrap;
     width: ${sideBarWidth};
     height: 100%;
-    background-color: ${white};
+    background-color: ${black};
     margin-left: ${({ isExpanded }) => (isExpanded ? '0px' : padding)};
     padding-top: 40px;
     padding-bottom: ${paginationHeight};
@@ -60,6 +60,7 @@ export const UsernameText = styled.span<Expanded>`
     font-style: normal;
     font-weight: 700;
     line-height: 16px;
+    color: ${white};
     letter-spacing: 0em;
     text-align: center;
     padding: 0 ${ellipsisTextPadding};
@@ -79,6 +80,7 @@ export const EmailText = styled.span<Expanded>`
     font-style: normal;
     font-weight: 400;
     line-height: 14px;
+    color: ${white};
     letter-spacing: 0em;
     text-align: center;
     padding: 0 5px;
@@ -104,9 +106,8 @@ export const PageName = styled.span<PageNameProps>`
     letter-spacing: 0em;
     text-align: left;
     //margin-top: 3px;
-    opacity: ${({ active }) => (active ? 1 : 0.4)};
-
-    ${smallScreenDisplayNoneMixin};
+    opacity: ${({ active }) => (active ? 1 : 0.5)};
+    color: ${({ active }) => (active ? `${white}` : `${grey22}`)};
 `;
 
 export const AdaptiveAbsoluteWrapper = styled(AbsoluteWrapper)<Expanded>`
@@ -135,13 +136,15 @@ export const LogoutButton = styled.button<Expanded>`
     line-height: 16px;
     letter-spacing: 0em;
     text-align: center;
+    color: ${grey22};
+    opacity: 0.5;
 
     ${smallScreenDisplayNoneMixin};
 `;
 
 export const FixedLogoutWrapper = styled(Row)<Expanded>`
     position: fixed;
-    background-color: ${grey3};
+    background-color: ${black};
     width: ${sideBarWidth};
     height: ${paginationHeight};
     bottom: 0;

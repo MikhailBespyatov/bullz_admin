@@ -24,6 +24,8 @@ import {
     statisticsLink,
     teamLink,
     teamsLink,
+    topicLink,
+    topicsLink,
     trendingsLink,
     userLink,
     usersLink,
@@ -120,7 +122,7 @@ const App = () => {
                         exact
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={Products}
-                        path={productsLink}
+                        path={topicsLink}
                     />
                     <PrivateRoute
                         exact
@@ -131,7 +133,7 @@ const App = () => {
                             Roles.Curator
                         ]}
                         component={Product}
-                        path={productLink}
+                        path={topicLink}
                     />
 
                     {/* * admin */}

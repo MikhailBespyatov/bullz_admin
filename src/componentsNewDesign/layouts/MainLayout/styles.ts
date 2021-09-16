@@ -1,4 +1,4 @@
-import { white } from 'constants/styles/colors';
+import { black } from 'constants/styles/colors';
 import { flexStart } from 'constants/styles/mixins';
 import { footerHeight, lg, lg_1, padding, sideBarWidth, smallSideBarWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ export const Container = styled.div`
     //padding-right: 0;
     ${flexStart};
     flex-direction: column;
-    background-color: ${white};
+    background-color: ${black};
 
     @media (min-width: ${lg}) {
         padding-left: calc(2 * ${padding} + ${sideBarWidth});

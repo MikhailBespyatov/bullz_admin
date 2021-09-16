@@ -1,4 +1,4 @@
-import logoImg from 'assets/bullz_logo_black.svg';
+import logoImg from 'assets/logo_bullz_white.svg';
 import { headerLogoHeight, logoDivider } from 'componentsNewDesign/common/imgComponents/LogoImg/constants';
 import styled from 'styled-components';
 
