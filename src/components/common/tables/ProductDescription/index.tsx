@@ -27,16 +27,11 @@ interface ParamsProps {
 }
 
 export const ProductDescription = ({
-    category,
     name = '',
     primaryReferencesCount,
-    affiliateLinkIdDefault,
     brandImageUrl,
     id = '',
     description,
-    primaryImageId,
-    brand,
-    features,
     hashTags
 }: Props) => {
     const { productId } = useParams<ParamsProps>();

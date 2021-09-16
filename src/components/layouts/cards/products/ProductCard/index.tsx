@@ -20,6 +20,7 @@ import { ProductImageEditorModal } from 'componentsNewDesign/modals/formModals/p
 import { DivClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
 import { productsLink } from 'constants/routes';
 import { antdCardStyle, padding } from 'constants/styles/sizes';
@@ -31,7 +32,6 @@ import { productsEvents } from 'stores/products/products';
 import { userStores } from 'stores/users/user';
 import { ProductCardEditableFields } from 'types/form';
 import { SubjectType } from 'types/types';
-import { Roles } from 'constants/defaults/users';
 
 const { updateAsyncModalLoading } = modalEvents;
 
@@ -39,7 +39,7 @@ const { Meta } = Card;
 
 interface Props extends YEAY.GetManagedProductResponse {}
 
-export const ProductCard = ({ id = '', name = '', description, hashTags, brandImageUrl }: Props) => {
+export const ProductCard = ({ id = '', name = '', description, hashTags }: Props) => {
     const { access } = useStore(userStores.auth);
 
     const deleteOkHandler = async (subject: SubjectType) => {

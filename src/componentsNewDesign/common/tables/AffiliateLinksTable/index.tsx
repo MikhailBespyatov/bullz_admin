@@ -1,4 +1,5 @@
 import blackCopyIcon from 'assets/copy_icon_black.svg';
+import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { ExternalLink } from 'componentsNewDesign/common/links/ExternalLink';
@@ -32,16 +33,15 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
 import { black, white } from 'constants/styles/colors';
 import React from 'react';
-import { ManagerLayout } from 'components/layouts/RolesLayouts';
 
 interface Props extends YEAY.GetAffiliateLinkResponse {
     empty?: boolean;
 }
 
-export const AffiliateLinksTable = ({ entries, productId = '', defaultEntry, empty }: Props) => {
+export const AffiliateLinksTable = ({ entries, productId = '', empty }: Props) => {
     const tableData: TableData[] =
         !empty && entries?.length
-            ? entries.map(({ cultureInfo, url = '', priority }, i) => ({
+            ? entries.map(({ cultureInfo, url = '' }, i) => ({
                   cells: [
                       <Row key={i.toString()} alignCenter justifyCenter width="55px">
                           <EllipsisTableText>{cultureInfo || 'No Content'}</EllipsisTableText>

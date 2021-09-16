@@ -34,14 +34,10 @@ interface Props extends YEAY.GetPostResponse {
 
 export const CommentCard: FC<Props> = ({
     body,
-    bodyType,
-    deep,
     id,
     isBlocked,
-    isFollowed,
     parentId,
     profileImageUrl,
-    reportedState,
     userId,
     username,
     utcCreated,

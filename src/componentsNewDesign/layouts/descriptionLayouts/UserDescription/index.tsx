@@ -67,7 +67,6 @@ export const UserDescription = ({
     freeStakingRemaining,
     locale,
     location,
-    primaryLanguage,
     profileImageUrl,
     roles,
     utcCreated,

@@ -18,8 +18,6 @@ import {
     homeLink,
     homePageLink,
     marketingToolsLink,
-    productLink,
-    productsLink,
     promotionCreateLink,
     statisticsLink,
     teamLink,
