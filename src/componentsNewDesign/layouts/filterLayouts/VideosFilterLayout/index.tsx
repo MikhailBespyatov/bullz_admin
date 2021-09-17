@@ -245,19 +245,19 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
             <Section alignCenter justifyBetween /*noWrap*/>
                 <ComponentWrapper>
                     <Select
-                        defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
-                        selector={sortTagsValues}
-                        title={sortTagsName + sortName1}
-                        width={selectorWidth}
-                        onChange={onSortChange}
-                    />
-
-                    <Select
                         defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
                         selector={sortTagsCurationStateData}
                         title={sortTagsName + sortName3}
                         width={selectorWidth}
                         onChange={onSortCurationStateChange}
+                    />
+
+                    <Select
+                        defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
+                        selector={sortTagsValues}
+                        title={sortTagsName + sortName1}
+                        width={selectorWidth}
+                        onChange={onSortChange}
                     />
 
                     <DateRangePicker

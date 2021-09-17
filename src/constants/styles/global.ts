@@ -1,6 +1,6 @@
 import { DataPickerStyles } from 'componentsNewDesign/common/inputs/DateRangePicker/styles';
 import { createGlobalStyle } from 'styled-components';
-import { backgroundColor, grey5, lightBlack, primaryColor, textInfoColor, white, yeayColor } from './colors';
+import { black, grey23, lightBlack, primaryColor, white, yeayColor } from './colors';
 import { padding, scrollBarWidth } from './sizes';
 // import normalRoboto from '../../assets/fonts/Roboto-Regular.ttf';
 
@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: ${white};
+    background-color: ${black};
   }
 
   code {
@@ -28,7 +30,7 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${textInfoColor};
+    color: ${white};
   }
 
   ::selection {
@@ -39,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-track
   {
     //-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-    background-color: transparent;
+    background-color: &{black};
   }
 
   ::-webkit-scrollbar
@@ -51,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb
   {
-    background-color: ${grey5};
+    background-color: ${grey23};
     border-radius: 8px;
   }
 
@@ -69,7 +71,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    background-color: ${backgroundColor};
+    background-color: ${black};
     width: 100%;
     //min-height: 100%;
   }
@@ -87,7 +89,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .ant-descriptions-item-content {
-    background: ${white};
+    background: ${black};
   }
 
   .ant-tag {
@@ -95,7 +97,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .site-tag-plus {
-    background: ${white};
+    background: ${black};
     border-style: dashed;
     cursor: pointer;
   }

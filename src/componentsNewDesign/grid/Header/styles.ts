@@ -1,4 +1,5 @@
 import { headerHeight, headerPaddingTop } from 'componentsNewDesign/grid/Header/constants';
+import { white } from 'constants/styles/colors';
 import { filterMargin, sideBarWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
@@ -26,4 +27,5 @@ export const VersionSpan = styled.span`
     box-sizing: border-box;
     padding-right: 5px;
     text-align: right;
+    color: ${white};
 `;

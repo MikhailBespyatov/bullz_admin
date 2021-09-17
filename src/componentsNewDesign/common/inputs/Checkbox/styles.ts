@@ -1,11 +1,11 @@
+import { CustomImage } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
 import { checkboxBorderRadius, checkboxDiameter } from 'componentsNewDesign/common/inputs/Checkbox/constants';
 import { CheckboxProps } from 'componentsNewDesign/common/inputs/Checkbox/types';
-import { backgroundColor, black, grey2 } from 'constants/styles/colors';
+import { backgroundColor, grey2, white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import { transitionTime } from 'constants/styles/others';
 import { borderWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
-import { CustomImage } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -36,7 +36,7 @@ export const VisibleCheckbox = styled.div<CheckboxProps>`
     height: ${checkboxDiameter};
     background: transparent;
     border-radius: ${checkboxBorderRadius};
-    border: ${borderWidth} solid ${black};
+    border: ${borderWidth} solid ${white};
     transition: ${transitionTime};
     cursor: pointer;
     ${({ disabled }) =>

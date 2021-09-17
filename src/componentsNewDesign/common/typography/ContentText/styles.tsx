@@ -1,4 +1,4 @@
-import { black } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import { ellipsisMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { Color, MaxSizes, Padding, Sizes, TextAlignment, TextProperties } from 'types/styles';
@@ -15,7 +15,7 @@ export const ContentText = styled.span<ContentTextProps>`
     font-size: ${({ fontSize }) => fontSize || '12px'};
     font-weight: ${({ fontWeight }) => fontWeight || '500'};
     line-height: ${({ lineHeight }) => lineHeight || 'normal'};
-    color: ${({ color }) => color || black};
+    color: ${({ color }) => color || white};
     background-color: transparent;
     text-align: ${({ alignTextCenter }) => (alignTextCenter && 'center') || 'start'};
     ${({ padding }) => padding && `padding: ${padding}`};

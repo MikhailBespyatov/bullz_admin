@@ -12,7 +12,7 @@ import { propertyBlockMarginBottom } from 'componentsNewDesign/layouts/blocks/Pr
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { black, grey3 } from 'constants/styles/colors';
+import { grey23, grey3, white } from 'constants/styles/colors';
 import { defaultTextColor } from 'constants/styles/default';
 import { disableDefaultButtonStyleMixin, ellipsisMixin } from 'constants/styles/mixins';
 import { Link } from 'react-router-dom';
@@ -27,7 +27,7 @@ export const BlockWrapper = styled(ContentWrapper)<PropertyBlockProps>`
     ${({ width }) => width && `width: ${width}`};
     padding: 8px ${({ horizontalPadding }) => horizontalPadding || '8px'};
     margin-bottom: ${({ marginBottom }) => marginBottom || propertyBlockMarginBottom};
-    background-color: ${({ backgroundColor }) => backgroundColor || grey3};
+    background-color: ${({ backgroundColor }) => backgroundColor || grey23};
 `;
 export const BlockTitle = styled(Span)`
     /* ${({ uppercase }) => uppercase && `text-transform: uppercase`}; */
@@ -41,11 +41,13 @@ export const BlockTitle = styled(Span)`
 `;
 
 export const BlockSubTitle = styled(Span)`
+    display: block;
+    width: 78px;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 14px;
-    color: ${({ color }) => color || black};
+    color: ${({ color }) => color || white};
     ${ellipsisMixin};
 `;
 
@@ -56,7 +58,7 @@ export const DateSpanWrapper = styled(Row)`
 export const StyledLink = styled(Link)`
     :hover {
         text-decoration: underline;
-        text-decoration-color: ${({ color }) => color || black};
+        text-decoration-color: ${({ color }) => color || white};
     }
     ${ellipsisMixin};
 `;
