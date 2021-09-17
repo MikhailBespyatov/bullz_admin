@@ -21,7 +21,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { asyncError } from 'constants/notifications';
-import { productsLink } from 'constants/routes';
+import { productsLink, topicsLink } from 'constants/routes';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { API } from 'services';
@@ -58,7 +58,7 @@ export const ProductCard = ({
     const video = useStore(videosStores.video);
     //const id = useMemo(() => producId, [productId]);
 
-    const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
+    const moreInfoHandleClick = () => history.push(topicsLink + '/' + id);
 
     const onMakePrimaryClick = async () => {
         try {

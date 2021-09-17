@@ -66,7 +66,6 @@ export const ProductDescription = ({
     // imageUrl,
     // TODO: NaN -> undefined
     priority = NaN,
-    cultureInfo,
     url = '',
     tags = [],
     primaryReferenceCount = 0,

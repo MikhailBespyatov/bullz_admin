@@ -25,14 +25,10 @@ interface Props extends YEAY.GetPostResponse {
 
 export const CommentsDescription = ({
     body,
-    bodyType,
-    deep,
     id,
     isBlocked,
-    isFollowed,
     parentId,
     profileImageUrl,
-    reportedState,
     userId,
     username,
     utcCreated,

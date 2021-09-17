@@ -2,8 +2,8 @@ import {
     BlacklistedIcon,
     DashboardIcon,
     MarketingToolsIcon,
-    ProductsIcon,
     TeamsIcon,
+    TopicsIcon,
     TrendingsIcon,
     UsersIcon,
     VideosIcon
@@ -21,6 +21,8 @@ export const usersLink = '/users';
 export const userLink = '/users/:userId';
 export const productsLink = '/products';
 export const productLink = '/products/:productId';
+export const topicsLink = '/topics';
+export const topicLink = '/topics/:topicId';
 export const teamsLink = '/teams';
 export const teamLink = '/teams/:teamId';
 export const trendingsLink = '/trendings';
@@ -48,6 +50,7 @@ export const commentsLinkName = 'Comments';
 export const statisticsLinkName = 'Registered events';
 export const blacklistedUsersLinkName = 'Blacklisted';
 export const marketingToolsLinkName = 'Marketing Tools';
+export const topicsLinkName = 'Topics';
 
 export const createUserLinkName = 'Create user';
 export const deleteUserLinkName = 'Delete users in bulk';
@@ -84,9 +87,9 @@ export const routesArray: RoutesArray[] = [
         accessList: [Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]
     },
     {
-        path: productsLink,
-        name: productsLinkName,
-        renderIcon: (active: boolean, isExpanded: boolean) => <ProductsIcon active={active} isExpanded={isExpanded} />,
+        path: topicsLink,
+        name: topicsLinkName,
+        renderIcon: (active: boolean, isExpanded: boolean) => <TopicsIcon active={active} isExpanded={isExpanded} />,
         accessList: [Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]
     },
     {
