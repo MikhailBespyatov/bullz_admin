@@ -3,9 +3,9 @@ import {
     notificationBlockBorderRadius,
     notificationBlockFontSize,
     notificationBlockHeight,
-    notificationBlockHorizontalPadding,
-    notificationBlockTextColor
+    notificationBlockHorizontalPadding
 } from 'componentsNewDesign/common/typography/NotificationBadge/constants';
+import { white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { BackgroundColor, BorderRadius, HorizontalPadding, Padding, Sizes, TextProperties } from 'types/styles';
@@ -24,7 +24,7 @@ export const NotificationBadge = styled.div<NotificationBadgeProps>`
     font-size: ${({ fontSize }) => fontSize || notificationBlockFontSize};
     font-weight: 700;
     text-transform: uppercase;
-    color: ${({ color }) => color || notificationBlockTextColor};
+    color: ${({ color }) => color || white};
     ${({ width }) => width && `width: ${width}`};
     height: ${({ height }) => height || notificationBlockHeight};
     border-radius: ${({ borderRadius }) => borderRadius || notificationBlockBorderRadius};

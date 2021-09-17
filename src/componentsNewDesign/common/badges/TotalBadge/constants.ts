@@ -1,7 +1,7 @@
-import { black, white } from 'constants/styles/colors';
+import { black } from 'constants/styles/colors';
 
 export const quantityFontSize = '10px';
-export const quantityColor = white;
+export const quantityColor = black;
 export const quantityPaddingLeft = '8px';
 
 export const totalBadgeTextColor = '#c4c4c4';

@@ -10,4 +10,5 @@ export interface CardWrapperProps
         Sizes,
         MaxSizes {
     isSelected?: boolean;
+    isDeleted?: boolean;
 }

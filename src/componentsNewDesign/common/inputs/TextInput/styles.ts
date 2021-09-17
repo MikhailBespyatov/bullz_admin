@@ -39,6 +39,7 @@ export const Input = styled.input<InputProps>`
     outline: none;
     width: 100%;
     ${({ opacity }) => opacity && `opacity: ${opacity}`};
+    color: white;
 
     :placeholder {
         font-size: ${inputFontSize};

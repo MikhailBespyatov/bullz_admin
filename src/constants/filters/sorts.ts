@@ -1,7 +1,7 @@
 import { SortType, videoCurationStateType, womValidationStageType } from 'types/types';
 
 export const sortModeTagsName = 'Filter mode: ';
-export const sortTagsName = 'Sort by';
+export const sortTagsName = 'Filter by';
 
 export const sortModeTagsValues: SortType[] = ['+asc', '+desc'];
 export const sortModeTagsData = ['ascending', 'descending'];

@@ -223,4 +223,10 @@ declare namespace YEAY {
         spread: MaxSpreadParameters;
         userLevel: LevelType;
     }
+
+    export interface VideoDetailsValidation {
+        wom?: /* videoDetailsValidationWom */ VideoDetailsValidationWOM;
+        yeay?: /* yeayValidationInfo */ YeayValidationInfo;
+        bullz?: YeayValidationInfo;
+    }
 }

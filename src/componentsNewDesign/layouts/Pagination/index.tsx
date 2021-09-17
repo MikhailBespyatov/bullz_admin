@@ -8,6 +8,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
+import { grey23 } from 'constants/styles/colors';
 import { useCloseClick } from 'hooks/closeClick';
 import { useModal } from 'hooks/modal';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
@@ -17,7 +18,6 @@ import {
     expandButtonHeight,
     itemHeight,
     pagination,
-    paginationCellBackground,
     PaginationCellFontSize,
     PaginationCellFontWeight,
     paginationCellHeight,
@@ -81,7 +81,7 @@ const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) =
     return (
         <ContentWrapper
             ref={componentRef}
-            backgroundColor={paginationCellBackground}
+            backgroundColor={grey23}
             minWidth="93px"
             padding={`${selectorVerticalPadding} 0`}
             onClick={visible ? close : openClick}

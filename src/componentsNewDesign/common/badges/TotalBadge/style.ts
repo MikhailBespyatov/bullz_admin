@@ -2,13 +2,12 @@ import {
     quantityColor,
     quantityFontSize,
     quantityPaddingLeft,
-    totalBadgeBackgroundColor,
     totalBadgeBorderRadius,
     totalBadgeHeight,
-    totalBadgePadding,
-    totalBadgeTextColor
+    totalBadgePadding
 } from 'componentsNewDesign/common/badges/TotalBadge/constants';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { black, white } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { HorizontalPadding, TextProperties } from 'types/styles';
 
@@ -29,9 +28,9 @@ export const Text = styled.span<TextProps>`
 export const TotalBadgeWrapper = styled(Row)`
     width: fit-content;
     height: ${totalBadgeHeight};
-    background: ${totalBadgeBackgroundColor};
+    background: ${white};
     border-radius: ${totalBadgeBorderRadius};
-    color: ${totalBadgeTextColor};
+    color: ${black};
     font-size: ${quantityFontSize};
     font-style: normal;
     font-weight: 500;

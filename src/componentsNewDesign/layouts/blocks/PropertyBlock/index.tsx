@@ -1,6 +1,5 @@
 import selectIcon from 'assets/select_icon.svg';
 import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
-import { LinkButton } from 'componentsNewDesign/common/buttons/LinkButton';
 import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';
 import { ArrowImg } from 'componentsNewDesign/common/imgComponents/ArrowImg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
@@ -13,7 +12,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultMongoDBId, utcDefaultDate } from 'constants/defaults/formats';
 import { noop } from 'constants/functions';
-import { black, blue, errorColor, grey4 } from 'constants/styles/colors';
+import { black, blue, errorColor, grey4, white } from 'constants/styles/colors';
 import { useCloseClick } from 'hooks/closeClick';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
 import { useModal } from 'hooks/modal';
@@ -114,9 +113,9 @@ export const PropertyBlock = ({
                     )}
 
                     {copiable && <CopyButton subject={subtitle} success={success} />}
-                    <MarginWrapper marginLeft="10px">
+                    {/* <MarginWrapper marginLeft="10px">
                         {linkRoute && subtitle && <LinkButton id={subtitle} linkRoute={linkRoute} />}
-                    </MarginWrapper>
+                    </MarginWrapper> */}
                 </Row>
             </Section>
 
@@ -125,7 +124,7 @@ export const PropertyBlock = ({
                     <DateContent>{subtitle}</DateContent>
                 ) : (
                     <SubtitleIdLink id={subtitle} linkRoute={linkRoute}>
-                        <BlockSubTitle color={subtitle === defaultMongoDBId ? grey4 : black}>
+                        <BlockSubTitle color={white}>
                             {subtitle !== defaultMongoDBId ? subtitle : 'Empty'}
                         </BlockSubTitle>
                         {isTrusted && (

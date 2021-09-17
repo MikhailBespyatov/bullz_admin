@@ -1,5 +1,5 @@
 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="9" cy="9" r="9" fill="#FF8A8A"/>
+<circle cx="9" cy="9" r="9" fill="black"/>
 <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="8" height="9">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.19971 5.21924H12.8575V13.0002H5.19971V5.21924Z" fill="white"/>
 </mask>

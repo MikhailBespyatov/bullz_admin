@@ -26,7 +26,6 @@ import {
     rejectionReasonText,
     statuses,
     textFontSize,
-    topPartBackground,
     videoCardButtonWidth
 } from 'componentsNewDesign/layouts/cards/VideoCard/constants';
 import { UserNickName } from 'componentsNewDesign/layouts/cards/VideoCard/styles';
@@ -39,7 +38,7 @@ import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapp
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { grey4 } from 'constants/styles/colors';
+import { black, grey4 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -85,7 +84,7 @@ export const VideoCard = ({
     const videoSrc = streaming?.details?.hlsUrl;
     // const grading = validation?.wom?.grading?.consensus;
     // *  0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
-    const curationState = validation?.yeay?.curationState;
+    const curationState = validation?.bullz?.curationState;
     // *  0 = None; 1 = DeclineRequested; 2 = Inappropriate; 3 = GraphicContent; 4 = Violence; 5 = Copyright; 6 = TestVideo; 7 = IncorrectFormat; 8 = UserRequested; 9 = Other; 10 = NotProductRecommendation
     const curationEndedReason = validation?.yeay?.curationEndedReason || 0;
 
@@ -134,15 +133,15 @@ export const VideoCard = ({
         e.stopPropagation();
         copyEvents.setCopiedId(id);
     };
-
+    console.log(curationState);
     return (
         <CardWrapper disabled={isDeleted} isSelected={copiedDataId === id} onClick={onCardClick} /*width="100%"*/>
             <Column height="100%">
                 <ContentWrapper
-                    backgroundColor={topPartBackground}
+                    backgroundColor={black}
                     borderRadius="8px 8px 0px 0px"
                     minHeight="226px"
-                    padding="11px 8px 8px"
+                    padding="14px 11px 8px 8px"
                     width="100%"
                 >
                     <Row alignCenter justifyBetween noWrap height="20px" /*width="345"*/>
@@ -165,7 +164,7 @@ export const VideoCard = ({
                                 color={
                                     (isDeleted && statuses[4].color) ||
                                     (curationState !== undefined && statuses[curationState].color) ||
-                                    'black'
+                                    'white'
                                 }
                                 fontSize={textFontSize}
                             >
@@ -175,7 +174,7 @@ export const VideoCard = ({
                             </ContentText>
                         </Row>
                     </Row>
-                    <ContentWrapper backgroundColor={topPartBackground} padding="18px 0px 10px" width="100%">
+                    <ContentWrapper backgroundColor={black} padding="18px 0px 10px" width="100%">
                         <RelativeWrapper>
                             <VideoContainer
                                 height="250px"

@@ -1,4 +1,4 @@
-import { black } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import { ellipsisMixin } from 'constants/styles/mixins';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ export const UserNickName = styled(Link)`
     line-height: 16px;
     letter-spacing: 0em;
     text-align: left;
-    color: ${black};
+    color: ${white};
     ${ellipsisMixin};
     max-width: 100px;
 `;

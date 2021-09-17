@@ -5,7 +5,7 @@ import {
     wrapperHorizontalPadding,
     wrapperVerticalPadding
 } from 'componentsNewDesign/modals/Notification/constants';
-import { errorColor, purple, white } from 'constants/styles/colors';
+import { black, errorColor, purple } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { Active } from 'types/global';
@@ -34,7 +34,7 @@ export const StyledNotification = styled.div<Props>`
     height: ${wrapperHeight};
     border-radius: 0 0 ${wrapperBorderRadius} ${wrapperBorderRadius};
     ${({ active }) => active && 'box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08)'};
-    background-color: ${white};
+    background-color: ${black};
     padding: ${wrapperVerticalPadding} ${wrapperHorizontalPadding};
     transition-duration: ${transitionDuration};
     transition-property: transform, box-shadow;
