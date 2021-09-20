@@ -1,13 +1,22 @@
 import { ClearInputButton } from 'componentsNewDesign/common/buttons/ClearInputButton';
+import { graphicBlocks } from 'componentsNewDesign/common/graphicComponents/DashboardGraphic/constants';
 import { AddIcon } from 'componentsNewDesign/common/icons/AddIcon';
 import { DateRangePicker, UnionDateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
+import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { absoluteTopPosition, addButtonImgDiameter } from 'componentsNewDesign/layouts/blocks/DashboardBlock/constants';
+import { formatEngagementStatisticsValues } from 'componentsNewDesign/layouts/cards/VideoCard/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
+import { white } from 'constants/styles/colors';
 import React, { MouseEvent } from 'react';
+import { Loading, Title } from 'types/data';
+import { Disabled, OnDataRangeChange } from 'types/form';
+import { Active } from 'types/global';
 import { ReactClick } from 'types/react';
+import { Color } from 'types/styles';
+import { getDateFromString } from 'utils/usefulFunctions';
 import {
     AddButtonBlockSection,
     AddButtonText,
@@ -17,15 +26,6 @@ import {
     TotalTitle,
     Wrapper
 } from './styles';
-import { Disabled, OnDataRangeChange } from 'types/form';
-import { getDateFromString } from 'utils/usefulFunctions';
-import { Loading, Title } from 'types/data';
-import { Loader } from 'componentsNewDesign/dynamic/Loader';
-import { Active } from 'types/global';
-import { Color } from 'types/styles';
-import { graphicBlocks } from 'componentsNewDesign/common/graphicComponents/DashboardGraphic/constants';
-import { black } from 'constants/styles/colors';
-import { formatEngagementStatisticsValues } from 'componentsNewDesign/layouts/cards/VideoCard/constants';
 
 interface DashboardColumnProps extends Pick<Title, 'title'>, Color {
     subtitle: number;
@@ -92,7 +92,7 @@ export const DashboardBlock = ({
                         color={
                             i === activeIndexStatistic
                                 ? graphicBlocks[activeIndexStatistic].selectedBackgroundColor
-                                : black
+                                : white
                         }
                         subtitle={subtitle}
                         title={title}

@@ -1,10 +1,8 @@
-import commentsIcon from 'assets/icons/comments_black_icon.svg';
-import viewsIcon from 'assets/icons/views_black_icon.svg';
-import sharesIcon from 'assets/icons/shares_black_icon.svg';
-import selectedCommentsIcon from 'assets/icons/comments_white_icon.svg';
-import selectedViewsIcon from 'assets/icons/views_white_icon.svg';
-import selectedSharesIcon from 'assets/icons/shares_white_icon.svg';
+import commentsIcon from 'assets/icons/comments_white_icon.svg';
+import sharesIcon from 'assets/icons/shares_white_icon.svg';
+import viewsIcon from 'assets/icons/views_white_icon.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
+import { black, grey, white } from 'constants/styles/colors';
 import React from 'react';
 
 export const viewsIconDiameter = '16px';
@@ -46,9 +44,7 @@ export const graphicBlocks = [
         selectedBackgroundColor: '#B360DB',
         title: 'Comments',
         nameBlock: 'Comments',
-        icon: (selected: boolean) => (
-            <CustomImg alt="shares" height="14px" src={selected ? selectedCommentsIcon : commentsIcon} width="14px" />
-        ),
+        icon: () => <CustomImg alt="shares" height="14px" src={commentsIcon} width="14px" />,
         statisticKey: 'commentCount',
         calculatedTitle: 'Comments'
     },
@@ -56,14 +52,7 @@ export const graphicBlocks = [
         selectedBackgroundColor: '#3A89FF',
         title: 'Views',
         nameBlock: 'Views',
-        icon: (selected: boolean) => (
-            <CustomImg
-                alt="shares"
-                height={viewsIconDiameter}
-                src={selected ? selectedViewsIcon : viewsIcon}
-                width={viewsIconDiameter}
-            />
-        ),
+        icon: () => <CustomImg alt="shares" height={viewsIconDiameter} src={viewsIcon} width={viewsIconDiameter} />,
         statisticKey: 'viewCount',
         calculatedTitle: 'Views'
     },
@@ -71,15 +60,12 @@ export const graphicBlocks = [
         selectedBackgroundColor: '#19DACE',
         title: 'Shares',
         nameBlock: 'Shares',
-        icon: (selected: boolean) => (
-            <CustomImg alt="shares" height="12px" src={selected ? selectedSharesIcon : sharesIcon} width="16px" />
-        ),
+        icon: () => <CustomImg alt="shares" height="12px" src={sharesIcon} width="16px" />,
         statisticKey: 'shareCount',
         calculatedTitle: 'Shares'
     }
 ];
 
-const graphicTextColor = 'black';
 // const labelBackground = 'black';
 // const primaryColorText = labelBackground;
 
@@ -177,18 +163,19 @@ export const getSeries = (activityStatistics: YEAY.MarketingStatistics[]) =>
 
 interface GraphicOptionProps {
     xAxisData?: string[];
-    // positionFn?: (pos: any, params: any, el: any, elRect: any, size: any) => void;
+    positionFn?: (pos: any, params: any, el: any, elRect: any, size: any) => void;
 }
 
-export const getGraphicOption = ({ xAxisData }: GraphicOptionProps) => ({
-    backgroundColor: '#FBFBFB',
-    textStyle: { color: graphicTextColor },
+export const getGraphicOption = ({ xAxisData, positionFn }: GraphicOptionProps) => ({
+    darkMode: true,
+    backgroundColor: black,
+    textStyle: { color: white },
     tooltip: {
         trigger: 'axis',
-        // position: positionFn,
-        backgroundColor: 'white',
+        position: positionFn,
+        backgroundColor: black,
         textStyle: {
-            color: 'black'
+            color: white
         },
         axisPointer: {
             type: 'cross',
@@ -196,8 +183,8 @@ export const getGraphicOption = ({ xAxisData }: GraphicOptionProps) => ({
             lineStyle: { type: 'dashed', width: 1.5 },
             crossStyle: { type: 'dashed', width: 1.5 },
             label: {
-                backgroundColor: 'transparent',
-                color: 'black',
+                backgroundColor: black,
+                color: white,
                 precision: 0
             }
         }
@@ -221,14 +208,14 @@ export const getGraphicOption = ({ xAxisData }: GraphicOptionProps) => ({
             type: 'category',
             axisTick: { show: false },
             axisLine: {
-                show: false,
+                show: true,
                 lineStyle: {
                     type: 'dashed'
                 }
             },
-            // boundaryGap: false,
-            data: xAxisData
-            // axisLabel: { show: false, color: 'grey' }
+            boundaryGap: false,
+            data: xAxisData,
+            axisLabel: { show: true, color: grey }
         }
     ],
     yAxis: [
@@ -242,12 +229,18 @@ export const getGraphicOption = ({ xAxisData }: GraphicOptionProps) => ({
             },
             axisTick: { show: false },
             axisLine: {
-                show: false,
+                show: true,
                 lineStyle: {
                     type: 'dashed'
                 }
             },
-            axisLabel: { show: false, color: 'grey' }
+            data: xAxisData,
+            axisLabel: { show: true, color: grey }
         }
-    ]
+    ],
+    animation: true,
+    animationThreshold: 2000,
+    animationDuration: 1000,
+    animationDelay: 0,
+    animationDurationUpdate: 300
 });

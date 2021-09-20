@@ -1,10 +1,10 @@
+import { black } from 'constants/styles/colors';
 import { disableDefaultHStyleMixin, flexCenter } from 'constants/styles/mixins';
-import styled from 'styled-components';
-import { dashboardBorderColor, dashboardBorderRadius, dashboardCornerNumberDiameter } from './constants';
 import { xxl_1 } from 'constants/styles/sizes';
+import styled from 'styled-components';
 import { Active } from 'types/global';
 import { Color } from 'types/styles';
-import { black } from 'constants/styles/colors';
+import { dashboardBorderColor, dashboardBorderRadius, dashboardCornerNumberDiameter } from './constants';
 
 export const DashboardBlockGrid = styled.section`
     display: grid;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div<Active>`
     padding: 16px 35px;
     border-radius: ${dashboardBorderRadius};
     border: 1px solid ${({ active }) => (active ? dashboardBorderColor : 'transparent')};
-    background: white;
+    background: black;
 `;
 
 export const DashboardCornerNumber = styled.div`
