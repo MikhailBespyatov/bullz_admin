@@ -1,7 +1,7 @@
 import { GraphicInfoBlock } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock';
 import { graphicInfoBlockHeight } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock/constants';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { white } from 'constants/styles/colors';
+import { black } from 'constants/styles/colors';
 import ReactEcharts from 'echarts-for-react';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -66,13 +66,13 @@ export const DashboardGraphic = ({ activityStatistics = [], onClick }: Dashboard
             <Column>
                 {graphicBlocks.map(({ nameBlock, selectedBackgroundColor, subtitle, title, icon = () => null }) => {
                     const isSelected = selectedBlocks.some(block => block === nameBlock);
-                    const background = isSelected ? selectedBackgroundColor : white;
+                    const background = isSelected ? selectedBackgroundColor : black;
 
                     return (
                         <GraphicInfoBlock
                             key={nameBlock}
                             background={background}
-                            icon={icon(isSelected)}
+                            icon={icon()}
                             isSelected={isSelected}
                             subtitle={subtitle}
                             title={title}
@@ -85,7 +85,10 @@ export const DashboardGraphic = ({ activityStatistics = [], onClick }: Dashboard
                 /* For rerender ReactEcharts component when option have been changed. If do not rerender after changing option - graphs hold stay */
                 // key={selectedBlocks.length.toString()}
                 option={option}
-                style={{ height: parseInt(graphicInfoBlockHeight) * graphicBlocks.length, width: '100%' }}
+                style={{
+                    height: parseInt(graphicInfoBlockHeight) * graphicBlocks.length,
+                    width: '100%'
+                }}
                 onEvents={onEvents}
             />
         </GraphicWrapper>

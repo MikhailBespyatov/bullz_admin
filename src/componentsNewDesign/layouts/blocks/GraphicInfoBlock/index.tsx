@@ -1,10 +1,10 @@
 import { Subtitle, Title, Wrapper } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock/styles';
-import React from 'react';
-import { Background } from 'types/styles';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { white } from 'constants/styles/colors';
+import React from 'react';
 import { ReactClick } from 'types/react';
-import { black, white } from 'constants/styles/colors';
+import { Background } from 'types/styles';
 
 interface GraphicInfoBlockProps extends Background, ReactClick<HTMLDivElement> {
     title: string;
@@ -13,19 +13,16 @@ interface GraphicInfoBlockProps extends Background, ReactClick<HTMLDivElement> {
     isSelected: boolean;
 }
 
-export const GraphicInfoBlock = ({ title, subtitle, background, icon, onClick, isSelected }: GraphicInfoBlockProps) => {
-    const textColor = isSelected ? white : black;
-    return (
-        <Wrapper background={background} onClick={onClick}>
-            {icon ? (
-                <Row alignCenter>
-                    <MarginWrapper marginRight="9px">{icon}</MarginWrapper>
-                    <Title color={textColor}>{title}</Title>
-                </Row>
-            ) : (
-                <Title color={textColor}>{title}</Title>
-            )}
-            {subtitle && <Subtitle color={textColor}>{subtitle}</Subtitle>}
-        </Wrapper>
-    );
-};
+export const GraphicInfoBlock = ({ title, subtitle, background, icon, onClick }: GraphicInfoBlockProps) => (
+    <Wrapper background={background} onClick={onClick}>
+        {icon ? (
+            <Row alignCenter>
+                <MarginWrapper marginRight="9px">{icon}</MarginWrapper>
+                <Title color={white}>{title}</Title>
+            </Row>
+        ) : (
+            <Title color={white}>{title}</Title>
+        )}
+        {subtitle && <Subtitle>{subtitle}</Subtitle>}
+    </Wrapper>
+);

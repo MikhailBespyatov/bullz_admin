@@ -1,15 +1,15 @@
-import React from 'react';
-import { ActivityStatistics, Title } from 'types/data';
+import { graphicBlocks } from 'componentsNewDesign/common/graphicComponents/DashboardGraphic/constants';
+import { Span } from 'componentsNewDesign/common/typography/Span';
+import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { Span } from 'componentsNewDesign/common/typography/Span';
-import { DashboardValueContentWrapper, TitleValue, Value } from './styles';
-import { graphicBlocks } from 'componentsNewDesign/common/graphicComponents/DashboardGraphic/constants';
-import { dashboardTotalValueHeight } from './constants';
-import { useStore } from 'effector-react';
-import { statisticsEffects } from 'stores/statistics';
-import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { format, isSameYear } from 'date-fns';
+import { useStore } from 'effector-react';
+import React from 'react';
+import { statisticsEffects } from 'stores/statistics';
+import { ActivityStatistics, Title } from 'types/data';
+import { dashboardTotalValueHeight } from './constants';
+import { DashboardValueContentWrapper, TitleValue, Value } from './styles';
 
 interface DashboardValueProps extends Pick<Title, 'title'> {
     type?: 'row' | 'column';
@@ -43,10 +43,10 @@ interface TotalValueRangeProps {
 const TotalValueRange = ({ dateFrom, dateTo }: TotalValueRangeProps) => {
     const isRangeSameYear = isSameYear(dateFrom, dateTo);
     return (
-        <TitleValue>{`${format(dateFrom, `MMM d ${!isRangeSameYear ? ', yyyy' : ''}`)} - ${format(
+        <Value>{`${format(dateFrom, `MMM d ${!isRangeSameYear ? ', yyyy' : ''}`)} - ${format(
             dateTo,
             'MMM d, yyyy'
-        )}`}</TitleValue>
+        )}`}</Value>
     );
 };
 

@@ -33,7 +33,7 @@ export const Subtitle = styled.h4<Color>`
     line-height: 14px;
     letter-spacing: 0.04em;
     text-align: left;
-    color: ${({ color }) => color || 'black'};
+    color: ${({ color }) => color || 'white'};
     opacity: 0.4;
     ${disableDefaultHStyleMixin};
     ${ellipsisMixin};
