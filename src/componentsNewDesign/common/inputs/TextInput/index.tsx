@@ -16,6 +16,7 @@ export interface Props
     value?: string;
     disableClearButton?: boolean;
     disableEnterKeyDown?: boolean;
+    backgroundColor?: string;
 }
 
 export const TextInput = ({
@@ -28,6 +29,7 @@ export const TextInput = ({
     onClick,
     width,
     borderBottom,
+    backgroundColor,
     ...props
 }: Props) => {
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +37,7 @@ export const TextInput = ({
     };
 
     return (
-        <InputWrapper borderBottom={borderBottom} width={width}>
+        <InputWrapper backgroundColor={backgroundColor} borderBottom={borderBottom} width={width}>
             <Input
                 placeholder={placeholder}
                 type="text"

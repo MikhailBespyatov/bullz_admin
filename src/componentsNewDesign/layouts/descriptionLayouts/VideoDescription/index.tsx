@@ -1,3 +1,4 @@
+import whiteLinkIcon from 'assets/copy_icon_white.svg';
 import noVideoPoster from 'assets/no_video_poster.svg';
 import { Loader } from 'components/common/dynamic/Loader';
 import { VideoContainer } from 'componentsNewDesign/common/dividers/VideoContainer';
@@ -34,7 +35,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultVideoCommentsValues } from 'constants/defaults/comments';
 import { homeLink, productsLink, usersLink } from 'constants/routes';
-import { black, grey3 } from 'constants/styles/colors';
+import { black, grey23 } from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
@@ -199,7 +200,7 @@ export const VideoDescription = ({
     const videoSrc = streaming?.details?.hlsUrl;
     // const grading = validation?.wom?.grading?.consensus;
     // *  0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
-    const curationState = validation?.yeay?.curationState;
+    const curationState = validation?.bullz?.curationState;
 
     const languagesOfTheVideo = getLanguagesName(audioLanguages || []);
 
@@ -291,6 +292,7 @@ export const VideoDescription = ({
                         <Section noWrap>
                             <PropertyBlock
                                 copiable
+                                customCopyIcon={whiteLinkIcon}
                                 linkRoute={homeLink}
                                 marginBottom={descriptionPadding}
                                 marginRight={descriptionPadding}
@@ -302,6 +304,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                customCopyIcon={whiteLinkIcon}
                                 linkRoute={usersLink}
                                 marginBottom={descriptionPadding}
                                 marginRight={descriptionPadding}
@@ -313,6 +316,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                customCopyIcon={whiteLinkIcon}
                                 linkRoute={productsLink}
                                 marginBottom={descriptionPadding}
                                 subtitle={primaryProductId}
@@ -342,6 +346,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                customCopyIcon={whiteLinkIcon}
                                 isTrusted={isTrusted}
                                 marginBottom={descriptionPadding}
                                 subtitle={username || ''}
@@ -371,7 +376,7 @@ export const VideoDescription = ({
                                 </Row>
 
                                 <ContentWrapper
-                                    backgroundColor={grey3}
+                                    backgroundColor={grey23}
                                     height="116px"
                                     minWidth="90px"
                                     padding="8px 10px"
@@ -462,9 +467,7 @@ export const VideoDescription = ({
                         <Section>
                             <ContentText fontSize="14px" fontWeight="500" padding="21px 0 12px">
                                 {/* {videoComments?.totalRecords || 0} */}
-                                {`${totalVideoCommentsQuantity} ${
-                                    commentsCount !== undefined && ` (${commentsCount}) Comments`
-                                }`}
+                                {`${totalVideoCommentsQuantity} ${commentsCount !== undefined && ` Comments`}`}
                             </ContentText>
                         </Section>
                         {videoComments?.items?.map((comment, index) => (

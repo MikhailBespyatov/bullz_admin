@@ -1,4 +1,5 @@
 import { TotalBadge } from 'componentsNewDesign/common/badges/TotalBadge';
+import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { PromotionsTable } from 'componentsNewDesign/common/tables/PromotionsTable';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Loader } from 'componentsNewDesign/dynamic/Loader';
@@ -7,16 +8,20 @@ import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { promotionCreateLink } from 'constants/routes';
+import { black, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 // import { defaultMessage } from 'pages/MarketingTools/constants';
 import { LayoutContentWrapper, TableWrapper } from 'pages/MarketingTools/styles';
 import React from 'react';
+import { useHistory } from 'react-router';
 import { promotionsStores } from 'stores/promotions/promotions';
 
 export const MarketingTools = () => {
+    const history = useHistory();
     const { items, totalRecords } = useStore(promotionsStores.promotions);
     const loading = useStore(promotionsStores.loading);
-    //const onCreateButtonClick = () => history.push(promotionCreateLink);
+    const onCreateButtonClick = () => history.push(promotionCreateLink);
 
     return (
         <MainLayout>
@@ -30,9 +35,9 @@ export const MarketingTools = () => {
                             <Span fontSize="16px" fontWeight="700" lineHeight="18px">
                                 Current Promotions
                             </Span>
-                            {/* <SimpleButton
-                                background={black}
-                                color={white}
+                            <SimpleButton
+                                background={white}
+                                color={black}
                                 fontSize="10px"
                                 fontWeight="400"
                                 height="30px"
@@ -40,7 +45,7 @@ export const MarketingTools = () => {
                                 onClick={onCreateButtonClick}
                             >
                                 Create Promotion
-                            </SimpleButton> */}
+                            </SimpleButton>
                         </Section>
 
                         <Section>

@@ -10,7 +10,9 @@ import { disableDefaultInputStyleMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { BorderProperties, Opacity, Sizes, TextProperties } from 'types/styles';
 
-export interface InputProps extends TextProperties, Opacity, Sizes, Pick<BorderProperties, 'borderBottom'> {}
+export interface InputProps extends TextProperties, Opacity, Sizes, Pick<BorderProperties, 'borderBottom'> {
+    backgroundColor?: string;
+}
 
 export const InputWrapper = styled(RelativeWrapper)<InputProps>`
     outline: none;
@@ -20,6 +22,7 @@ export const InputWrapper = styled(RelativeWrapper)<InputProps>`
     justify-content: space-between;
     align-items: center;
     ${({ borderBottom }) => borderBottom && `border-bottom: ${borderBottom}`};
+    ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`}
 `;
 
 export const IconWrapper = styled.div`

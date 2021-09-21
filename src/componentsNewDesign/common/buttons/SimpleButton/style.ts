@@ -6,12 +6,12 @@ import {
     buttonPadding
 } from 'componentsNewDesign/common/buttons/SimpleButton/constants';
 import { SimpleButtonProps } from 'componentsNewDesign/common/buttons/SimpleButton/types';
-import { black, greenYellow, grey23 } from 'constants/styles/colors';
+import { black, greenYellow, grey24 } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin } from 'constants/styles/mixins';
 import styled, { css } from 'styled-components';
 
 const disableButtonMixin = css`
-    background: ${grey23};
+    background: ${grey24};
     color: ${disabledCardButtonTextColor};
 `;
 

@@ -35,7 +35,6 @@ export const BlockTitle = styled(Span)`
 
 export const BlockSubTitle = styled(Span)`
     display: block;
-    width: 78px;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;

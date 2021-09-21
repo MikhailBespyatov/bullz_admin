@@ -17,7 +17,7 @@ import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { blue, grey3 } from 'constants/styles/colors';
+import { black, blue, grey23, white } from 'constants/styles/colors';
 import { descriptionPadding } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import React, { KeyboardEvent, useEffect, useState } from 'react';
@@ -105,7 +105,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                 )}
             </Row>
             <ContentWrapper
-                backgroundColor={grey3}
+                backgroundColor={grey23}
                 height="116px"
                 // marginBottom={descriptionPadding}
                 padding=" 8px 6px 3px 10px"
@@ -131,9 +131,14 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                             <Section alignCenter justifyBetween>
                                 {!isApplied ? (
                                     <>
-                                        <TextInput placeholder="Add hashtag" width="60%" onKeyDown={addNewHashtag} />
+                                        <TextInput
+                                            backgroundColor={grey23}
+                                            placeholder="Add hashtag"
+                                            width="60%"
+                                            onKeyDown={addNewHashtag}
+                                        />
                                         <MarginWrapper marginLeft="5px">
-                                            <SimpleButton background="white" onClick={onApply}>
+                                            <SimpleButton background={black} color={white} onClick={onApply}>
                                                 Apply
                                             </SimpleButton>
                                         </MarginWrapper>
@@ -142,10 +147,10 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                                     <>
                                         <ConfirmationText>Are you sure ?</ConfirmationText>
                                         <Row>
-                                            <SimpleButton background="white" color={blue} onClick={onConfirmClick}>
+                                            <SimpleButton background={black} color={blue} onClick={onConfirmClick}>
                                                 {loading ? 'Loading...' : 'Yes'}
                                             </SimpleButton>
-                                            <SimpleButton background="white" color="#FF6767" onClick={onDecline}>
+                                            <SimpleButton background={black} color="#FF6767" onClick={onDecline}>
                                                 No
                                             </SimpleButton>
                                         </Row>{' '}

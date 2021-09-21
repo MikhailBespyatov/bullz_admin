@@ -11,7 +11,7 @@ export const ImgWrapper = styled.div<Props>`
     width: ${({ width }) => width || 'auto'};
     height: ${({ height }) => height || 'auto'};
     ${({ center }) => center && 'margin: auto;'};
-    ${({ background }) => background && `background-image: url(${background});`};
+    ${({ background }) => background && `background-image: url(${background});`}
     //background-size: cover;
     background-size: contain;
     background-repeat: no-repeat;
