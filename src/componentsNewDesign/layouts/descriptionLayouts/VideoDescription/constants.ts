@@ -7,7 +7,6 @@ import viewsIcon from 'assets/views_icon.svg';
 import { black, errorColor, grey8, grey9 } from 'constants/styles/colors';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { QueryPostsResponseExtended } from 'stores/comments/videoComments';
-import { calculateBlockWidth } from 'utils/calculators';
 
 export const videoIdFontSize = '12px';
 export const videoIdFontWeight = '500';
@@ -39,7 +38,7 @@ export const neutralMessageColor = '#9d41ac';
 
 // export const propertyBlockHeight = '50px';
 //export const propertyBlockPadding = '8px 8px 10px';
-export const propertyBlockWidth = calculateBlockWidth(3, 8);
+export const propertyBlockWidth = '209px';
 
 export function formatDate(dateISOString: string) {
     // '2021-01-09T13:57:15.832Z'

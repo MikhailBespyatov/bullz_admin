@@ -26,7 +26,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { noop } from 'constants/functions';
 import { marketingToolsLink } from 'constants/routes';
-import { black, errorColor, grey16, hoverGrey, white } from 'constants/styles/colors';
+import { black, errorColor, grey23, white } from 'constants/styles/colors';
 import { useToggle } from 'hooks/toggle';
 import React, { KeyboardEvent, useState } from 'react';
 //import { promotionsEffects } from 'stores/promotions/promotions';
@@ -154,7 +154,7 @@ export const PromotionCard = ({
             </Section>
             <Section noWrap>
                 <ContentWrapper
-                    backgroundColor={grey16}
+                    backgroundColor={grey23}
                     borderRadius={imageWrapperBorderRadius}
                     height={imageWrapperHeight}
                     marginLeft="35px"
@@ -235,7 +235,7 @@ export const PromotionCard = ({
                         <DateRangePicker dateRange={[startDate || '', endDate || '']} onChange={onDateRangeClick} />
                     </Row>
                     <Section marginBottom="16px">
-                        <SimpleButton background={hoverGrey}>
+                        <SimpleButton background={grey23}>
                             <Row alignCenter marginRight="16px">
                                 <ToggleButton value={isActive} onChange={setIsActive} />
                             </Row>
@@ -246,9 +246,9 @@ export const PromotionCard = ({
                     <Section>
                         {!id && (
                             <SimpleButton
-                                background={black}
+                                background={white}
                                 borderRadius="4px"
-                                color={white}
+                                color={black}
                                 fontWeight="400"
                                 marginBottom="10px"
                                 padding="8px"

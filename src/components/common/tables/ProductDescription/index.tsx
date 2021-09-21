@@ -37,7 +37,6 @@ export const ProductDescription = ({
     const { productId } = useParams<ParamsProps>();
 
     const goToProduct = () => history.push(productsLink + '/' + id);
-
     const changeEditableFieldsCallback = (fields: ProductCardEditableFields) =>
         productsEvents.updateItemById({ id, ...fields });
 

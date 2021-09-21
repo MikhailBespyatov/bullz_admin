@@ -14,7 +14,7 @@ export enum InfoTabs {
     Statistics,
     WomVideo
 }
-export const curatorTabs = ['Video Info', 'Product Info'];
+export const curatorTabs = ['Video Info', 'Topic Info'];
 export const otherTabs = [...curatorTabs, 'User info'];
 export const administratorsTabs = [...otherTabs, 'Statistics Info', 'Wom Video Info'];
 
