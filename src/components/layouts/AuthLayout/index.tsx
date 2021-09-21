@@ -1,3 +1,4 @@
+import { white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
@@ -6,4 +7,5 @@ export const AuthLayout = styled.div`
     height: 100%;
     ${flexCenter};
     flex-direction: column;
+    background: ${white};
 `;

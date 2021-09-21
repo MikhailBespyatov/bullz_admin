@@ -17,12 +17,10 @@ export interface ClosableTagProps extends Disabled, MarginRightBottom {
 export const ClosableTag = ({ subject, text = subject, onClose = noop, untouchable, ...props }: ClosableTagProps) => (
     <ClosableTagWrapper {...props}>
         <Row alignCenter noWrap marginBottom="0">
-            {!untouchable && (
-                <MarginWrapper marginRight="10px">
-                    <ClosableButton onClick={() => onClose(subject)} />
-                </MarginWrapper>
-            )}
-            <ClosableTagSpan>{text}</ClosableTagSpan>
+            <MarginWrapper marginRight="10px">
+                <ClosableTagSpan>{text}</ClosableTagSpan>
+            </MarginWrapper>
+            {!untouchable && <ClosableButton onClick={() => onClose(subject)} />}
         </Row>
     </ClosableTagWrapper>
 );

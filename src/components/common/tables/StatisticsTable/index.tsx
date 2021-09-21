@@ -11,8 +11,7 @@ import {
     assistiveTextColor,
     tableBorderRadius,
     tableDataBorder,
-    tableDataPadding,
-    tableHeaderBackgroundColor
+    tableDataPadding
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import {
     Table,
@@ -24,6 +23,7 @@ import {
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { homeLink, usersLink } from 'constants/routes';
+import { black } from 'constants/styles/colors';
 import React from 'react';
 import { noContentMessage } from './constants';
 import { ItemSpan, ItemWrapper } from './styles';
@@ -90,7 +90,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
         <OverflowAutoLayout>
             <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
                 <Table>
-                    <TableRow backgroundColor={tableHeaderBackgroundColor}>
+                    <TableRow backgroundColor={black}>
                         {statisticsTableColumns
                             .filter(({ key }) => removeItem !== key)
                             .map(({ title, width }) => (
