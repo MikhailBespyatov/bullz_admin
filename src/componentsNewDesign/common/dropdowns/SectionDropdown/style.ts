@@ -13,7 +13,7 @@ export const DropdownSectionWrapper = styled.div<DropdownSectionProps>`
     width: ${({ width }) => width || '100%'};
     height: ${({ height }) => height || 'fit-content'};
     border: 1px solid ${grey11};
-    background-color: ${white};
+    background-color: ${black};
     &:first-child {
         border-top-left-radius: ${sectionBorderRadius};
         border-top-right-radius: ${sectionBorderRadius};
@@ -34,8 +34,8 @@ export const DropdownSectionButton = styled.button<DropdownSectionProps>`
     width: 100%;
     height: 60px;
     // padding: 0 10px;
-    color: ${black};
-    background-color: ${white};
+    color: ${white};
+    background-color: ${black};
     display: flex;
     justify-content: space-between;
     align-items: center;

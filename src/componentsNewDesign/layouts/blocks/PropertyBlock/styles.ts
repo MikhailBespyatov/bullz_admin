@@ -1,10 +1,4 @@
-import {
-    hoveredColor,
-    itemHeight,
-    lastItemBorderRadius,
-    selectedColor,
-    selectedTextColor
-} from 'componentsNewDesign/common/inputs/Select/constants';
+import { hoveredColor, itemHeight, lastItemBorderRadius } from 'componentsNewDesign/common/inputs/Select/constants';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { PropertyBlockProps } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
@@ -12,8 +6,7 @@ import { propertyBlockMarginBottom } from 'componentsNewDesign/layouts/blocks/Pr
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey23, grey3, white } from 'constants/styles/colors';
-import { defaultTextColor } from 'constants/styles/default';
+import { black, grey23, white } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin, ellipsisMixin } from 'constants/styles/mixins';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -80,7 +73,7 @@ interface ItemsAbsoluteWrapperProps extends Visibility, MaxSizes {}
 export const ItemsAbsoluteWrapper = styled(AbsoluteWrapper)<ItemsAbsoluteWrapperProps>`
     width: 100%;
     left: 0;
-    background-color: ${grey3};
+    background-color: ${black};
     max-height: ${({ maxHeight }) => maxHeight || `calc(${itemHeight} * 7)`};
     border-radius: 0 0 ${lastItemBorderRadius} ${lastItemBorderRadius};
     box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.24);
@@ -117,13 +110,13 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     height: ${itemHeight};
     width: 100%;
     padding: 0 12px;
-    background-color: ${grey3};
+    background-color: ${black};
 
     @media (min-width: 992px) {
-        background-color: ${({ active }) => (active ? selectedColor : grey3)};
+        background-color: ${black};
 
         ${ItemSpan} {
-            color: ${({ active }) => (active ? selectedTextColor : defaultTextColor)};
+            color: ${white};
         }
     }
 

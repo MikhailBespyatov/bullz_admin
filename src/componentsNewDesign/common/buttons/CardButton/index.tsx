@@ -1,20 +1,19 @@
 import {
-    backgroundColors,
     cardButtonHeight,
     cardButtonMarginBottom,
     cardButtonMinWidth,
     cardButtonTextFontSize,
-    disabledCardButtonBackgroundColor,
     disabledCardButtonTextColor,
     textColors,
     TextColorsType
 } from 'componentsNewDesign/common/buttons/CardButton/constants';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
+import { noop } from 'constants/functions';
+import { grey23 } from 'constants/styles/colors';
 import React, { FC } from 'react';
 import { Disabled } from 'types/form';
 import { ReactClick } from 'types/react';
 import { Blocked, Margin, Sizes } from 'types/styles';
-import { noop } from 'constants/functions';
 
 export interface UserCardButtonProps extends Disabled, ReactClick<HTMLButtonElement>, Margin, Sizes, Blocked {
     children: string;
@@ -30,7 +29,7 @@ export const CardButton: FC<UserCardButtonProps> = ({
     ...props
 }) => (
     <SimpleButton
-        background={disabled ? disabledCardButtonBackgroundColor : backgroundColors[type]}
+        background={grey23}
         color={disabled ? disabledCardButtonTextColor : textColors[type]}
         disabled={disabled}
         fontSize={cardButtonTextFontSize}

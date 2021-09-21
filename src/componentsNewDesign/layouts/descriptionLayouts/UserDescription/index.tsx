@@ -1,4 +1,5 @@
 import backArrowImg from 'assets/back_arrow.svg';
+import whiteCopyIcon from 'assets/copy_icon_white.svg';
 import history from 'browserHistory';
 import { AdministratorLayout, SuperAdministratorLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
@@ -362,6 +363,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            customCopyIcon={whiteCopyIcon}
                                             notVerified={!isAccountVerified}
                                             subtitle={email}
                                             success={copyEmailMessage}
@@ -374,6 +376,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            customCopyIcon={whiteCopyIcon}
                                             subtitle={mobileNumber}
                                             success={copyPhoneMessage}
                                             title="Phone"
@@ -385,6 +388,7 @@ export const UserDescription = ({
                                     <PropertyBlock
                                         copiable
                                         // titleUppercase
+                                        customCopyIcon={whiteCopyIcon}
                                         subtitle={username || ''}
                                         success={copyUsernameMessage}
                                         title="User Name"
@@ -395,6 +399,7 @@ export const UserDescription = ({
                                     <PropertyBlock
                                         copiable
                                         // titleUppercase
+                                        customCopyIcon={whiteCopyIcon}
                                         linkRoute={usersLink}
                                         subtitle={id}
                                         success={copyUserIdMessage}
@@ -406,6 +411,7 @@ export const UserDescription = ({
                                     <PropertyBlock
                                         copiable
                                         // titleUppercase
+                                        customCopyIcon={whiteCopyIcon}
                                         subtitle={facilitatorId}
                                         success={copyFacilitatorIdMessage}
                                         title="Facilitator ID"

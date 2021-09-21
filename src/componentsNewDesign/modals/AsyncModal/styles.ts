@@ -1,4 +1,4 @@
-import { blue } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import styled from 'styled-components';
 
 export const TitleText = styled.span`
@@ -7,7 +7,7 @@ export const TitleText = styled.span`
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;
-    color: ${blue};
+    color: ${white};
 `;
 
 export const ContentText = styled.span`

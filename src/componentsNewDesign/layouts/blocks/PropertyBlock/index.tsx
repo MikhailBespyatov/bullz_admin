@@ -12,7 +12,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultMongoDBId, utcDefaultDate } from 'constants/defaults/formats';
 import { noop } from 'constants/functions';
-import { black, blue, errorColor, grey4, white } from 'constants/styles/colors';
+import { blue, errorColor, grey4, white } from 'constants/styles/colors';
 import { useCloseClick } from 'hooks/closeClick';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
 import { useModal } from 'hooks/modal';
@@ -86,6 +86,7 @@ export interface PropertyBlockProps
     isDate?: boolean;
     //titleUppercase?: boolean;
     backgroundColor?: string;
+    customCopyIcon?: string;
 }
 
 export const PropertyBlock = ({
@@ -96,6 +97,7 @@ export const PropertyBlock = ({
     notVerified,
     copiable,
     linkRoute,
+    customCopyIcon,
     //titleUppercase,
     isTrusted,
     ...props
@@ -112,7 +114,9 @@ export const PropertyBlock = ({
                         </MarginWrapper>
                     )}
 
-                    {copiable && <CopyButton subject={subtitle} success={success} />}
+                    {copiable && (
+                        <CopyButton customCopyIcon={customCopyIcon || undefined} subject={subtitle} success={success} />
+                    )}
                     {/* <MarginWrapper marginLeft="10px">
                         {linkRoute && subtitle && <LinkButton id={subtitle} linkRoute={linkRoute} />}
                     </MarginWrapper> */}
@@ -256,7 +260,7 @@ export const ChangeablePropertyBlock = ({
                     pointer={isChangeMode}
                     onClick={isChangeMode ? toggleVisible : undefined}
                 >
-                    <BlockSubTitle color={subtitle === defaultMongoDBId ? grey4 : black}>
+                    <BlockSubTitle color={subtitle === defaultMongoDBId ? grey4 : white}>
                         {newValue || subtitle || 'Empty'}
                     </BlockSubTitle>
                     {isChangeMode && <ArrowImg rotate={visible ? 180 : 0} />}

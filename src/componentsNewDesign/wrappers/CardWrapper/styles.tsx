@@ -16,7 +16,7 @@ export const CardWrapper = styled.div<CardWrapperProps>`
     background-color: ${({ backgroundColor }) => backgroundColor || black};
     ${({ background }) => background && `background: ${background}`};
     ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth}`};
-    border: 1px solid ${({ isSelected }) => (isSelected ? black : 'transparent')};
+    border: 1px solid ${({ isSelected }) => (isSelected ? 'black' : 'transparent')};
 
     :hover ${CardHoverOpacityEffect} {
         opacity: 1;

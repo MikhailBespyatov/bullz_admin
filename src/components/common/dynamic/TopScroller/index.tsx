@@ -1,7 +1,7 @@
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { ScrollerIconFont } from 'components/common/dynamic/TopScroller/constants';
 import { Wrapper } from 'components/common/dynamic/TopScroller/styles';
-import { primaryColor } from 'constants/styles/colors';
+import { blue2 } from 'constants/styles/colors';
 import React, { useEffect, useRef, useState } from 'react';
 
 export const TopScroller = () => {
@@ -29,7 +29,7 @@ export const TopScroller = () => {
 
     return (
         <Wrapper ref={scroller} show={show} onClick={onTopScrollHandler}>
-            <ArrowUpOutlined style={{ fontSize: ScrollerIconFont, color: primaryColor }} />
+            <ArrowUpOutlined style={{ fontSize: ScrollerIconFont, color: blue2 }} />
         </Wrapper>
     );
 };

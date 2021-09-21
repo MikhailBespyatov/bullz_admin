@@ -1,4 +1,4 @@
-import defaultAvatarImg from 'assets/default_avatar.png';
+import defaultAvatarImg from 'assets/bullz_logo_white.svg';
 import { BannedIcon } from 'componentsNewDesign/common/icons/BannedIcon';
 import { NotVerifiedIcon } from 'componentsNewDesign/common/icons/NotVerifiedIcon';
 import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';

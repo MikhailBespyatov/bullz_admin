@@ -1,4 +1,5 @@
-import defaultUserImg from 'assets/bullz_logo_black.svg';
+import defaultUserImg from 'assets/bullz_logo_white.svg';
+import whiteCopyIcon from 'assets/copy_icon_white.svg';
 import history from 'browserHistory';
 import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
@@ -237,7 +238,7 @@ export const UserCard = ({
 
                             {/* <UserNickName to={usersLink + '/' + id}>{username}</UserNickName> */}
                             <StyledLink to={usersLink + '/' + id}>
-                                <NickNameSpan>{username}</NickNameSpan>
+                                <NickNameSpan>{`@${username}`}</NickNameSpan>
                             </StyledLink>
 
                             {locale && (
@@ -285,6 +286,7 @@ export const UserCard = ({
                         <PropertyBlock
                             copiable
                             // titleUppercase
+                            customCopyIcon={whiteCopyIcon}
                             linkRoute={usersLink}
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={id}
@@ -295,6 +297,7 @@ export const UserCard = ({
                         <PropertyBlock
                             copiable
                             // titleUppercase
+                            customCopyIcon={whiteCopyIcon}
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={facilitatorId}
                             success={copyFacilitatorIdMessage}

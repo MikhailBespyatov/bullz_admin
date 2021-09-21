@@ -1,4 +1,4 @@
-import { black, grey17 } from 'constants/styles/colors';
+import { black, grey17, white } from 'constants/styles/colors';
 import { disableDefaultInputStyleMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { Active } from 'types/global';
@@ -14,7 +14,7 @@ export const Input = styled.input`
     line-height: normal;
     letter-spacing: 0em;
     text-align: left;
-    background-color: transparent;
+    background-color: black;
     outline: none;
 
     :placeholder {
@@ -22,7 +22,7 @@ export const Input = styled.input`
     }
 
     :focus::placeholder {
-        color: transparent;
+        color: white;
     }
 `;
 
@@ -36,6 +36,8 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     border-radius: 2px;
     outline: none;
     margin: 3px auto;
+    background: ${black};
+    color: ${white};
 
     ${({ active }) => active && `border-color: ${black};`};
 `;
