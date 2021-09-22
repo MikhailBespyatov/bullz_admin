@@ -14,8 +14,7 @@ import {
     formatEngagementStatisticsValues,
     popularityIndicatorTextHorizontalPadding,
     propertyBlockHorizontalPadding,
-    propertyBlockWidth,
-    topPartBackground
+    propertyBlockWidth
 } from 'componentsNewDesign/layouts/cards/VideoCard/constants';
 import { UserNickName } from 'componentsNewDesign/layouts/cards/VideoCard/styles';
 import { CardWrapper } from 'componentsNewDesign/wrappers/CardWrapper';
@@ -25,7 +24,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { usersLink } from 'constants/routes';
-import { grey4 } from 'constants/styles/colors';
+import { black, grey4 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { copyEvents, copyStores } from 'stores/Copy';
@@ -71,7 +70,7 @@ export const TeamVideoCard = ({
         >
             <Column height="100%">
                 <ContentWrapper
-                    backgroundColor={topPartBackground}
+                    backgroundColor={black}
                     borderRadius="8px 8px 0px 0px"
                     minHeight="226px"
                     padding="11px 8px 8px"
@@ -88,7 +87,7 @@ export const TeamVideoCard = ({
                             )}
                         </Row>
                     </Row>
-                    <ContentWrapper backgroundColor={topPartBackground} padding="18px 0px 10px" width="100%">
+                    <ContentWrapper backgroundColor={black} padding="18px 0px 10px" width="100%">
                         <RelativeWrapper>
                             <VideoContainer
                                 height="250px"

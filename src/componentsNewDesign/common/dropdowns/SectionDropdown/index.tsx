@@ -21,6 +21,7 @@ export const DropdownColumn: FC = ({ children }) => <Column width={dropdownWrapp
 
 export interface Props extends DropdownSectionProps, DefaultValueBoolean {
     title: string;
+    backgroundColor?: string;
 }
 
 export const DropdownSection: FC<Props> = ({ children, title, defaultValue = false, ...rest }) => {
@@ -28,7 +29,7 @@ export const DropdownSection: FC<Props> = ({ children, title, defaultValue = fal
 
     return (
         <DropdownSectionWrapper isOpened={isOpened} {...rest}>
-            <DropdownSectionButton onClick={toggleIsOpened}>
+            <DropdownSectionButton onClick={toggleIsOpened} {...rest}>
                 <ContentText fontSize="16px" fontWeight="700" padding={titlePadding}>
                     {title}
                 </ContentText>

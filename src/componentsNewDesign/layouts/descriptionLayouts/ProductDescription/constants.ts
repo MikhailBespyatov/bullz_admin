@@ -1,5 +1,4 @@
 import { grey12, grey13, grey23 } from 'constants/styles/colors';
-import { calculateBlockWidth } from 'utils/calculators';
 
 export const buttonsFontSize = '10px';
 export const buttonsFontWeight = '400';
@@ -17,7 +16,7 @@ export const urlBackgroundColor = '#eaecf1';
 export const urlColor = '#3360ff';
 
 export const propertyBlockHeight = '48px';
-export const propertyBlockWidth = calculateBlockWidth(2, 8);
+export const propertyBlockWidth = '158px';
 export const propertyBlockHorizontalPadding = '4px';
 
 export const parseDeleteSuccessMessage = (name: string) => 'Video ' + name + ' successfully deleted';

@@ -34,7 +34,7 @@ interface ItemsAbsoluteWrapperProps extends Visibility, MaxSizes {}
 export const ItemsAbsoluteWrapper = styled(AbsoluteWrapper)<ItemsAbsoluteWrapperProps>`
     width: 100%;
     left: 0;
-    background-color: ${white};
+    background-color: transparent;
     max-height: ${({ maxHeight }) => maxHeight || `calc(${itemHeight} * 7)`};
     border-radius: 0 0 ${lastItemBorderRadius} ${lastItemBorderRadius};
     box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.24);

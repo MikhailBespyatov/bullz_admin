@@ -7,7 +7,7 @@ import {
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey13 } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import React from 'react';
 import { UserLevel } from 'types/data';
 
@@ -15,12 +15,14 @@ interface SuggestionProps extends UserLevel {
     text: string;
 }
 
+console.log(suggestionObj);
+
 export const SuggestionBadge = ({ text, level }: SuggestionProps) => (
     <ContentWrapper backgroundColor={suggestionObj[level].backgroundColor} padding={badgePadding} width="100%">
         <Column width="100%">
             <ContentText
                 uppercase
-                color={grey13}
+                color={white}
                 fontSize="10px"
                 fontWeight={badgeTextFontWeight}
                 padding={titlePadding}

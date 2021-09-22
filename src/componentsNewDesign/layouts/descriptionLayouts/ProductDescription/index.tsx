@@ -3,24 +3,19 @@ import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
 import { HashtagsInput } from 'componentsNewDesign/common/inputs/HashtagsInput';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
-import {
-    brandImageHeight,
-    copyProductIDMessage,
-    noProductImageIconHeight
-} from 'componentsNewDesign/layouts/cards/ProductCard/constants';
+import { copyProductIDMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
 import {
     propertyBlockHorizontalPadding,
     propertyBlockWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
-import { PosterLayout } from 'componentsNewDesign/layouts/PosterLayout';
 import { EditProductPopover } from 'componentsNewDesign/modals/popovers/products/EditProductPopover';
 import { UploadProductImgPopover } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
-import { AlignCenter, Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { productsLink } from 'constants/routes';
-import { black, grey23 } from 'constants/styles/colors';
+import { black } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -41,8 +36,7 @@ export const ProductDescription = ({
     // priority = NaN,
     // url = '',
     tags = [],
-    primaryReferenceCount = 0,
-    imageUrl
+    primaryReferenceCount = 0
 }: ProductDescriptionProps) => {
     // const [isApplied, toggleIsApplied] = useToggle(false);
 
@@ -100,7 +94,7 @@ export const ProductDescription = ({
         <DescriptionWrapper marginBottom={filterMargin} marginRight={filterMargin} padding="28px 24px 23px">
             <ContentWrapper backgroundColor={black} borderRadius="8px" width="100%">
                 <Section alignEnd>
-                    <ContentWrapper
+                    {/* <ContentWrapper
                         backgroundColor={grey23}
                         height={brandImageHeight}
                         marginRight={descriptionPadding}
@@ -114,7 +108,7 @@ export const ProductDescription = ({
                                 width={noProductImageIconHeight}
                             />
                         </AlignCenter>
-                    </ContentWrapper>
+                    </ContentWrapper> */}
                     <MarginWrapper marginRight={descriptionPadding}>
                         {/*<ContentWrapper*/}
                         {/*    backgroundColor={grey3}*/}
@@ -161,15 +155,17 @@ export const ProductDescription = ({
 
                     <Column>
                         <Section alignCenter justifyBetween height="100%" marginBottom="11px">
-                            <PropertyBlock
-                                copiable
-                                horizontalPadding={propertyBlockHorizontalPadding}
-                                linkRoute={productsLink}
-                                subtitle={id}
-                                success={copyProductIDMessage}
-                                title="Copy productID"
-                                width={propertyBlockWidth}
-                            />
+                            <MarginWrapper marginRight="8px">
+                                <PropertyBlock
+                                    copiable
+                                    horizontalPadding={propertyBlockHorizontalPadding}
+                                    linkRoute={productsLink}
+                                    subtitle={id}
+                                    success={copyProductIDMessage}
+                                    title="Copy productID"
+                                    width={propertyBlockWidth}
+                                />
+                            </MarginWrapper>
                             <PropertyBlock
                                 horizontalPadding={propertyBlockHorizontalPadding}
                                 subtitle={primaryReferenceCount.toString()}
