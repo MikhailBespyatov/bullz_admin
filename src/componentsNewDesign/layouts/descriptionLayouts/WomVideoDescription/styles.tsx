@@ -3,7 +3,7 @@ import {
     propertyBlockMarginRight,
     propertyBlockMinWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/WomVideoDescription/constants';
-import { grey3 } from 'constants/styles/colors';
+import { grey23 } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { Background, MarginRightBottom, MinSizes, Padding, Sizes } from 'types/styles';
 
@@ -22,5 +22,5 @@ export const WomPropertyBlockWrapper = styled.div<WomPropertyBlockWrapperProps>`
     margin-right: ${({ marginRight }) => marginRight || propertyBlockMarginRight};
     padding: ${({ padding }) => padding || '8px'};
     border-radius: 8px;
-    background-color: ${({ background }) => background || grey3};
+    background-color: ${({ background }) => background || grey23};
 `;

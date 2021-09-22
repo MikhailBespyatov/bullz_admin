@@ -1,4 +1,4 @@
-import { grey11, grey12, grey13 } from 'constants/styles/colors';
+import { grey12, grey13, grey23 } from 'constants/styles/colors';
 import { calculateBlockWidth } from 'utils/calculators';
 
 export const buttonsFontSize = '10px';
@@ -9,7 +9,7 @@ export const brandImageHeight = '104px';
 
 export const tableHeaderBackgroundColor = grey12;
 export const tableDataPadding = '0px 25px';
-export const tableDataBorder = `1px solid ${grey11}`;
+export const tableDataBorder = `1px solid ${grey23}`;
 export const tableBorderRadius = '8px';
 
 export const assistiveTextColor = grey13;

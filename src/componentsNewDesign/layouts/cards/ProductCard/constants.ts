@@ -8,7 +8,7 @@ export const parseDeleteModalContent = (name: string) => 'Are you sure you want 
 export const parseDeleteProductSuccessMessage = (name: string) => 'Product ' + name + ' successfully deleted';
 
 export const noProductImageIconHeight = '41px';
-export const brandImageHeight = '127px';
+export const brandImageHeight = '104px';
 
 export const textFontSize = '12px';
 export const textLineHeight = '14px';

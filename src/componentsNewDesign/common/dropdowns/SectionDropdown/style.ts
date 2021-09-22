@@ -1,5 +1,5 @@
 import { sectionBorderRadius } from 'componentsNewDesign/common/dropdowns/SectionDropdown/constants';
-import { black, grey11, white } from 'constants/styles/colors';
+import { black, white } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { BorderRadius, Sizes } from 'types/styles';
@@ -12,7 +12,6 @@ export const DropdownSectionWrapper = styled.div<DropdownSectionProps>`
     ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
     width: ${({ width }) => width || '100%'};
     height: ${({ height }) => height || 'fit-content'};
-    border: 1px solid ${grey11};
     background-color: ${black};
     &:first-child {
         border-top-left-radius: ${sectionBorderRadius};

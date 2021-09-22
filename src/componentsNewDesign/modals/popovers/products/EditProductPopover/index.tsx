@@ -48,6 +48,7 @@ export const EditProductPopover: FC<PopoverProps> = ({ id, name, ...rest }) => {
                     <StyledTextInput
                         disableClearButton
                         disableEnterKeyDown
+                        backgroundColor="transparent"
                         defaultValue={productNameValue}
                         placeholder="Type here..."
                         onChange={setProductNameValue}

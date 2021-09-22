@@ -45,7 +45,7 @@ import { Column, FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/Fle
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { black, blue, errorColor, green, grey13, grey3, lightBlue } from 'constants/styles/colors';
+import { black, blue, errorColor, green, grey13, grey23, lightBlue, white } from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { FC } from 'react';
@@ -57,7 +57,7 @@ import { BackgroundColor, Color, TextProperties } from 'types/styles';
 interface TitleProps extends BackgroundColor, Color, TextProperties {}
 
 const Title: FC<TitleProps> = ({ children, backgroundColor, color, fontSize, fontWeight }) => (
-    <ContentWrapper backgroundColor={backgroundColor || grey3} padding="8px" width="100%">
+    <ContentWrapper backgroundColor={backgroundColor || grey23} padding="8px" width="100%">
         <Span
             color={color}
             fontSize={fontSize || titleFontSize}
@@ -264,7 +264,7 @@ export const WOMVideoDescription = ({
     const videoSrc = streaming?.details?.hlsUrl;
     // const grading = validation?.wom?.grading?.consensus;
     // *  0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
-    const curationState = validation?.yeay?.curationState;
+    const curationState = validation?.bullz?.curationState;
 
     // useEffect(() => {
     //     if (access === Roles.Administrator || access === Roles.SuperAdministrator) {
@@ -287,13 +287,13 @@ export const WOMVideoDescription = ({
             <DescriptionWrapper disabled={isDeleted} marginBottom={filterMargin} marginRight={filterMargin}>
                 <Section marginBottom={descriptionPadding}>
                     <ContentText
+                        uppercase
                         color={
                             (isDeleted && statuses[4].color) ||
                             (curationState !== undefined && statuses[curationState].color) ||
-                            black
+                            white
                         }
                         fontSize={textFontSize}
-                        uppercase={isDeleted}
                     >
                         {(isDeleted && statuses[4].text) ||
                             (curationState === 3 &&
@@ -317,15 +317,7 @@ export const WOMVideoDescription = ({
                         <Section marginBottom={titleMarginBottom}>
                             <Title>
                                 WOM&nbsp;&nbsp;
-                                <ContentText
-                                    color={
-                                        (WomIsDeleted && errorColor) ||
-                                        (processStatus !== undefined &&
-                                            WomVideoValidationStatusesObject[processStatus].color) ||
-                                        black
-                                    }
-                                    fontSize={textFontSize}
-                                >
+                                <ContentText color={white} fontSize={textFontSize}>
                                     (
                                     {(WomIsDeleted && 'This video was deleted') ||
                                         (processStatus !== undefined &&

@@ -1,3 +1,5 @@
+import { white } from 'constants/styles/colors';
+
 export const chartFieldsOption = [
     { name: 'View', filteredValue: 12 },
     { name: 'Total', filteredValue: 12 },
@@ -71,7 +73,10 @@ export interface VideoStatisticsProps extends XAxisData {
 
 export const getVideoStatisticsOption = ({ series, legendData }: VideoStatisticsProps) => ({
     title: {
-        text: 'Video statistics'
+        text: 'Video statistics',
+        textStyle: {
+            color: white
+        }
     },
     tooltip: {
         trigger: 'axis',

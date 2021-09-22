@@ -9,7 +9,6 @@ import { Span } from 'componentsNewDesign/common/typography/Span';
 import { SubtitleIdLink } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
 import {
     assistiveTextColor,
-    tableBorderRadius,
     tableDataBorder,
     tableDataPadding
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
@@ -23,7 +22,7 @@ import {
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { homeLink, usersLink } from 'constants/routes';
-import { black } from 'constants/styles/colors';
+import { black, grey23 } from 'constants/styles/colors';
 import React from 'react';
 import { noContentMessage } from './constants';
 import { ItemSpan, ItemWrapper } from './styles';
@@ -88,9 +87,9 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
 
     return (
         <OverflowAutoLayout>
-            <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
+            <TableWrapper backgroundColor={grey23} borderRadius="20px">
                 <Table>
-                    <TableRow backgroundColor={black}>
+                    <TableRow>
                         {statisticsTableColumns
                             .filter(({ key }) => removeItem !== key)
                             .map(({ title, width }) => (
@@ -101,7 +100,12 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                     </TableRow>
                     {data &&
                         data.map((dataRow, i) => (
-                            <TableRow key={i.toString()} borderTop={tableDataBorder} color={assistiveTextColor}>
+                            <TableRow
+                                key={i.toString()}
+                                backgroundColor={black}
+                                borderTop={tableDataBorder}
+                                color={assistiveTextColor}
+                            >
                                 {statisticsTableColumns
                                     .filter(({ key }) => removeItem !== key)
                                     .map(({ key, width }, i) => (

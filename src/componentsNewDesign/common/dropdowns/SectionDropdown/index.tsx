@@ -12,10 +12,10 @@ import {
 } from 'componentsNewDesign/common/dropdowns/SectionDropdown/style';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
+import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { useToggle } from 'hooks/toggle';
 import React, { FC } from 'react';
 import { DefaultValueBoolean } from 'types/form';
-import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 
 export const DropdownColumn: FC = ({ children }) => <Column width={dropdownWrapperWidth}>{children}</Column>;
 

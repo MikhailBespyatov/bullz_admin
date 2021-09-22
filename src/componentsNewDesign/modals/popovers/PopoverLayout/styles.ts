@@ -22,7 +22,7 @@ export const PopoverAbsoluteWrapper = styled(AbsoluteWrapper)<MinSizes>`
 export const PopoverArrow = styled(AbsoluteWrapper)<PopoverType>`
     width: ${popoverArrowDiameter};
     height: ${popoverArrowDiameter};
-    background: transparent;
+    background: ${popoverBackgroundColor};
     transform-origin: 0 0;
     transform: ${({ type }) => (type === 'top' ? 'rotate(-45deg)' : 'rotate(135deg)')};
     z-index: ${sideBarZIndex + 1};

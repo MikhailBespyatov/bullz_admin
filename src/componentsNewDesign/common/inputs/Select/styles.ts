@@ -9,7 +9,7 @@ import { Span } from 'componentsNewDesign/common/typography/Span';
 import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { black, white } from 'constants/styles/colors';
+import { black, grey23, white } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { Active } from 'types/global';
 import { BorderProperties, MaxSizes, Padding, PaddingLeft, TextProperties, Visibility } from 'types/styles';
@@ -77,11 +77,12 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     height: ${itemHeight};
     width: 100%;
     padding: 0 12px;
-    background-color: ${black};
+    background-color: ${grey23};
     color: ${white};
 
     :hover {
         cursor: pointer;
+        background-color: ${black};
     }
 
     :last-child {

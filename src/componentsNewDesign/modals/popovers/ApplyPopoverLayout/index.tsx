@@ -8,7 +8,7 @@ import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapp
 import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { closeIconDiameter } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
-import { black } from 'constants/styles/colors';
+import { grey10 } from 'constants/styles/colors';
 import { useModal } from 'hooks/modal';
 import React, { FC, useState } from 'react';
 import { Loading, PopoverType, Title } from 'types/data';
@@ -70,7 +70,7 @@ export const ApplyPopoverLayout: FC<ApplyPopoverLayoutProps> = ({
                         />
                     </AbsoluteWrapper>
                     <MarginWrapper marginBottom="10px">
-                        <HorizontalLine background={black} opacity={0.1} />
+                        <HorizontalLine background={grey10} opacity={0.1} />
                     </MarginWrapper>
                     <ContentWrapper>
                         <FlexGrow flexGrow="1">{modalChildren}</FlexGrow>

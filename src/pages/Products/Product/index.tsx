@@ -1,36 +1,35 @@
 import { Loader } from 'components/common/dynamic/Loader';
 import { ProductVideosFilterLayout } from 'components/layouts/filterLayouts/ProductVideosFilterLayout';
-import { DropdownColumn, DropdownSection } from 'componentsNewDesign/common/dropdowns/SectionDropdown';
-import { AffiliateLinksTable } from 'componentsNewDesign/common/tables/AffiliateLinksTable';
-import { VideoCard } from 'componentsNewDesign/layouts/cards/VideoCard';
-import { ProductDescription } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription';
-import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
-import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
-import { useStore } from 'effector-react';
-import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
-import { affiliateLinksEffects, affiliateLinksStores } from 'stores/products/affiliateLinks';
-import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
-import { productVideosEvents, productVideosStores } from 'stores/videos/productVideos';
-import { Id } from 'types/data';
-import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
-import { modalEvents } from 'stores/modals/asyncModal';
-import { SubjectType } from 'types/types';
-import { API } from 'services';
-import { deleteTitle, parseDeleteProductSuccessMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
-import { message } from 'stores/alerts';
+import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
-import { errorColor, white } from 'constants/styles/colors';
+import { DropdownColumn, DropdownSection } from 'componentsNewDesign/common/dropdowns/SectionDropdown';
 import {
     buttonsBorderRadius,
     buttonsFontSize,
     buttonsFontWeight
 } from 'componentsNewDesign/common/tables/AffiliateLinksTable/constants';
+import { deleteTitle, parseDeleteProductSuccessMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
+import { VideoCard } from 'componentsNewDesign/layouts/cards/VideoCard';
+import { ProductDescription } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription';
 import { buttonsPadding } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/constants';
-import { AdministratorLayout } from 'components/layouts/RolesLayouts';
+import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
+import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
+import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { asyncError, videosNotFoundMessage } from 'constants/notifications';
+import { errorColor, white } from 'constants/styles/colors';
+import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
+import { useStore } from 'effector-react';
+import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { API } from 'services';
+import { message } from 'stores/alerts';
+import { modalEvents } from 'stores/modals/asyncModal';
+import { affiliateLinksEffects, affiliateLinksStores } from 'stores/products/affiliateLinks';
+import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
+import { productVideosEvents, productVideosStores } from 'stores/videos/productVideos';
+import { Id } from 'types/data';
+import { SubjectType } from 'types/types';
 
 interface ParamsProps {
     productId: string;
@@ -67,7 +66,7 @@ export const Product = () => {
     const affiliateLinks = useStore(affiliateLinksStores.items);
     const { items, totalRecords } = useStore(productVideosStores.items);
     const loading = useStore(productsStores.loading);
-    const linksLoading = useStore(affiliateLinksStores.loading);
+    // const linksLoading = useStore(affiliateLinksStores.loading);
     const videosLoading = useStore(productVideosStores.initialLoading);
 
     useEffect(() => {
@@ -139,7 +138,7 @@ export const Product = () => {
                     <ProductDescription {...product} {...affiliateLinks.defaultEntry} />
                     {/* * wrapper for dropdown sections (first-child) */}
                     <DropdownColumn>
-                        <DropdownSection title="Affiliate links">
+                        {/* <DropdownSection title="Affiliate links">
                             {linksLoading ? (
                                 <Section justifyCenter>
                                     <Loader size="large" />
@@ -150,8 +149,8 @@ export const Product = () => {
                                     empty={productId !== affiliateLinks.productId}
                                 />
                             )}
-                        </DropdownSection>
-                        <DropdownSection title="Product videos">
+                        </DropdownSection> */}
+                        <DropdownSection title="Topic Videos">
                             <ProductVideosFilterLayout totalRecords={totalRecords}>
                                 {videosLoading ? (
                                     <Section justifyCenter>

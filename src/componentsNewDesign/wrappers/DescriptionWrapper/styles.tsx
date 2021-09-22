@@ -10,6 +10,6 @@ export const DescriptionWrapper = styled.div<CardWrapperProps>`
     background-color: ${({ backgroundColor }) => backgroundColor || black};
     ${({ marginRight }) => marginRight && `margin-right: ${marginRight}`};
     ${({ marginBottom }) => marginBottom && `margin-bottom: ${marginBottom}`};
-    padding: ${descriptionPadding};
+    padding: ${({ padding }) => (padding ? padding : descriptionPadding)};
     ${wrapperDisabledStyleMixin}
 `;

@@ -9,6 +9,7 @@ import { Sizes } from 'types/styles';
 export interface Props extends OnStringChange, DefaultValueString, Placeholder, Sizes, ReactKeyboard<HTMLInputElement> {
     disableClearButton?: boolean;
     disableEnterKeyDown?: boolean;
+    backgroundColor?: string;
 }
 
 export const StyledTextInput = ({
@@ -19,7 +20,8 @@ export const StyledTextInput = ({
     defaultValue,
     placeholder,
     disableClearButton,
-    disableEnterKeyDown
+    disableEnterKeyDown,
+    backgroundColor
 }: Props) => {
     const [value, setValue] = useState(defaultValue);
 
@@ -44,8 +46,9 @@ export const StyledTextInput = ({
 
     return (
         <>
-            <TextInputWrapper height={height} width={width}>
+            <TextInputWrapper backgroundColor={backgroundColor} height={height} width={width}>
                 <TextInput
+                    backgroundColor={backgroundColor}
                     disableClearButton={disableClearButton}
                     placeholder={placeholder}
                     value={value}

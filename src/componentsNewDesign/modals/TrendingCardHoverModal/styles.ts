@@ -1,5 +1,6 @@
 import { actionBlockPadding } from 'componentsNewDesign/modals/TrendingCardHoverModal/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
+import { black } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ export const ActionBlockWrapper = styled(ContentWrapper)`
     height: 45px;
     width: 90px;
     min-width: 90px;
-    background-color: rgba(247, 247, 247, 0.93);
+    background-color: ${black};
     padding: ${actionBlockPadding};
     ${flexCenter};
 `;

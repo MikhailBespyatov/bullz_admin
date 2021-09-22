@@ -15,12 +15,14 @@ import { Sizes } from 'types/styles';
 interface Props
     extends ImgProperties,
         Sizes,
-        Pick<YEAY.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {}
+        Pick<YEAY.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {
+    borderRadius?: string;
+}
 
-export const AvatarImg = ({ src, isTrusted, isAccountVerified, isDisabled, height, width }: Props) => (
+export const AvatarImg = ({ src, isTrusted, isAccountVerified, isDisabled, height, width, borderRadius }: Props) => (
     <RelativeWrapper height={height || ''} width={width || ''}>
         <PosterLayout
-            borderRadius="16px"
+            borderRadius={borderRadius ? borderRadius : '16px'}
             defaultPoster={defaultAvatarImg}
             height={height || avatarDiameter}
             src={src}

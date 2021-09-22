@@ -7,7 +7,7 @@ import { TrendingUserCard } from 'componentsNewDesign/layouts/cards/TrendingUser
 import { TrendingVideoCard } from 'componentsNewDesign/layouts/cards/TrendingVideoCard';
 import { CatalogContainer } from 'componentsNewDesign/layouts/containers/CatalogContainer';
 import { TrendingContainer } from 'componentsNewDesign/layouts/containers/TrendingContainer';
-import { DraggableItems, DraggableTrendingVideos } from 'componentsNewDesign/layouts/DraggableLayout';
+import { DraggableItems } from 'componentsNewDesign/layouts/DraggableLayout';
 import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
 import { AsyncDeleteTrendingModal } from 'componentsNewDesign/modals/AsyncDeleteTrendingModal';
 import { CreateTrendingUserFilterModal } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal';
@@ -17,7 +17,7 @@ import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { trendingVideoLimit } from 'constants/defaults/trendings';
-import { black, white } from 'constants/styles/colors';
+import { grey23, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { plugHeight, plugWidth, trendingFeaturesHeight } from 'pages/Trendings/constants';
 import React, { FC, useEffect, useState } from 'react';
@@ -31,11 +31,13 @@ import { trendingsEffects, trendingsStores } from 'stores/trendings';
 import { Disabled } from 'types/form';
 import { NoopClick } from 'types/global';
 
-interface ButtonProps extends Disabled, NoopClick {}
+interface ButtonProps extends Disabled, NoopClick {
+    background?: string;
+}
 
 const TrendingButton: FC<ButtonProps> = ({ children, onClick, disabled }) => (
     <SimpleButton
-        background={black}
+        background={grey23}
         color={white}
         disabled={disabled}
         fontSize="10px"
@@ -51,7 +53,7 @@ const {
     getTags,
     getVideos,
     getUsers,
-    swapAndUpdateVideos,
+    // swapAndUpdateVideos,
     swapAndUpdateTags,
     swapAndUpdateUsers,
     removeDuplicatedItem
@@ -59,7 +61,7 @@ const {
 
 const onTagsDragEnded = (i: number, j: number) => swapAndUpdateTags({ i, j });
 const onUsersDragEnded = (i: number, j: number) => swapAndUpdateUsers({ i, j });
-const onVideosDragEnded = (i: number, j: number) => swapAndUpdateVideos({ i, j });
+// const onVideosDragEnded = (i: number, j: number) => swapAndUpdateVideos({ i, j });
 
 export const Trendings = () => {
     const [loadingTags, tags] = useStore(trendingsStores.tagsStore);
@@ -252,25 +254,15 @@ export const Trendings = () => {
                             title="Videos"
                             totalRecords={videos?.totalRecords}
                         >
-                            {!!videos?.items?.length && (
-                                <DraggableTrendingVideos
-                                    items={
-                                        videos?.items?.map(({ id = '', video, position = 0 }) => ({
-                                            item: (
-                                                <TrendingVideoCard
-                                                    key={id}
-                                                    position={position}
-                                                    {...video}
-                                                    onRemove={() => onRemove('video', (position + 1).toString(), id)}
-                                                />
-                                            ),
-                                            position
-                                        })) || []
-                                    }
-                                    loading={loadingVideos}
-                                    onDragEnded={onVideosDragEnded}
-                                />
-                            )}
+                            {!!videos?.items?.length &&
+                                videos?.items?.map(({ id = '', video, position = 0 }) => (
+                                    <TrendingVideoCard
+                                        key={id}
+                                        position={position}
+                                        {...video}
+                                        onRemove={() => onRemove('video', (position + 1).toString(), id)}
+                                    />
+                                ))}
                             {/* {(videos?.items?.length || 0) < trendingVideoLimit && (
                         <AddTrendingButton onClick={() => createTrendingVideoModal.openModal({})} />
                     )} */}
