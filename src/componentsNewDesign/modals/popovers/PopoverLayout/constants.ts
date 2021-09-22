@@ -1,10 +1,9 @@
 import { contentWrapperBorderRadius } from 'componentsNewDesign/wrappers/ContentWrapper/constants';
-import { white } from 'constants/styles/colors';
 
 export const popoverWidth = '210px';
 //to calculate the middle of the parent block popover
 export const popoverHalfWidth = parseInt(popoverWidth) / 2 + 'px';
-export const popoverBackgroundColor = white;
+export const popoverBackgroundColor = '#292929';
 
 export const popoverVerticalMargin = '5px';
 

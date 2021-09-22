@@ -106,7 +106,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
             </Row>
             <ContentWrapper
                 backgroundColor={grey23}
-                height="116px"
+                height="104px"
                 // marginBottom={descriptionPadding}
                 padding=" 8px 6px 3px 10px"
                 // width="370px"

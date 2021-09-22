@@ -5,6 +5,7 @@ import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
+import { black } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/constants';
@@ -32,6 +33,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
         <>
             <ModalWrapper
                 expanded
+                background={black}
                 visible={visible}
                 width="100%"
                 onClose={() => closeModal()}
@@ -46,7 +48,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
                             <Loader size="large" />
                         </Section>
                     ) : (
-                        <Section marginBottom={filterMargin}>
+                        <Section marginBottom="42px">
                             {items?.length ? (
                                 items.map(item => <CreateTrendingUserCard key={item.id} {...item} />)
                             ) : (

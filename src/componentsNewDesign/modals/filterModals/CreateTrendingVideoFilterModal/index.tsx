@@ -5,6 +5,7 @@ import { VideosFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/Vi
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
+import { black } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/constants';
@@ -32,6 +33,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
         <>
             <ModalWrapper
                 expanded
+                background={black}
                 visible={visible}
                 width="100%"
                 onClose={() => closeModal()}
@@ -46,7 +48,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
                             <Loader size="large" />
                         </Section>
                     ) : (
-                        <Section>
+                        <Section marginBottom="81px">
                             {items?.length ? (
                                 items.map(item => (
                                     <CreateTrendingVideoCard

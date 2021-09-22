@@ -4,7 +4,7 @@ import { dividePixels, pixelsAddition } from 'utils/parsers';
 export const padding = '10px';
 export const filterMargin = '21px';
 export const cardMargin = '16px';
-export const descriptionPadding = '21px';
+export const descriptionPadding = '8px';
 
 // * others
 export const primaryBorderRadius = '8px';

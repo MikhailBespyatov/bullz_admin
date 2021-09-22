@@ -1,3 +1,4 @@
+import whiteCopyIcon from 'assets/copy_icon_white_transparent.svg';
 import { ReportStatusBadge } from 'componentsNewDesign/common/badges/ReportStatusBadge';
 import { SuggestionBadge } from 'componentsNewDesign/common/badges/SuggestionBadge';
 import { CopyTextButton } from 'componentsNewDesign/common/buttons/CopyButton';
@@ -110,6 +111,7 @@ export const UserReportWrapper = () => {
                             <Row alignCenter>
                                 <MarginWrapper marginRight="24px">
                                     <CopyTextButton
+                                        customCopyIcon={whiteCopyIcon}
                                         diameter="25px"
                                         disabled={!copiedData}
                                         subject={copiedData}

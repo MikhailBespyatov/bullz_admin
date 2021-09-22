@@ -1,15 +1,15 @@
 import copyIcon from 'assets/copy_icon.svg';
 import greyCopyIcon from 'assets/grey_copy_icon.svg';
+import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultMongoDBId } from 'constants/defaults/formats';
+import { grey23 } from 'constants/styles/colors';
 import React, { FC } from 'react';
 import { message } from 'stores/alerts';
 import { Success } from 'types/data';
-import { triggerCopy } from 'utils/usefulFunctions';
-import { ButtonImg, Button } from './styles';
-import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
-import { grey20 } from 'constants/styles/colors';
 import { Disabled } from 'types/form';
+import { triggerCopy } from 'utils/usefulFunctions';
+import { Button, ButtonImg } from './styles';
 
 export interface CopyButtonProps extends Success {
     subject?: string | null;
@@ -58,7 +58,7 @@ export const CopyTextButton: FC<CopyTextButtonProps> = ({
         }
     };
     return (
-        <Button background={grey20} disabled={disabledButton} padding="10px 14px 10px 12px" onClick={triggerButtonCopy}>
+        <Button background={grey23} disabled={disabledButton} padding="10px 14px 10px 12px" onClick={triggerButtonCopy}>
             <MarginWrapper marginRight="8px">
                 <CustomImg height={diameter} src={customCopyIcon || greyCopyIcon} width={diameter} />
             </MarginWrapper>

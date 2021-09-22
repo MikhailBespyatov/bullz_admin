@@ -133,7 +133,7 @@ export const VideoCard = ({
         e.stopPropagation();
         copyEvents.setCopiedId(id);
     };
-    console.log(curationState);
+
     return (
         <CardWrapper disabled={isDeleted} isSelected={copiedDataId === id} onClick={onCardClick} /*width="100%"*/>
             <Column height="100%">

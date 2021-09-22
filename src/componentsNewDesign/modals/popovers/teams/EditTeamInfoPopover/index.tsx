@@ -4,6 +4,7 @@ import { ApplyPopoverLayout } from 'componentsNewDesign/modals/popovers/ApplyPop
 import { popoverMinWidth, title } from 'componentsNewDesign/modals/popovers/teams/EditTeamInfoPopover/constants';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { grey25 } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { FC, useEffect, useState } from 'react';
@@ -58,6 +59,7 @@ export const EditTeamInfoPopover: FC<EditTeamInfoPopoverProps> = ({ onChange, id
                         <StyledTextInput
                             disableClearButton
                             disableEnterKeyDown
+                            backgroundColor={grey25}
                             defaultValue={name}
                             placeholder="Type here..."
                             onChange={setNewName}
@@ -72,6 +74,7 @@ export const EditTeamInfoPopover: FC<EditTeamInfoPopoverProps> = ({ onChange, id
                         <StyledTextInput
                             disableClearButton
                             disableEnterKeyDown
+                            backgroundColor={grey25}
                             defaultValue={urlName}
                             placeholder="Type here..."
                             onChange={setNewUrlName}

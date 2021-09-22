@@ -1,5 +1,5 @@
 import { tableDataBorder } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
-import { black, grey12 } from 'constants/styles/colors';
+import { grey23, white } from 'constants/styles/colors';
 import React from 'react';
 import { DataTable } from 'types/data';
 import { AlignmentType } from 'types/types';
@@ -16,10 +16,10 @@ export const Table = ({ columns, columnSizes = new Array<number>(columns.length)
 
     return (
         <>
-            <TableHeader alignCenter backgroundColor={grey12} height="45px">
+            <TableHeader alignCenter backgroundColor={grey23} height="45px">
                 {columns.map((title, index) => (
                     <Cell key={title} justifyCenter flexBasis={flexBasisValues[index]}>
-                        <TableHeaderColumnSpan color={black}>{title}</TableHeaderColumnSpan>
+                        <TableHeaderColumnSpan color={white}>{title}</TableHeaderColumnSpan>
                     </Cell>
                 ))}
             </TableHeader>

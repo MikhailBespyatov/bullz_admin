@@ -7,7 +7,7 @@ import {
 import { CreateTrendingCardHoverModal } from 'componentsNewDesign/modals/CreateTrendingCardHoverModal';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
-import { grey15 } from 'constants/styles/colors';
+import { grey23 } from 'constants/styles/colors';
 // import { useStore } from 'effector-react';
 import React from 'react';
 import { trendingsEffects } from 'stores/trendings';
@@ -21,7 +21,7 @@ export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUr
     return (
         <>
             <TrendingCardWrapper
-                backgroundColor={grey15}
+                backgroundColor={grey23}
                 marginBottom={cardWrapperMargin}
                 marginRight={cardWrapperMargin}
                 width="fit-content"

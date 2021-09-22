@@ -2,11 +2,9 @@ import { VideoStatisticsChartMemo } from 'components/common/charts/VideoStatisti
 import { Loader } from 'components/common/dynamic/Loader';
 import { StatisticsTable } from 'components/common/tables/StatisticsTable';
 import { ProductVideosFilterLayout } from 'components/layouts/filterLayouts/ProductVideosFilterLayout';
-import { OverflowAutoLayout } from 'components/layouts/OverflowAutoLayout';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { VideoCardButton } from 'componentsNewDesign/common/buttons/VideoCardButton';
 import { DropdownColumn, DropdownSection } from 'componentsNewDesign/common/dropdowns/SectionDropdown';
-import { AffiliateLinksTable } from 'componentsNewDesign/common/tables/AffiliateLinksTable';
 import {
     buttonsBorderRadius,
     buttonsFontSize,
@@ -123,7 +121,7 @@ export const Video = () => {
 
     const primaryProductLoading = useStore(productsStores.loading);
     const userLoading = useStore(usersStores.loading);
-    const linksLoading = useStore(affiliateLinksStores.loading);
+    // const linksLoading = useStore(affiliateLinksStores.loading);
     const productVideosLoading = useStore(productVideosStores.initialLoading);
     const { pathname } = useLocation();
     const { items: itemsStatistics, totalRecords: totalRecordsStatistics } = useStore(statisticsStores.statistics);
@@ -361,7 +359,7 @@ export const Video = () => {
                             <ProductDescription {...product} {...affiliateLinks.defaultEntry} />
                             {/* * wrapper for dropdown sections (first-child) */}
                             <DropdownColumn>
-                                <DropdownSection title="Affiliate links">
+                                {/* <DropdownSection title="Affiliate links">
                                     {linksLoading ? (
                                         <Section justifyCenter>
                                             <Loader size="large" />
@@ -374,8 +372,8 @@ export const Video = () => {
                                             />
                                         </OverflowAutoLayout>
                                     )}
-                                </DropdownSection>
-                                <DropdownSection title="Primary product videos">
+                                </DropdownSection> */}
+                                <DropdownSection title="Primary Topic Videos">
                                     <ProductVideosFilterLayout totalRecords={totalRecords}>
                                         {productVideosLoading ? (
                                             <Section justifyCenter>

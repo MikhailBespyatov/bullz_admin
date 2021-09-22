@@ -1,4 +1,4 @@
-import { hoveredColor, itemHeight, lastItemBorderRadius } from 'componentsNewDesign/common/inputs/Select/constants';
+import { itemHeight, lastItemBorderRadius } from 'componentsNewDesign/common/inputs/Select/constants';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { PropertyBlockProps } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
@@ -109,10 +109,10 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     height: ${itemHeight};
     width: 100%;
     padding: 0 12px;
-    background-color: ${black};
+    background-color: ${grey23};
 
     @media (min-width: 992px) {
-        background-color: ${black};
+        background-color: ${grey23};
 
         ${ItemSpan} {
             color: ${white};
@@ -120,10 +120,10 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     }
 
     :hover {
-        background-color: ${hoveredColor};
+        background-color: ${black};
         cursor: pointer;
         ${ItemSpan} {
-            color: black;
+            color: ${white};
         }
     }
 

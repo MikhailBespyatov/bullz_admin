@@ -1,5 +1,5 @@
 import { clickableWrapperDiameter } from 'componentsNewDesign/wrappers/ClicableWrapper/constants';
-import { black, white } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin, flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { Round, Sizes } from 'types/styles';
@@ -14,7 +14,7 @@ export const ClickableWrapper = styled.button<Props>`
     height: ${({ height }) => height || clickableWrapperDiameter};
     ${({ disabled }) => disabled && 'cursor: default;'};
     z-index: 3;
-    background: ${black};
+    background: transparent;
     color: ${white};
 `;
 

@@ -241,13 +241,13 @@ export const VideoDescription = ({
             <DescriptionWrapper disabled={isDeleted} marginBottom={filterMargin} marginRight={filterMargin}>
                 <Section marginBottom={descriptionPadding}>
                     <ContentText
+                        uppercase
                         color={
                             (isDeleted && statuses[4].color) ||
                             (curationState !== undefined && statuses[curationState].color) ||
                             black
                         }
                         fontSize="14px"
-                        uppercase={isDeleted}
                     >
                         {(isDeleted && statuses[4].text) ||
                             (curationState === 3 &&

@@ -6,6 +6,7 @@ import {
     modalContentWrapperPaddingRight,
     modalContentWrapperVerticalPadding
 } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
+import { grey26 } from 'constants/styles/colors';
 import { absoluteCenterAlignmentMixin } from 'constants/styles/mixins';
 import { sideBarWidth, xxl_1 } from 'constants/styles/sizes';
 import styled from 'styled-components';
@@ -29,7 +30,11 @@ export const ModalBackground = styled.div`
     }
 `;
 
-export const ModalContentWrapper = styled(ContentWrapper)<Overflow>`
+interface ModalContentWrapperProps extends Overflow {
+    background?: string;
+}
+
+export const ModalContentWrapper = styled(ContentWrapper)<ModalContentWrapperProps>`
     ${absoluteCenterAlignmentMixin};
     display: flex;
     flex-direction: column;
@@ -37,4 +42,5 @@ export const ModalContentWrapper = styled(ContentWrapper)<Overflow>`
     max-width: 80vw;
     max-height: 80vh;
     overflow: ${({ overflow }) => overflow || 'auto'};
+    background: ${({ background }) => (background ? background : grey26)};
 `;

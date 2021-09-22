@@ -18,7 +18,7 @@ import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapp
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { usersLink } from 'constants/routes';
-import { grey15 } from 'constants/styles/colors';
+import { grey23 } from 'constants/styles/colors';
 // import { useStore } from 'effector-react';
 import React from 'react';
 // import { userStores } from 'stores/users/user';
@@ -39,6 +39,7 @@ export const UserCard = ({ isTrusted, username, profileImageUrl }: UserCardProps
             width="100%"
         >
             <AvatarImg
+                borderRadius="50%"
                 height={avatarImageWidthAndHeight}
                 isTrusted={isTrusted}
                 src={profileImageUrl || ''}
@@ -51,7 +52,7 @@ export const UserCard = ({ isTrusted, username, profileImageUrl }: UserCardProps
                 padding={usernamePadding}
                 width="66px"
             >
-                {username}
+                {`@${username}`}
             </ContentText>
         </Column>
     </Row>
@@ -63,7 +64,7 @@ export const TrendingUserCard = ({ profileImageUrl, userId, isTrusted, username,
     return (
         <>
             <TrendingCardWrapper
-                backgroundColor={grey15}
+                backgroundColor={grey23}
                 marginBottom={cardWrapperMargin}
                 marginRight={cardWrapperMargin}
                 width="fit-content"

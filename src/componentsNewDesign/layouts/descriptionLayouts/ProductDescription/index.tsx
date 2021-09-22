@@ -1,53 +1,26 @@
-import blackCopyIcon from 'assets/copy_icon_black.svg';
-import { OverflowAutoLayout } from 'components/layouts/OverflowAutoLayout';
 import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
-import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
-import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { HashtagsInput } from 'componentsNewDesign/common/inputs/HashtagsInput';
-import { ExternalLink } from 'componentsNewDesign/common/links/ExternalLink';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
 import {
+    brandImageHeight,
     copyProductIDMessage,
     noProductImageIconHeight
 } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
 import {
-    assistiveTextColor,
-    brandImageHeight,
-    buttonsBorderRadius,
-    buttonsFontSize,
-    buttonsFontWeight,
     propertyBlockHorizontalPadding,
-    propertyBlockWidth,
-    tableBorderRadius,
-    tableDataBorder,
-    tableDataPadding,
-    tableDataPlaceholder,
-    tableHeaderBackgroundColor,
-    urlBackgroundColor,
-    urlColor
+    propertyBlockWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
-import {
-    EllipsisTableText,
-    Table,
-    TableData,
-    TableHeader,
-    TableRow,
-    TableWrapper
-} from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/styles';
 import { PosterLayout } from 'componentsNewDesign/layouts/PosterLayout';
-import { CreateAffiliateLinkPopover } from 'componentsNewDesign/modals/popovers/products/CreateAffiliateLinkPopover';
-import { CreateDefaultAffiliateLinkPopover } from 'componentsNewDesign/modals/popovers/products/CreateDefaultAffiliateLinkPopover';
 import { EditProductPopover } from 'componentsNewDesign/modals/popovers/products/EditProductPopover';
 import { UploadProductImgPopover } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
 import { AlignCenter, Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { noop } from 'constants/functions';
 import { productsLink } from 'constants/routes';
-import { black, grey3, white } from 'constants/styles/colors';
+import { black, grey23 } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -65,8 +38,8 @@ export const ProductDescription = ({
     // primaryReferencesCount,
     // imageUrl,
     // TODO: NaN -> undefined
-    priority = NaN,
-    url = '',
+    // priority = NaN,
+    // url = '',
     tags = [],
     primaryReferenceCount = 0,
     imageUrl
@@ -124,14 +97,14 @@ export const ProductDescription = ({
     // const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
 
     return (
-        <DescriptionWrapper marginBottom={filterMargin} marginRight={filterMargin}>
-            <ContentWrapper backgroundColor={white} borderRadius="8px" width="100%">
-                <Section alignCenter>
+        <DescriptionWrapper marginBottom={filterMargin} marginRight={filterMargin} padding="28px 24px 23px">
+            <ContentWrapper backgroundColor={black} borderRadius="8px" width="100%">
+                <Section alignEnd>
                     <ContentWrapper
-                        backgroundColor={grey3}
+                        backgroundColor={grey23}
                         height={brandImageHeight}
                         marginRight={descriptionPadding}
-                        minWidth="103px"
+                        marginTop="50px"
                         width="103px"
                     >
                         <AlignCenter>
@@ -142,7 +115,7 @@ export const ProductDescription = ({
                             />
                         </AlignCenter>
                     </ContentWrapper>
-                    <MarginWrapper marginBottom={descriptionPadding} marginRight={descriptionPadding}>
+                    <MarginWrapper marginRight={descriptionPadding}>
                         {/*<ContentWrapper*/}
                         {/*    backgroundColor={grey3}*/}
                         {/*    height="104px"*/}
@@ -181,7 +154,6 @@ export const ProductDescription = ({
                                 hashTags={tags || undefined}
                                 loading={productLoading || loading}
                                 type="product"
-                                width="370px"
                                 onConfirm={onConfirm}
                             />
                         </Column>
@@ -206,7 +178,7 @@ export const ProductDescription = ({
                             />
                         </Section>
                         <ManagerLayout>
-                            <Section alignCenter justifyBetween height="100%">
+                            <Section alignCenter height="100%" marginBottom="-8px">
                                 <Row>
                                     <EditProductPopover id={id} name={name || ''} type="down">
                                         <CardButton marginRight={descriptionPadding}>Edit Info</CardButton>
@@ -218,11 +190,11 @@ export const ProductDescription = ({
                                         <CardButton marginRight={descriptionPadding}>Upload Image</CardButton>
                                     </UploadProductImgPopover>
                                 </Row>
-                                <Row>
+                                {/* <Row>
                                     <CreateAffiliateLinkPopover id={id} type="down">
                                         <CardButton>Create affiliate link</CardButton>
                                     </CreateAffiliateLinkPopover>
-                                </Row>
+                                </Row> */}
                             </Section>
                         </ManagerLayout>
                     </Column>
@@ -242,21 +214,21 @@ export const ProductDescription = ({
                     {/*    </AdministratorLayout>*/}
                     {/*</FlexGrow>*/}
                 </Section>
-                <OverflowAutoLayout>
+                {/* <OverflowAutoLayout>
                     <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
                         <Table>
                             <TableRow backgroundColor={tableHeaderBackgroundColor}>
-                                {/*<TableHeader>Locale</TableHeader>*/}
+                                {/*<TableHeader>Locale</TableHeader>
                                 <TableHeader>Default affiliate link</TableHeader>
                                 <TableHeader>Priority</TableHeader>
                                 <TableHeader>Action</TableHeader>
                             </TableRow>
                             <TableRow borderTop={tableDataBorder} color={assistiveTextColor}>
-                                {/*<TableData color={cultureInfo && black} padding={tableDataPadding} width="15%">*/}
-                                {/*    <Row alignCenter justifyCenter width="100%">*/}
-                                {/*        <EllipsisTableText>{cultureInfo || tableDataPlaceholder}</EllipsisTableText>*/}
-                                {/*    </Row>*/}
-                                {/*</TableData>*/}
+                                <TableData color={cultureInfo && black} padding={tableDataPadding} width="15%">
+                                   <Row alignCenter justifyCenter width="100%">
+                                       <EllipsisTableText>{cultureInfo || tableDataPlaceholder}</EllipsisTableText>
+                                   </Row>
+                                </TableData>
                                 <TableData color={url && urlColor} padding={tableDataPadding} width="42%">
                                     <ContentWrapper
                                         backgroundColor={url && urlBackgroundColor}
@@ -316,7 +288,7 @@ export const ProductDescription = ({
                             </TableRow>
                         </Table>
                     </TableWrapper>
-                </OverflowAutoLayout>
+                </OverflowAutoLayout> */}
             </ContentWrapper>
         </DescriptionWrapper>
     );

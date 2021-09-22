@@ -73,6 +73,7 @@ export const RemoveOrBanModal = () => {
                 <Section alignCenter marginBottom={marginBottom}>
                     <StyledTextInput
                         disableEnterKeyDown
+                        backgroundColor="transparent"
                         height="30px"
                         placeholder={inputPlaceholder}
                         onChange={onInputChange}

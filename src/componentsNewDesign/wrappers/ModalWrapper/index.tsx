@@ -20,6 +20,7 @@ interface OnClose {
 interface Props extends Visibility, Sizes, OnClose, Overflow {
     expanded?: boolean;
     customHeader?: JSX.Element;
+    background?: string;
 }
 
 export const ModalCloseButton = ({ onClose }: OnClose) => (
@@ -43,7 +44,8 @@ export const ModalWrapper: FC<Props> = ({
     onClose,
     width,
     height,
-    expanded = false
+    expanded = false,
+    background
 }) => {
     // console.log('expanded', expanded);
     useNonScrolledBackground(visible, expanded);
@@ -53,6 +55,7 @@ export const ModalWrapper: FC<Props> = ({
     return (
         <ModalBackground>
             <ModalContentWrapper
+                background={background}
                 height={height}
                 overflow={overflow}
                 padding={modalVerticalPadding + ' ' + modalHorizontalPadding}

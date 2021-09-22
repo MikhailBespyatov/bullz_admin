@@ -34,6 +34,8 @@ export const grey21 = '#aeaeae';
 export const grey22 = '#cccccc';
 export const grey23 = '#161616';
 export const grey24 = '#3A3A3A';
+export const grey25 = '#292929';
+export const grey26 = '#1D1D1D';
 
 export const hoverGrey = '#f5f5f5';
 export const selectHover = '#F0F0F0';
@@ -45,7 +47,6 @@ export const purple = '#6519ca';
 export const skyBlue = '#0f52ff';
 export const orange = '#ff8000';
 
-// export const backgroundColor = '#f0f2f5';
 export const backgroundColor = white;
 export const infoColor = 'rgb(25, 118, 210)';
 export const successColor = 'rgb(67, 160, 71)';

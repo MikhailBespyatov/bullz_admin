@@ -36,6 +36,8 @@ export const TableWrapper = styled.div<TableProps>`
     margin-top: 8px;
     width: 100%;
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
+    ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
+    ${({ border }) => border && `border: ${border}`};
 `;
 
 export const Table = styled.table<TableProps>`
