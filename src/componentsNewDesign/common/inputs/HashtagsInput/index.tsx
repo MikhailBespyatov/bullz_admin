@@ -9,8 +9,7 @@ import {
     editButtonFontSize,
     editButtonHeight,
     subTitleColor,
-    subTitleFontWeight,
-    titlePadding
+    subTitleFontWeight
 } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/constants';
 import { ConfirmationText } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/styles';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
@@ -70,12 +69,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
     return (
         <Column width={width}>
             <Row alignCenter marginBottom={descriptionPadding}>
-                <ContentText
-                    color={subTitleColor}
-                    fontWeight={subTitleFontWeight}
-                    lineHeight={contentTextLineHeight}
-                    padding={titlePadding}
-                >
+                <ContentText color={subTitleColor} fontWeight={subTitleFontWeight} lineHeight={contentTextLineHeight}>
                     Hashtags
                 </ContentText>
                 {type === 'product' ? (
@@ -106,7 +100,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
             </Row>
             <ContentWrapper
                 backgroundColor={grey23}
-                height="104px"
+                height="125px"
                 // marginBottom={descriptionPadding}
                 padding=" 8px 6px 3px 10px"
                 // width="370px"

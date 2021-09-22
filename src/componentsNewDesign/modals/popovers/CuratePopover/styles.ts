@@ -12,7 +12,7 @@ import {
 } from 'componentsNewDesign/modals/popovers/CuratePopover/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { blue, grey13, paleBlue } from 'constants/styles/colors';
+import { black, blue, grey13, grey25 } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { PopoverType } from 'types/data';
 import { Active } from 'types/global';
@@ -48,7 +48,7 @@ export const ItemWrapper = styled(Row)<Active>`
     width: 188px;
     height: 30px;
     padding: 8px;
-    ${({ active }) => active && `background-color: ${paleBlue}`};
+    ${({ active }) => active && `background-color: ${black}`};
     cursor: pointer;
 
     ${ItemSpan} {
@@ -61,7 +61,7 @@ export const ItemWrapper = styled(Row)<Active>`
 // }
 
 export const PopoverAbsoluteWrapper = styled(AbsoluteWrapper)`
-    background-color: ${popoverBackgroundColor};
+    background-color: ${grey25};
     //min-width: ${popoverMinWidth};
     transform: translateX(${({ width }) => (width === popoverMinWidth ? '0' : '-' + popoverDifference)});
     height: ${popoverHeight};
@@ -82,6 +82,7 @@ export const PopoverArrow = styled(AbsoluteWrapper)<PopoverType>`
     border: ${popoverArrowHalfDiameter} solid transparent;
     border-bottom: ${popoverArrowHalfDiameter} solid ${popoverBackgroundColor};
     border-left: ${popoverArrowHalfDiameter} solid ${popoverBackgroundColor};
+    background: ${grey25};
 `;
 
 export const ContentWrapper = styled.div`

@@ -1,5 +1,7 @@
 import closeIcon from 'assets/close.svg';
+import curateFiller from 'assets/curate_filler_white.svg';
 import { VideoCurateEditableFields } from 'components/layouts/cards/videos/VideoCard/types';
+import { RolesLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
 import { HorizontalLine } from 'componentsNewDesign/common/dividers/HorizontalLine';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
@@ -31,6 +33,7 @@ import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { closeIconDiameter } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
+import { Roles } from 'constants/defaults/users';
 import { noop } from 'constants/functions';
 import { black } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
@@ -46,9 +49,6 @@ import { videosEvents } from 'stores/videos/videos';
 import { Id, PopoverType, Title } from 'types/data';
 import { Disabled } from 'types/form';
 import { Sizes } from 'types/styles';
-import { Roles } from 'constants/defaults/users';
-import { RolesLayout } from 'components/layouts/RolesLayouts';
-import curateFiller from 'assets/curate_filler.svg';
 
 export interface CuratePopoverProps extends PopoverType, Pick<Title, 'title'>, Disabled, Id, Sizes {
     // onApply: noop;

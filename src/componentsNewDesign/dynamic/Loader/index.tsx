@@ -1,19 +1,18 @@
-import blackLoader from 'assets/loader_black.gif';
 import whiteLoader from 'assets/loader_white.gif';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
-import React, { FC } from 'react';
-import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import React, { FC } from 'react';
 
 export interface LoaderProps {
     size?: 'small' | 'middle' | 'large';
     isWhite?: boolean;
 }
 
-export const Loader = ({ size = 'small', isWhite = false }: LoaderProps) => {
+export const Loader = ({ size = 'small' }: LoaderProps) => {
     const loaderSize = size === 'small' ? '15px' : size === 'middle' ? '30px' : '45px';
-    return <CustomImg alt="Loader" height={loaderSize} src={isWhite ? whiteLoader : blackLoader} width={loaderSize} />;
+    return <CustomImg alt="Loader" height={loaderSize} src={whiteLoader} width={loaderSize} />;
 };
 
 interface TextLoaderProps extends LoaderProps {}

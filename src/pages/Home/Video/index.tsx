@@ -42,7 +42,7 @@ import { defaultLimit } from 'constants/defaults/filterSettings';
 import { Roles } from 'constants/defaults/users';
 import { defaultVideosValuesWithoutDate } from 'constants/defaults/videos';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { black, errorColor, white } from 'constants/styles/colors';
+import { black, errorColor, grey26, white } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { addDays } from 'date-fns';
 import { useStore } from 'effector-react';
@@ -373,7 +373,7 @@ export const Video = () => {
                                         </OverflowAutoLayout>
                                     )}
                                 </DropdownSection> */}
-                                <DropdownSection title="Primary Topic Videos">
+                                <DropdownSection backgroundColor={grey26} title="   Topic Videos">
                                     <ProductVideosFilterLayout totalRecords={totalRecords}>
                                         {productVideosLoading ? (
                                             <Section justifyCenter>

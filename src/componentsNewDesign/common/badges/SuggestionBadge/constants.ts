@@ -1,4 +1,4 @@
-import { errorColor, lightCoral, lightPeach, lightSkyBlue, orange, skyBlue } from 'constants/styles/colors';
+import { darkBlue, darkError, darkOrange, errorColor, orange, skyBlue } from 'constants/styles/colors';
 import { BackgroundColor, Color } from 'types/styles';
 
 interface BadgeStyles extends BackgroundColor, Color {}
@@ -10,9 +10,9 @@ export type SuggestionObjType = {
 };
 
 export const suggestionObj: SuggestionObjType = {
-    low: { backgroundColor: lightSkyBlue, color: skyBlue },
-    medium: { backgroundColor: lightPeach, color: orange },
-    high: { backgroundColor: lightCoral, color: errorColor }
+    low: { backgroundColor: darkBlue, color: skyBlue },
+    medium: { backgroundColor: darkOrange, color: orange },
+    high: { backgroundColor: darkError, color: errorColor }
 };
 
 export const badgePadding = '10px 16px 12px';

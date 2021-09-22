@@ -46,6 +46,9 @@ export const pink = '#f4e2ff';
 export const purple = '#6519ca';
 export const skyBlue = '#0f52ff';
 export const orange = '#ff8000';
+export const darkBlue = '#17264E';
+export const darkOrange = '#9B5108';
+export const darkError = '#710101';
 
 export const backgroundColor = white;
 export const infoColor = 'rgb(25, 118, 210)';

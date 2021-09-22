@@ -6,13 +6,14 @@ import { BorderRadius, Sizes } from 'types/styles';
 
 export interface DropdownSectionProps extends Sizes, BorderRadius {
     isOpened?: boolean;
+    backgroundColor?: string;
 }
 
 export const DropdownSectionWrapper = styled.div<DropdownSectionProps>`
     ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
     width: ${({ width }) => width || '100%'};
     height: ${({ height }) => height || 'fit-content'};
-    background-color: ${black};
+    background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : black)};
     &:first-child {
         border-top-left-radius: ${sectionBorderRadius};
         border-top-right-radius: ${sectionBorderRadius};
@@ -34,7 +35,7 @@ export const DropdownSectionButton = styled.button<DropdownSectionProps>`
     height: 60px;
     // padding: 0 10px;
     color: ${white};
-    background-color: ${black};
+    background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : black)};
     display: flex;
     justify-content: space-between;
     align-items: center;
