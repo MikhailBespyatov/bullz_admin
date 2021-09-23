@@ -1,4 +1,5 @@
-import closeImg from 'assets/black_close_button.svg';
+import closeImg from 'assets/white_close_button.svg';
+import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { closeImgDiameter } from 'componentsNewDesign/common/tags/RemovableHashtag/constants';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
@@ -6,7 +7,6 @@ import { noop } from 'constants/functions';
 import React from 'react';
 import { Disabled } from 'types/form';
 import { Wrapper } from './styled';
-import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { HashtagType } from './types';
 
 export interface RemovableHashtagProps extends Disabled, HashtagType {
