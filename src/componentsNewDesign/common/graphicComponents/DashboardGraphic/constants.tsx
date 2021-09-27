@@ -167,9 +167,7 @@ interface GraphicOptionProps {
 }
 
 export const getGraphicOption = ({ xAxisData, positionFn }: GraphicOptionProps) => ({
-    darkMode: true,
-    backgroundColor: black,
-    textStyle: { color: white },
+    backgroundColor: white,
     tooltip: {
         trigger: 'axis',
         position: positionFn,

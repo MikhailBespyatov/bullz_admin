@@ -1,4 +1,4 @@
-import whiteLoader from 'assets/loader_white.gif';
+import bullzLoader from 'assets/bullz_load.gif';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
@@ -12,7 +12,7 @@ export interface LoaderProps {
 
 export const Loader = ({ size = 'small' }: LoaderProps) => {
     const loaderSize = size === 'small' ? '15px' : size === 'middle' ? '30px' : '45px';
-    return <CustomImg alt="Loader" height={loaderSize} src={whiteLoader} width={loaderSize} />;
+    return <CustomImg alt="Loader" height={loaderSize} src={bullzLoader} width={loaderSize} />;
 };
 
 interface TextLoaderProps extends LoaderProps {}

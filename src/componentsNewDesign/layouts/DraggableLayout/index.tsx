@@ -161,7 +161,7 @@ export const DraggableTrendingVideos = ({ items, onDragEnded }: DraggableTrendin
     const onDragOver = (i: number) => {
         firstIndex !== undefined && setIsSecondIndex(i);
     };
-    //const onDragLeave = () => setIsSecondIndex(undefined);
+    const onDragLeave = () => setIsSecondIndex(undefined);
 
     return (
         <>
@@ -176,7 +176,7 @@ export const DraggableTrendingVideos = ({ items, onDragEnded }: DraggableTrendin
                                 i * cardsInBlock + blockOrderNumber === firstIndex
                             }
                             onDragEnd={onDragEnd}
-                            //onDragLeave={onDragLeave}
+                            onDragLeave={onDragLeave}
                             onDragOver={() => onDragOver(i * cardsInBlock + blockOrderNumber)}
                             onDragStart={() => onDragStart(i * cardsInBlock + blockOrderNumber)}
                         >

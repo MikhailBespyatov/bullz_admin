@@ -1,4 +1,9 @@
-import { adaptiveWidth, trendingVideoWrapperPadding } from 'componentsNewDesign/layouts/DraggableLayout/constants';
+import {
+    adaptiveWidth,
+    trendingVideoWrapperHeight,
+    trendingVideoWrapperPadding,
+    trendingVideoWrapperWidth
+} from 'componentsNewDesign/layouts/DraggableLayout/constants';
 import { StyledDivProps } from 'componentsNewDesign/layouts/DraggableLayout/types';
 import styled from 'styled-components';
 
@@ -13,6 +18,8 @@ export const TrendingVideoWrapper = styled.section`
     flex-direction: row;
     flex-wrap: wrap;
     /*margin-right: ${trendingVideoWrapperPadding};*/
+    width: ${trendingVideoWrapperWidth};
+    height: ${trendingVideoWrapperHeight};
     margin-right: 20px;
     margin-bottom: ${trendingVideoWrapperPadding};
 

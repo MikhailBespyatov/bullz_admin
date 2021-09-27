@@ -1,3 +1,4 @@
+import { black } from 'constants/styles/colors';
 import { dividePixels, pixelsAddition } from 'utils/parsers';
 
 // * padding
@@ -35,17 +36,19 @@ export const featureIconSize = '25px';
 // * cards
 export const antdCardWidth = '250px';
 export const antdCardHeight = '250px';
-export const antdTrendingCardWidth = dividePixels(antdCardWidth, 2);
+export const trendingCardWidth = dividePixels(antdCardWidth, 2);
 export const antdTrendingCardHeight = pixelsAddition(dividePixels(antdCardHeight, 2), '50px');
 export const antdCardBottomBarHeight = '48px';
 export const ellipsisRowWidth = `calc(${antdCardWidth} - 2 * ${padding})`;
 export const antdCardAvatarWidth = '100px';
 export const antdCardStyle = { width: antdCardWidth, marginBottom: padding, marginRight: padding };
 export const antdTrendingCardStyle = {
-    width: antdTrendingCardWidth,
+    width: trendingCardWidth,
     height: antdTrendingCardHeight,
     marginBottom: padding,
-    marginRight: padding
+    marginRight: padding,
+    backgroundColor: black,
+    border: 'none'
 };
 
 // * adaptive
