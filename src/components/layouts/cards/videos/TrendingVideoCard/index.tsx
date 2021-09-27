@@ -17,10 +17,11 @@ import {
 } from 'components/layouts/cards/videos/TrendingVideoCard/styles';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink } from 'constants/routes';
-import { antdTrendingCardStyle } from 'constants/styles/sizes';
+import { antdTrendingCardStyle, padding, trendingCardWidth } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { FC } from 'react';
 import { createTrendingVideoModal } from 'stores/initialize/initialize.modal.store';
@@ -82,13 +83,13 @@ export const EmptyTrendingVideoCard = ({ position }: Position) => {
     const onClick = () => createTrendingVideoModal.openModal({ definedPosition: position });
 
     return (
-        <Card hoverable style={{ ...antdTrendingCardStyle, position: 'relative' }}>
-            <RelativeWrapper height={addButtonHeight}>
+        <MarginWrapper marginBottom={padding} marginRight={padding}>
+            <RelativeWrapper height={addButtonHeight} width={trendingCardWidth}>
                 <PositionComponent>
                     <ViewsText>{position + 1}</ViewsText>
                 </PositionComponent>
                 <AddButton height="100%" width="100%" onClick={onClick} />
             </RelativeWrapper>
-        </Card>
+        </MarginWrapper>
     );
 };
