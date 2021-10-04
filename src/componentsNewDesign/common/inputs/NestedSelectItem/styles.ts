@@ -1,12 +1,7 @@
-import {
-    hoveredColor,
-    itemHeight,
-    selectedColor,
-    selectedTextColor
-} from 'componentsNewDesign/common/inputs/Select/constants';
+import { itemHeight, selectedTextColor } from 'componentsNewDesign/common/inputs/Select/constants';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
-import { white } from 'constants/styles/colors';
+import { black, grey23 } from 'constants/styles/colors';
 import { defaultTextColor } from 'constants/styles/default';
 import { ellipsisMixin } from 'constants/styles/mixins';
 import styled, { css } from 'styled-components';
@@ -14,11 +9,11 @@ import { Active } from 'types/global';
 import { PaddingLeft, TextProperties } from 'types/styles';
 
 export const hoveredItemBackgroundColor = css`
-    background-color: ${hoveredColor};
+    background-color: ${grey23};
 `;
 
 export const selectedItemBackgroundColor = css`
-    background-color: ${selectedColor};
+    background-color: ${grey23};
 `;
 export const selectedItemTextColor = css`
     color: ${selectedTextColor};
@@ -90,7 +85,7 @@ export const NestedItemWrapper = styled.div<NestedItemSpanProps>`
     justify-content: space-between;
     width: 100%;
     padding: 0px;
-    background-color: ${white};
+    background-color: ${black};
     ${itemDefaultTextColor}
     cursor: pointer;
 
