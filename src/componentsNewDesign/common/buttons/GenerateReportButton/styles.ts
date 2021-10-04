@@ -1,4 +1,4 @@
-import borderImage from 'assets/border.png';
+import borderImage from 'assets/border_report.svg';
 import {
     cardButtonHeight,
     cardButtonMarginBottom,
@@ -8,7 +8,7 @@ import {
     buttonBorderRadius,
     buttonInnerTextFontWeight
 } from 'componentsNewDesign/common/buttons/SimpleButton/constants';
-import { black, grey8 } from 'constants/styles/colors';
+import { black, white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
@@ -20,10 +20,11 @@ export const StyledButton = styled.button`
     font-size: ${cardButtonTextFontSize};
     font-weight: ${buttonInnerTextFontWeight};
     cursor: pointer;
-    white-space: nowrap;
-    color: ${black};
-    background-color: ${grey8};
+    color: ${white};
+    background-color: ${black};
     border-radius: ${buttonBorderRadius};
-    border-image: url(${borderImage}) 10% round;
-    outline: none;
+    background-image: url(${borderImage});
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
 `;

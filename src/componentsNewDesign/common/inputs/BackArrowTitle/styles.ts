@@ -1,4 +1,4 @@
-import { selectHover } from 'constants/styles/colors';
+import { black } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { Active } from 'types/global';
 import { PaddingLeft, TextProperties } from 'types/styles';
@@ -15,7 +15,7 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     padding: 0 9px;
 
     :hover {
-        background-color: ${selectHover};
+        background-color: ${black};
         cursor: pointer;
     }
 `;
