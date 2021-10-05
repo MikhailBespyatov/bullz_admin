@@ -1,6 +1,6 @@
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { black, grey2, grey23, white } from 'constants/styles/colors';
+import { grey2, grey29, grey7, white } from 'constants/styles/colors';
 import { defaultTextColor } from 'constants/styles/default';
 import {
     disableDefaultButtonStyleMixin,
@@ -43,7 +43,7 @@ export const PaginationCell = styled.button<PaginationCellProps>`
     font-weight: 500;
     font-size: ${PaginationCellFontSize};
     line-height: ${PaginationCellLineHeight};
-    color: ${({ active }) => (active ? black : white)};
+    color: ${({ active }) => (active ? white : grey7)};
     margin-right: ${PaginationCellMarginRight};
     ${({ disabled }) => disabled && 'opacity: 0.5'};
 `;
@@ -68,7 +68,7 @@ export const PaginationInput = styled.input`
     font-weight: ${PaginationCellFontWeight};
     font-size: ${PaginationCellFontSize};
     line-height: ${PaginationCellLineHeight};
-    background-color: ${grey23};
+    background-color: ${grey29};
     border: 1px solid rgba(0, 0, 0, 0);
 
     :focus-within {

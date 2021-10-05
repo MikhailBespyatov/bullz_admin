@@ -41,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-track
   {
     //-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-    background-color: &{black};
+    background-color: &{grey29};
   }
 
   ::-webkit-scrollbar
