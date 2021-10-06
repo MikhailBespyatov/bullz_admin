@@ -8,7 +8,7 @@ import { SideBarProps } from 'componentsNewDesign/grid/SideBar/types';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { black, grey22, white } from 'constants/styles/colors';
+import { grey22, grey28, white } from 'constants/styles/colors';
 import {
     bigScreenDisplayNoneMixin,
     disableDefaultButtonStyleMixin,
@@ -34,7 +34,7 @@ export const Wrapper = styled.aside<SideBarProps>`
     // flex-wrap: nowrap;
     width: ${sideBarWidth};
     height: 100%;
-    background-color: ${black};
+    background-color: ${grey28};
     margin-left: ${({ isExpanded }) => (isExpanded ? '0px' : padding)};
     padding-top: 40px;
     padding-bottom: ${paginationHeight};
@@ -144,7 +144,7 @@ export const LogoutButton = styled.button<Expanded>`
 
 export const FixedLogoutWrapper = styled(Row)<Expanded>`
     position: fixed;
-    background-color: ${black};
+    background-color: ${grey28};
     width: ${sideBarWidth};
     height: ${paginationHeight};
     bottom: 0;

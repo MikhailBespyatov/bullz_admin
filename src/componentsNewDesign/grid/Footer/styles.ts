@@ -1,5 +1,5 @@
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
-import { black, grey } from 'constants/styles/colors';
+import { grey, grey28 } from 'constants/styles/colors';
 import { flexStart } from 'constants/styles/mixins';
 import { borderWidth, footerHeight, lg_1, padding, sideBarWidth, smallSideBarWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ export const Wrapper = styled.footer`
     left: 0;
     width: 100%;
     height: ${paginationHeight};
-    background-color: ${black};
+    background-color: ${grey28};
     // height: ${footerHeight};
     ${flexStart};
     flex-direction: row;

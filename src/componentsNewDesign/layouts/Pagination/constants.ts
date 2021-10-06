@@ -1,13 +1,13 @@
 import { contentWrapperBorderRadius } from 'componentsNewDesign/wrappers/ContentWrapper/constants';
-import { black, white } from 'constants/styles/colors';
+import { black, grey23, grey29, white } from 'constants/styles/colors';
 
 export const paginationHeight = '65px';
 
 export const paginationCellWidth = '27px';
 export const paginationCellHeight = '29px';
 export const paginationCellBorderRadius = '8px';
-export const paginationCellBackground = black;
-export const paginationCellActiveBackground = white;
+export const paginationCellBackground = grey23;
+export const paginationCellActiveBackground = grey29;
 export const paginationCellColor = 'black';
 export const paginationCellActiveColor = 'white';
 export const PaginationCellFontWeight = '500';

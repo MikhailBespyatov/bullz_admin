@@ -36,6 +36,10 @@ export const grey23 = '#161616';
 export const grey24 = '#3A3A3A';
 export const grey25 = '#292929';
 export const grey26 = '#1D1D1D';
+export const grey27 = '#35384A';
+export const grey28 = '#24242C';
+export const grey29 = '#2C2E3A';
+export const grey30 = '#1A1A20';
 
 export const hoverGrey = '#f5f5f5';
 export const selectHover = '#F0F0F0';

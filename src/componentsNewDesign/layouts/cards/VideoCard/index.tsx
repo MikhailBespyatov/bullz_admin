@@ -38,7 +38,7 @@ import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapp
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { black, grey4 } from 'constants/styles/colors';
+import { black, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -135,10 +135,15 @@ export const VideoCard = ({
     };
 
     return (
-        <CardWrapper disabled={isDeleted} isSelected={copiedDataId === id} onClick={onCardClick} /*width="100%"*/>
+        <CardWrapper
+            backgroundColor={grey29}
+            disabled={isDeleted}
+            isSelected={copiedDataId === id}
+            onClick={onCardClick} /*width="100%"*/
+        >
             <Column height="100%">
                 <ContentWrapper
-                    backgroundColor={black}
+                    backgroundColor={grey29}
                     borderRadius="8px 8px 0px 0px"
                     minHeight="226px"
                     padding="14px 11px 8px 8px"
@@ -262,21 +267,28 @@ export const VideoCard = ({
                 </Section>
                 {/* </ContentWrapper> */}
 
-                <ContentWrapper borderRadius="0px" height="46px" padding="8px 10px 4px" width="100%">
+                <ContentWrapper
+                    backgroundColor={grey29}
+                    borderRadius="0px"
+                    height="46px"
+                    padding="8px 10px 4px"
+                    width="100%"
+                >
                     <ScrollableWrapper alignCenter noWrap paddingBottom="8px" width="100%">
                         {hashTags?.length
                             ? hashTags.map((item: string) => (
                                   <MarginWrapper key={item} marginRight="4px">
-                                      <VideoCardHashtag text={item} />
+                                      <VideoCardHashtag background={grey30} text={item} />
                                   </MarginWrapper>
                               ))
                             : 'no hashtags'}
                     </ScrollableWrapper>
                 </ContentWrapper>
-                <ContentWrapper borderRadius="0px" padding="4px 10px" width="100%">
+                <ContentWrapper backgroundColor={grey29} borderRadius="0px" padding="4px 10px" width="100%">
                     <Section alignCenter justifyBetween>
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             horizontalPadding={propertyBlockHorizontalPadding}
                             //noWrap
                             linkRoute={homeLink}
@@ -288,6 +300,7 @@ export const VideoCard = ({
 
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             horizontalPadding={propertyBlockHorizontalPadding}
                             //noWrap
                             linkRoute={usersLink}
@@ -310,7 +323,7 @@ export const VideoCard = ({
                 </ContentWrapper>
 
                 <Column minHeight="58px" width="100%">
-                    <ContentWrapper borderRadius="8px" padding="4px 10px 0px" width="100%">
+                    <ContentWrapper backgroundColor={grey29} borderRadius="8px" padding="4px 10px 0px" width="100%">
                         <Row
                             alignCenter
                             height="100%"
@@ -321,7 +334,12 @@ export const VideoCard = ({
                             }
                             justifyCenter={access !== Roles.Administrator && access !== Roles.SuperAdministrator}
                         >
-                            <VideoCardButton width={videoCardButtonWidth} onClick={moreInfoHandleClick}>
+                            <VideoCardButton
+                                backgroundColor={grey27}
+                                color={grey7}
+                                width={videoCardButtonWidth}
+                                onClick={moreInfoHandleClick}
+                            >
                                 More Info
                             </VideoCardButton>
 
@@ -331,14 +349,24 @@ export const VideoCard = ({
                                 type="top"
                                 width={videoCardButtonWidth}
                             >
-                                <VideoCardButton disabled={curationState !== 1} width="100%">
+                                <VideoCardButton
+                                    backgroundColor={grey27}
+                                    color={grey7}
+                                    disabled={curationState !== 1}
+                                    width="100%"
+                                >
                                     Curate
                                 </VideoCardButton>
                             </CuratePopoverLayout>
                         </Row>
                     </ContentWrapper>
                     <AdministratorLayout>
-                        <ContentWrapper borderRadius="0px 0px 8px 8px" height="40px" width="100%">
+                        <ContentWrapper
+                            backgroundColor={grey27}
+                            borderRadius="0px 0px 8px 8px"
+                            height="40px"
+                            width="100%"
+                        >
                             {!isDeleted && (
                                 <Row alignCenter justifyCenter width="100%">
                                     <SimpleButton
