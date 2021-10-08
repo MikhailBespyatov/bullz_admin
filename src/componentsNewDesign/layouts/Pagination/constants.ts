@@ -45,9 +45,9 @@ export const lastItemBorderRadius = contentWrapperBorderRadius;
 const beforeBorderRadiusHeight = '5px';
 export const lastItemBorderHeight = parseInt(lastItemBorderRadius) + parseInt(beforeBorderRadiusHeight) + 'px';
 
-export const selectedColor = black;
-export const hoveredColor = black;
-export const selectedTextColor = white;
+export const selectedColor = white;
+export const hoveredColor = white;
+export const selectedTextColor = black;
 
 export const expandButtonHeight = '10px';
 

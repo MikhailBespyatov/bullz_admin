@@ -8,7 +8,7 @@ import { SideBarProps } from 'componentsNewDesign/grid/SideBar/types';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey22, grey28, white } from 'constants/styles/colors';
+import { grey22, grey28, hoverGrey, white } from 'constants/styles/colors';
 import {
     bigScreenDisplayNoneMixin,
     disableDefaultButtonStyleMixin,
@@ -108,6 +108,10 @@ export const PageName = styled.span<PageNameProps>`
     //margin-top: 3px;
     opacity: ${({ active }) => (active ? 1 : 0.5)};
     color: ${({ active }) => (active ? `${white}` : `${grey22}`)};
+
+    :hover {
+        color: ${hoverGrey};
+    }
 `;
 
 export const AdaptiveAbsoluteWrapper = styled(AbsoluteWrapper)<Expanded>`

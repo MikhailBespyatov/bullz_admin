@@ -8,14 +8,14 @@ import { ItemSpan, SelectWrapper, TitleSpan } from 'componentsNewDesign/common/i
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { noop } from 'constants/functions';
 import { useToggle } from 'hooks/toggle';
+import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { getDateFromString } from 'utils/usefulFunctions';
 import { Disabled, OnDataRangeChange } from 'types/form';
-import { noop } from 'constants/functions';
-import moment from 'moment';
+import { getDateFromString } from 'utils/usefulFunctions';
 
 interface DatePickerProps extends Disabled {
     date: [string, string];

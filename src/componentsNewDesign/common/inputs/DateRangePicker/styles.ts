@@ -1,4 +1,4 @@
-import arrow from 'assets/left_arrow.svg';
+import arrow from 'assets/black_left_arrow.svg';
 import { dataPickerIconDiameter } from 'componentsNewDesign/common/inputs/DateRangePicker/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';

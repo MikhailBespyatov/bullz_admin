@@ -11,11 +11,21 @@ import {
 import React, { FC } from 'react';
 import { Disabled } from 'types/form';
 import { ReactClick } from 'types/react';
-import { BackgroundColor, BorderRadius, Color, MarginRightBottom, Padding, Sizes, TextProperties } from 'types/styles';
+import {
+    BackgroundColor,
+    BackgroundHover,
+    BorderRadius,
+    Color,
+    MarginRightBottom,
+    Padding,
+    Sizes,
+    TextProperties
+} from 'types/styles';
 
 export interface VideoCardButtonProps
     extends ReactClick<HTMLButtonElement>,
         BackgroundColor,
+        BackgroundHover,
         BorderRadius,
         Color,
         TextProperties,
@@ -27,6 +37,7 @@ export interface VideoCardButtonProps
 export const VideoCardButton: FC<VideoCardButtonProps> = ({
     children,
     backgroundColor,
+    backgroundHover,
     color,
     fontSize,
     borderRadius,
@@ -36,6 +47,7 @@ export const VideoCardButton: FC<VideoCardButtonProps> = ({
 }) => (
     <SimpleButton
         background={backgroundColor || videoCardButtonBackgroundColorPrimary}
+        backgroundHover={backgroundHover || videoCardButtonBackgroundColorPrimary}
         borderRadius={borderRadius || videoCardButtonBorderRadius}
         color={color || videoCardButtonTextColorPrimary}
         fontSize={fontSize || videoCardButtonTextFontSize}
