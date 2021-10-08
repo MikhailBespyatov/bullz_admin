@@ -38,7 +38,7 @@ import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapp
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { black, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
+import { grey23, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -179,7 +179,7 @@ export const VideoCard = ({
                             </ContentText>
                         </Row>
                     </Row>
-                    <ContentWrapper backgroundColor={black} padding="18px 0px 10px" width="100%">
+                    <ContentWrapper padding="18px 0px 10px" width="100%">
                         <RelativeWrapper>
                             <VideoContainer
                                 height="250px"
@@ -336,6 +336,7 @@ export const VideoCard = ({
                         >
                             <VideoCardButton
                                 backgroundColor={grey27}
+                                backgroundHover={grey23}
                                 color={grey7}
                                 width={videoCardButtonWidth}
                                 onClick={moreInfoHandleClick}
@@ -351,6 +352,7 @@ export const VideoCard = ({
                             >
                                 <VideoCardButton
                                     backgroundColor={grey27}
+                                    backgroundHover={grey23}
                                     color={grey7}
                                     disabled={curationState !== 1}
                                     width="100%"
@@ -361,12 +363,7 @@ export const VideoCard = ({
                         </Row>
                     </ContentWrapper>
                     <AdministratorLayout>
-                        <ContentWrapper
-                            backgroundColor={grey27}
-                            borderRadius="0px 0px 8px 8px"
-                            height="40px"
-                            width="100%"
-                        >
+                        <ContentWrapper borderRadius="0px 0px 8px 8px" height="40px" width="100%">
                             {!isDeleted && (
                                 <Row alignCenter justifyCenter width="100%">
                                     <SimpleButton

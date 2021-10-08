@@ -24,6 +24,11 @@ export const SelectWrapper = styled(ContentWrapper)<SelectWrapperProps>`
     padding: ${({ padding }) => (padding ? padding : selectPadding)};
     color: ${white};
 
+    :hover {
+        background-color: ${grey23};
+        cursor: pointer;
+    }
+
     @media (min-width: 1270px) {
         padding: ${({ padding }) => (padding ? padding : selectorRightPadding)};
     }

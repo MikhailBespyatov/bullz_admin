@@ -104,6 +104,10 @@ export interface BackgroundColor {
     backgroundColor?: string;
 }
 
+export interface BackgroundHover {
+    backgroundHover?: string;
+}
+
 export interface TextAlignment {
     alignTextCenter?: boolean;
 }

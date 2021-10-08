@@ -2,7 +2,6 @@ import {
     contentWrapperBorderRadius,
     contentWrapperMinWidth
 } from 'componentsNewDesign/wrappers/ContentWrapper/constants';
-import { black } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { BackgroundColor, BorderRadius, Margin, MaxSizes, MinSizes, Padding, Sizes } from 'types/styles';
 
@@ -30,5 +29,5 @@ export const ContentWrapper = styled.div<ContentWrapperProps>`
     ${({ marginLeft }) => marginLeft && `margin-left: ${marginLeft};`};
     ${({ marginBottom }) => marginBottom && `margin-bottom: ${marginBottom};`};
     border-radius: ${({ borderRadius }) => borderRadius || contentWrapperBorderRadius};
-    background-color: ${({ backgroundColor }) => backgroundColor || black};
+    ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
 `;

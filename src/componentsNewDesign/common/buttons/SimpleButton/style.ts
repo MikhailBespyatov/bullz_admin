@@ -50,4 +50,7 @@ export const SimpleButton = styled.button<SimpleButtonProps>`
         css`
             ${disableButtonMixin};
         `};
+    :hover {
+        background-color: ${({ backgroundHover }) => backgroundHover || 'initial'};
+    }
 `;

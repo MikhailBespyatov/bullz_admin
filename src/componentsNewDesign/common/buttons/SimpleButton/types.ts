@@ -1,5 +1,6 @@
 import {
     Background,
+    BackgroundHover,
     Blocked,
     BorderProperties,
     BorderRadiusProperties,
@@ -15,6 +16,7 @@ export interface SimpleButtonProps
     extends Sizes,
         TextProperties,
         Background,
+        BackgroundHover,
         BorderRadiusProperties,
         BorderProperties,
         Padding,

@@ -77,7 +77,7 @@ export const PaginationInput = styled.input`
 `;
 
 export const ItemsAbsoluteWrapper = styled(AbsoluteWrapper)`
-    background-color: ${white};
+    background-color: black;
     //border: 1px solid ${grey2};
     border-radius: ${lastItemBorderRadius} ${lastItemBorderRadius} 0 0;
     box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.24);
