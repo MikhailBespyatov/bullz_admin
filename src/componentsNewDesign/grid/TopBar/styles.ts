@@ -11,6 +11,9 @@ export const ItemSpan = styled(Span)<ItemSpanProps>`
     font-size: 18px;
     line-height: 21px;
     ${({ pointer }) => (pointer ? 'cursor: pointer;' : '')};
+    :hover {
+        color: ${({ textHover }) => textHover || 'initial'};
+    }
 `;
 
 export const ItemActiveBorder = styled.div`

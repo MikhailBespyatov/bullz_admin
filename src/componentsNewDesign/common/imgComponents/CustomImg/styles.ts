@@ -1,5 +1,5 @@
 import { ImgProps, ImgWrapperProps } from 'componentsNewDesign/common/imgComponents/CustomImg/types';
-import { flexCenter } from 'constants/styles/mixins';
+import { buttonEffectMixin, flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
 export const Img = styled.img`
@@ -17,6 +17,7 @@ export const CustomImage = styled.img<ImgProps>`
     ${({ rotate }) => (rotate ? `transform: rotate(${rotate}deg);` : ``)};
     ${({ pointer }) => (pointer ? 'cursor: pointer;' : '')};
     ${({ center }) => center && 'margin: auto;'};
+    ${buttonEffectMixin}
 `;
 
 export const ImgWrapper = styled.div<ImgWrapperProps>`

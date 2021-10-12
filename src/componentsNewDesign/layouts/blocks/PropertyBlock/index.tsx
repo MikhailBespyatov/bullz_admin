@@ -19,7 +19,7 @@ import { useModal } from 'hooks/modal';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Success, Title } from 'types/data';
 import { Disabled } from 'types/form';
-import { HorizontalPadding, MarginRightBottom, MinSizes, Sizes } from 'types/styles';
+import { BackgroundColor, HorizontalPadding, MarginRightBottom, MinSizes, Sizes } from 'types/styles';
 import { PropertyBlockType } from 'types/types';
 import { formatDateISOString, getTimeFromString } from 'utils/usefulFunctions';
 import {
@@ -76,6 +76,7 @@ export interface PropertyBlockProps
         Partial<Success>,
         Sizes,
         MinSizes,
+        BackgroundColor,
         MarginRightBottom,
         HorizontalPadding,
         Pick<YEAY.GetUserProfileResponse, 'isTrusted'> {
@@ -100,9 +101,10 @@ export const PropertyBlock = ({
     customCopyIcon,
     //titleUppercase,
     isTrusted,
+    backgroundColor,
     ...props
 }: PropertyBlockProps) => (
-    <BlockWrapper {...props}>
+    <BlockWrapper backgroundColor={backgroundColor} {...props}>
         <Column justifyBetween height="100%">
             <Section justifyBetween noWrap marginBottom="8px">
                 <BlockTitle /*uppercase={titleUppercase}*/>{title}</BlockTitle>
@@ -143,9 +145,10 @@ export const PropertyBlock = ({
     </BlockWrapper>
 );
 
-interface ChangeablePropertyBlockProps extends Title, Sizes, Disabled {
+interface ChangeablePropertyBlockProps extends Title, Sizes, Disabled, BackgroundColor {
     selector?: string[];
     searchPlaceholder?: string;
+    backgroundColor?: string;
     onSave?: (value: string) => void;
 }
 
@@ -156,6 +159,7 @@ export const ChangeablePropertyBlock = ({
     onSave = noop,
     searchPlaceholder = '',
     disabled,
+    backgroundColor,
     ...props
 }: ChangeablePropertyBlockProps) => {
     const [isChangeMode, setIsChangeMode] = useState(false);
@@ -224,7 +228,7 @@ export const ChangeablePropertyBlock = ({
     useCloseClick(componentRef, onCloseClick, visible);
 
     return (
-        <BlockWrapper {...props} ref={componentRef}>
+        <BlockWrapper backgroundColor={backgroundColor} {...props} ref={componentRef}>
             <Column ref={selectRef} justifyBetween height="100%">
                 <Section justifyBetween noWrap height="22px" marginBottom="8px">
                     <BlockTitle>{title}</BlockTitle>

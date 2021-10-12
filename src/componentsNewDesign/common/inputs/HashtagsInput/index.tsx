@@ -16,7 +16,7 @@ import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { black, blue, grey23, white } from 'constants/styles/colors';
+import { black, blue, grey27, hoverGrey2, white } from 'constants/styles/colors';
 import { descriptionPadding } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import React, { KeyboardEvent, useEffect, useState } from 'react';
@@ -80,6 +80,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                             fontSize={editButtonFontSize}
                             height={editButtonHeight}
                             padding="0px 20px"
+                            textHover={blue}
                             onClick={onEditClick}
                         >
                             {isEdit ? 'Cancel' : 'Edit'}
@@ -92,6 +93,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                         fontSize={editButtonFontSize}
                         height={editButtonHeight}
                         padding="0px 20px"
+                        textHover={blue}
                         onClick={onEditClick}
                     >
                         {isEdit ? 'Cancel' : 'Edit'}
@@ -99,7 +101,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                 )}
             </Row>
             <ContentWrapper
-                backgroundColor={grey23}
+                backgroundColor={grey27}
                 height="125px"
                 // marginBottom={descriptionPadding}
                 padding=" 8px 6px 3px 10px"
@@ -126,13 +128,19 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                                 {!isApplied ? (
                                     <>
                                         <TextInput
-                                            backgroundColor={grey23}
+                                            backgroundColor={grey27}
                                             placeholder="Add hashtag"
                                             width="60%"
                                             onKeyDown={addNewHashtag}
                                         />
                                         <MarginWrapper marginLeft="5px">
-                                            <SimpleButton background={black} color={white} onClick={onApply}>
+                                            <SimpleButton
+                                                background={black}
+                                                backgroundHover={hoverGrey2}
+                                                color={white}
+                                                textHover={white}
+                                                onClick={onApply}
+                                            >
                                                 Apply
                                             </SimpleButton>
                                         </MarginWrapper>

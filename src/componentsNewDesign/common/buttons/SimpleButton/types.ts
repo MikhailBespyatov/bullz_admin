@@ -9,6 +9,7 @@ import {
     MinSizes,
     Padding,
     Sizes,
+    TextHover,
     TextProperties
 } from 'types/styles';
 
@@ -17,6 +18,7 @@ export interface SimpleButtonProps
         TextProperties,
         Background,
         BackgroundHover,
+        TextHover,
         BorderRadiusProperties,
         BorderProperties,
         Padding,

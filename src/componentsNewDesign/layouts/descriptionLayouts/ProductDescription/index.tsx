@@ -15,7 +15,7 @@ import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrap
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { productsLink } from 'constants/routes';
-import { black } from 'constants/styles/colors';
+import { grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -91,8 +91,13 @@ export const ProductDescription = ({
     // const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
 
     return (
-        <DescriptionWrapper marginBottom={filterMargin} marginRight={filterMargin} padding="28px 24px 23px">
-            <ContentWrapper backgroundColor={black} borderRadius="8px" width="100%">
+        <DescriptionWrapper
+            backgroundColor={grey29}
+            marginBottom={filterMargin}
+            marginRight={filterMargin}
+            padding="28px 24px 23px"
+        >
+            <ContentWrapper borderRadius="8px" width="100%">
                 <Section alignEnd>
                     {/* <ContentWrapper
                         backgroundColor={grey23}
@@ -158,6 +163,7 @@ export const ProductDescription = ({
                             <MarginWrapper marginRight="8px">
                                 <PropertyBlock
                                     copiable
+                                    backgroundColor={grey27}
                                     horizontalPadding={propertyBlockHorizontalPadding}
                                     linkRoute={productsLink}
                                     subtitle={id}
@@ -167,6 +173,7 @@ export const ProductDescription = ({
                                 />
                             </MarginWrapper>
                             <PropertyBlock
+                                backgroundColor={grey27}
                                 horizontalPadding={propertyBlockHorizontalPadding}
                                 subtitle={primaryReferenceCount.toString()}
                                 title="Referenced count"
@@ -177,13 +184,27 @@ export const ProductDescription = ({
                             <Section alignCenter height="100%" marginBottom="-8px">
                                 <Row>
                                     <EditProductPopover id={id} name={name || ''} type="down">
-                                        <CardButton marginRight={descriptionPadding}>Edit Info</CardButton>
+                                        <CardButton
+                                            background={grey27}
+                                            backgroundHover={hoverGrey2}
+                                            color={grey7}
+                                            marginRight={descriptionPadding}
+                                        >
+                                            Edit Info
+                                        </CardButton>
                                     </EditProductPopover>
                                 </Row>
 
                                 <Row>
                                     <UploadProductImgPopover id={id} type="down">
-                                        <CardButton marginRight={descriptionPadding}>Upload Image</CardButton>
+                                        <CardButton
+                                            background={grey27}
+                                            backgroundHover={hoverGrey2}
+                                            color={grey7}
+                                            marginRight={descriptionPadding}
+                                        >
+                                            Upload Image
+                                        </CardButton>
                                     </UploadProductImgPopover>
                                 </Row>
                                 {/* <Row>

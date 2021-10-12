@@ -43,6 +43,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { assignedUserRoles, assignedUserRolesForSuperAdmin, defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
+import { blue, errorColor, grey27, grey29, hoverGrey2, lightBlack, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { contentDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
 import React, { useMemo } from 'react';
@@ -288,7 +289,7 @@ export const UserDescription = ({
     };
 
     return (
-        <ContentWrapper /*height="280px"*/ padding="16px 32px" /*width="1120px"*/>
+        <ContentWrapper backgroundColor={grey29} /*height="280px"*/ padding="16px 32px" /*width="1120px"*/>
             <Column width="100%">
                 <Section justifyBetween marginBottom="28px">
                     <Row alignCenter>
@@ -316,7 +317,13 @@ export const UserDescription = ({
                         ) : (
                             <AdministratorLayout>
                                 <Column marginRight="8px">
-                                    <CardButton onClick={() => callVerifyModal(!isTrusted)}>
+                                    <CardButton
+                                        background={lightBlack}
+                                        backgroundHover={hoverGrey2}
+                                        color={blue}
+                                        textHover={white}
+                                        onClick={() => callVerifyModal(!isTrusted)}
+                                    >
                                         {isTrusted ? 'Unverify' : 'Verify'}
                                     </CardButton>
                                 </Column>
@@ -328,19 +335,40 @@ export const UserDescription = ({
                                         title={assignRoleTitle}
                                         type="down"
                                     >
-                                        <CardButton disabled={!assignedRoles.length}>Assign Role</CardButton>
+                                        <CardButton
+                                            background={lightBlack}
+                                            backgroundHover={hoverGrey2}
+                                            color={blue}
+                                            disabled={!assignedRoles.length}
+                                            textHover={white}
+                                        >
+                                            Assign Role
+                                        </CardButton>
                                     </RolesPopover>
                                 </Column>
                             </AdministratorLayout>
                         )}
                         <AdministratorLayout>
-                            <CardButton marginRight="8px" type="danger" onClick={() => callDisableModal(!isDisabled)}>
+                            <CardButton
+                                background={errorColor}
+                                backgroundHover={hoverGrey2}
+                                color={white}
+                                marginRight="8px"
+                                textHover={white}
+                                onClick={() => callDisableModal(!isDisabled)}
+                            >
                                 {isDisabled ? 'Unblock' : 'Block'}
                             </CardButton>
                         </AdministratorLayout>
                         {!isDisabled && (
                             <AdministratorLayout>
-                                <CardButton type="danger" onClick={() => callDeleteUserModal(id)}>
+                                <CardButton
+                                    background={errorColor}
+                                    backgroundHover={hoverGrey2}
+                                    color={white}
+                                    textHover={white}
+                                    onClick={() => callDeleteUserModal(id)}
+                                >
                                     Delete
                                 </CardButton>
                             </AdministratorLayout>
@@ -363,6 +391,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            backgroundColor={grey27}
                                             customCopyIcon={whiteCopyIcon}
                                             notVerified={!isAccountVerified}
                                             subtitle={email}
@@ -376,6 +405,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            backgroundColor={grey27}
                                             customCopyIcon={whiteCopyIcon}
                                             subtitle={mobileNumber}
                                             success={copyPhoneMessage}
@@ -387,6 +417,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         copiable
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         customCopyIcon={whiteCopyIcon}
                                         subtitle={username || ''}
@@ -398,6 +429,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         copiable
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         customCopyIcon={whiteCopyIcon}
                                         linkRoute={usersLink}
@@ -410,6 +442,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         copiable
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         customCopyIcon={whiteCopyIcon}
                                         subtitle={facilitatorId}
@@ -420,6 +453,7 @@ export const UserDescription = ({
                                 </UserPropertyWrapper>
                                 <UserPropertyWrapper>
                                     <PropertyBlock
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={freeStakingRemaining?.toString()}
                                         title="Free stakes remaining"
@@ -431,6 +465,7 @@ export const UserDescription = ({
                                 {/*</UserPropertyWrapper>*/}
                                 <UserPropertyWrapper>
                                     <ChangeablePropertyBlock
+                                        backgroundColor={grey27}
                                         disabled={access !== Roles.Administrator && access !== Roles.SuperAdministrator}
                                         searchPlaceholder="Input a locale"
                                         selector={localeSelector.nestedSelectors?.map(
@@ -445,6 +480,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         isDate
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={utcCreated}
                                         title="Created account"
@@ -454,6 +490,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         isDate
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={utcUpdated}
                                         title="Updated account"
@@ -463,6 +500,7 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         isDate
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={utcLastAuthentication}
                                         title="Last logged in"
@@ -471,6 +509,7 @@ export const UserDescription = ({
                                 </UserPropertyWrapper>
                                 <UserPropertyWrapper>
                                     <PropertyBlock
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={location?.countryName || ''}
                                         title="Country"
@@ -479,6 +518,7 @@ export const UserDescription = ({
                                 </UserPropertyWrapper>
                                 <UserPropertyWrapper>
                                     <PropertyBlock
+                                        backgroundColor={grey27}
                                         // titleUppercase
                                         subtitle={location?.area?.region || ''}
                                         title="Region"

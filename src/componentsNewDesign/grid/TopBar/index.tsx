@@ -1,6 +1,7 @@
 import { ItemActiveBorder, ItemSpan } from 'componentsNewDesign/grid/TopBar/styles';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { hoverGrey3 } from 'constants/styles/colors';
 import React, { useEffect, useState } from 'react';
 
 export interface TopBarProps extends YEAY.AdminGetVideoResponse, YEAY.YeayValidationInfo {
@@ -30,7 +31,12 @@ export const TopBar = ({ content, onChange, defaultActiveItem = content[0] }: To
                     <MarginWrapper key={item} marginRight="40px">
                         <Column>
                             <MarginWrapper marginBottom="16px" marginTop="16px">
-                                <ItemSpan pointer opacity={isActive ? 1 : 0.2} onClick={() => onChangeItem(item)}>
+                                <ItemSpan
+                                    pointer
+                                    opacity={isActive ? 1 : 0.2}
+                                    textHover={hoverGrey3}
+                                    onClick={() => onChangeItem(item)}
+                                >
                                     {item}
                                 </ItemSpan>
                             </MarginWrapper>

@@ -45,7 +45,18 @@ import { Column, FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/Fle
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { black, blue, errorColor, green, grey13, grey23, lightBlue, white } from 'constants/styles/colors';
+import {
+    black,
+    blue,
+    errorColor,
+    green,
+    grey13,
+    grey23,
+    grey27,
+    grey29,
+    lightBlue,
+    white
+} from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { FC } from 'react';
@@ -284,7 +295,12 @@ export const WOMVideoDescription = ({
 
     return (
         <>
-            <DescriptionWrapper disabled={isDeleted} marginBottom={filterMargin} marginRight={filterMargin}>
+            <DescriptionWrapper
+                backgroundColor={grey29}
+                disabled={isDeleted}
+                marginBottom={filterMargin}
+                marginRight={filterMargin}
+            >
                 <Section marginBottom={descriptionPadding}>
                     <ContentText
                         uppercase
@@ -315,7 +331,7 @@ export const WOMVideoDescription = ({
                     </Column>
                     <FlexGrow>
                         <Section marginBottom={titleMarginBottom}>
-                            <Title>
+                            <Title backgroundColor={grey27}>
                                 WOM&nbsp;&nbsp;
                                 <ContentText color={white} fontSize={textFontSize}>
                                     (
@@ -328,26 +344,30 @@ export const WOMVideoDescription = ({
                         </Section>
 
                         <Section>
-                            <WomPropertyBlock title="Validation Results" width={propertyBlockWidth}>
+                            <WomPropertyBlock background={grey27} title="Validation Results" width={propertyBlockWidth}>
                                 <ValidationDataSpan color={validationResultObject[validationResult || 0].color}>
                                     {validationResult ? validationResultObject[validationResult].text : ''}
                                 </ValidationDataSpan>
                             </WomPropertyBlock>
 
-                            <WomPropertyBlock title="Validation Stage" width={propertyBlockWidth}>
+                            <WomPropertyBlock background={grey27} title="Validation Stage" width={propertyBlockWidth}>
                                 <ValidationDataSpan>
                                     {currentStage ? validationStageObject[currentStage].text : ''}
                                 </ValidationDataSpan>
                             </WomPropertyBlock>
 
-                            <WomPropertyBlock title="Validation Ended Reason" width={propertyBlockWidth}>
+                            <WomPropertyBlock
+                                background={grey27}
+                                title="Validation Ended Reason"
+                                width={propertyBlockWidth}
+                            >
                                 <ValidationDataSpan color={endedReasonObject[endedReason || 0].color}>
                                     {endedReason ? endedReasonObject[endedReason].text : ''}
                                 </ValidationDataSpan>
                             </WomPropertyBlock>
                         </Section>
                         <Section marginBottom={titleMarginBottom}>
-                            <Title>Consensus</Title>
+                            <Title backgroundColor={grey27}>Consensus</Title>
                         </Section>
                         <Section>
                             <ConsensusScoreBlock
@@ -373,7 +393,7 @@ export const WOMVideoDescription = ({
                         </Section>
 
                         <Section marginBottom={titleMarginBottom}>
-                            <Title>Product Information</Title>
+                            <Title backgroundColor={grey27}>Product Information</Title>
                         </Section>
 
                         <Section>
@@ -390,7 +410,7 @@ export const WOMVideoDescription = ({
                         </Section>
 
                         <Section marginBottom={titleMarginBottom}>
-                            <Title>Engagement</Title>
+                            <Title backgroundColor={grey27}>Engagement</Title>
                         </Section>
 
                         <Section>
@@ -440,7 +460,7 @@ export const WOMVideoDescription = ({
                         </Section>
 
                         <Section marginBottom={tableMarginBottom}>
-                            <Title>Hashtags</Title>
+                            <Title backgroundColor={grey27}>Hashtags</Title>
                         </Section>
 
                         <Section>
