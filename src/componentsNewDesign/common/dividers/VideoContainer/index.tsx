@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { hlsIsSupported } from './constants';
-import { PlayButton } from 'componentsNewDesign/common/buttons/PlayButton';
-import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { Video } from 'componentsNewDesign/common/Video';
 import noVideoPoster from 'assets/no_video_poster.svg';
+import { PlayButton } from 'componentsNewDesign/common/buttons/PlayButton';
+import { Video } from 'componentsNewDesign/common/Video';
+import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import Hls from 'hls.js';
+import React, { useEffect, useRef, useState } from 'react';
 import { MaxSizes, MinSizes, Sizes } from 'types/styles';
+import { hlsIsSupported } from './constants';
 
 export interface VideoContainerProps
     extends Pick<YEAY.AdminGetVideoResponse, 'thumbnailUrl'>,

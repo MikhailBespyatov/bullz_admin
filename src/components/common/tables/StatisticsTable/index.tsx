@@ -22,7 +22,7 @@ import {
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { homeLink, usersLink } from 'constants/routes';
-import { black, grey23 } from 'constants/styles/colors';
+import { black, grey27 } from 'constants/styles/colors';
 import React from 'react';
 import { noContentMessage } from './constants';
 import { ItemSpan, ItemWrapper } from './styles';
@@ -87,7 +87,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
 
     return (
         <OverflowAutoLayout>
-            <TableWrapper backgroundColor={grey23} borderRadius="20px">
+            <TableWrapper backgroundColor={grey27} borderRadius="20px">
                 <Table>
                     <TableRow>
                         {statisticsTableColumns

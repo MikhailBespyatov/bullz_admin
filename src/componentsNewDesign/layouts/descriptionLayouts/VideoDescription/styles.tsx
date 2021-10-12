@@ -22,4 +22,5 @@ export const ConfirmationText = styled.span`
 export const VideoCommentsWrapper = styled(ContentWrapper)<VideoCommentsWrapperProps>`
     width: ${({ width, marginRight }) => width || `calc(100% - ${marginRight})`};
     padding: ${descriptionPadding};
+    background-color: ${({ backgroundColor }) => backgroundColor};
 `;

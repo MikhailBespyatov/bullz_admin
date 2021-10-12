@@ -42,7 +42,7 @@ import { defaultLimit } from 'constants/defaults/filterSettings';
 import { Roles } from 'constants/defaults/users';
 import { defaultVideosValuesWithoutDate } from 'constants/defaults/videos';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { black, errorColor, grey26, white } from 'constants/styles/colors';
+import { black, errorColor, grey26, grey29, hoverGrey2, white } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { addDays } from 'date-fns';
 import { useStore } from 'effector-react';
@@ -294,6 +294,7 @@ export const Video = () => {
                             <ManagerLayout>
                                 <SimpleButton
                                     background={black}
+                                    backgroundHover={hoverGrey2}
                                     borderRadius={buttonsBorderRadius}
                                     color={white}
                                     fontSize={buttonsFontSize}
@@ -310,6 +311,7 @@ export const Video = () => {
                             <AdministratorLayout>
                                 <SimpleButton
                                     background={errorColor}
+                                    backgroundHover={hoverGrey2}
                                     borderRadius={buttonsBorderRadius}
                                     color={white}
                                     fontSize={buttonsFontSize}
@@ -325,6 +327,7 @@ export const Video = () => {
                         <CuratePopoverLayout disabled={curationState !== 1} id={videoId} type="down">
                             <VideoCardButton
                                 backgroundColor={black}
+                                backgroundHover={hoverGrey2}
                                 borderRadius={buttonsBorderRadius}
                                 color={white}
                                 disabled={curationState !== 1}
@@ -338,7 +341,6 @@ export const Video = () => {
                         </CuratePopoverLayout>
                     </Row>
                 </Section>
-
                 {loading ? (
                     <Section justifyCenter>
                         <Loader size="large" />
@@ -373,7 +375,7 @@ export const Video = () => {
                                         </OverflowAutoLayout>
                                     )}
                                 </DropdownSection> */}
-                                <DropdownSection backgroundColor={grey26} title="   Topic Videos">
+                                <DropdownSection backgroundColor={grey26} title="Topic Videos">
                                     <ProductVideosFilterLayout totalRecords={totalRecords}>
                                         {productVideosLoading ? (
                                             <Section justifyCenter>
@@ -407,7 +409,10 @@ export const Video = () => {
                             <UserDescription {...user} />
                             <Section marginTop="20px">
                                 <DropdownColumn>
-                                    <DropdownSection title={`User's Videos (${userVideos.totalRecords || 0})`}>
+                                    <DropdownSection
+                                        backgroundColor={grey26}
+                                        title={`User's Videos (${userVideos.totalRecords || 0})`}
+                                    >
                                         {userVideosLoading ? (
                                             <Section justifyCenter marginBottom="20px">
                                                 <Loader size="large" />
@@ -432,7 +437,12 @@ export const Video = () => {
                             </Section>
                         </ContentWrapper>
                     ) : (
-                        <ContentWrapper marginRight={filterMargin} minHeight="300px" padding="20px">
+                        <ContentWrapper
+                            backgroundColor={grey29}
+                            marginRight={filterMargin}
+                            minHeight="300px"
+                            padding="20px"
+                        >
                             <Section marginBottom="20px">
                                 <VideoEngagementBlock
                                     engagementStatistics={video.engagementStatistics}

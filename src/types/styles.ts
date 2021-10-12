@@ -108,6 +108,10 @@ export interface BackgroundHover {
     backgroundHover?: string;
 }
 
+export interface TextHover {
+    textHover?: string;
+}
+
 export interface TextAlignment {
     alignTextCenter?: boolean;
 }
@@ -198,6 +202,7 @@ export interface Rotation {
 
 export interface Pointer {
     pointer?: boolean;
+    textHover?: string;
 }
 
 export interface Opacity {

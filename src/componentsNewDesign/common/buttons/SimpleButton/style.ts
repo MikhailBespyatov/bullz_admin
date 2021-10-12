@@ -6,7 +6,7 @@ import {
     buttonPadding
 } from 'componentsNewDesign/common/buttons/SimpleButton/constants';
 import { SimpleButtonProps } from 'componentsNewDesign/common/buttons/SimpleButton/types';
-import { black, greenYellow, grey24 } from 'constants/styles/colors';
+import { black, greenYellow, grey24, grey7 } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin } from 'constants/styles/mixins';
 import styled, { css } from 'styled-components';
 
@@ -52,5 +52,6 @@ export const SimpleButton = styled.button<SimpleButtonProps>`
         `};
     :hover {
         background-color: ${({ backgroundHover }) => backgroundHover || 'initial'};
+        color: ${({ textHover }) => textHover || grey7};
     }
 `;

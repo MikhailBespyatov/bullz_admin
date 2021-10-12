@@ -38,7 +38,7 @@ import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapp
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { grey23, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
+import { darkError, grey23, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -370,6 +370,7 @@ export const VideoCard = ({
                                         background="transparent"
                                         color="#ff3333"
                                         padding="6px 10px 16px"
+                                        textHover={darkError}
                                         width="80px"
                                         onClick={deleteHandler}
                                     >

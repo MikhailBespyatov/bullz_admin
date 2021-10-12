@@ -1,5 +1,6 @@
 import {
     Background,
+    BackgroundColor,
     BorderRadiusProperties,
     Color,
     HorizontalPadding,
@@ -12,4 +13,4 @@ export interface VideoCardProps extends Sizes, TextProperties, Background, Borde
 
 export interface LanguagesOfAudioProps extends TextProperties, Sizes, Color {}
 
-export interface VideoCommentsWrapperProps extends Sizes, MarginRight {}
+export interface VideoCommentsWrapperProps extends Sizes, MarginRight, BackgroundColor {}

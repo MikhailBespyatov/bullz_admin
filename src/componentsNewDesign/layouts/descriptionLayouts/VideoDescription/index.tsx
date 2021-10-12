@@ -35,7 +35,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultVideoCommentsValues } from 'constants/defaults/comments';
 import { homeLink, productsLink, usersLink } from 'constants/routes';
-import { black, grey23 } from 'constants/styles/colors';
+import { black, grey23, grey27, grey29 } from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
@@ -238,7 +238,12 @@ export const VideoDescription = ({
 
     return (
         <>
-            <DescriptionWrapper disabled={isDeleted} marginBottom={filterMargin} marginRight={filterMargin}>
+            <DescriptionWrapper
+                backgroundColor={grey29}
+                disabled={isDeleted}
+                marginBottom={filterMargin}
+                marginRight={filterMargin}
+            >
                 <Section marginBottom={descriptionPadding}>
                     <ContentText
                         uppercase
@@ -292,6 +297,7 @@ export const VideoDescription = ({
                         <Section noWrap>
                             <PropertyBlock
                                 copiable
+                                backgroundColor={grey27}
                                 customCopyIcon={whiteLinkIcon}
                                 linkRoute={homeLink}
                                 marginBottom={descriptionPadding}
@@ -304,6 +310,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                backgroundColor={grey27}
                                 customCopyIcon={whiteLinkIcon}
                                 linkRoute={usersLink}
                                 marginBottom={descriptionPadding}
@@ -316,6 +323,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                backgroundColor={grey27}
                                 customCopyIcon={whiteLinkIcon}
                                 linkRoute={productsLink}
                                 marginBottom={descriptionPadding}
@@ -328,6 +336,7 @@ export const VideoDescription = ({
                         <Section noWrap>
                             <PropertyBlock
                                 isDate
+                                backgroundColor={grey27}
                                 marginBottom={descriptionPadding}
                                 marginRight={descriptionPadding}
                                 subtitle={formatDate(utcUploaded)}
@@ -336,6 +345,7 @@ export const VideoDescription = ({
                             />
 
                             <PropertyBlock
+                                backgroundColor={grey27}
                                 marginBottom={descriptionPadding}
                                 marginRight={descriptionPadding}
                                 //subtitle={getFullLanguage(audioLanguages)}
@@ -346,6 +356,7 @@ export const VideoDescription = ({
 
                             <PropertyBlock
                                 copiable
+                                backgroundColor={grey27}
                                 customCopyIcon={whiteLinkIcon}
                                 isTrusted={isTrusted}
                                 marginBottom={descriptionPadding}
@@ -457,7 +468,7 @@ export const VideoDescription = ({
                     {/*</Column>*/}
                 </Section>
             </DescriptionWrapper>
-            <VideoCommentsWrapper marginRight={filterMargin}>
+            <VideoCommentsWrapper backgroundColor={grey29} marginRight={filterMargin}>
                 {commentsLoading ? (
                     <Section justifyCenter>
                         <Loader size="large" />

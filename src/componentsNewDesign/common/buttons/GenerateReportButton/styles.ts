@@ -8,7 +8,7 @@ import {
     buttonBorderRadius,
     buttonInnerTextFontWeight
 } from 'componentsNewDesign/common/buttons/SimpleButton/constants';
-import { black, white } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
@@ -21,7 +21,7 @@ export const StyledButton = styled.button`
     font-weight: ${buttonInnerTextFontWeight};
     cursor: pointer;
     color: ${white};
-    background-color: ${black};
+    background-color: transparent;
     border-radius: ${buttonBorderRadius};
     background-image: url(${borderImage});
     background-repeat: no-repeat;
