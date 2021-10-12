@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { ResetSearchButton } from 'componentsNewDesign/common/buttons/ResetButton';
 import { CheckboxFilter } from 'componentsNewDesign/common/inputs/CheckboxFilter';
 import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
@@ -86,6 +87,8 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
     const sortPostfix = useStore(videosStores.sortPostfix);
 
     const [queryParams, setQueryParams] = useQueryParams<VideosQueryParams>(updateQueryValues);
+
+    const isMd = useMediaQuery(`(max-width: 781px)`);
 
     const onIdSearch = (id: string) => {
         setId(id);
@@ -236,13 +239,13 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
                 <FlexGrow marginRight={filterMargin}>
                     <SearchInput searchParameters={searchParameters} />
                 </FlexGrow>
-                <Row alignCenter marginRight="20px">
+                <Row alignCenter marginRight="20px" marginTop={isMd ? '20px' : '0'}>
                     <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
                         Is trusted
                     </CheckboxFilter>
                 </Row>
             </SearchWrapperLayout>
-            <Section alignCenter justifyBetween /*noWrap*/>
+            <Section alignCenter /*noWrap*/>
                 <ComponentWrapper>
                     <Select
                         defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
@@ -259,7 +262,8 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
                         width={selectorWidth}
                         onChange={onSortChange}
                     />
-
+                </ComponentWrapper>
+                <ComponentWrapper>
                     <DateRangePicker
                         dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
                         onChange={onDateRangeClick}
