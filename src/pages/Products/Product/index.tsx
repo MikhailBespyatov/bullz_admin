@@ -16,7 +16,7 @@ import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { errorColor, white } from 'constants/styles/colors';
+import { errorColor, hoverGrey2, white } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
@@ -122,6 +122,7 @@ export const Product = () => {
                             <AdministratorLayout>
                                 <SimpleButton
                                     background={errorColor}
+                                    backgroundHover={hoverGrey2}
                                     borderRadius={buttonsBorderRadius}
                                     color={white}
                                     fontSize={buttonsFontSize}
