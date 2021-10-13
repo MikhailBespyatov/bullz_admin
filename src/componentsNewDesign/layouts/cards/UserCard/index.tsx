@@ -22,6 +22,7 @@ import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrappe
 import { defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
+import { darkError, grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { API } from 'services';
@@ -223,7 +224,12 @@ export const UserCard = ({
     };
 
     return (
-        <CardWrapper disabled={isDisabled} isSelected={copiedDataId === id} onClick={onCardClick} /*width="287px"*/>
+        <CardWrapper
+            backgroundColor={grey29}
+            disabled={isDisabled}
+            isSelected={copiedDataId === id}
+            onClick={onCardClick} /*width="287px"*/
+        >
             <Column height="100%">
                 <ContentWrapper minHeight="46px" padding="6px 16px" width="100%">
                     <Row alignCenter justifyBetween height="100%" width="100%">
@@ -285,6 +291,7 @@ export const UserCard = ({
                     <Section alignCenter justifyBetween height="100%">
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             // titleUppercase
                             customCopyIcon={whiteCopyIcon}
                             linkRoute={usersLink}
@@ -296,6 +303,7 @@ export const UserCard = ({
                         />
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             // titleUppercase
                             customCopyIcon={whiteCopyIcon}
                             marginBottom={propertyBlockMarginBottom}
@@ -306,6 +314,7 @@ export const UserCard = ({
                         />
                         <PropertyBlock
                             isDate
+                            backgroundColor={grey27}
                             // titleUppercase
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={utcCreated}
@@ -314,6 +323,7 @@ export const UserCard = ({
                         />
                         <PropertyBlock
                             isDate
+                            backgroundColor={grey27}
                             // titleUppercase
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={utcLastAuthentication}
@@ -321,6 +331,7 @@ export const UserCard = ({
                             width={propertyBlockHalfWidth}
                         />
                         <PropertyBlock
+                            backgroundColor={grey27}
                             // titleUppercase
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={location?.countryName || ''}
@@ -328,6 +339,7 @@ export const UserCard = ({
                             width={propertyBlockHalfWidth}
                         />
                         <PropertyBlock
+                            backgroundColor={grey27}
                             // titleUppercase
                             marginBottom={propertyBlockMarginBottom}
                             subtitle={location?.area?.region || ''}
@@ -372,7 +384,13 @@ export const UserCard = ({
                                 justifyBetween={access === Roles.Administrator || access === Roles.SuperAdministrator}
                                 justifyCenter={access !== Roles.Administrator && access !== Roles.SuperAdministrator}
                             >
-                                <CardButton width={cardButtonWidth} onClick={moreInfoHandleClick}>
+                                <CardButton
+                                    background={grey27}
+                                    backgroundHover={hoverGrey2}
+                                    color={grey7}
+                                    width={cardButtonWidth}
+                                    onClick={moreInfoHandleClick}
+                                >
                                     More Info
                                 </CardButton>
                                 {/* <RolesPopover
@@ -384,7 +402,13 @@ export const UserCard = ({
                                         <CardButton disabled={!assignedRoles.length}>Assign Role</CardButton>
                                     </RolesPopover> */}
                                 <AdministratorLayout>
-                                    <CardButton width={cardButtonWidth} onClick={() => callVerifyModal(!isTrusted)}>
+                                    <CardButton
+                                        background={grey27}
+                                        backgroundHover={hoverGrey2}
+                                        color={grey7}
+                                        width={cardButtonWidth}
+                                        onClick={() => callVerifyModal(!isTrusted)}
+                                    >
                                         {isTrusted ? 'Unverify' : 'Verify'}
                                     </CardButton>
                                 </AdministratorLayout>
@@ -398,6 +422,7 @@ export const UserCard = ({
                                         color="#ff3333"
                                         fontSize="14px"
                                         padding="6px 10px 16px"
+                                        textHover={darkError}
                                         width="80px"
                                         onClick={() => callDisableModal(!isDisabled)}
                                     >
