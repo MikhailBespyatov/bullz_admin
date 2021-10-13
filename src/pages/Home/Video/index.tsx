@@ -42,7 +42,7 @@ import { defaultLimit } from 'constants/defaults/filterSettings';
 import { Roles } from 'constants/defaults/users';
 import { defaultVideosValuesWithoutDate } from 'constants/defaults/videos';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { black, errorColor, grey26, grey29, hoverGrey2, white } from 'constants/styles/colors';
+import { black, errorColor, grey29, hoverGrey2, white } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { addDays } from 'date-fns';
 import { useStore } from 'effector-react';
@@ -375,7 +375,7 @@ export const Video = () => {
                                         </OverflowAutoLayout>
                                     )}
                                 </DropdownSection> */}
-                                <DropdownSection backgroundColor={grey26} title="Topic Videos">
+                                <DropdownSection title="Topic Videos">
                                     <ProductVideosFilterLayout totalRecords={totalRecords}>
                                         {productVideosLoading ? (
                                             <Section justifyCenter>
@@ -409,10 +409,7 @@ export const Video = () => {
                             <UserDescription {...user} />
                             <Section marginTop="20px">
                                 <DropdownColumn>
-                                    <DropdownSection
-                                        backgroundColor={grey26}
-                                        title={`User's Videos (${userVideos.totalRecords || 0})`}
-                                    >
+                                    <DropdownSection title={`User's Videos (${userVideos.totalRecords || 0})`}>
                                         {userVideosLoading ? (
                                             <Section justifyCenter marginBottom="20px">
                                                 <Loader size="large" />
