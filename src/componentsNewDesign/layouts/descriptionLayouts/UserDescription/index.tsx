@@ -43,6 +43,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { assignedUserRoles, assignedUserRolesForSuperAdmin, defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
+import { getRedirectUrlToWom } from 'constants/services';
 import { blue, errorColor, grey27, grey29, hoverGrey2, lightBlack, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { contentDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
@@ -288,6 +289,10 @@ export const UserDescription = ({
         });
     };
 
+    const onFindInWOM = () => {
+        window.open(getRedirectUrlToWom(id));
+    };
+
     return (
         <ContentWrapper backgroundColor={grey29} /*height="280px"*/ padding="16px 32px" /*width="1120px"*/>
             <Column width="100%">
@@ -305,6 +310,19 @@ export const UserDescription = ({
                         <TitleText>User info</TitleText>
                     </Row>
                     <Row alignCenter>
+                        <SuperAdministratorLayout>
+                            <MarginWrapper marginRight="8px">
+                                <CardButton
+                                    background={lightBlack}
+                                    backgroundHover={hoverGrey2}
+                                    color={blue}
+                                    textHover={white}
+                                    onClick={onFindInWOM}
+                                >
+                                    Find in WOM admin system
+                                </CardButton>
+                            </MarginWrapper>
+                        </SuperAdministratorLayout>
                         <AdministratorLayout>
                             <Column marginRight="8px">
                                 <GenerateReportButton onClick={() => userReportModal.openModal({ id })} />

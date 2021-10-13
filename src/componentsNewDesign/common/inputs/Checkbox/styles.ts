@@ -7,14 +7,14 @@ import { transitionTime } from 'constants/styles/others';
 import { borderWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-    display: flex;
-    justify-content: left;
-    align-items: center;
-`;
-
 export const Label = styled.label`
     ${flexCenter};
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`

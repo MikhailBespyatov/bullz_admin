@@ -1,9 +1,10 @@
 import checkmarkIcon from 'assets/checkmark_icon.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { checkMarkIconHeight, checkMarkIconWidth } from 'componentsNewDesign/common/inputs/Checkbox/constants';
-import { HiddenCheckbox, Label, VisibleCheckbox, Wrapper } from 'componentsNewDesign/common/inputs/Checkbox/styles';
+import { HiddenCheckbox, Label, VisibleCheckbox } from 'componentsNewDesign/common/inputs/Checkbox/styles';
 import { CheckboxProps } from 'componentsNewDesign/common/inputs/Checkbox/types';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
 import React, { useEffect, useState } from 'react';
 
@@ -28,8 +29,8 @@ export const BooleanCheckbox = ({
     useEffect(() => setChecked(defaultChecked), [defaultChecked]);
 
     return (
-        <Wrapper>
-            <Label>
+        <Label>
+            <MarginWrapper marginRight="4px">
                 <VisibleCheckbox checked={checked} disabled={disabled}>
                     <AbsoluteWrapper bottom="4px" left="2px">
                         <CustomImg
@@ -41,7 +42,8 @@ export const BooleanCheckbox = ({
                     </AbsoluteWrapper>
                 </VisibleCheckbox>
                 <HiddenCheckbox checked={checked} disabled={disabled} name={name} onChange={onCheckboxChange} />
-            </Label>
-        </Wrapper>
+            </MarginWrapper>
+            {name}
+        </Label>
     );
 };

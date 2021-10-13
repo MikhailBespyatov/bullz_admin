@@ -10,11 +10,13 @@ import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { black, grey23, white } from 'constants/styles/colors';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Active } from 'types/global';
 import { BorderProperties, MaxSizes, Padding, PaddingLeft, TextProperties, Visibility } from 'types/styles';
 
-export interface SelectWrapperProps extends Pick<Padding, 'padding'>, Pick<BorderProperties, 'border'> {}
+export interface SelectWrapperProps extends Pick<Padding, 'padding'>, Pick<BorderProperties, 'border'> {
+    disabled?: boolean;
+}
 
 export const SelectWrapper = styled(ContentWrapper)<SelectWrapperProps>`
     position: relative;
@@ -28,6 +30,13 @@ export const SelectWrapper = styled(ContentWrapper)<SelectWrapperProps>`
         background-color: ${grey23};
         cursor: pointer;
     }
+
+    ${({ disabled }) =>
+        disabled &&
+        css`
+            opacity: 0.5;
+            pointer-events: none;
+        `}
 
     @media (min-width: 1270px) {
         padding: ${({ padding }) => (padding ? padding : selectorRightPadding)};

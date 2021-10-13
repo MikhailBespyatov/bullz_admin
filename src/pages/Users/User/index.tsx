@@ -13,12 +13,12 @@ import { defaultUserVideosValuesWithoutDate, Roles } from 'constants/defaults/us
 import { filterMargin, padding } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/User/constants';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { statisticsEvents, statisticsStores } from 'stores/statistics/statistics';
 import { userStores } from 'stores/users/user';
 import { usersEffects, usersStores } from 'stores/users/users';
-import { userVideosEvents, userVideosStores } from 'stores/users/userVideos';
+import { userVideosEffects, userVideosEvents, userVideosStores } from 'stores/users/userVideos';
 //import { videosEvents } from 'stores/videos/videos';
 
 //const { updateValues, setIsFirstToTrue } = videosEvents;
@@ -32,6 +32,7 @@ export const User = () => {
     const { userId } = useParams<ParamsProps>();
     const user = useStore(usersStores.user);
     const loading = useStore(usersStores.loading);
+    const [checked, setChecked] = useState(false);
 
     // const videos = useStore(videosStores.videos);
     // const videosLoading = useStore(videosEffects.loadItems.pending);
@@ -63,6 +64,31 @@ export const User = () => {
                 userId: userId
             });
     }, [userId, access]);
+
+    useEffect(() => {
+        if (checked) {
+            userVideosEffects.loadItems({
+                creatorId: userId,
+                limit: 20,
+                pageIndex: 0,
+                returnQueryCount: true
+            });
+        } else {
+            userVideosEffects.loadItems({
+                creatorId: userId,
+                hasHlsStream: true,
+                isDeleted: false,
+                isReported: false,
+                limit: 20,
+                pageIndex: 0,
+                returnQueryCount: true
+            });
+        }
+    }, [userId, checked]);
+
+    const onChangeCheckbox = () => {
+        setChecked(!checked);
+    };
 
     return (
         <SingleMainLayout>
@@ -115,7 +141,12 @@ export const User = () => {
                                     <Loader size="large" />
                                 </Section>
                             ) : (
-                                <VideoCardFilterLayout totalRecords={userVideos.totalRecords}>
+                                <VideoCardFilterLayout
+                                    checkboxShowAll
+                                    defaultChecked={checked}
+                                    totalRecords={userVideos.totalRecords}
+                                    onChangeCheckbox={onChangeCheckbox}
+                                >
                                     <UserVideos videos={userVideos?.items || undefined} />
                                 </VideoCardFilterLayout>
                             )}

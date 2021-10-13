@@ -130,6 +130,7 @@ export const Select = ({
             paddingTop={title ? selectorRightPadding : paddingTop}
             onClick={visible ? close : openClick}
             {...wrapperStyles}
+            disabled={disabled}
         >
             <Column ref={selectRef} width="100%">
                 {title && (
