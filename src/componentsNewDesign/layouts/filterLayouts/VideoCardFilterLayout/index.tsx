@@ -1,4 +1,5 @@
 import { ResetSearchButton } from 'componentsNewDesign/common/buttons/ResetButton';
+import { BooleanCheckbox } from 'componentsNewDesign/common/inputs/Checkbox';
 import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { SortSelector } from 'componentsNewDesign/common/inputs/SortSelector';
@@ -18,15 +19,26 @@ import {
 } from 'constants/filters/sorts';
 import { useStore } from 'effector-react';
 import { sortName1, sortName3 } from 'pages/Home/constants';
+import { CheckboxWrapper } from 'pages/Users/User/styles';
 import React, { FC } from 'react';
 import { userVideosEvents, userVideosStores } from 'stores/users/userVideos';
 import { TotalRecords } from 'types/data';
 
 const { updateValues, setSortPostfix, setSortPrefix } = userVideosEvents;
 
-interface VideoCardFilterLayoutProps extends TotalRecords {}
+interface VideoCardFilterLayoutProps extends TotalRecords {
+    checkboxShowAll?: boolean;
+    onChangeCheckbox?: () => void;
+    defaultChecked?: boolean;
+}
 
-export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({ totalRecords, children }) => {
+export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
+    totalRecords,
+    checkboxShowAll,
+    onChangeCheckbox,
+    children,
+    defaultChecked
+}) => {
     const { pageIndex, limit, videoCurationState, fromCreatedDateTime, toCreatedDateTime, sort, creatorId } = useStore(
         userVideosStores.values
     );
@@ -114,6 +126,7 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({ totalRec
                 <ComponentWrapper>
                     <Select
                         defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
+                        disabled={defaultChecked}
                         selector={sortTagsValues}
                         title={sortTagsName + sortName1}
                         width={selectorWidth}
@@ -122,6 +135,7 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({ totalRec
 
                     <Select
                         defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
+                        disabled={defaultChecked}
                         selector={sortTagsCurationStateData}
                         title={sortTagsName + sortName3}
                         width={selectorWidth}
@@ -130,10 +144,25 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({ totalRec
 
                     <DateRangePicker
                         dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
+                        disabled={defaultChecked}
                         onChange={onDateRangeClick}
                     />
                 </ComponentWrapper>
                 <ComponentWrapper>
+                    {checkboxShowAll && (
+                        <CheckboxWrapper>
+                            <BooleanCheckbox
+                                defaultChecked={defaultChecked}
+                                name="Show all videos"
+                                onChange={() => {
+                                    resetFilters();
+                                    if (onChangeCheckbox) {
+                                        onChangeCheckbox();
+                                    }
+                                }}
+                            />
+                        </CheckboxWrapper>
+                    )}
                     <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
                     <ResetSearchButton onClick={resetFilters} />
                 </ComponentWrapper>
