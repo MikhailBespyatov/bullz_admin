@@ -22,6 +22,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { asyncError } from 'constants/notifications';
 import { productsLink, topicsLink } from 'constants/routes';
+import { darkError, grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { API } from 'services';
@@ -112,7 +113,7 @@ export const ProductCard = ({
     };
 
     return (
-        <CardWrapper isSelected={copiedDataId === id} onClick={onCardClick}>
+        <CardWrapper backgroundColor={grey29} isSelected={copiedDataId === id} onClick={onCardClick}>
             <Section
                 alignCenter
                 justifyCenter
@@ -146,6 +147,7 @@ export const ProductCard = ({
                     <Section alignCenter justifyBetween height="100%">
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             // titleUppercase
                             linkRoute={productsLink}
                             subtitle={id}
@@ -155,6 +157,7 @@ export const ProductCard = ({
                         />
                         <PropertyBlock
                             // titleUppercase
+                            backgroundColor={grey27}
                             subtitle={primaryReferenceCount.toString()}
                             title="Referenced count"
                             width={propertyBlockWidth}
@@ -175,7 +178,13 @@ export const ProductCard = ({
                                             Upload Image
                                         </CardButton>
                                     </UploadProductImgPopover> */}
-                                    <CardButton width="100%" onClick={moreInfoHandleClick}>
+                                    <CardButton
+                                        background={grey27}
+                                        backgroundHover={hoverGrey2}
+                                        color={grey7}
+                                        width="100%"
+                                        onClick={moreInfoHandleClick}
+                                    >
                                         More Info
                                     </CardButton>
                                 </Row>
@@ -201,6 +210,7 @@ export const ProductCard = ({
                                         color={deleteButtonTextColor}
                                         fontSize="14px"
                                         padding="6px 10px 16px"
+                                        textHover={darkError}
                                         width="80px"
                                         onClick={deleteHandleClick}
                                     >
