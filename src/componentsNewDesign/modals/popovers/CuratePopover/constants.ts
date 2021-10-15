@@ -13,9 +13,9 @@ export const popoverBorderRadius = contentWrapperBorderRadius;
 
 export const itemHeight = '55px';
 
-export const popoverHeight = '410px';
-export const popoverMinWidth = '265px';
-export const popoverMaxWidth = '420px';
+export const popoverHeight = '356px';
+export const popoverMinWidth = '264px';
+export const popoverMaxWidth = '265px';
 export const popoverDifference = parseInt(popoverMaxWidth) - parseInt(popoverMinWidth) + 'px';
 export const popoverExpansionValue = parseInt(popoverMaxWidth) - parseInt(popoverMinWidth);
 //to calculate the middle of the parent block popover
@@ -103,5 +103,9 @@ export const reasonRadioArray: Array<{
     {
         value: 11,
         data: 'Wrong Language'
+    },
+    {
+        value: 12,
+        data: 'Quality Guidelines'
     }
 ];

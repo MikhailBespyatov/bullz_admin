@@ -1441,7 +1441,7 @@ declare namespace YEAY {
      * curationEndedReason
      * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
      */
-    export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11; // int32
+    export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12; // int32
     /**
      * deleteManagedProductRequest
      */

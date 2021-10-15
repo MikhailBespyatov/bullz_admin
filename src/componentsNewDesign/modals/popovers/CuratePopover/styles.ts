@@ -12,7 +12,7 @@ import {
 } from 'componentsNewDesign/modals/popovers/CuratePopover/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { black, blue, grey13, grey25 } from 'constants/styles/colors';
+import { blue, grey13, grey24, grey27, grey28, grey31 } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { PopoverType } from 'types/data';
 import { Active } from 'types/global';
@@ -33,6 +33,7 @@ export const AgreementSpan = styled(Span)`
     font-weight: normal;
     font-size: 14px;
     color: ${grey13};
+    line-height: 173%;
 `;
 
 export const ItemSpan = styled(Span)`
@@ -45,14 +46,21 @@ export const ItemSpan = styled(Span)`
 `;
 
 export const ItemWrapper = styled(Row)<Active>`
-    width: 188px;
+    width: 232px;
     height: 30px;
     padding: 8px;
-    ${({ active }) => active && `background-color: ${black}`};
+    border-radius: 2px;
+    border-bottom: 1px solid ${grey28};
+    background: ${grey24};
+    ${({ active }) => active && `background-color: ${grey27}`};
     cursor: pointer;
 
     ${ItemSpan} {
         ${({ active }) => active && `color: ${blue}`};
+    }
+
+    &:hover {
+        background: ${grey31};
     }
 `;
 
@@ -61,7 +69,7 @@ export const ItemWrapper = styled(Row)<Active>`
 // }
 
 export const PopoverAbsoluteWrapper = styled(AbsoluteWrapper)`
-    background-color: ${grey25};
+    background-color: ${grey28};
     //min-width: ${popoverMinWidth};
     transform: translateX(${({ width }) => (width === popoverMinWidth ? '0' : '-' + popoverDifference)});
     height: ${popoverHeight};
@@ -82,11 +90,10 @@ export const PopoverArrow = styled(AbsoluteWrapper)<PopoverType>`
     border: ${popoverArrowHalfDiameter} solid transparent;
     border-bottom: ${popoverArrowHalfDiameter} solid ${popoverBackgroundColor};
     border-left: ${popoverArrowHalfDiameter} solid ${popoverBackgroundColor};
-    background: ${grey25};
 `;
 
 export const ContentWrapper = styled.div`
-    padding: 0 20px 10px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     flex-grow: 1;

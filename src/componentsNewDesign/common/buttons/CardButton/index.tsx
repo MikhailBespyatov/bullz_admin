@@ -37,14 +37,14 @@ export const CardButton: FC<UserCardButtonProps> = ({
 }) => (
     <SimpleButton
         background={background || grey23}
-        backgroundHover={backgroundHover}
+        backgroundHover={backgroundHover || 'none'}
         color={disabled ? disabledCardButtonTextColor : color}
         disabled={disabled}
         fontSize={cardButtonTextFontSize}
         height={cardButtonHeight}
         marginBottom={cardButtonMarginBottom}
         minWidth={width || cardButtonMinWidth}
-        textHover={textHover}
+        textHover={textHover || 'none'}
         width={width}
         onClick={disabled ? noop : onClick}
         {...props}

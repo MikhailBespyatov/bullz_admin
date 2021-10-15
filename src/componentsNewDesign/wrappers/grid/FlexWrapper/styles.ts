@@ -27,6 +27,7 @@ const Flex = styled.div<FlexProps>`
     ${({ marginLeft }) => marginLeft && `margin-left: ${marginLeft};`};
     ${({ margin }) => margin && `margin: ${margin};`};
     ${({ zIndex }) => zIndex !== undefined && `z-index: ${zIndex};`};
+    ${({ overflow }) => overflow && `overflow: ${overflow}`};
 `;
 
 export const Row = styled(Flex)`
