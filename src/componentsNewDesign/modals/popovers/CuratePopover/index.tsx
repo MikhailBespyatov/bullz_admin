@@ -14,7 +14,6 @@ import {
     calculatePopoverLeft,
     calculatePopoverTop,
     popoverHeight,
-    popoverMaxWidth,
     popoverMinWidth,
     reasonRadioArray
 } from 'componentsNewDesign/modals/popovers/CuratePopover/constants';
@@ -29,13 +28,13 @@ import {
     TitleWrapper
 } from 'componentsNewDesign/modals/popovers/CuratePopover/styles';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Column, FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { closeIconDiameter } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
 import { Roles } from 'constants/defaults/users';
 import { noop } from 'constants/functions';
-import { black } from 'constants/styles/colors';
+import { black, blue, errorColor, grey27, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { useCloseClick } from 'hooks/closeClick';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
@@ -147,7 +146,7 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
                         ref={popoverRef}
                         left={popoverLeft}
                         top={popoverTop}
-                        width={isAcceptPage ? popoverMinWidth : popoverMaxWidth}
+                        width={popoverMinWidth}
                     >
                         <TitleWrapper alignCenter justifyCenter>
                             <TitleSpan>{title}</TitleSpan>
@@ -167,16 +166,27 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
                         <ContentWrapper>
                             <Section justifyCenter marginBottom="20px">
                                 <MarginWrapper marginRight="10px">
-                                    <CardButton blocked={!isAcceptPage} onClick={setAcceptPage}>
+                                    <CardButton
+                                        background={grey27}
+                                        blocked={!isAcceptPage}
+                                        color={blue}
+                                        onClick={setAcceptPage}
+                                    >
                                         Accept
                                     </CardButton>
                                 </MarginWrapper>
-                                <CardButton blocked={isAcceptPage} type="secondary" onClick={setRejectPage}>
+                                <CardButton
+                                    background={errorColor}
+                                    blocked={isAcceptPage}
+                                    color={white}
+                                    type="secondary"
+                                    onClick={setRejectPage}
+                                >
                                     Reject
                                 </CardButton>
                             </Section>
                             {!isAcceptPage && visibleRejectsStatus && (
-                                <Section justifyCenter>
+                                <Column alignCenter noWrap height="129px" overflow="auto">
                                     {reasonRadioArray.map(({ value, data }) => (
                                         <ItemWrapper
                                             key={value}
@@ -188,15 +198,15 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
                                             <ItemSpan>{data}</ItemSpan>
                                         </ItemWrapper>
                                     ))}
-                                </Section>
+                                </Column>
                             )}
                             <FlexGrow justifyEnd flexGrow="1">
                                 {isAcceptPage && (
-                                    <FlexGrow alignCenter justifyCenter width="100%">
-                                        <CustomImg src={curateFiller} width="135px" />
+                                    <FlexGrow alignCenter justifyCenter marginLeft="-7px" width="100%">
+                                        <CustomImg src={curateFiller} width="65px" />
                                     </FlexGrow>
                                 )}
-                                <Section alignCenter justifyCenter noWrap marginBottom="10px">
+                                <Section alignCenter justifyCenter noWrap marginBottom="8px">
                                     <MarginWrapper marginRight="12px">
                                         <BooleanCheckbox defaultChecked={checked} onChange={setChecked} />
                                     </MarginWrapper>
@@ -204,6 +214,8 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
                                 </Section>
                                 <Section justifyCenter>
                                     <CardButton
+                                        background={grey27}
+                                        color={blue}
                                         disabled={
                                             !checked || loading || (!isAcceptPage && rejectStatus === acceptedStatus)
                                         }

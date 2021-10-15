@@ -43,7 +43,6 @@ export const BooleanCheckbox = ({
                 </VisibleCheckbox>
                 <HiddenCheckbox checked={checked} disabled={disabled} name={name} onChange={onCheckboxChange} />
             </MarginWrapper>
-            {name}
         </Label>
     );
 };

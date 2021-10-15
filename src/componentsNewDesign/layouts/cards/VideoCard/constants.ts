@@ -65,5 +65,6 @@ export const rejectionReasonText = {
     8: 'User Requested',
     9: 'Other',
     10: 'NotProductRecommendation',
-    11: 'WrongLanguage'
+    11: 'WrongLanguage',
+    12: 'Quality Guidelines'
 };
