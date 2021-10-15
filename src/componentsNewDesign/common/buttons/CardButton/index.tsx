@@ -4,6 +4,7 @@ import {
     cardButtonMinWidth,
     cardButtonTextFontSize,
     disabledCardButtonTextColor,
+    textColors,
     TextColorsType
 } from 'componentsNewDesign/common/buttons/CardButton/constants';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
@@ -38,7 +39,7 @@ export const CardButton: FC<UserCardButtonProps> = ({
     <SimpleButton
         background={background || grey23}
         backgroundHover={backgroundHover || 'none'}
-        color={disabled ? disabledCardButtonTextColor : color}
+        color={disabled ? disabledCardButtonTextColor : color ? color : textColors[type]}
         disabled={disabled}
         fontSize={cardButtonTextFontSize}
         height={cardButtonHeight}

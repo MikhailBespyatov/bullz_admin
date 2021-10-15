@@ -11,12 +11,14 @@ import React, { useEffect, useState } from 'react';
 interface Props extends CheckboxProps {
     onChange?: (checked: boolean) => void;
     name?: string;
+    showName?: boolean;
 }
 
 export const BooleanCheckbox = ({
     defaultChecked = false,
     disabled = false,
     onChange = noop,
+    showName = false,
     name = 'name'
 }: Props) => {
     const [checked, setChecked] = useState(defaultChecked);
@@ -43,6 +45,7 @@ export const BooleanCheckbox = ({
                 </VisibleCheckbox>
                 <HiddenCheckbox checked={checked} disabled={disabled} name={name} onChange={onCheckboxChange} />
             </MarginWrapper>
+            {showName && name}
         </Label>
     );
 };
