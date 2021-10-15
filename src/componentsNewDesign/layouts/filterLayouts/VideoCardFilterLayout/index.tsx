@@ -152,6 +152,7 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
                     {checkboxShowAll && (
                         <CheckboxWrapper>
                             <BooleanCheckbox
+                                showName
                                 defaultChecked={defaultChecked}
                                 name="Show all videos"
                                 onChange={() => {
