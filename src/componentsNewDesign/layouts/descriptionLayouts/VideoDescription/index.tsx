@@ -15,7 +15,6 @@ import {
 import {
     contentTextLineHeight,
     countTotalVideoCommentsQuantity,
-    formatDate,
     indicatorsArray,
     NameEngagementType,
     propertyBlockWidth,
@@ -180,6 +179,7 @@ export const VideoDescription = ({
     validation,
     isTrusted,
     commentsCount,
+    productLink,
     // * 0 = None; 1 = DeclineRequested; 2 = Inappropriate; 3 = GraphicContent; 4 = Violence; 5 = Copyright; 6 = TestVideo; 7 = IncorrectFormat; 8 = UserRequested; 9 = Other; 10 = NotProductRecommendation
     curationEndedReason = 0,
     thumbnailUrl,
@@ -304,7 +304,7 @@ export const VideoDescription = ({
                                 marginRight={descriptionPadding}
                                 subtitle={id}
                                 success="VideoID was copied"
-                                title="Copy videoID "
+                                title="VideoID "
                                 width={propertyBlockWidth}
                             />
 
@@ -317,7 +317,7 @@ export const VideoDescription = ({
                                 marginRight={descriptionPadding}
                                 subtitle={ownerId}
                                 success="UserID was copied"
-                                title="Copy userID"
+                                title="UserID"
                                 width={propertyBlockWidth}
                             />
 
@@ -327,9 +327,23 @@ export const VideoDescription = ({
                                 customCopyIcon={whiteLinkIcon}
                                 linkRoute={productsLink}
                                 marginBottom={descriptionPadding}
+                                marginRight={descriptionPadding}
                                 subtitle={primaryProductId}
                                 success="ProductID was copied"
-                                title="Copy productID"
+                                title="ProductID"
+                                width={propertyBlockWidth}
+                            />
+
+                            <PropertyBlock
+                                copiable
+                                isLink
+                                backgroundColor={grey27}
+                                customCopyIcon={whiteLinkIcon}
+                                linkRoute={productLink}
+                                marginBottom={descriptionPadding}
+                                subtitle={productLink}
+                                success="ProductLink was copied"
+                                title="ProductLink"
                                 width={propertyBlockWidth}
                             />
                         </Section>
@@ -339,7 +353,7 @@ export const VideoDescription = ({
                                 backgroundColor={grey27}
                                 marginBottom={descriptionPadding}
                                 marginRight={descriptionPadding}
-                                subtitle={formatDate(utcUploaded)}
+                                subtitle={utcUploaded as string}
                                 title="Date of Creation"
                                 width={propertyBlockWidth}
                             />
