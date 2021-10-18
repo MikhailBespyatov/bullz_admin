@@ -35,7 +35,6 @@ declare namespace YEAY {
         productLink?: string;
         userInfo?: BriefUserInfo;
     }
-
     export interface QueryAllVideosRequest {
         brandText?: string;
         creatorId?: string; // objectId
