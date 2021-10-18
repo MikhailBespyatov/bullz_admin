@@ -32,13 +32,14 @@ import { UserNickName } from 'componentsNewDesign/layouts/cards/VideoCard/styles
 import { CuratePopoverLayout } from 'componentsNewDesign/modals/popovers/CuratePopover';
 import { CardWrapper } from 'componentsNewDesign/wrappers/CardWrapper';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
+import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { darkError, grey23, grey27, grey29, grey30, grey4, grey7 } from 'constants/styles/colors';
+import { darkError, errorColor, grey23, grey27, grey29, grey30, grey4, grey7, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -48,6 +49,7 @@ import { modalEvents } from 'stores/modals/asyncModal';
 import { userStores } from 'stores/users/user';
 import { videosEffects } from 'stores/videos/videos';
 import { SubjectType } from 'types/types';
+import { getDiffDateMoreDateNow, triggerCopy } from 'utils/usefulFunctions';
 
 const { updateAsyncModalLoading } = modalEvents;
 
@@ -61,22 +63,23 @@ export interface Props extends YEAY.AdminGetVideoResponse {
     isBlocked?: boolean; // TODO have no end point yet
 }
 
-export const VideoCard = ({
-    id = '',
-    ownerId,
-    //primaryProductId,
-    streaming,
-    validation,
-    thumbnailUrl,
-    username,
-    engagementStatistics,
-    utcUploaded = '',
-    audioLanguages,
-    hashTags = [],
-    isBlocked, // TODO have no end point yet
-    isDeleted,
-    isTrusted
-}: Props) => {
+export const VideoCard = (video: Props) => {
+    const {
+        id = '',
+        ownerId,
+        //primaryProductId,
+        streaming,
+        validation,
+        thumbnailUrl,
+        username,
+        engagementStatistics,
+        utcUploaded = '',
+        audioLanguages,
+        hashTags = [],
+        isBlocked, // TODO have no end point yet
+        isDeleted,
+        isTrusted
+    } = video;
     const { access } = useStore(userStores.auth);
     const copiedDataId = useStore(copyStores.copiedDataId);
 
@@ -87,6 +90,11 @@ export const VideoCard = ({
     const curationState = validation?.bullz?.curationState;
     // *  0 = None; 1 = DeclineRequested; 2 = Inappropriate; 3 = GraphicContent; 4 = Violence; 5 = Copyright; 6 = TestVideo; 7 = IncorrectFormat; 8 = UserRequested; 9 = Other; 10 = NotProductRecommendation
     const curationEndedReason = validation?.yeay?.curationEndedReason || 0;
+    const showErrorButton =
+        getDiffDateMoreDateNow(utcUploaded) &&
+        streaming?.isReady === false &&
+        streaming?.details?.isReadyForStreaming === false &&
+        streaming?.details?.hlsUrl === '';
 
     const deleteOkHandler = async (subject: SubjectType) => {
         try {
@@ -132,6 +140,10 @@ export const VideoCard = ({
     const onCardClick = (e: MouseEvent) => {
         e.stopPropagation();
         copyEvents.setCopiedId(id);
+    };
+
+    const onErrorClick = () => {
+        triggerCopy(JSON.stringify(video));
     };
 
     return (
@@ -189,6 +201,7 @@ export const VideoCard = ({
                                 videoSrc={videoSrc || ''}
                                 width="100%"
                             />
+
                             {/*{!startLoading && videoSrc && hlsIsSupported && <PlayButton onClick={goLoading} />}*/}
                             {/*<Row alignCenter justifyCenter height="250px" maxWidth="345px" minWidth="100px">*/}
                             {/*    <Video*/}
@@ -200,6 +213,19 @@ export const VideoCard = ({
                             {/*        preload="metadata"*/}
                             {/*    />*/}
                             {/*</Row>*/}
+                            {showErrorButton && (
+                                <AbsoluteWrapper bottom="-33px" right="6px">
+                                    <SimpleButton
+                                        background={errorColor}
+                                        color={white}
+                                        height="25px"
+                                        width="50px"
+                                        onClick={onErrorClick}
+                                    >
+                                        ERROR
+                                    </SimpleButton>
+                                </AbsoluteWrapper>
+                            )}
                         </RelativeWrapper>
                     </ContentWrapper>
 

@@ -21,6 +21,7 @@ export const getLanguagesName = (array: string[]) => {
         if (!(array[i] && isoLanguageCodeRegExp.test(array[i]))) {
             continue;
         }
+
         stringOfLanguagesName += locale.getByTag(array[i]).name + ' ';
     }
 
@@ -311,4 +312,12 @@ export const getWOMValidationStage = (result: WOM.ValidationStage) => {
         case 3:
             return 'Held';
     }
+};
+
+export const getDiffDateMoreDateNow = (date: string) => {
+    const dayInMillisecond = 86400000;
+    const dateNowTime = new Date().getTime();
+    const dateBeforeTime = new Date(date).getTime();
+
+    return Math.abs(dateNowTime - dateBeforeTime) > dayInMillisecond;
 };
