@@ -32,7 +32,8 @@ declare namespace YEAY {
     }
 
     export interface AdminGetVideoResponse {
-        isDeleted?: boolean;
+        productLink?: string;
+        userInfo?: BriefUserInfo;
     }
 
     export interface QueryAllVideosRequest {
@@ -130,10 +131,6 @@ declare namespace YEAY {
     // export interface AdminGetUserResponse {
     //     profileImageUrl?: string;
     // }
-
-    export interface AdminGetVideoResponse {
-        profileImageUrl?: string;
-    }
 
     export interface PutManagedProductRequest {
         id: string;

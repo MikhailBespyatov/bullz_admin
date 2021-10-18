@@ -88,6 +88,7 @@ export interface PropertyBlockProps
     //titleUppercase?: boolean;
     backgroundColor?: string;
     customCopyIcon?: string;
+    isLink?: boolean;
 }
 
 export const PropertyBlock = ({
@@ -102,6 +103,7 @@ export const PropertyBlock = ({
     //titleUppercase,
     isTrusted,
     backgroundColor,
+    isLink,
     ...props
 }: PropertyBlockProps) => (
     <BlockWrapper backgroundColor={backgroundColor} {...props}>
@@ -128,6 +130,12 @@ export const PropertyBlock = ({
             <Section>
                 {isDate ? (
                     <DateContent>{subtitle}</DateContent>
+                ) : isLink ? (
+                    <BlockSubTitle color={white}>
+                        <a href={subtitle} target="blank">
+                            {subtitle}
+                        </a>
+                    </BlockSubTitle>
                 ) : (
                     <SubtitleIdLink id={subtitle} linkRoute={linkRoute}>
                         <BlockSubTitle color={white}>

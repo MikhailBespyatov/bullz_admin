@@ -71,6 +71,70 @@ declare namespace YEAY {
         regions?: string[] | null;
     }
     /**
+     * adminCurationInfoQueryRequest
+     */
+    export interface AdminCurationInfoQueryRequest {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        curatorUserId?: string | null; // objectId
+        /**
+         * nullable1
+         */
+        curationDate?: string | null; // date-time
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string | null; // objectId
+        /**
+         * int32
+         */
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
+    }
+    /**
+     * adminCurationInfoQueryResponse
+     */
+    export interface AdminCurationInfoQueryResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* curationInfo */ CurationInfo[] | null;
+    }
+    /**
      * adminDeleteTeamRequest
      */
     export interface AdminDeleteTeamRequest {
@@ -116,38 +180,6 @@ declare namespace YEAY {
          */
         facilitatorId?: string; // objectId
         /**
-         * string
-         * The title of the video.
-         */
-        title?: string | null;
-        /**
-         * string
-         * The brief description of the video.
-         */
-        subtitle?: string | null;
-        /**
-         * list1
-         * Ids of the secondary products. Each product should be already stored in the YEAY database.
-         */
-        secondaryProductIds?: string /* objectId */[] | null;
-        /**
-         * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
-         */
-        audioLanguages?: string /* string */[] | null;
-        /**
-         * objectId
-         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
-         * example:
-         * 000000000000000000000000
-         */
-        primaryProductId?: string; // objectId
-        /**
-         * tags
-         * List of video hash tags.
-         */
-        hashTags?: string /* string */[] | null;
-        /**
          * dateTime
          * The date and time when the video was uploaded.
          */
@@ -172,6 +204,44 @@ declare namespace YEAY {
          * Save status of video.
          */
         isSaved?: boolean;
+        /**
+         * boolean
+         * Product link of the video
+         */
+        isFollowed?: boolean;
+        /**
+         * string
+         * The title of the video.
+         */
+        title?: string | null;
+        /**
+         * string
+         * The brief description of the video.
+         */
+        subtitle?: string | null;
+        /**
+         * list1
+         * Ids of the secondary products. Each product should be already stored in the YEAY database.
+         */
+        secondaryProductIds?: string /* objectId */[] | null;
+        /**
+         * languageInfo
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
+         */
+        audioLanguages?: string /* string */[] | null;
+        /**
+         * objectId
+         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
+         * example:
+         * 000000000000000000000000
+         */
+        primaryProductId?: string; // objectId
+        /**
+         * tags
+         * List of video hash tags.
+         */
+        hashTags?: string /* string */[] | null;
     }
     /**
      * adminGetRegionsByCountryRequest
@@ -196,6 +266,22 @@ declare namespace YEAY {
          */
         teamId?: string; // objectId
         /**
+         * string
+         * URL to user's profile image.
+         */
+        profileImageUrl?: string | null;
+        /**
+         * int32
+         * Count of public videos
+         */
+        videoCount?: number; // int32
+        /**
+         * boolean
+         * Indicates if the user's account verified.
+         */
+        isAccountVerified?: boolean;
+        location?: /* location */ Location;
+        /**
          * dateTime
          * Account creation time.
          */
@@ -216,21 +302,9 @@ declare namespace YEAY {
          */
         username?: string | null;
         /**
-         * string
-         * URL to user's profile image.
-         */
-        profileImageUrl?: string | null;
-        /**
-         * int32
-         * Count of public videos
-         */
-        videoCount?: number; // int32
-        /**
          * boolean
-         * Indicates if the user's account verified.
          */
-        isAccountVerified?: boolean;
-        location?: /* location */ Location;
+        isTrusted?: boolean;
         /**
          * objectId
          * example:
@@ -283,10 +357,6 @@ declare namespace YEAY {
          */
         isFreeStakingEligible?: boolean;
         /**
-         * boolean
-         */
-        isTrusted?: boolean;
-        /**
          * roles
          */
         roles?: string /* string */[] | null;
@@ -308,6 +378,117 @@ declare namespace YEAY {
         id?: string; // objectId
     }
     /**
+     * adminGetUserResponse
+     */
+    export interface AdminGetUserResponse {
+        /**
+         * objectId
+         * The user's team id
+         * example:
+         * 000000000000000000000000
+         */
+        teamId?: string; // objectId
+        /**
+         * string
+         * URL to user's profile image.
+         */
+        profileImageUrl?: string | null;
+        /**
+         * int32
+         * Count of public videos
+         */
+        videoCount?: number; // int32
+        /**
+         * boolean
+         * Indicates if the user's account verified.
+         */
+        isAccountVerified?: boolean;
+        location?: /* location */ Location;
+        /**
+         * dateTime
+         * Account creation time.
+         */
+        utcCreated?: string; // date-time
+        /**
+         * dateTime
+         * Last account update time.
+         */
+        utcUpdated?: string; // date-time
+        /**
+         * dateTime
+         * Last account authentication time.
+         */
+        utcLastAuthentication?: string; // date-time
+        /**
+         * string
+         * The name of the user.
+         */
+        username?: string | null;
+        /**
+         * boolean
+         */
+        isTrusted?: boolean;
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        facilitatorId?: string; // objectId
+        /**
+         * string
+         */
+        firstName?: string | null;
+        /**
+         * string
+         */
+        lastName?: string | null;
+        /**
+         * string
+         */
+        country?: string | null;
+        gender?: /**
+         * userGender
+         * Represents a gender of a user.<br/><br/>Values:<br/>0 = NotGiven<br/>1 = Male<br/>2 = Female<br/>3 = NonBinary
+         */
+        UserGender /* int32 */;
+        /**
+         * dateTime
+         */
+        dateOfBirth?: string; // date-time
+        /**
+         * string
+         */
+        primaryLanguage?: string | null;
+        /**
+         * cultureInfo
+         * example:
+         * en-GB
+         */
+        locale?: string | null; // string
+        /**
+         * int32
+         */
+        freeStakingRemaining?: number; // int32
+        /**
+         * boolean
+         */
+        isFreeStakingEligible?: boolean;
+        /**
+         * roles
+         */
+        roles?: string /* string */[] | null;
+        /**
+         * boolean
+         */
+        isDisabled?: boolean;
+    }
+    /**
      * adminGetVideoResponse
      */
     export interface AdminGetVideoResponse {
@@ -320,11 +501,6 @@ declare namespace YEAY {
         ownerId?: string; // objectId
         /**
          * string
-         * Name of the user
-         */
-        username?: string | null;
-        /**
-         * string
          * Link to user's profile image.
          */
         profileImageUrl?: string | null;
@@ -333,11 +509,6 @@ declare namespace YEAY {
          * True if user is trusted
          */
         isTrusted?: boolean;
-        /**
-         * string
-         * Primary product brand
-         */
-        primaryProductBrand?: string | null;
         /**
          * string
          * Screen grab url
@@ -364,6 +535,21 @@ declare namespace YEAY {
          * Is video deleted
          */
         isDeleted?: boolean;
+        userInfo?: /* videoUserInfo */ VideoUserInfo;
+        /**
+         * boolean
+         */
+        isPublic?: boolean;
+        /**
+         * string
+         * Name of the user
+         */
+        username?: string | null;
+        /**
+         * string
+         * Primary product brand
+         */
+        primaryProductBrand?: string | null;
         /**
          * objectId
          * The id of the video.
@@ -378,38 +564,6 @@ declare namespace YEAY {
          * 000000000000000000000000
          */
         facilitatorId?: string; // objectId
-        /**
-         * string
-         * The title of the video.
-         */
-        title?: string | null;
-        /**
-         * string
-         * The brief description of the video.
-         */
-        subtitle?: string | null;
-        /**
-         * list1
-         * Ids of the secondary products. Each product should be already stored in the YEAY database.
-         */
-        secondaryProductIds?: string /* objectId */[] | null;
-        /**
-         * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
-         */
-        audioLanguages?: string /* string */[] | null;
-        /**
-         * objectId
-         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
-         * example:
-         * 000000000000000000000000
-         */
-        primaryProductId?: string; // objectId
-        /**
-         * tags
-         * List of video hash tags.
-         */
-        hashTags?: string /* string */[] | null;
         /**
          * dateTime
          * The date and time when the video was uploaded.
@@ -435,6 +589,44 @@ declare namespace YEAY {
          * Save status of video.
          */
         isSaved?: boolean;
+        /**
+         * boolean
+         * Product link of the video
+         */
+        isFollowed?: boolean;
+        /**
+         * string
+         * The title of the video.
+         */
+        title?: string | null;
+        /**
+         * string
+         * The brief description of the video.
+         */
+        subtitle?: string | null;
+        /**
+         * list1
+         * Ids of the secondary products. Each product should be already stored in the YEAY database.
+         */
+        secondaryProductIds?: string /* objectId */[] | null;
+        /**
+         * languageInfo
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
+         */
+        audioLanguages?: string /* string */[] | null;
+        /**
+         * objectId
+         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
+         * example:
+         * 000000000000000000000000
+         */
+        primaryProductId?: string; // objectId
+        /**
+         * tags
+         * List of video hash tags.
+         */
+        hashTags?: string /* string */[] | null;
     }
     /**
      * adminQueryPostsRequest
@@ -497,7 +689,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -507,6 +699,10 @@ declare namespace YEAY {
      * adminUpdateUserRequest
      */
     export interface AdminUpdateUserRequest {
+        /**
+         * boolean
+         */
+        isTrusted?: boolean;
         /**
          * objectId
          * example:
@@ -558,10 +754,6 @@ declare namespace YEAY {
          * boolean
          */
         isFreeStakingEligible?: boolean;
-        /**
-         * boolean
-         */
-        isTrusted?: boolean;
         /**
          * roles
          */
@@ -698,6 +890,10 @@ declare namespace YEAY {
          */
         region?: string | null;
     }
+    /**
+     * authenticateWebRecorderRequest
+     */
+    export interface AuthenticateWebRecorderRequest {}
     /**
      * authenticateWithTokenRequest
      */
@@ -1067,7 +1263,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -1077,11 +1273,6 @@ declare namespace YEAY {
      * createPlaylistRequest
      */
     export interface CreatePlaylistRequest {
-        /**
-         * boolean
-         * If set, will return query performance metrics.
-         */
-        returnQueryPerformanceMetrics?: boolean;
         /**
          * string
          * LEFT FOR OLD VERSIONS. USE playlist/query-videos. Filter playlist by a hashtag.
@@ -1094,6 +1285,11 @@ declare namespace YEAY {
          * 000000000000000000000000
          */
         byProductId?: string | null; // objectId
+        /**
+         * boolean
+         * If set, will return query performance metrics.
+         */
+        returnQueryPerformanceMetrics?: boolean;
         /**
          * int32
          */
@@ -1175,6 +1371,37 @@ declare namespace YEAY {
          * string
          */
         pageLocation?: string | null;
+    }
+    /**
+     * createPromotionResponse
+     */
+    export interface CreatePromotionResponse {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * list1
+         */
+        userAgeRanges?: /* ageRange */ AgeRange[] | null;
+        /**
+         * list1
+         */
+        userGenders?: /**
+         * userGender
+         * Represents a gender of a user.<br/><br/>Values:<br/>0 = NotGiven<br/>1 = Male<br/>2 = Female<br/>3 = NonBinary
+         */
+        UserGender /* int32 */[] | null;
+        /**
+         * list1
+         */
+        location?: string[] | null;
+        /**
+         * string
+         */
+        pageRoute?: string | null;
     }
     /**
      * createSavedVideoRequest
@@ -1339,7 +1566,8 @@ declare namespace YEAY {
         productId?: string; // objectId
         /**
          * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
          */
         spokenLanguages?: string /* string */[] | null;
         /**
@@ -1356,6 +1584,11 @@ declare namespace YEAY {
          * Can be set just by trusted user
          */
         isExclusive?: boolean;
+        /**
+         * string
+         * Can be set just from web recorder
+         */
+        facilitatorOrganizationId?: string | null;
     }
     /**
      * createVideoResponse
@@ -1405,6 +1638,11 @@ declare namespace YEAY {
          * 000000000000000000000000
          */
         id?: string; // objectId
+        streamDetails?: /* videoStreamDetails */ VideoStreamDetails;
+        /**
+         * boolean
+         */
+        isLegacy?: boolean;
         /**
          * string
          */
@@ -1431,17 +1669,41 @@ declare namespace YEAY {
          * tags
          */
         hashTags?: string /* string */[] | null;
-        streamDetails?: /* videoStreamDetails */ VideoStreamDetails;
-        /**
-         * boolean
-         */
-        isLegacy?: boolean;
     }
     /**
      * curationEndedReason
-     * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+     * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance
+     * reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
      */
     export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12; // int32
+    /**
+     * curationInfo
+     */
+    export interface CurationInfo {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        curatorUserId?: string; // objectId
+        /**
+         * dateTime
+         */
+        curationDate?: string; // date-time
+        curationReason?: /**
+         * curationEndedReason
+         * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance
+         * reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
+         */
+        CurationEndedReason /* int32 */;
+        curationState?: /**
+         * videoCurationState
+         * <br/><br/>Values:<br/>0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
+         */
+        VideoCurationState /* int32 */;
+        user?: /* adminGetUserResponse */ AdminGetUserResponse;
+        video?: /* adminGetVideoResponse */ AdminGetVideoResponse;
+    }
     /**
      * deleteManagedProductRequest
      */
@@ -1533,7 +1795,7 @@ declare namespace YEAY {
         /**
          * boolean
          */
-        readonly isSuccess?: boolean;
+        isSuccess?: boolean;
         loggingLevel?: /**
          * logLevel
          * <br/><br/>Values:<br/>0 = Trace<br/>1 = Debug<br/>2 = Information<br/>3 = Warning<br/>4 = Error<br/>5 = Critical<br/>6 = None
@@ -1542,7 +1804,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly message?: string | null;
+        message?: string | null;
     }
     /**
      * error404NotFoundResponse
@@ -1551,7 +1813,7 @@ declare namespace YEAY {
         /**
          * boolean
          */
-        readonly isSuccess?: boolean;
+        isSuccess?: boolean;
         loggingLevel?: /**
          * logLevel
          * <br/><br/>Values:<br/>0 = Trace<br/>1 = Debug<br/>2 = Information<br/>3 = Warning<br/>4 = Error<br/>5 = Critical<br/>6 = None
@@ -1560,7 +1822,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly message?: string | null;
+        message?: string | null;
     }
     /**
      * error409ConflictResponse
@@ -1569,7 +1831,7 @@ declare namespace YEAY {
         /**
          * boolean
          */
-        readonly isSuccess?: boolean;
+        isSuccess?: boolean;
         loggingLevel?: /**
          * logLevel
          * <br/><br/>Values:<br/>0 = Trace<br/>1 = Debug<br/>2 = Information<br/>3 = Warning<br/>4 = Error<br/>5 = Critical<br/>6 = None
@@ -1578,7 +1840,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly message?: string | null;
+        message?: string | null;
     }
     /**
      * existenceResponse
@@ -1621,11 +1883,9 @@ declare namespace YEAY {
          */
         location?: string[] | null;
         /**
-         * objectId
-         * example:
-         * 000000000000000000000000
+         * string
          */
-        icon?: string; // objectId
+        icon?: string | null;
         /**
          * boolean
          */
@@ -1834,7 +2094,7 @@ declare namespace YEAY {
          * list1
          * Product UPC.
          */
-        readonly upcCodes?: string[] | null;
+        upcCodes?: string[] | null;
         /**
          * string
          * User specified name of the product.
@@ -2012,7 +2272,8 @@ declare namespace YEAY {
         barcode: string;
         /**
          * boolean
-         * Indicates whether a new product should be created by querying 3rd party barcode API in case the barcode does not exist in the YEAY database.
+         * Indicates whether a new product should be created by querying 3rd party barcode API in case the barcode does not
+         * exist in the YEAY database.
          */
         createNew: boolean;
     }
@@ -2042,7 +2303,12 @@ declare namespace YEAY {
          * list1
          * Product UPC.
          */
-        readonly upcCodes?: string[] | null;
+        upcCodes?: string[] | null;
+        /**
+         * string
+         * The URL of product image.
+         */
+        imageUrl?: string | null;
         /**
          * string
          * User specified name of the product.
@@ -2078,11 +2344,6 @@ declare namespace YEAY {
          * Product hash tags.
          */
         hashTags?: string /* string */[] | null;
-        /**
-         * string
-         * The URL of product image.
-         */
-        imageUrl?: string | null;
     }
     /**
      * getProductsByNameRequest
@@ -2119,7 +2380,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -2456,7 +2717,6 @@ declare namespace YEAY {
          * string
          */
         bio?: string | null;
-        team?: /* teamInfoResponse */ TeamInfoResponse;
         /**
          * nullable1
          * example:
@@ -2495,6 +2755,7 @@ declare namespace YEAY {
          * string
          */
         profileImageUrl?: string | null;
+        team?: /* teamInfoResponse */ TeamInfoResponse;
     }
     /**
      * getUserResponse
@@ -2506,7 +2767,6 @@ declare namespace YEAY {
          * 000000000000000000000000
          */
         userId: string; // objectId
-        team?: /* teamInfoResponse */ TeamInfoResponse;
         ownedTeam?: /* teamOwnerInfoResponse */ TeamOwnerInfoResponse;
         /**
          * string
@@ -2519,7 +2779,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly fullName?: string | null;
+        fullName?: string | null;
         /**
          * int32
          */
@@ -2555,6 +2815,7 @@ declare namespace YEAY {
          * nullable1
          */
         dateOfBirth?: string | null; // date-time
+        team?: /* teamInfoResponse */ TeamInfoResponse;
         /**
          * dateTime
          */
@@ -2650,38 +2911,6 @@ declare namespace YEAY {
          */
         facilitatorId?: string; // objectId
         /**
-         * string
-         * The title of the video.
-         */
-        title?: string | null;
-        /**
-         * string
-         * The brief description of the video.
-         */
-        subtitle?: string | null;
-        /**
-         * list1
-         * Ids of the secondary products. Each product should be already stored in the YEAY database.
-         */
-        secondaryProductIds?: string /* objectId */[] | null;
-        /**
-         * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
-         */
-        audioLanguages?: string /* string */[] | null;
-        /**
-         * objectId
-         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
-         * example:
-         * 000000000000000000000000
-         */
-        primaryProductId?: string; // objectId
-        /**
-         * tags
-         * List of video hash tags.
-         */
-        hashTags?: string /* string */[] | null;
-        /**
          * dateTime
          * The date and time when the video was uploaded.
          */
@@ -2706,6 +2935,44 @@ declare namespace YEAY {
          * Save status of video.
          */
         isSaved?: boolean;
+        /**
+         * boolean
+         * Product link of the video
+         */
+        isFollowed?: boolean;
+        /**
+         * string
+         * The title of the video.
+         */
+        title?: string | null;
+        /**
+         * string
+         * The brief description of the video.
+         */
+        subtitle?: string | null;
+        /**
+         * list1
+         * Ids of the secondary products. Each product should be already stored in the YEAY database.
+         */
+        secondaryProductIds?: string /* objectId */[] | null;
+        /**
+         * languageInfo
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
+         */
+        audioLanguages?: string /* string */[] | null;
+        /**
+         * objectId
+         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
+         * example:
+         * 000000000000000000000000
+         */
+        primaryProductId?: string; // objectId
+        /**
+         * tags
+         * List of video hash tags.
+         */
+        hashTags?: string /* string */[] | null;
     }
     /**
      * getVideoMetaRequest
@@ -2867,7 +3134,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -2888,7 +3155,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly message?: string | null;
+        message?: string | null;
         /**
          * boolean
          */
@@ -2975,6 +3242,15 @@ declare namespace YEAY {
         urlName?: string | null;
     }
     /**
+     * jwtTokenResponse
+     */
+    export interface JwtTokenResponse {
+        /**
+         * string
+         */
+        token?: string | null;
+    }
+    /**
      * leaveTeamRequest
      */
     export interface LeaveTeamRequest {
@@ -3053,7 +3329,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly message?: string | null;
+        message?: string | null;
         /**
          * boolean
          */
@@ -3120,11 +3396,6 @@ declare namespace YEAY {
      * playlistSingleVideoResponse
      */
     export interface PlaylistSingleVideoResponse {
-        /**
-         * boolean
-         * Is followed user.
-         */
-        isFollowed?: boolean;
         /**
          * objectId
          * [OBSOLETE] Will be removed when front-end is switched to PrimaryProduct field.
@@ -3196,7 +3467,8 @@ declare namespace YEAY {
         primaryProduct?: /* affiliateProductResponse */ AffiliateProductResponse;
         /**
          * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
          */
         audioLanguages?: string /* string */[] | null;
         /**
@@ -3214,6 +3486,11 @@ declare namespace YEAY {
         isWithoutValidation?: boolean;
         engagementUser?: /* playlistVideoUserEngagement */ PlaylistVideoUserEngagement;
         videoTeamExclusivityInfo?: /* videoExclusivityResponse */ VideoExclusivityResponse;
+        /**
+         * boolean
+         * Owner of video is followed or not.
+         */
+        isFollowed?: boolean;
     }
     /**
      * playlistVideoResponse
@@ -3289,7 +3566,8 @@ declare namespace YEAY {
         primaryProduct?: /* affiliateProductResponse */ AffiliateProductResponse;
         /**
          * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
          */
         audioLanguages?: string /* string */[] | null;
         /**
@@ -3307,6 +3585,11 @@ declare namespace YEAY {
         isWithoutValidation?: boolean;
         engagementUser?: /* playlistVideoUserEngagement */ PlaylistVideoUserEngagement;
         videoTeamExclusivityInfo?: /* videoExclusivityResponse */ VideoExclusivityResponse;
+        /**
+         * boolean
+         * Owner of video is followed or not.
+         */
+        isFollowed?: boolean;
     }
     /**
      * playlistVideoUserEngagement
@@ -3452,7 +3735,12 @@ declare namespace YEAY {
          * list1
          * Product UPC.
          */
-        readonly upcCodes?: string[] | null;
+        upcCodes?: string[] | null;
+        /**
+         * string
+         * The URL of product image.
+         */
+        imageUrl?: string | null;
         /**
          * string
          * User specified name of the product.
@@ -3488,11 +3776,6 @@ declare namespace YEAY {
          * Product hash tags.
          */
         hashTags?: string /* string */[] | null;
-        /**
-         * string
-         * The URL of product image.
-         */
-        imageUrl?: string | null;
     }
     /**
      * productsResponse
@@ -3519,7 +3802,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -3605,7 +3888,7 @@ declare namespace YEAY {
          * list1
          * Product UPC.
          */
-        readonly upcCodes?: string[] | null;
+        upcCodes?: string[] | null;
         /**
          * string
          * The URL of product image.
@@ -3659,7 +3942,7 @@ declare namespace YEAY {
          * list1
          * Product UPC.
          */
-        readonly upcCodes?: string[] | null;
+        upcCodes?: string[] | null;
         /**
          * string
          * User specified name of the product.
@@ -3738,7 +4021,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -3802,7 +4085,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -3955,6 +4238,11 @@ declare namespace YEAY {
         isDeleted?: boolean | null;
         /**
          * nullable1
+         * Filter videos by public state.
+         */
+        isPublic?: boolean | null;
+        /**
+         * nullable1
          * Filter videos by HLS stream.
          */
         hasHlsStream?: boolean | null;
@@ -4034,6 +4322,11 @@ declare namespace YEAY {
          */
         region?: string | null;
         /**
+         * nullable1
+         * Filter user by owner disable or enabled
+         */
+        isOwnerDisabled?: boolean | null;
+        /**
          * int32
          */
         pageIndex: number; // int32
@@ -4071,7 +4364,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4125,7 +4418,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4200,7 +4493,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4330,7 +4623,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4432,7 +4725,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4463,7 +4756,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4496,7 +4789,8 @@ declare namespace YEAY {
         isBrandSet?: boolean | null;
         /**
          * nullable1
-         * If set to true, returns products which are referenced by videos more than 0 time. If set to Null, this field is not used in search.
+         * If set to true, returns products which are referenced by videos more than 0 time. If set to Null, this field is not
+         * used in search.
          */
         isReferenced?: boolean | null;
         /**
@@ -4552,7 +4846,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4598,7 +4892,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4646,7 +4940,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4744,7 +5038,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4791,7 +5085,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4940,7 +5234,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -4993,7 +5287,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5048,7 +5342,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5088,7 +5382,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5141,7 +5435,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5233,7 +5527,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5264,7 +5558,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5272,7 +5566,8 @@ declare namespace YEAY {
     }
     /**
      * queryVideoStatisticsRequest
-     * This will help to get video-event aggregation statistics by quering on event streams by passing UserId/VideoId to track the suspicious activities
+     * This will help to get video-event aggregation statistics by quering on event streams by passing UserId/VideoId to
+     * track the suspicious activities
      */
     export interface QueryVideoStatisticsRequest {
         /**
@@ -5417,7 +5712,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5471,7 +5766,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5545,7 +5840,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly returnedRecords?: number; // int32
+        returnedRecords?: number; // int32
         /**
          * list1
          */
@@ -5575,7 +5870,8 @@ declare namespace YEAY {
         liked?: boolean | null;
         /**
          * nullable1
-         * True if the user has viewed the video and this view should be counted. False or null if views count should not be changed.
+         * True if the user has viewed the video and this view should be counted. False or null if views count should not be
+         * changed.
          */
         viewed?: boolean | null;
         /**
@@ -5585,7 +5881,8 @@ declare namespace YEAY {
         viewDurationPercentage?: number | null; // double
         /**
          * nullable1
-         * [OBSOLETE: Use SharedCount instead. Left for backward compatibility] True if the user has shared the video and this share should be counted. False or null if share count should not be changed.
+         * [OBSOLETE: Use SharedCount instead. Left for backward compatibility] True if the user has shared the video and this
+         * share should be counted. False or null if share count should not be changed.
          */
         shared?: boolean | null;
         /**
@@ -5599,7 +5896,8 @@ declare namespace YEAY {
         saved?: boolean | null;
         /**
          * nullable1
-         * True if the user has clicked the video and this click should be counted. False or null if clicks count should not be changed.
+         * True if the user has clicked the video and this click should be counted. False or null if clicks count should not
+         * be changed.
          */
         clicked?: boolean | null;
         /**
@@ -5781,7 +6079,7 @@ declare namespace YEAY {
         /**
          * string
          */
-        readonly mobileNumberE164?: string | null;
+        mobileNumberE164?: string | null;
     }
     /**
      * simulatedDataRequest
@@ -5865,7 +6163,8 @@ declare namespace YEAY {
         isApproved?: boolean;
         reason?: /**
          * curationEndedReason
-         * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+         * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance
+         * reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
          */
         CurationEndedReason /* int32 */;
     }
@@ -6019,7 +6318,8 @@ declare namespace YEAY {
         primaryProduct?: /* affiliateProductResponse */ AffiliateProductResponse;
         /**
          * languageInfo
-         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
+         * List of languages which are spoken in this video. Empty array means that video is not language specific and can be
+         * targeted to all users.
          */
         audioLanguages?: string /* string */[] | null;
         /**
@@ -6037,6 +6337,11 @@ declare namespace YEAY {
         isWithoutValidation?: boolean;
         engagementUser?: /* playlistVideoUserEngagement */ PlaylistVideoUserEngagement;
         videoTeamExclusivityInfo?: /* videoExclusivityResponse */ VideoExclusivityResponse;
+        /**
+         * boolean
+         * Owner of video is followed or not.
+         */
+        isFollowed?: boolean;
     }
     /**
      * trendingType
@@ -6296,6 +6601,12 @@ declare namespace YEAY {
          * example:
          * 000000000000000000000000
          */
+        facilitatorId?: string; // objectId
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
         id?: string; // objectId
         /**
          * objectId
@@ -6303,12 +6614,6 @@ declare namespace YEAY {
          * 000000000000000000000000
          */
         ownerId?: string; // objectId
-        /**
-         * objectId
-         * example:
-         * 000000000000000000000000
-         */
-        facilitatorId?: string; // objectId
         /**
          * string
          */
@@ -6453,11 +6758,6 @@ declare namespace YEAY {
         dateOfBirth?: string | null; // date-time
         /**
          * string
-         * The locale string of newly created user (xx-YY, e.g. 'en-GB').
-         */
-        locale?: string | null;
-        /**
-         * string
          * The standard which is used to encode the Locale field (supported: 'ISO639').
          */
         localeStandard?: string | null;
@@ -6473,6 +6773,11 @@ declare namespace YEAY {
         acceptLicense?: boolean;
         /**
          * string
+         * The locale string of newly created user (xx-YY, e.g. 'en-GB').
+         */
+        locale?: string | null;
+        /**
+         * string
          */
         password: string;
     }
@@ -6482,14 +6787,14 @@ declare namespace YEAY {
     export interface UserCreateAnonymousAccountRequest {
         /**
          * string
-         * The locale string of newly created user.
-         */
-        locale: string;
-        /**
-         * string
          * The standard which is used to encode the Locale field (supported: 'ISO639').
          */
         localeStandard?: string | null;
+        /**
+         * string
+         * The locale string of newly created user.
+         */
+        locale: string;
     }
     /**
      * userFollowHashTagRequest
@@ -6819,7 +7124,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly total?: number; // int32
+        total?: number; // int32
     }
     /**
      * videoDetailsEngagementDeltas
@@ -6891,7 +7196,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly total?: number; // int32
+        total?: number; // int32
     }
     /**
      * videoDetailsMeta
@@ -7248,7 +7553,7 @@ declare namespace YEAY {
         /**
          * int32
          */
-        readonly week?: number; // int32
+        week?: number; // int32
         /**
          * int32
          */
@@ -7493,7 +7798,8 @@ declare namespace YEAY {
         VideoCurationState /* int32 */;
         curationEndedReason?: /**
          * curationEndedReason
-         * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+         * YEAY video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance
+         * reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
          */
         CurationEndedReason /* int32 */;
         reportedReason?: /**
@@ -7504,11 +7810,110 @@ declare namespace YEAY {
     }
 }
 declare namespace Paths {
+    namespace AdminCurationCurationInfoQuery {
+        namespace Post {
+            export type RequestBody = /* adminCurationInfoQueryRequest */ Components.Schemas.AdminCurationInfoQueryRequest;
+            namespace Responses {
+                export type $200 = /* adminCurationInfoQueryResponse */ Components.Schemas.AdminCurationInfoQueryResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminLocationQueryCountries {
+        namespace Post {
+            export type RequestBody = /* adminGetCountriesRequest */ Components.Schemas.AdminGetCountriesRequest;
+            namespace Responses {
+                export type $200 = /* adminAllCountriesResponse */ Components.Schemas.AdminAllCountriesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminLocationQueryRegions {
+        namespace Post {
+            export type RequestBody = /* adminGetRegionsByCountryRequest */ Components.Schemas.AdminGetRegionsByCountryRequest;
+            namespace Responses {
+                export type $200 = /* adminAllRegionsByCountryResponse */ Components.Schemas.AdminAllRegionsByCountryResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminPromotionCreate {
+        namespace Post {
+            export type RequestBody = /* createPromotionRequest */ Components.Schemas.CreatePromotionRequest;
+            namespace Responses {
+                export type $200 = /* createPromotionResponse */ Components.Schemas.CreatePromotionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace AdminPromotionQuery {
+        namespace Post {
+            export type RequestBody = /* queryAdminPromotionRequest */ Components.Schemas.QueryAdminPromotionRequest;
+            namespace Responses {
+                export type $200 = /* queryAdminPromotionResponse */ Components.Schemas.QueryAdminPromotionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace AdminPromotionUpdate {
+        namespace Post {
+            export type RequestBody = /* updateAdminPromotionRequest */ Components.Schemas.UpdateAdminPromotionRequest;
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace AdminPromotionUploadIcon$Id {
+        namespace Post {
+            namespace Parameters {
+                /**
+                 * string
+                 */
+                export type Id = string;
+            }
+            export interface PathParameters {
+                id: /* string */ Parameters.Id;
+            }
+            export interface RequestBody {
+                /**
+                 * IFormFile
+                 */
+                file: string; // binary
+            }
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
     namespace AdminTeamDeleteTeam {
         namespace Post {
             export type RequestBody = /* adminDeleteTeamRequest */ Components.Schemas.AdminDeleteTeamRequest;
             namespace Responses {
                 export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace AdminTeamQuery {
+        namespace Post {
+            export type RequestBody = /* queryAdminTeamsRequest */ Components.Schemas.QueryAdminTeamsRequest;
+            namespace Responses {
+                export type $200 = /* queryAdminTeamsResponse */ Components.Schemas.QueryAdminTeamsResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
@@ -7598,6 +8003,16 @@ declare namespace Paths {
             }
         }
     }
+    namespace AdminUserQueryBlacklistedUsers {
+        namespace Post {
+            export type RequestBody = /* queryBlacklistedUsersRequest */ Components.Schemas.QueryBlacklistedUsersRequest;
+            namespace Responses {
+                export type $200 = /* queryBlacklistedUsersResponse */ Components.Schemas.QueryBlacklistedUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
     namespace AdminUserUpdate {
         namespace Post {
             export type RequestBody = /* adminUpdateUserRequest */ Components.Schemas.AdminUpdateUserRequest;
@@ -7660,6 +8075,16 @@ declare namespace Paths {
             }
         }
     }
+    namespace AdminVideoGetSourceFile {
+        namespace Post {
+            export type RequestBody = /* getVideoSourceFileRequest */ Components.Schemas.GetVideoSourceFileRequest;
+            namespace Responses {
+                export type $200 = /* getVideoSourceFileResponse */ Components.Schemas.GetVideoSourceFileResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
     namespace AdminVideoPromoteVideo {
         namespace Post {
             export type RequestBody = /* promoteVideoRequest */ Components.Schemas.PromoteVideoRequest;
@@ -7697,10 +8122,24 @@ declare namespace Paths {
         namespace Post {
             export type RequestBody = /**
              * queryVideoStatisticsRequest
-             * This will help to get video-event aggregation statistics by quering on event streams by passing UserId/VideoId to track the suspicious activities
+             * This will help to get video-event aggregation statistics by quering on event streams by passing UserId/VideoId to
+             * track the suspicious activities
              */ Components.Schemas.QueryVideoStatisticsRequest;
             namespace Responses {
                 export type $200 = /* queryVideoStatisticsResponse */ Components.Schemas.QueryVideoStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminVideoSimulateData {
+        namespace Post {
+            export type RequestBody = /* simulatedDataRequest */ Components.Schemas.SimulatedDataRequest;
+            namespace Responses {
+                /**
+                 * string
+                 */
+                export type $200 = string;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
@@ -7863,6 +8302,16 @@ declare namespace Paths {
             export type RequestBody = /* getNotificationsRequest */ Components.Schemas.GetNotificationsRequest;
             namespace Responses {
                 export type $200 = /* notificationsResponse */ Components.Schemas.NotificationsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace NotificationQuery {
+        namespace Post {
+            export type RequestBody = /* queryNotificationsRequest */ Components.Schemas.QueryNotificationsRequest;
+            namespace Responses {
+                export type $200 = /* queryNotificationsResponse */ Components.Schemas.QueryNotificationsResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
@@ -8067,11 +8516,31 @@ declare namespace Paths {
             }
         }
     }
+    namespace PromotionGet {
+        namespace Post {
+            export type RequestBody = /* getPromotionForCurrentUserRequest */ Components.Schemas.GetPromotionForCurrentUserRequest;
+            namespace Responses {
+                export type $200 = /* getPromotionForCurrentUserResponse */ Components.Schemas.GetPromotionForCurrentUserResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
     namespace Search {
         namespace Post {
             export type RequestBody = /* querySearchRequest */ Components.Schemas.QuerySearchRequest;
             namespace Responses {
                 export type $200 = /* querySearchResponse */ Components.Schemas.QuerySearchResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace SearchQueryTrendingByLanguage {
+        namespace Post {
+            export type RequestBody = /* getLanguageTrendingRequest */ Components.Schemas.GetLanguageTrendingRequest;
+            namespace Responses {
+                export type $200 = /* getTrendingResponse */ Components.Schemas.GetTrendingResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
@@ -8084,6 +8553,17 @@ declare namespace Paths {
                 export type $200 = /* getTrendingResponse */ Components.Schemas.GetTrendingResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
+            }
+        }
+    }
+    namespace StatisticsActivityGet {
+        namespace Post {
+            export type RequestBody = /* createMarketingStatisticsRequest */ Components.Schemas.CreateMarketingStatisticsRequest;
+            namespace Responses {
+                export type $200 = /* marketingStatisticsResponse */ Components.Schemas.MarketingStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8103,6 +8583,39 @@ declare namespace Paths {
             export type RequestBody = /* getTeamInfoRequest */ Components.Schemas.GetTeamInfoRequest;
             namespace Responses {
                 export type $200 = /* getTeamInfoResponse */ Components.Schemas.GetTeamInfoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
+            }
+        }
+    }
+    namespace TeamGetInfo {
+        namespace Post {
+            export type RequestBody = /* getTeamDetailRequest */ Components.Schemas.GetTeamDetailRequest;
+            namespace Responses {
+                export type $200 = /* getTeamDetailResponse */ Components.Schemas.GetTeamDetailResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
+            }
+        }
+    }
+    namespace TeamGetMembers {
+        namespace Post {
+            export type RequestBody = /* queryMembersRequest */ Components.Schemas.QueryMembersRequest;
+            namespace Responses {
+                export type $200 = /* queryMembersResponse */ Components.Schemas.QueryMembersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
+            }
+        }
+    }
+    namespace TeamGetVideos {
+        namespace Post {
+            export type RequestBody = /* queryTeamVideosRequest */ Components.Schemas.QueryTeamVideosRequest;
+            namespace Responses {
+                export type $200 = /* queryTeamVideosResponse */ Components.Schemas.QueryTeamVideosResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
@@ -8281,6 +8794,16 @@ declare namespace Paths {
                 export type $200 = /* userJwtTokenResponse */ Components.Schemas.UserJwtTokenResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace UserAuthenticateWebrecorder {
+        namespace Post {
+            export type RequestBody = /* authenticateWebRecorderRequest */ Components.Schemas.AuthenticateWebRecorderRequest;
+            namespace Responses {
+                export type $200 = /* jwtTokenResponse */ Components.Schemas.JwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
             }
         }
     }
@@ -8679,6 +9202,17 @@ declare namespace Paths {
             }
         }
     }
+    namespace VideoPreviewGet {
+        namespace Post {
+            export type RequestBody = /* getVideoPreviewRequest */ Components.Schemas.GetVideoPreviewRequest;
+            namespace Responses {
+                export type $200 = /* getVideoPreviewResponse */ Components.Schemas.GetVideoPreviewResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
     namespace VideoQueryUploaded {
         namespace Post {
             export type RequestBody = /* queryUploadedVideosRequest */ Components.Schemas.QueryUploadedVideosRequest;
@@ -8760,6 +9294,17 @@ declare namespace Paths {
             export type RequestBody = /* getVoucherCountriesRequest */ Components.Schemas.GetVoucherCountriesRequest;
             namespace Responses {
                 export type $200 = /* getVoucherCountriesResponse */ Components.Schemas.GetVoucherCountriesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace VoucherQueryStatistics {
+        namespace Post {
+            export type RequestBody = /* queryVoucherStatisticsRequest */ Components.Schemas.QueryVoucherStatisticsRequest;
+            namespace Responses {
+                export type $200 = /* queryVoucherStatisticsResponse */ Components.Schemas.QueryVoucherStatisticsResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
