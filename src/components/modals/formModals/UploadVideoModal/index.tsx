@@ -33,7 +33,7 @@ export const UploadVideoModal = ({ title, removeMarginBottom, removeMarginRight 
     const { isConfirmed, confirm, cancel } = useConfirm();
     const { visible, open, close } = useModal();
 
-    const [data, setData] = useState<YEAY.CreateVideoRequest>({});
+    const [data, setData] = useState<BULLZ.CreateVideoRequest>({});
     const [error, setError] = useState('');
     const [previewVisible, setPreviewVisible] = useState(false);
     const [previewImage, setPreviewImage] = useState('');

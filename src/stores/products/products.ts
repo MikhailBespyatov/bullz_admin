@@ -1,15 +1,15 @@
 import axios, { CancelTokenSource } from 'axios';
+import history from 'browserHistory';
 import { defaultPage } from 'constants/defaults/filterSettings';
 import { defaultProductsValues } from 'constants/defaults/products';
 import { asyncError } from 'constants/notifications';
+import { productsLink } from 'constants/routes';
 import { createEffect, createEvent, createStore, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { initializeErrorStore } from 'stores/initialize/initialize.error.store';
 import { initializeIsFirstStore } from 'stores/initialize/initialize.isFirst.store';
 import { initializeToggleStore } from 'stores/initialize/initialize.toggle.store';
-import history from 'browserHistory';
-import { productsLink } from 'constants/routes';
 
 let cancelToken: CancelTokenSource | undefined;
 
@@ -20,7 +20,7 @@ const [editLoading, updateEditLoading] = initializeToggleStore();
 const [creationError, setCreationError] = initializeErrorStore();
 
 const createItem = createEffect({
-    handler: async (values: YEAY.CreateProductRequest) => {
+    handler: async (values: BULLZ.CreateTopicRequest) => {
         try {
             updateLoading();
             const { id } = await API.manageProducts.createProduct(values);
@@ -38,10 +38,10 @@ const createItem = createEffect({
 });
 //TODO: Change Type for update to WM api
 // interface UpdateProps extends Id, ProductCardEditableFields {}
-const updateItemById = createEvent<YEAY.UpdateProductRequest>();
+const updateItemById = createEvent<BULLZ.UpdateTopicRequest>();
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryProductsRequest) => {
+    handler: async (values: BULLZ.QueryTopicsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -103,7 +103,7 @@ const loadItemById = createEffect({
 
 const deleteItemById = createEvent<string>();
 
-const products = createStore<YEAY.ProductsResponse>({})
+const products = createStore<BULLZ.TopicsResponse>({})
     .on(updateItemById, (state, { id, ...newValues }) => ({
         ...state,
         items: state?.items?.map(i => (i.id !== id ? i : { ...i, ...newValues }))
@@ -158,13 +158,13 @@ const loadEditInfoItemById = createEffect({
     }
 });
 
-const editInfoItem = createStore<YEAY.ProductResponse>({}).on(
+const editInfoItem = createStore<BULLZ.TopicResponse>({}).on(
     [loadSingleItemById.doneData, loadEditInfoItemById.doneData],
     (_, newState) => newState
 );
 
-// const setSingleItem = createEvent<YEAY.GetManagedProductResponse>();
-const product = createStore<YEAY.ProductResponse>({})
+// const setSingleItem = createEvent<BULLZ.GetManagedProductResponse>();
+const product = createStore<BULLZ.TopicResponse>({})
     .on(updateItemById, (state, { id, ...newValues }) =>
         state.id !== id
             ? state
@@ -178,10 +178,10 @@ const product = createStore<YEAY.ProductResponse>({})
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
-const updateValues = createEvent<Partial<YEAY.QueryProductsRequest>>();
+const updateValues = createEvent<Partial<BULLZ.QueryTopicsRequest>>();
 const setDefaultValues = createEvent();
 
-const values = createStore<YEAY.QueryProductsRequest>(defaultProductsValues)
+const values = createStore<BULLZ.QueryTopicsRequest>(defaultProductsValues)
     .on(updateValues, (state, values) => ({
         ...state,
         pageIndex: defaultPage,

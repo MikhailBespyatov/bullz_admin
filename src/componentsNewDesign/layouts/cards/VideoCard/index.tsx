@@ -59,7 +59,9 @@ const { updateAsyncModalLoading } = modalEvents;
 
 // export const LanguagesOfAudio = ({ children, color }: Props) => <BlockTitle color={color}>{children}</BlockTitle>;
 
-export interface Props extends YEAY.AdminGetVideoResponse {
+export interface Props
+    extends Omit<BULLZ.AdminGetProductVideoResponse, 'userInfo'>,
+        Omit<BULLZ.AdminGetVideoResponse, 'userInfo'> {
     isBlocked?: boolean; // TODO have no end point yet
 }
 
@@ -89,7 +91,7 @@ export const VideoCard = (video: Props) => {
     // *  0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
     const curationState = validation?.bullz?.curationState;
     // *  0 = None; 1 = DeclineRequested; 2 = Inappropriate; 3 = GraphicContent; 4 = Violence; 5 = Copyright; 6 = TestVideo; 7 = IncorrectFormat; 8 = UserRequested; 9 = Other; 10 = NotProductRecommendation
-    const curationEndedReason = validation?.yeay?.curationEndedReason || 0;
+    const curationEndedReason = validation?.bullz?.curationEndedReason || 0;
     const showErrorButton =
         getDiffDateMoreDateNow(utcUploaded) &&
         streaming?.isReady === false &&

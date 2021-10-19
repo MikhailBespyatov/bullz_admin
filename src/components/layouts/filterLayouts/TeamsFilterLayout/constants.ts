@@ -1,4 +1,4 @@
-export const defaultTeamSearchParameters: YEAY.QueryTeamsRequestValues = {
+export const defaultTeamSearchParameters: BULLZ.QueryTeamsRequestValues = {
     teamName: undefined,
     teamLeaderUsername: undefined,
     teamId: undefined,

@@ -40,7 +40,7 @@ const { setId, updateValues, invokeGetItems, setIsFirstToFalse } = usersEvents;
 const { loadItemById } = usersEffects;
 const { loadListOfCountries } = locationEffects;
 
-interface UsersQueryParams extends Partial<YEAY.QueryAllUsersRequest> {
+interface UsersQueryParams extends Partial<BULLZ.QueryAllUsersRequest> {
     userId?: string;
 }
 

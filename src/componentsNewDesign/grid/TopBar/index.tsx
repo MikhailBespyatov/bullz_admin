@@ -4,7 +4,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { hoverGrey3 } from 'constants/styles/colors';
 import React, { useEffect, useState } from 'react';
 
-export interface TopBarProps extends YEAY.AdminGetVideoResponse, YEAY.YeayValidationInfo {
+export interface TopBarProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzValidationInfo {
     content: string[];
     onChange: (itemName: string) => void;
     defaultActiveItem?: string;

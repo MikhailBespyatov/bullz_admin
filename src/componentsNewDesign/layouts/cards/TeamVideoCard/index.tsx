@@ -29,7 +29,7 @@ import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { copyEvents, copyStores } from 'stores/Copy';
 
-export interface TeamVideoCardProps extends YEAY.PlaylistVideoResponse {}
+export interface TeamVideoCardProps extends BULLZ.PlaylistVideoResponse {}
 
 export const TeamVideoCard = ({
     id = '',

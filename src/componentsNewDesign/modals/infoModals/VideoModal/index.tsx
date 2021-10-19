@@ -54,7 +54,7 @@ import { VideoDescriptionWrapper } from './styles';
 
 const { updateAsyncModalLoading, openAsyncModal, closeAsyncModal } = modalEvents;
 
-export interface VideoDescriptionProps extends YEAY.AdminGetVideoResponse, YEAY.YeayValidationInfo {}
+export interface VideoDescriptionProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzValidationInfo {}
 
 export const VideoModal = ({
     id = '',
@@ -80,7 +80,7 @@ export const VideoModal = ({
     const videoSrc = streaming?.details?.hlsUrl;
     // const grading = validation?.wom?.grading?.consensus;
     // *  0 = None<br/>1 = Processing<br/>2 = Accepted<br/>3 = Rejected
-    const curationState = validation?.yeay?.curationState;
+    const curationState = validation?.bullz?.curationState;
     const languagesOfTheVideo = getLanguagesName(audioLanguages || []);
 
     const [startLoading, setStartLoading] = useState(false);

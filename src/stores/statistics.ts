@@ -1,16 +1,16 @@
-import { createEffect, createEvent, createStore, restore } from 'effector';
-import { API } from 'services';
 import { differenceInDays, set } from 'date-fns';
+import { createEffect, createEvent, createStore, restore } from 'effector';
 import { addDaysToIsoString, defaultNextDateRangeRequest } from 'pages/Dashboard/constants';
+import { API } from 'services';
 import { getDateAfterAndReturnISO } from 'utils/parsers';
 
 const setNextDateRange = createEvent<[string, string]>();
 
 const getActivityStatistics = createEffect({
-    handler: async ({ utcEnd, utcStart }: Required<YEAY.CreateMarketingStatisticsRequest>) => {
+    handler: async ({ utcEnd, utcStart }: Required<BULLZ.CreateMarketingStatisticsRequest>) => {
         try {
             //normalizing Date because React DatePicker library setting bad data
-            const requestedData: YEAY.CreateMarketingStatisticsRequest = {
+            const requestedData: BULLZ.CreateMarketingStatisticsRequest = {
                 utcStart: set(new Date(utcStart), { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }).toISOString(),
                 utcEnd: set(new Date(utcEnd), { hours: 23, minutes: 59, seconds: 59, milliseconds: 0 }).toISOString()
             };
@@ -37,7 +37,7 @@ const clearStatistics = createEvent();
 
 const removeActivityStatistics = createEvent<number>();
 
-const activityStatistics = createStore<YEAY.MarketingStatistics[]>([])
+const activityStatistics = createStore<BULLZ.MarketingStatistics[]>([])
     .on(getActivityStatistics.doneData, (statistics, newStatistics) => [...statistics, newStatistics])
     .on(removeActivityStatistics, (statistics, removeNumber) => statistics.filter((_, i) => i !== removeNumber))
     .on(clearStatistics, () => []);
@@ -71,7 +71,7 @@ const countStatistics = createStore(0)
     .on(removeActivityStatistics, count => count - 1);
 
 const reloadStatistics = createEffect({
-    handler: async ({ utcEnd, utcStart }: Required<YEAY.CreateMarketingStatisticsRequest>) => {
+    handler: async ({ utcEnd, utcStart }: Required<BULLZ.CreateMarketingStatisticsRequest>) => {
         const count = countStatistics.getState();
         await clearStatistics();
         for (let i = 0; i < count; i++) {

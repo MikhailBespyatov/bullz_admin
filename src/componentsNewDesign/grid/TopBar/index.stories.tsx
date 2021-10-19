@@ -13,8 +13,8 @@ export default {
     component: TopBar,
     parameters: {
         backgrounds: {
-            default: 'YEAY',
-            values: [{ name: 'YEAY', value: backgroundColor }]
+            default: 'BULLZ',
+            values: [{ name: 'BULLZ', value: backgroundColor }]
         }
     },
     decorators: [

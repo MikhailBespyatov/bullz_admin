@@ -20,7 +20,7 @@ export interface VideoCardEditableChange {
 }
 
 export interface VideoCurateEditableFields {
-    curationState: YEAY.VideoCurationState;
+    curationState: BULLZ.VideoCurationState;
 }
 
 export interface VideoCurateEditableChange {

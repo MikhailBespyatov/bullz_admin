@@ -42,7 +42,7 @@ export const VideoCurateModal = ({ id, onChange = noop, title, disabled }: Props
         setAccepted(value);
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.SubmitVideoCurationRequest) => {
+    const onFinish = async (values: BULLZ.SubmitVideoCurationRequest) => {
         try {
             await modalEffects.curateVideo({ onChange: onChange, ...values, videoId: id });
             cancel();

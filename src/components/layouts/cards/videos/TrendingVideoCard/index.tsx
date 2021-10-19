@@ -39,7 +39,7 @@ interface Position {
     position: number;
 }
 
-interface Props extends YEAY.GetTrendVideosResponse, RemoveClick, Position {}
+interface Props extends BULLZ.GetTrendVideosResponse, RemoveClick, Position {}
 
 export const TrendingVideoCard = ({ videoId, thumbnailUrl, viewCount, onRemove, position }: Props) => {
     const { access } = useStore(userStores.auth);

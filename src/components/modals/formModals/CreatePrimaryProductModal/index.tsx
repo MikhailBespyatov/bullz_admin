@@ -27,7 +27,7 @@ export const CreatePrimaryProductModal = ({ id, title }: Props) => {
         cancel();
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.CreateProductRequest) => {
+    const onFinish = async (values: BULLZ.CreateTopicRequest) => {
         try {
             await modalEffects.createProductAndSetAsPrimary({
                 ...values,

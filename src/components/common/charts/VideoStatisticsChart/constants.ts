@@ -12,7 +12,7 @@ export const chartFieldsOption = [
 
 export const totalRatioRange = { lower: 0.8, upper: 1.2 };
 
-export const defaultTotalRatioData: { [key in keyof YEAY.VideoStatisticsResponse]: number } = {
+export const defaultTotalRatioData: { [key in keyof BULLZ.VideoStatisticsResponse]: number } = {
     viewCount: 0,
     commentsCount: 0,
     likeCount: 0,
@@ -21,7 +21,7 @@ export const defaultTotalRatioData: { [key in keyof YEAY.VideoStatisticsResponse
     clickCount: 0
 };
 
-export const defaultVideoStatisticsData: { [key in keyof YEAY.VideoStatisticsResponse]: number } = {
+export const defaultVideoStatisticsData: { [key in keyof BULLZ.VideoStatisticsResponse]: number } = {
     viewCount: 0,
     totalCount: 0,
     commentsCount: 0,

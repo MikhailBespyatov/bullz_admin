@@ -33,7 +33,7 @@ export const CreateAffiliateLinkModal = ({ id, title, removeMarginRight, removeM
         cancel();
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.CreateManagedProductAffiliateLinkRequest) => {
+    const onFinish = async (values: BULLZ.CreateManagedProductAffiliateLinkRequest) => {
         try {
             await modalEffects.createAffiliateLink({ ...values, productId: id });
             cancel();

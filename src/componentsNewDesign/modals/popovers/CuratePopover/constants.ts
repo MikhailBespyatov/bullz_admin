@@ -57,7 +57,7 @@ export const calculatePopoverFinalArrowTop = (isTopType: boolean, childrenHeight
 export const acceptedStatus = 0;
 
 export const reasonRadioArray: Array<{
-    value: YEAY.CurationEndedReason;
+    value: BULLZ.CurationEndedReason;
     data: string;
 }> = [
     {
@@ -103,9 +103,5 @@ export const reasonRadioArray: Array<{
     {
         value: 11,
         data: 'Wrong Language'
-    },
-    {
-        value: 12,
-        data: 'Quality Guidelines'
     }
 ];

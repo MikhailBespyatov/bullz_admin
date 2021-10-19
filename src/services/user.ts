@@ -1,7 +1,7 @@
 import axios from './axios';
 
-export const createAccountAnonymous = (data: YEAY.UserCreateAnonymousAccountRequest) =>
-    axios<YEAY.UserJwtTokenResponse>(
+export const createAccountAnonymous = (data: BULLZ.UserCreateAnonymousAccountRequest) =>
+    axios<BULLZ.UserJwtTokenResponse>(
         {
             url: '/user/create-account-anonymous',
             data
@@ -9,8 +9,8 @@ export const createAccountAnonymous = (data: YEAY.UserCreateAnonymousAccountRequ
         false
     );
 
-export const authenticateUser = (data: YEAY.UserAuthChallengeEmailOrUsernameOrPhoneRequest) =>
-    axios<YEAY.UserAuthorizeResponse>(
+export const authenticateUser = (data: BULLZ.UserAuthChallengeEmailOrUsernameOrPhoneRequest) =>
+    axios<BULLZ.UserAuthorizeResponse>(
         {
             url: '/user/authenticate',
             data
@@ -18,8 +18,8 @@ export const authenticateUser = (data: YEAY.UserAuthChallengeEmailOrUsernameOrPh
         false
     );
 
-export const createUser = (data: YEAY.UserCreateAccountRequest) =>
-    axios<YEAY.UserJwtTokenResponse>({
+export const createUser = (data: BULLZ.UserCreateAccountRequest) =>
+    axios<BULLZ.UserJwtTokenResponse>({
         url: '/user/create-account',
         data
     });

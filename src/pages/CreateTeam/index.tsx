@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { Loader } from 'components/common/dynamic/Loader';
 import { H1 } from 'components/common/typography/titles/H';
+import { Form } from 'components/formComponents/Form';
 import { FormButton } from 'components/formComponents/FormButton';
 import { FormInput } from 'components/formComponents/FormInput';
 import { ErrorFormTitle } from 'components/formComponents/FormTitle';
@@ -9,16 +10,15 @@ import { FormCard } from 'components/layouts/cards/FormCard';
 import { MainLayout } from 'components/layouts/MainLayout';
 import { errorEmptyMessage } from 'constants/notifications';
 import { useStore } from 'effector-react';
-import { formName, title, titleFrom } from './constants';
 import React from 'react';
 import { teamsEffects, teamsStores } from 'stores/team';
-import { Form } from 'components/formComponents/Form';
+import { formName, title, titleFrom } from './constants';
 
 export const CreateTeam = () => {
     const loading = useStore(teamsStores.loading);
     const error = useStore(teamsStores.creationError);
 
-    const onFinish = (values: YEAY.CreateProductRequest) => teamsEffects.createItem(values);
+    const onFinish = (values: BULLZ.CreateTopicRequest) => teamsEffects.createItem(values);
 
     const onFinishFailed = () => message.error(errorEmptyMessage);
 

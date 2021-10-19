@@ -17,7 +17,7 @@ const visible = createStore(false)
     .on(setVisibleToFalse, () => false);
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryProductsRequest) => {
+    handler: async (values: BULLZ.QueryTopicsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -77,16 +77,16 @@ const loadItemById = createEffect({
     }
 });
 
-const products = createStore<YEAY.ProductsResponse>({})
+const products = createStore<BULLZ.TopicsResponse>({})
     .on(loadItems.doneData, (_, state) => state)
     .on(loadItemById.doneData, (_, state) => state);
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
-const updateValues = createEvent<Partial<YEAY.QueryProductsRequest>>();
+const updateValues = createEvent<Partial<BULLZ.QueryTopicsRequest>>();
 const setDefaultValues = createEvent();
 
-const values = createStore<YEAY.QueryProductsRequest>(defaultProductsValues)
+const values = createStore<BULLZ.QueryTopicsRequest>(defaultProductsValues)
     .on(updateValues, (state, values) => ({
         ...state,
         pageIndex: defaultPage,

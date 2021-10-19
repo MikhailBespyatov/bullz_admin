@@ -8,14 +8,14 @@ import { initializeToggleStore } from 'stores/initialize/initialize.toggle.store
 import { videosEvents } from 'stores/videos/videos';
 
 let cancelToken: CancelTokenSource | undefined;
-
+interface UpdateProps extends BULLZ.AdminGetProductVideoResponse {}
 const [initialLoading, updateInitialLoading] = initializeToggleStore();
-
+const updateItemById = createEvent<UpdateProps>();
 const updateLoading = createEvent();
 const loading = createStore<boolean>(false).on(updateLoading, loading => !loading);
 
 const getItems = createEffect({
-    handler: async (values: YEAY.QueryVideosByProductIdRequest) => {
+    handler: async (values: BULLZ.QueryVideosByProductIdRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -32,8 +32,8 @@ const getItems = createEffect({
     }
 });
 
-const items = createStore<YEAY.QueryVideosByProductIdResponse>({})
-    .on(videosEvents.updateItemById, (state, { id, ...newValues }) => ({
+const items = createStore<BULLZ.QueryVideosByProductIdResponse>({})
+    .on(updateItemById, (state, { id, ...newValues }) => ({
         ...state,
         items: state?.items?.map(i => (i.id !== id ? i : { ...i, ...newValues }))
     }))
@@ -60,7 +60,7 @@ const items = createStore<YEAY.QueryVideosByProductIdResponse>({})
         items: state?.items?.filter(i => i.id !== id)
     }));
 
-const updateValues = createEvent<YEAY.QueryVideosByProductIdRequestValues>();
+const updateValues = createEvent<BULLZ.QueryVideosByProductIdRequestValues>();
 const setDefaultValues = createEvent();
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
@@ -69,8 +69,8 @@ const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore(
 // after updating or removing some fields of the values,
 // watcher initiate getItems request due the new values
 // (old fields of values are not removed if they are not pointed as remove values in removeAndUpdateValues event)
-const values = createStore<YEAY.QueryVideosByProductIdRequest>(defaultProductVideosValues)
-    .on(updateValues, (state, values: YEAY.QueryVideosByProductIdRequestValues) => ({
+const values = createStore<BULLZ.QueryVideosByProductIdRequest>(defaultProductVideosValues)
+    .on(updateValues, (state, values: BULLZ.QueryVideosByProductIdRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values

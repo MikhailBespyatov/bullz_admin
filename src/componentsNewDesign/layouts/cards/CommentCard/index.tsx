@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom';
 //import { blockVideoCommentsForUser } from 'stores/comments/videoComments';
 import { noop } from 'types/types';
 
-export interface CommentCardProps extends YEAY.GetPostResponse, StyledSectionProps {
+export interface CommentCardProps extends BULLZ.GetPostResponse, StyledSectionProps {
     // profileImageUrl?: string;
     repliesQuantity?: number;
     isBlocked?: boolean;

@@ -79,7 +79,7 @@ export interface PropertyBlockProps
         BackgroundColor,
         MarginRightBottom,
         HorizontalPadding,
-        Pick<YEAY.GetUserProfileResponse, 'isTrusted'> {
+        Pick<BULLZ.GetUserProfileResponse, 'isTrusted'> {
     type?: PropertyBlockType;
     notVerified?: boolean;
     copiable?: boolean;

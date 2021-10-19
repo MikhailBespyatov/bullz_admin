@@ -50,7 +50,7 @@ export const ScrollablePropertyBlock = ({
     </BlockWrapper>
 );
 
-interface TeamDescriptionProps extends YEAY.GetTeamInfoResponse {}
+interface TeamDescriptionProps extends BULLZ.GetTeamInfoResponse {}
 
 export const TeamDescription = ({
     id = '',
@@ -76,7 +76,7 @@ export const TeamDescription = ({
     };
 
     // TODO Improve logic of the connection team store and editTeamInfo effect
-    const changeEditableFieldsCallback = (fields: YEAY.UpdateTeamRequest) =>
+    const changeEditableFieldsCallback = (fields: BULLZ.UpdateTeamRequest) =>
         teamsEvents.updateItemById({ id, ...fields });
 
     return (

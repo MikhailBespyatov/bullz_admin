@@ -15,7 +15,7 @@ import { RemoveClick } from 'types/modals';
 
 const { Meta } = Card;
 
-interface Props extends YEAY.GetTrendingUserResponse, RemoveClick {}
+interface Props extends BULLZ.GetTrendingUserResponse, RemoveClick {}
 
 export const TrendingUserCard = ({ profileImageUrl, userId, isTrusted, username, onRemove }: Props) => {
     const { access } = useStore(userStores.auth);

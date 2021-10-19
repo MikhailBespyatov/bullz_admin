@@ -1,12 +1,12 @@
 import { defaultLimit, defaultPage } from './filterSettings';
 
-export const defaultPromotionsValues: YEAY.QueryAdminPromotionRequest = {
+export const defaultPromotionsValues: BULLZ.QueryAdminPromotionRequest = {
     pageIndex: defaultPage,
     limit: defaultLimit,
     returnQueryCount: true
 };
 
-export const defaultPromotionValues: YEAY.GetAdminPromotionResponse = {
+export const defaultPromotionValues: BULLZ.GetAdminPromotionResponse = {
     id: undefined,
     userAgeRanges: undefined,
     userGenders: undefined,
@@ -16,7 +16,7 @@ export const defaultPromotionValues: YEAY.GetAdminPromotionResponse = {
     pageLocation: undefined
 };
 
-// export const defaultPromotionValues: YEAY.GetAdminPromotionResponse = {
+// export const defaultPromotionValues: BULLZ.GetAdminPromotionResponse = {
 //     id: '111111111',
 //     userAgeRanges: [
 //         {

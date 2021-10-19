@@ -24,9 +24,9 @@ import React from 'react';
 // import { userStores } from 'stores/users/user';
 import { RemoveClick } from 'types/modals';
 
-export interface Props extends YEAY.GetTrendingUserResponse, RemoveClick {}
+export interface Props extends BULLZ.GetTrendingUserResponse, RemoveClick {}
 
-export interface UserCardProps extends YEAY.GetTrendingUserResponse {}
+export interface UserCardProps extends BULLZ.GetTrendingUserResponse {}
 
 export const UserCard = ({ isTrusted, username, profileImageUrl }: UserCardProps) => (
     <Row alignCenter justifyCenter>

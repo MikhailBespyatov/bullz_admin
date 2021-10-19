@@ -9,11 +9,11 @@ let cancelToken: CancelTokenSource | undefined;
 
 const { isFirst, setIsFirstToTrue, setIsFirstToFalse } = initializeIsFirstStore();
 
-const updateValues = createEvent<YEAY.AdminQueryPostsRequestWithoutPageLimit>();
+const updateValues = createEvent<BULLZ.AdminQueryPostsRequestWithoutPageLimit>();
 const setDefaultValues = createEvent();
 const invokeGetComments = createEvent();
 
-const values = createStore<YEAY.AdminQueryPostsRequest>(defaultCommentsValues)
+const values = createStore<BULLZ.AdminQueryPostsRequest>(defaultCommentsValues)
     .on(invokeGetComments, state => state)
     .on(updateValues, (state, values) => ({ ...state, ...values }))
     .on(setDefaultValues, () => defaultCommentsValues);
@@ -21,7 +21,7 @@ const values = createStore<YEAY.AdminQueryPostsRequest>(defaultCommentsValues)
 const [loadingComments, updateLoadingComments] = initializeToggleStore();
 
 const loadComments = createEffect({
-    handler: async (value: YEAY.AdminQueryPostsRequest) => {
+    handler: async (value: BULLZ.AdminQueryPostsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -40,7 +40,7 @@ const loadComments = createEffect({
     }
 });
 
-const comments = createStore<YEAY.AdminQueryPostsResponse>({}).on(
+const comments = createStore<BULLZ.AdminQueryPostsResponse>({}).on(
     loadComments.doneData,
     (_, queryResponse) => queryResponse
 );

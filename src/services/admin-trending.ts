@@ -1,25 +1,25 @@
 import axios from './axios';
 
-export const getTrendings = (data: YEAY.QueryTrendingOverridesRequest) =>
-    axios<YEAY.QueryTrendingOverridesResponse>({
+export const getTrendings = (data: BULLZ.QueryTrendingOverridesRequest) =>
+    axios<BULLZ.QueryTrendingOverridesResponse>({
         url: '/admin/trending/query',
         data
     });
 
-export const createTrending = (data: YEAY.CreateTrendingOverridesRequest) =>
-    axios<YEAY.QueryTrendingOverridesResponse>({
+export const createTrending = (data: BULLZ.CreateTrendingOverridesRequest) =>
+    axios<BULLZ.QueryTrendingOverridesResponse>({
         url: '/admin/trending/create',
         data
     });
 
-export const updateItemById = (data: YEAY.UpdateTrendingOverridesRequest) =>
-    axios<YEAY.UpdateTrendingOverridesResponse>({
+export const updateItemById = (data: BULLZ.UpdateTrendingOverridesRequest) =>
+    axios<BULLZ.UpdateTrendingOverridesResponse>({
         url: '/admin/trending/update',
         data
     });
 
-export const removeItemById = (data: YEAY.RemoveTrendingOverridesRequest) =>
-    axios<YEAY.MessageResponseBase>({
+export const removeItemById = (data: BULLZ.RemoveTrendingOverridesRequest) =>
+    axios<BULLZ.MessageResponseBase>({
         url: '/admin/trending/remove',
         data
     });

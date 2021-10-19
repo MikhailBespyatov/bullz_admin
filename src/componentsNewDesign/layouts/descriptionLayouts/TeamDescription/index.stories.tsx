@@ -30,7 +30,7 @@ export default {
     ]
 } as Meta;
 
-const Template: Story<YEAY.GetTeamInfoResponse> = args => <TeamDescription {...args} />;
+const Template: Story<BULLZ.GetTeamInfoResponse> = args => <TeamDescription {...args} />;
 
 export const DefaultTeamDescription = Template.bind({});
 DefaultTeamDescription.args = {

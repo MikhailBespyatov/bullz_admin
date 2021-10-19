@@ -15,7 +15,7 @@ import { Disabled } from 'types/form';
 export interface EditTeamInfoPopoverProps extends Disabled, PopoverType, Id /*Index*/ {
     name: string;
     urlName: string;
-    onChange?: (fields: YEAY.UpdateTeamRequest) => void;
+    onChange?: (fields: BULLZ.UpdateTeamRequest) => void;
 }
 
 export const EditTeamInfoPopover: FC<EditTeamInfoPopoverProps> = ({ onChange, id, name, urlName, ...rest }) => {

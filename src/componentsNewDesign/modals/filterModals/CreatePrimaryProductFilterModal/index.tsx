@@ -23,7 +23,7 @@ import { selectProductsEvents, selectProductsStores } from 'stores/products/sele
 import { videosEffects, videosEvents, videosStores } from 'stores/videos/videos';
 import { Title as ITitle } from 'types/data';
 
-interface ProductCardWrapperProps extends YEAY.ProductResponse {}
+interface ProductCardWrapperProps extends BULLZ.TopicResponse {}
 
 export const ProductCardWrapper: FC<ProductCardWrapperProps> = ({ children, id: productId }) => {
     const video = useStore(videosStores.video);

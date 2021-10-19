@@ -19,7 +19,7 @@ import { Title as ITitle } from 'types/data';
 import { ProductCardEditableFields } from 'types/form';
 import { RemoveMarginRightBottom } from 'types/styles';
 
-interface Props extends ITitle, YEAY.GetTeamResponse, RemoveMarginRightBottom {
+interface Props extends ITitle, BULLZ.GetTeamResponse, RemoveMarginRightBottom {
     id: string;
     onChange?: (fields: ProductCardEditableFields) => void;
 }
@@ -43,7 +43,7 @@ export const TeamEditorModal = ({
         cancel();
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.PutManagedProductRequest) => {
+    const onFinish = async (values: BULLZ.PutManagedProductRequest) => {
         try {
             modalEffects.editTeamInfo({ onChange: onChange, ...values, id: id });
             cancel();

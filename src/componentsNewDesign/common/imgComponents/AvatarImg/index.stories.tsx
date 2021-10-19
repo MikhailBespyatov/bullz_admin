@@ -36,7 +36,7 @@ export default {
 interface AvatarImgProps
     extends ImgProperties,
         Sizes,
-        Pick<YEAY.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {}
+        Pick<BULLZ.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {}
 
 const Template: Story<AvatarImgProps> = args => <AvatarImg {...args} />;
 

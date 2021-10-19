@@ -30,11 +30,11 @@ import { grey15, white } from 'constants/styles/colors';
 import React from 'react';
 import { RemoveClick } from 'types/modals';
 
-interface VideoCardProps extends YEAY.GetTrendVideosResponse {
+interface VideoCardProps extends BULLZ.GetTrendVideosResponse {
     position?: number;
 }
 
-export interface Props extends YEAY.GetTrendVideosResponse, VideoCardProps, RemoveClick {}
+export interface Props extends BULLZ.GetTrendVideosResponse, VideoCardProps, RemoveClick {}
 
 export const VideoCard = ({ viewCount, position }: VideoCardProps) => (
     <Column justifyBetween height={videoPosterHeight}>

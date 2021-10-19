@@ -43,8 +43,9 @@ import {
 
 const { updateAsyncModalLoading } = modalEvents;
 
-export interface ProductCardProps extends YEAY.ProductResponse {
+export interface ProductCardProps extends BULLZ.TopicResponse {
     canBeSetAsPrimary?: boolean;
+    primaryReferenceCount?: number;
 }
 
 export const ProductCard = ({

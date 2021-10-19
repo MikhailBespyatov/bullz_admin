@@ -15,7 +15,7 @@ import { Sizes } from 'types/styles';
 interface Props
     extends ImgProperties,
         Sizes,
-        Pick<YEAY.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {
+        Pick<BULLZ.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {
     borderRadius?: string;
 }
 

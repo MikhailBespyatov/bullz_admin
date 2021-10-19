@@ -17,7 +17,7 @@ let cancelToken: CancelTokenSource | undefined;
 const [initialLoading, updateInitialLoading] = initializeToggleStore();
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryAllVideosRequest) => {
+    handler: async (values: BULLZ.QueryAllVideosRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -41,7 +41,7 @@ const loadItems = createEffect({
 const { updateVideoTags } = videosEffects;
 const { updateCurationStateById, removeVideoFromItemsById } = videosEvents;
 
-const userVideos = createStore<YEAY.QueryAllVideosResponse>({})
+const userVideos = createStore<BULLZ.QueryAllVideosResponse>({})
     .on(loadItems.doneData, (_, newState) => newState)
     .on(updateVideoTags.doneData, (state, { id, tags }) => ({
         ...state,
@@ -77,7 +77,7 @@ const userVideos = createStore<YEAY.QueryAllVideosResponse>({})
         items: state?.items?.map(i => (i.id !== id ? i : { ...i, isDeleted: true }))
     }));
 
-const updateValues = createEvent<YEAY.QueryAllVideosRequestValues>();
+const updateValues = createEvent<BULLZ.QueryAllVideosRequestValues>();
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
@@ -87,9 +87,9 @@ const setSortPostfix = createEvent<SortType>();
 const sortPrefix = restore(setSortPrefix, sortTagsValuesDefault);
 const sortPostfix = restore<SortType>(setSortPostfix, sortModeTagsValuesDefault);
 
-const values = createStore<YEAY.QueryAllVideosRequest>(defaultUserVideosValuesWithoutDate).on(
+const values = createStore<BULLZ.QueryAllVideosRequest>(defaultUserVideosValuesWithoutDate).on(
     updateValues,
-    (state, values: YEAY.QueryAllVideosRequestValues) => ({
+    (state, values: BULLZ.QueryAllVideosRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values

@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { DataTable } from 'types/data';
 
 export interface BlacklistedUsersTableProps {
-    items: YEAY.GetBlacklistedUsersResponse[];
+    items: BULLZ.GetBlacklistedUsersResponse[];
     type: SearchType;
 }
 

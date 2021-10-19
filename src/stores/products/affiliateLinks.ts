@@ -21,7 +21,7 @@ const getItemsByProductId = createEffect({
     }
 });
 
-const items = createStore<YEAY.GetAffiliateLinkResponse>({})
+const items = createStore<BULLZ.GetAffiliateLinkResponse>({})
     .on(updateAffiliateLinkUrlByIndex, (state, { i, url }) => ({
         ...state,
         entries: state?.entries?.map((item, j) => (i !== j ? item : { ...item, url }))

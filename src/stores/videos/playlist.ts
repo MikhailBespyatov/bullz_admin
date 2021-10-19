@@ -10,7 +10,7 @@ let cancelToken: CancelTokenSource | undefined;
 const [initialLoading, updateInitialLoading] = initializeToggleStore();
 
 const getItems = createEffect({
-    handler: async (values: YEAY.QueryAllVideosRequest) => {
+    handler: async (values: BULLZ.QueryAllVideosRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -31,20 +31,20 @@ const getItems = createEffect({
     }
 });
 
-const items = createStore<YEAY.QueryPlaylistVideosResponse>({}).on(getItems.doneData, (_, newState) => newState);
+const items = createStore<BULLZ.QueryPlaylistVideosResponse>({}).on(getItems.doneData, (_, newState) => newState);
 
-const updateValues = createEvent<YEAY.QueryPlaylistVideosRequestValues>();
-const overrideValues = createEvent<YEAY.QueryPlaylistVideosRequestValues>();
+const updateValues = createEvent<BULLZ.QueryPlaylistVideosRequestValues>();
+const overrideValues = createEvent<BULLZ.QueryPlaylistVideosRequestValues>();
 const invokeGetItems = createEvent();
 const setDefaultValues = createEvent();
 
-const values = createStore<YEAY.QueryPlaylistVideosRequest>(defaultPlaylistVideosValues)
-    .on(updateValues, (state, values: YEAY.QueryPlaylistVideosRequestValues) => ({
+const values = createStore<BULLZ.QueryPlaylistVideosRequest>(defaultPlaylistVideosValues)
+    .on(updateValues, (state, values: BULLZ.QueryPlaylistVideosRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values
     }))
-    .on(overrideValues, (_, values: YEAY.QueryPlaylistVideosRequestValues) => ({
+    .on(overrideValues, (_, values: BULLZ.QueryPlaylistVideosRequestValues) => ({
         ...defaultPlaylistVideosValues,
         ...values
     }))

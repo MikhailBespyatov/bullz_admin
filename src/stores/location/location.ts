@@ -16,13 +16,13 @@ const loadListOfCountries = createEffect({
     }
 });
 
-const countriesList = createStore<YEAY.AdminAllCountriesResponse>({}).on(
+const countriesList = createStore<BULLZ.AdminAllCountriesResponse>({}).on(
     loadListOfCountries.doneData,
     (_, newState) => newState
 );
 
 const loadListOfRegionsByCountry = createEffect({
-    handler: async (value: YEAY.AdminGetRegionsByCountryRequest) => {
+    handler: async (value: BULLZ.AdminGetRegionsByCountryRequest) => {
         cancelToken && cancelToken.cancel();
         cancelToken = axios.CancelToken.source();
 
@@ -36,7 +36,7 @@ const loadListOfRegionsByCountry = createEffect({
     }
 });
 
-const regionsList = createStore<YEAY.AdminAllRegionsByCountryResponse>({}).on(
+const regionsList = createStore<BULLZ.AdminAllRegionsByCountryResponse>({}).on(
     loadListOfRegionsByCountry.doneData,
     (_, newState) => newState.regionsList
 );
@@ -45,7 +45,7 @@ const regionsList = createStore<YEAY.AdminAllRegionsByCountryResponse>({}).on(
 //     console.log('regionsList', regionsList);
 // });
 
-interface LocationInterface extends YEAY.CountryResponse {
+interface LocationInterface extends BULLZ.CountryResponse {
     region?: string[];
 }
 

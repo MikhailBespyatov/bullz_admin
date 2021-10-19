@@ -18,12 +18,12 @@ const { updateCommentRepliesValues } = videoCommentsEvents;
 const { limit: defaultLimit, pageIndex: defaultPageIndex } = defaultVideoCommentRepliesValues;
 
 export interface ThreadCommentsProps
-    extends Pick<YEAY.GetPostResponse, 'profileImageUrl' | 'username' | 'body' | 'utcCreated' | 'utcUpdated'> {
+    extends Pick<BULLZ.GetPostResponse, 'profileImageUrl' | 'username' | 'body' | 'utcCreated' | 'utcUpdated'> {
     userId?: string;
     isBlocked?: boolean;
 }
 
-export interface CommentBlockProps extends YEAY.GetPostResponse, CommentCardProps {
+export interface CommentBlockProps extends BULLZ.GetPostResponse, CommentCardProps {
     body?: string | null;
     threadComments?: ThreadCommentsProps[];
     //onBlockButtonClick: noop;

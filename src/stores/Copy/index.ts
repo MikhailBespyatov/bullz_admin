@@ -12,7 +12,7 @@ const getPrimaryProductById = createEffect({
     handler: async (id: string) => {
         try {
             updateLoading();
-            const data: YEAY.AdminGetVideoResponse = await API.manageProducts.getProductById({
+            const data: BULLZ.AdminGetVideoResponse = await API.manageProducts.getProductById({
                 id: id
             });
             updateLoading();

@@ -22,13 +22,13 @@ const [loading, updateLoading] = initializeToggleStore();
 const [editLoading, updateEditLoading] = initializeToggleStore();
 const [removeLoading, updateRemoveLoading] = initializeToggleStore();
 
-interface UpdateProps extends YEAY.AdminGetVideoResponse {}
+interface UpdateProps extends BULLZ.AdminGetVideoResponse {}
 interface UpdateCurationStateProps extends VideoCurateEditableFields, Id {}
 const updateItemById = createEvent<UpdateProps>();
 const updateCurationStateById = createEvent<UpdateCurationStateProps>();
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryAllVideosRequest) => {
+    handler: async (values: BULLZ.QueryAllVideosRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -50,7 +50,7 @@ const loadItems = createEffect({
 });
 
 const loadItemsByProductId = createEffect({
-    handler: async (values: YEAY.QueryVideosByProductIdRequest) => {
+    handler: async (values: BULLZ.QueryVideosByProductIdRequest) => {
         try {
             updateInitialLoading();
             const data = await API.adminVideos.getVideosByProductId(values);
@@ -75,7 +75,7 @@ const loadItemById = createEffect({
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data: YEAY.AdminGetVideoResponse = await API.adminVideos.getCardById(
+            const data: BULLZ.AdminGetVideoResponse = await API.adminVideos.getCardById(
                 {
                     id: id
                 },
@@ -113,7 +113,7 @@ const loadSingleItemById = createEffect({
     handler: async (id: string) => {
         try {
             updateLoading();
-            const data: YEAY.AdminGetVideoResponse = await API.adminVideos.getCardById({
+            const data: BULLZ.AdminGetVideoResponse = await API.adminVideos.getCardById({
                 id: id
             });
             updateLoading();
@@ -132,7 +132,7 @@ const loadEditInfoItemById = createEffect({
     handler: async (id: string) => {
         try {
             updateEditLoading();
-            const data: YEAY.AdminGetVideoResponse = await API.adminVideos.getCardById({
+            const data: BULLZ.AdminGetVideoResponse = await API.adminVideos.getCardById({
                 id: id
             });
             updateEditLoading();
@@ -173,20 +173,20 @@ const updateVideoTags = createEffect({
     }
 });
 
-const videosByProductId = createStore<YEAY.QueryAllVideosResponse>({}).on(
+const videosByProductId = createStore<BULLZ.QueryVideosByProductIdResponse>({}).on(
     loadItemsByProductId.doneData,
     (_, state) => state
 );
 
-const setSingleItem = createEvent<YEAY.AdminGetVideoResponse>();
+const setSingleItem = createEvent<BULLZ.AdminGetVideoResponse>();
 const removeVideoFromItemById = createEvent<string>();
 
-const editInfoItem = createStore<YEAY.AdminGetVideoResponse>({}).on(
+const editInfoItem = createStore<BULLZ.AdminGetVideoResponse>({}).on(
     loadEditInfoItemById.doneData,
     (_, newState) => newState
 );
 
-const video = createStore<YEAY.AdminGetVideoResponse>({})
+const video = createStore<BULLZ.AdminGetVideoResponse>({})
     .on(updateItemById, (state, { id, ...newValues }) =>
         state.id !== id
             ? state
@@ -200,7 +200,7 @@ const video = createStore<YEAY.AdminGetVideoResponse>({})
     .on(removeVideoFromItemById, (state, id) => (state.id === id ? { ...state, isDeleted: true } : state))
     .on(updateVideoTags.doneData, (state, { id, tags }) => (state.id === id ? { ...state, hashTags: tags } : state));
 
-const videos = createStore<YEAY.QueryAllVideosResponse>({})
+const videos = createStore<BULLZ.QueryAllVideosResponse>({})
     .on(updateItemById, (state, { id, ...newValues }) => ({
         ...state,
         items: state?.items?.map(i => (i.id !== id ? i : { ...i, ...newValues }))
@@ -282,10 +282,10 @@ const removeItemById = createEffect({
     }
 });
 
-const updateValues = createEvent<YEAY.QueryAllVideosRequestValues>();
-// const overrideValues = createEvent<YEAY.QueryAllVideosRequestValues>();
+const updateValues = createEvent<BULLZ.QueryAllVideosRequestValues>();
+// const overrideValues = createEvent<BULLZ.QueryAllVideosRequestValues>();
 const invokeGetItems = createEvent();
-// const updateAndRemoveValues = createEvent<YEAY.UpdateAndRemoveValues>();
+// const updateAndRemoveValues = createEvent<BULLZ.UpdateAndRemoveValues>();
 const setDefaultValues = createEvent();
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
@@ -296,17 +296,17 @@ const setSortPostfix = createEvent<SortType>();
 const sortPrefix = restore(setSortPrefix, sortTagsValuesDefault);
 const sortPostfix = restore<SortType>(setSortPostfix, sortModeTagsValuesDefault);
 
-const values = createStore<YEAY.QueryAllVideosRequest>(defaultVideosValuesWithoutDate)
-    .on(updateValues, (state, values: YEAY.QueryAllVideosRequestValues) => ({
+const values = createStore<BULLZ.QueryAllVideosRequest>(defaultVideosValuesWithoutDate)
+    .on(updateValues, (state, values: BULLZ.QueryAllVideosRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values
     }))
-    // .on(overrideValues, (_, values: YEAY.QueryAllVideosRequestValues) => ({
+    // .on(overrideValues, (_, values: BULLZ.QueryAllVideosRequestValues) => ({
     //     ...defaultVideosValues,
     //     ...values
     // }))
-    // .on(updateAndRemoveValues, (state, values: YEAY.UpdateAndRemoveValues) => {
+    // .on(updateAndRemoveValues, (state, values: BULLZ.UpdateAndRemoveValues) => {
     //     let formerState = state;
     //     values.removeValues.forEach(
     //         //@ts-ignore
@@ -369,13 +369,13 @@ const getVideoDetailsByIds = createEffect({
 });
 
 interface VideoDetailsProps {
-    wom?: YEAY.VideoDetailsValidationWOM;
-    primaryProduct?: YEAY.AffiliateProductResponse;
+    wom?: BULLZ.VideoDetailsValidationWOM;
+    primaryProduct?: BULLZ.TopicResponse;
 }
 
 const videoDetails = restore<VideoDetailsProps>(getVideoDetailsByIds.doneData, {});
 
-//const videoDetails = restore<YEAY.VideoDetailsValidationWOM>(getVideoDetailsByIds.doneData, {});
+//const videoDetails = restore<BULLZ.VideoDetailsValidationWOM>(getVideoDetailsByIds.doneData, {});
 
 interface ValidationStateRequestProps {
     contentId?: string;
@@ -397,9 +397,9 @@ const getValidationStateByContentIds = createEffect({
     }
 });
 
-const validationState = restore<YEAY.ValidationStateResponse>(getValidationStateByContentIds.doneData, {});
+const validationState = restore<BULLZ.ValidationStateResponse>(getValidationStateByContentIds.doneData, {});
 
-// const videoDetails = createStore<YEAY.VideoDetailsValidationWOM>({}).on(
+// const videoDetails = createStore<BULLZ.VideoDetailsValidationWOM>({}).on(
 //     getVideoDetailsByIds.doneData,
 //     (_, data) => data
 // );

@@ -83,7 +83,7 @@ export const Trendings = () => {
             id
         });
 
-    const removeVideoItemsWithDuplicatedPositions = (array: YEAY.GetTrendingOverridesResponse[]) => {
+    const removeVideoItemsWithDuplicatedPositions = (array: BULLZ.GetTrendingOverridesResponse[]) => {
         let uniqPositions: number[] = [];
         //console.log('remove func');
 

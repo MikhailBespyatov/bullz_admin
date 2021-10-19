@@ -30,15 +30,15 @@ const getPublicValueAndAddSpaces = (value: getPublicType, length: number) => {
     return newValue.length > length ? newValue : _.repeat(spaceSymbol, length - newValue.length) + newValue;
 };
 
-export const engagementsParameter: Array<keyof YEAY.EngagementsOnContent> = ['all', 'public', 'private'];
+export const engagementsParameter: Array<keyof BULLZ.EngagementsOnContent> = ['all', 'public', 'private'];
 
 export const generateTitleColumnWithSpaces = (titles: string[]) => {
     let length = titles.reduce((length, title) => (title.length > length ? title.length : length), 0);
     return titles.map(i => (i.length > length ? i : i + _.repeat(spaceSymbol, length - i.length)));
 };
 
-export type EngagementKey = keyof YEAY.EngagementsParameters;
-export const generateEngagementTableWithSpaces = (engagements: YEAY.EngagementsOnContent, keys: EngagementKey[]) => {
+export type EngagementKey = keyof BULLZ.EngagementsParameters;
+export const generateEngagementTableWithSpaces = (engagements: BULLZ.EngagementsOnContent, keys: EngagementKey[]) => {
     const columnLengths = engagementsParameter.map(i => i.length);
     engagementsParameter.forEach((parameter, i) =>
         keys.forEach(key => {
@@ -63,7 +63,7 @@ export const generateEngagementTableWithSpaces = (engagements: YEAY.EngagementsO
     // );
 };
 
-export const getEngagementValue = (engagements: YEAY.EngagementsOnContent, key: EngagementKey) =>
+export const getEngagementValue = (engagements: BULLZ.EngagementsOnContent, key: EngagementKey) =>
     engagementsParameter.map(engagement => getPublicValue(engagements[engagement][key])).join(' | ');
 
 export const getDateValue = (value?: string) =>

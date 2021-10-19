@@ -1,8 +1,8 @@
 import axios, { CancelTokenSource } from 'axios';
+import { defaultPage } from 'constants/defaults/filterSettings';
+import { defaultStatisticsValues } from 'constants/defaults/statistics';
 import { createEffect, createEvent, createStore, forward } from 'effector';
 import { API } from 'services';
-import { defaultStatisticsValues } from 'constants/defaults/statistics';
-import { defaultPage } from 'constants/defaults/filterSettings';
 
 let cancelToken: CancelTokenSource | undefined;
 
@@ -19,7 +19,7 @@ const updateEditLoading = createEvent();
 const editLoading = createStore(false).on(updateLoading, loading => !loading);
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryVideoStatisticsRequest) => {
+    handler: async (values: BULLZ.QueryVideoStatisticsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -40,10 +40,13 @@ const loadItems = createEffect({
     }
 });
 
-const statistics = createStore<YEAY.QueryVideoStatisticsResponse>({}).on(loadItems.doneData, (_, newState) => newState);
+const statistics = createStore<BULLZ.QueryVideoStatisticsResponse>({}).on(
+    loadItems.doneData,
+    (_, newState) => newState
+);
 
-const updateValues = createEvent<Partial<YEAY.QueryVideoStatisticsRequest>>();
-const overrideValues = createEvent<Partial<YEAY.QueryVideoStatisticsRequest>>();
+const updateValues = createEvent<Partial<BULLZ.QueryVideoStatisticsRequest>>();
+const overrideValues = createEvent<Partial<BULLZ.QueryVideoStatisticsRequest>>();
 const invokeGetItems = createEvent();
 const setDefaultValues = createEvent();
 //
@@ -53,13 +56,13 @@ const setDefaultValues = createEvent();
 // const sortPrefix = createStore<string>(sortTagsValuesDefault).on(setSortPrefix, (_, newState) => newState);
 // const sortPostfix = createStore<string>(sortModeTagsValuesDefault).on(setSortPostfix, (_, newState) => newState);
 
-const values = createStore<YEAY.QueryVideoStatisticsRequest>(defaultStatisticsValues)
-    .on(updateValues, (state, values: Partial<YEAY.QueryVideoStatisticsRequest>) => ({
+const values = createStore<BULLZ.QueryVideoStatisticsRequest>(defaultStatisticsValues)
+    .on(updateValues, (state, values: Partial<BULLZ.QueryVideoStatisticsRequest>) => ({
         ...state,
         pageIndex: defaultPage,
         ...values
     }))
-    .on(overrideValues, (_, values: Partial<YEAY.QueryVideoStatisticsRequest>) => ({
+    .on(overrideValues, (_, values: Partial<BULLZ.QueryVideoStatisticsRequest>) => ({
         ...defaultStatisticsValues,
         ...values
     }))

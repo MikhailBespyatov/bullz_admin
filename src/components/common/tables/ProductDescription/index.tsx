@@ -20,7 +20,7 @@ import { ProductCardEditableFields } from 'types/form';
 
 const { Item } = Descriptions;
 
-interface Props extends YEAY.GetManagedProductResponse {}
+interface Props extends BULLZ.GetManagedProductResponse {}
 
 interface ParamsProps {
     productId: string;

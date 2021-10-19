@@ -55,7 +55,7 @@ const { /*invokeGetComments,*/ /*setDefaultCommentValues,*/ updateCommentValues 
 const { limit: defaultLimit, pageIndex: defaultPageIndex } = defaultVideoCommentsValues;
 
 interface VideoEngagementBlockProps
-    extends Pick<YEAY.AdminGetVideoResponse, 'engagementStatistics'>,
+    extends Pick<BULLZ.AdminGetVideoResponse, 'engagementStatistics'>,
         Pick<Sizes, 'width'>,
         Pick<Title, 'title'> {}
 
@@ -165,7 +165,7 @@ export const VideoEngagementBlock = ({
 //         </Row>
 //     </Column>
 // );
-export interface VideoDescriptionProps extends YEAY.AdminGetVideoResponse, YEAY.YeayValidationInfo {}
+export interface VideoDescriptionProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzValidationInfo {}
 
 export const VideoDescription = ({
     engagementStatistics,
@@ -289,7 +289,7 @@ export const VideoDescription = ({
                         <Section marginBottom="20px">
                             <VideoEngagementBlock
                                 engagementStatistics={engagementStatistics}
-                                title="Engagements YEAY"
+                                title="Engagements BULLZ"
                                 width="300px"
                             />
                         </Section>
@@ -339,9 +339,9 @@ export const VideoDescription = ({
                                 isLink
                                 backgroundColor={grey27}
                                 customCopyIcon={whiteLinkIcon}
-                                linkRoute={productLink}
+                                linkRoute={productLink || ''}
                                 marginBottom={descriptionPadding}
-                                subtitle={productLink}
+                                subtitle={productLink || ''}
                                 success="ProductLink was copied"
                                 title="ProductLink"
                                 width={propertyBlockWidth}

@@ -61,7 +61,7 @@ import { BlockInformationText, UserPropertyWrapper } from './styles';
 const { removeRoleByUserId, addRoleByUserId, changeAbilityByUserId } = usersEvents;
 const { updateAsyncModalLoading, closeAsyncModal, openAsyncModal } = modalEvents;
 
-interface Props extends YEAY.AdminGetUserCommon {}
+interface Props extends BULLZ.AdminGetUserCommon {}
 
 export const UserDescription = ({
     username,
@@ -568,7 +568,7 @@ export const UserDescription = ({
 };
 
 interface UserVideosProps {
-    videos?: YEAY.AdminGetVideoResponse[];
+    videos?: BULLZ.AdminGetVideoResponse[];
 }
 
 export const UserVideos = ({ videos = [] }: UserVideosProps) => (

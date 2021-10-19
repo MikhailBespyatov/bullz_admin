@@ -8,8 +8,8 @@ import { MaxSizes, MinSizes, Sizes } from 'types/styles';
 import { hlsIsSupported } from './constants';
 
 export interface VideoContainerProps
-    extends Pick<YEAY.AdminGetVideoResponse, 'thumbnailUrl'>,
-        Pick<YEAY.VideoDetailsResponse, 'screenGrabUrl'>,
+    extends Pick<BULLZ.AdminGetVideoResponse, 'thumbnailUrl'>,
+        Pick<BULLZ.VideoDetailsResponse, 'screenGrabUrl'>,
         Sizes,
         MinSizes,
         MaxSizes {

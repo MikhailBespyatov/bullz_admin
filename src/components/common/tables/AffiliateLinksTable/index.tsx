@@ -14,11 +14,11 @@ import React from 'react';
 import { affiliateLinksEffects, affiliateLinksEvents } from 'stores/products/affiliateLinks';
 // import { parseCalendarDate } from 'utils/usefulFunctions';
 
-interface WrapperProps extends YEAY.GetAffiliateLinkResponse {
+interface WrapperProps extends BULLZ.GetAffiliateLinkResponse {
     empty?: boolean;
 }
 
-interface Props extends YEAY.AffiliateLinkEntryResponse {
+interface Props extends BULLZ.AffiliateLinkEntryResponse {
     productId?: string;
 }
 
@@ -87,8 +87,8 @@ export const AffiliateLinksTable = ({ entries, productId, defaultEntry, empty }:
                           <ChangeAffiliateLinkModal
                               i={i}
                               id={productId || ''}
-                              locale={cultureInfo}
-                              url={url}
+                              locale={cultureInfo || ''}
+                              url={url || ''}
                               onChange={changeEditableArrayCallback}
                           />
                           <CopyButton subject={url} success="you successfully copied affiliate link url">

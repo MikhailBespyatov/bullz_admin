@@ -57,7 +57,7 @@ import { SubjectType } from 'types/types';
 
 const { updateAsyncModalLoading } = modalEvents;
 
-export interface ProductDescriptionProps extends YEAY.GetManagedProductResponse, YEAY.AffiliateLinkEntryResponse {}
+export interface ProductDescriptionProps extends BULLZ.GetManagedProductResponse, BULLZ.AffiliateLinkEntryResponse {}
 
 export const ProductModal = ({
     id = '',

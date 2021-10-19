@@ -5,7 +5,7 @@ export type noop = () => void;
 
 export type alertStatusType = 'info' | 'success' | 'error' | undefined;
 export type womValidationStageType = 0 | 1 | 2 | 3 | undefined;
-export type videoCurationStateType = YEAY.VideoCurationState | undefined;
+export type videoCurationStateType = BULLZ.VideoCurationState | undefined;
 
 export type SubjectType = string | boolean | string[];
 

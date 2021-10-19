@@ -24,7 +24,7 @@ export const accessRoles = Object.keys(Roles).filter(role => isNaN(Number(role))
 
 export const sortTagsValuesUsersDefault = sortTagsUsersValues[1];
 
-export const defaultUsersValues: YEAY.QueryAllUsersRequest = {
+export const defaultUsersValues: BULLZ.QueryAllUsersRequest = {
     sortByActivityAsc: true,
     pageIndex: defaultPage,
     role: sortTagsValuesUsersDefault,
@@ -34,7 +34,7 @@ export const defaultUsersValues: YEAY.QueryAllUsersRequest = {
 
 export const sortTagsWomStageValuesDefault = sortTagsWomStageValues[0];
 
-export const defaultUserVideosValuesWithoutDate: YEAY.QueryAllVideosRequest = {
+export const defaultUserVideosValuesWithoutDate: BULLZ.QueryAllVideosRequest = {
     creatorId: undefined,
     isDeleted: false,
     isReported: false,
@@ -49,13 +49,13 @@ export const defaultUserVideosValuesWithoutDate: YEAY.QueryAllVideosRequest = {
     returnQueryCount: true
 };
 
-export const defaultUserVideosValues: YEAY.QueryAllVideosRequest = {
+export const defaultUserVideosValues: BULLZ.QueryAllVideosRequest = {
     ...defaultUserVideosValuesWithoutDate,
     fromCreatedDateTime: getDateBeforeAndReturnISO(7),
     toCreatedDateTime: getDateBeforeAndReturnISO(-1)
 };
 
-export const defaultBlacklistedUsersValues: YEAY.QueryBlacklistedUsersRequest = {
+export const defaultBlacklistedUsersValues: BULLZ.QueryBlacklistedUsersRequest = {
     type: 1,
     searchText: '',
     pageIndex: defaultPage,

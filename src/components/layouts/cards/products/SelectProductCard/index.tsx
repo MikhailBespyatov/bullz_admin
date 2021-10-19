@@ -23,7 +23,7 @@ import { videosEffects, videosEvents, videosStores } from 'stores/videos/videos'
 
 const { Meta } = Card;
 
-interface Props extends YEAY.ProductResponse {}
+interface Props extends BULLZ.TopicResponse {}
 
 export const SelectProductCard = ({ id: productId, name, tags }: Props) => {
     const video = useStore(videosStores.video);

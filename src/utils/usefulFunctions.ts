@@ -64,7 +64,7 @@ export const toCamelCaseRole = (role: string) =>
 export const triggerCopy: (text: string) => void = text => navigator.clipboard.writeText(text);
 
 // give access a user as natural (-1 - no any access) number (the less number, the more rights user has)
-export const giveAccess: (user: YEAY.UserAuthorizeResponse) => number = user => {
+export const giveAccess: (user: BULLZ.UserAuthorizeResponse) => number = user => {
     const roles = user?.user?.roles?.map(role => toCamelCaseRole(role));
 
     let access: Roles = Roles.Unknown;
@@ -152,7 +152,7 @@ export const averageValue: (array: number[]) => number = array => {
 
 // CHECK FOR EXISTING TAG IN TEST ARRAY AND RETURN CORRESPONDING OBJECT WITH EXISTING KEYS
 // @ts-ignore
-// export const filterTagsConverter: (tags: string[], testArray?: TestArrayType[]) => YEAY.QueryAllVideosRequest = (
+// export const filterTagsConverter: (tags: string[], testArray?: TestArrayType[]) => BULLZ.QueryAllVideosRequest = (
 //     tags,
 //     testArray = testFilterArray
 // ) => {
@@ -251,7 +251,7 @@ export const getTotalRecords = (totalRecords: number | undefined | null) =>
 export const capitalizeChar = (str: string, charAt = 0) =>
     str.slice(0, charAt) + str.charAt(charAt).toUpperCase() + str.slice(charAt + 1);
 
-export const getAuthData: (user: YEAY.UserAuthorizeResponse) => Auth = user =>
+export const getAuthData: (user: BULLZ.UserAuthorizeResponse) => Auth = user =>
     objectIsEmpty(user)
         ? {
               access: Roles.Unknown,

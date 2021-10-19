@@ -1,19 +1,19 @@
-import React from 'react';
-import { useStore } from 'effector-react';
 import { Form as AntForm, message } from 'antd';
-import { errorEmptyMessage } from 'constants/notifications';
-import { MainLayout } from 'components/layouts/MainLayout';
-import { Section } from 'components/grid/Section';
-import { H1 } from 'components/common/typography/titles/H';
-import { formName } from 'pages/CreateProduct/constants';
-import { FormCard } from 'components/layouts/cards/FormCard';
-import { FormTagsSelect } from 'components/formComponents/FormTagsSelect';
-import { FormButton } from 'components/formComponents/FormButton';
 import { Loader } from 'components/common/dynamic/Loader';
+import { H1 } from 'components/common/typography/titles/H';
+import { FormButton } from 'components/formComponents/FormButton';
+import { FormTagsSelect } from 'components/formComponents/FormTagsSelect';
+import { Section } from 'components/grid/Section';
+import { FormCard } from 'components/layouts/cards/FormCard';
+import { MainLayout } from 'components/layouts/MainLayout';
+import { errorEmptyMessage } from 'constants/notifications';
+import { useStore } from 'effector-react';
+import { formName } from 'pages/CreateProduct/constants';
+import { contentDeleteUserAsyncModal, titleDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
+import React from 'react';
 import { modalEvents } from 'stores/modals/asyncModal';
 import { usersEffects, usersStores } from 'stores/users/users';
 import { SubjectType } from 'types/types';
-import { contentDeleteUserAsyncModal, titleDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
 
 export const DeleteUser = () => {
     const loading = useStore(usersStores.editLoading);
@@ -25,7 +25,7 @@ export const DeleteUser = () => {
         modalEvents.closeAsyncModal();
     };
 
-    const onFinish = ({ userIds }: YEAY.AdminDeleteUsersRequest) => {
+    const onFinish = ({ userIds }: BULLZ.AdminDeleteUsersRequest) => {
         if (userIds) {
             modalEvents.openAsyncModal({
                 visible: true,

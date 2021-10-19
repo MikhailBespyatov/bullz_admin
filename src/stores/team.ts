@@ -70,7 +70,7 @@ const getIdAndRedirectToSinglePage = createEffect({
 });
 
 const getItems = createEffect({
-    handler: async (values: YEAY.QueryAdminTeamsRequest) => {
+    handler: async (values: BULLZ.QueryAdminTeamsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -91,7 +91,7 @@ const getItems = createEffect({
 const deleteItemById = createEvent<string>();
 
 const removeOrBanMember = createEffect({
-    handler: async (values: YEAY.RemoveTeamMemberRequest) => {
+    handler: async (values: BULLZ.RemoveTeamMemberRequest) => {
         try {
             // TODO: await
             /*const removeTeamResponse = */
@@ -115,8 +115,8 @@ const removeOrBanMember = createEffect({
 interface UpdateProps extends Id, TeamCardEditableFields {}
 const updateItemById = createEvent<UpdateProps>();
 
-const singleItem = createStore<YEAY.GetTeamInfoResponse>({}).on(getSingleItemById.doneData, (_, newState) => newState);
-const item = createStore<YEAY.GetTeamInfoResponse>({})
+const singleItem = createStore<BULLZ.GetTeamInfoResponse>({}).on(getSingleItemById.doneData, (_, newState) => newState);
+const item = createStore<BULLZ.GetTeamInfoResponse>({})
     .on(getItemById.doneData, (_, newState) => newState)
     .on(removeOrBanMember.doneData, (item, userId) => ({
         ...item,
@@ -127,7 +127,7 @@ const item = createStore<YEAY.GetTeamInfoResponse>({})
         ...newValues
     }));
 
-const items = createStore<YEAY.QueryTeamsResponse>({})
+const items = createStore<BULLZ.QueryTeamsResponse>({})
     .on(getItems.doneData, (_, newState) => newState)
     .on(updateItemById, (state, { id, ...newValues }) => ({
         ...state,
@@ -147,8 +147,8 @@ const items = createStore<YEAY.QueryTeamsResponse>({})
         items: state.items?.filter(team => team.id !== id)
     }));
 
-const updateValues = createEvent<YEAY.QueryTeamsRequestValues>();
-const updateAndRemoveValues = createEvent<YEAY.UpdateAndRemoveTeamsValues>();
+const updateValues = createEvent<BULLZ.QueryTeamsRequestValues>();
+const updateAndRemoveValues = createEvent<BULLZ.UpdateAndRemoveTeamsValues>();
 const setDefaultValues = createEvent();
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
@@ -157,8 +157,8 @@ const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore(
 // after updating or removing some fields of the values,
 // watcher initiate getItems request due the new values
 // (old fields of values are not removed if they are not pointed as remove values in removeAndUpdateValues event)
-const values = createStore<YEAY.QueryAdminTeamsRequest>(defaultTeamsValues)
-    .on(updateValues, (state, values: YEAY.QueryTeamsRequestValues) => ({
+const values = createStore<BULLZ.QueryAdminTeamsRequest>(defaultTeamsValues)
+    .on(updateValues, (state, values: BULLZ.QueryTeamsRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values
@@ -173,7 +173,7 @@ const setId = createEvent<string>();
 const getRequestId = restore(setId, '');
 
 const createItem = createEffect({
-    handler: async (values: YEAY.CreateTeamRequest) => {
+    handler: async (values: BULLZ.CreateTeamRequest) => {
         try {
             updateLoading();
             // TODO: await
@@ -190,7 +190,7 @@ const createItem = createEffect({
     }
 });
 
-const editInfoItem = createStore<YEAY.GetTeamInfoResponse>({}).on(
+const editInfoItem = createStore<BULLZ.GetTeamInfoResponse>({}).on(
     getSingleItemById.doneData,
     (_, newState) => newState
 );

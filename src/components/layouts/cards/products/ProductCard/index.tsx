@@ -37,7 +37,7 @@ const { updateAsyncModalLoading } = modalEvents;
 
 const { Meta } = Card;
 
-interface Props extends YEAY.GetManagedProductResponse {}
+interface Props extends BULLZ.GetManagedProductResponse {}
 
 export const ProductCard = ({ id = '', name = '', description, hashTags }: Props) => {
     const { access } = useStore(userStores.auth);

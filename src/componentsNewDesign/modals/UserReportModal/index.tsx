@@ -48,7 +48,7 @@ interface EngagementTableItem {
     title: string;
     key: EngagementKey;
 }
-const EngagementTable = (engagement: YEAY.EngagementsOnContent, array: EngagementTableItem[], subtitle: string) => {
+const EngagementTable = (engagement: BULLZ.EngagementsOnContent, array: EngagementTableItem[], subtitle: string) => {
     const titles = generateTitleColumnWithSpaces([subtitle, ...array.map(i => i.title)]);
     const values = generateEngagementTableWithSpaces(
         engagement,

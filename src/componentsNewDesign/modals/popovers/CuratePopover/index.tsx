@@ -77,7 +77,7 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
 
     const [checked, setChecked] = useState(false);
     const [isAcceptPage, setIsAcceptPage] = useState(true);
-    const [rejectStatus, setRejectStatus] = useState<YEAY.CurationEndedReason>(acceptedStatus);
+    const [rejectStatus, setRejectStatus] = useState<BULLZ.CurationEndedReason>(acceptedStatus);
     const [visibleRejectsStatus, setVisibleRejectsStatus] = useState(false);
     const [timeoutVisibleRejectsStatus, setTimeoutVisibleRejectsStatus] = useState<null | number>(null);
 
@@ -124,7 +124,7 @@ export const CuratePopover: FC<CuratePopoverProps> = ({
             curationState: fields.curationState,
             curationEndedReason: rejectStatus
         });
-    const onApply = async (values: YEAY.SubmitVideoCurationRequest) => {
+    const onApply = async (values: BULLZ.SubmitVideoCurationRequest) => {
         try {
             await modalEffects.curateVideo({ onChange: validateCallBack, ...values, videoId: id });
             //setChecked(false);

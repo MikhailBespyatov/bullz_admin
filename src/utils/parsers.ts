@@ -40,7 +40,7 @@ export const getDateAfterAndReturnISO = (afterDays = 0) =>
     new Date(Date.now() + afterDays * 24 * 60 * 60 * 1000).toISOString();
 
 export const parseCreateTrendingVideoPosition = (
-    items: YEAY.GetTrendingOverridesResponse[] | null | undefined,
+    items: BULLZ.GetTrendingOverridesResponse[] | null | undefined,
     definedPosition?: number
 ) => {
     let position = 0;

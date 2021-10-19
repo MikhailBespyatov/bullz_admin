@@ -1,20 +1,20 @@
 import { CancelToken } from 'axios';
 import axios from './axios';
 
-export const query = (data: YEAY.QueryPlaylistVideosRequest) =>
-    axios<YEAY.PlaylistVideoResponse>({
+export const query = (data: BULLZ.QueryPlaylistVideosRequest) =>
+    axios<BULLZ.PlaylistVideoResponse>({
         url: '/playlist/query',
         data
     });
 
-export const get = (data: YEAY.GetPlaylistVideoRequest) =>
-    axios<YEAY.PlaylistSingleVideoResponse>({
+export const get = (data: BULLZ.GetPlaylistVideoRequest) =>
+    axios<BULLZ.PlaylistSingleVideoResponse>({
         url: '/playlist/get',
         data
     });
 
-export const queryByFilter = (data: YEAY.QueryPlaylistVideosRequest, cancelToken?: CancelToken) =>
-    axios<YEAY.QueryPlaylistVideosResponse>({
+export const queryByFilter = (data: BULLZ.QueryPlaylistVideosRequest, cancelToken?: CancelToken) =>
+    axios<BULLZ.QueryPlaylistVideosResponse>({
         url: '/playlist/query-videos',
         cancelToken,
         data

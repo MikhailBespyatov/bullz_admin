@@ -16,7 +16,7 @@ export const defaultNextDateRangeRequest: [string, string] = [
     addDays(new Date(defaultDateRangeRequest[1]), 8).toISOString()
 ];
 
-export const headerForCSVTable: Array<{ label: string; key: keyof YEAY.MarketingStatistics }> = [
+export const headerForCSVTable: Array<{ label: string; key: keyof BULLZ.MarketingStatistics }> = [
     { label: 'From', key: 'utcStart' },
     { label: 'To', key: 'utcEnd' },
     { label: 'Not Verified Users', key: 'notVerifiedUserCount' },

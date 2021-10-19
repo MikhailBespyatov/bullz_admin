@@ -12,7 +12,7 @@ import { grey23 } from 'constants/styles/colors';
 import React from 'react';
 import { trendingsEffects } from 'stores/trendings';
 
-export interface Props extends YEAY.AdminGetUserCommon {}
+export interface Props extends BULLZ.AdminGetUserCommon {}
 
 export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUrl }: Props) => {
     //const loading = useStore(trendingsStores.createLoading);
