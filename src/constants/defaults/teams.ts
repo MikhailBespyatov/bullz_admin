@@ -1,6 +1,6 @@
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 
-export const defaultTeamsValues: YEAY.QueryAdminTeamsRequest = {
+export const defaultTeamsValues: BULLZ.QueryAdminTeamsRequest = {
     teamName: undefined,
     teamLeaderUsername: undefined,
     teamId: undefined,

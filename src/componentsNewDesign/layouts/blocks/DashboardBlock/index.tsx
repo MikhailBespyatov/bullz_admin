@@ -38,7 +38,7 @@ const DashboardColumn = ({ title, subtitle, color }: DashboardColumnProps) => (
     </Column>
 );
 
-interface DashboardBlockProps extends YEAY.MarketingStatisticsResponse, Disabled, OnDataRangeChange, Active {
+interface DashboardBlockProps extends BULLZ.MarketingStatisticsResponse, Disabled, OnDataRangeChange, Active {
     dateFrom: string;
     dateTo: string;
     isDependency?: boolean;

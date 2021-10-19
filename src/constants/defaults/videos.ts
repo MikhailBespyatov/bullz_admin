@@ -13,7 +13,7 @@ export const sortTagsValuesDefault = sortTagsValues[0];
 export const sortTagsWomStageValuesDefault = sortTagsWomStageValues[0];
 export const sortTagsCurationStateValuesDefault = sortTagsCurationStateValues[0];
 
-export const defaultVideosValuesWithoutDate: YEAY.QueryAllVideosRequest = {
+export const defaultVideosValuesWithoutDate: BULLZ.QueryAllVideosRequest = {
     isReported: false,
     hasHlsStream: true,
     womValidationStage: sortTagsWomStageValuesDefault,
@@ -28,30 +28,30 @@ export const defaultVideosValuesWithoutDate: YEAY.QueryAllVideosRequest = {
     creatorId: undefined
 };
 
-export const defaultVideosValues: YEAY.QueryAllVideosRequest = {
+export const defaultVideosValues: BULLZ.QueryAllVideosRequest = {
     ...defaultVideosValuesWithoutDate,
     fromCreatedDateTime: getDateBeforeAndReturnISO(7),
     toCreatedDateTime: getDateBeforeAndReturnISO(-1)
 };
 
-export const defaultPlaylistVideosValues: YEAY.QueryPlaylistVideosRequest = {
+export const defaultPlaylistVideosValues: BULLZ.QueryPlaylistVideosRequest = {
     pageIndex: defaultPage,
     limit: defaultLimit
 };
 
-export const defaultProductVideosValues: YEAY.QueryVideosByProductIdRequest = {
+export const defaultProductVideosValues: BULLZ.QueryVideosByProductIdRequest = {
     pageIndex: defaultPage,
     limit: defaultLimit,
     returnQueryCount: true
 };
 
-export const defaultVideosByProductIdValues: YEAY.QueryVideosByProductIdRequest = {
+export const defaultVideosByProductIdValues: BULLZ.QueryVideosByProductIdRequest = {
     pageIndex: defaultPage,
     limit: defaultLimit,
     returnQueryCount: true
 };
 
-export const validationReasons: Dictionary<YEAY.VideoCurationState> = {
+export const validationReasons: Dictionary<BULLZ.VideoCurationState> = {
     None: 0,
     Processing: 1,
     Accepted: 2,

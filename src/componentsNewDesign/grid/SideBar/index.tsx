@@ -35,7 +35,7 @@ import { useLocation } from 'react-router';
 import { userEvents, userStores } from 'stores/users/user';
 import { parseKeyWithoutId } from 'utils/usefulFunctions';
 
-// interface SideBarProps extends Pick<YEAY.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {}
+// interface SideBarProps extends Pick<BULLZ.AdminGetUserCommon, 'isTrusted' | 'isDisabled' | 'isAccountVerified'> {}
 
 export const SideBar = () => {
     const location = useLocation();

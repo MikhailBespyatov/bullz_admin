@@ -53,7 +53,7 @@ import {
 const { /*addRoleByUserId,*/ removeRoleByUserId, changeAbilityByUserId } = usersEvents;
 const { updateAsyncModalLoading, closeAsyncModal, openAsyncModal } = modalEvents;
 
-export interface UserCardProps extends YEAY.AdminGetUserCommon {}
+export interface UserCardProps extends BULLZ.AdminGetUserCommon {}
 
 export const UserCard = ({
     id = '',

@@ -27,10 +27,10 @@ import React from 'react';
 import { noContentMessage } from './constants';
 import { ItemSpan, ItemWrapper } from './styles';
 
-interface Props extends YEAY.QueryVideoStatisticsResponse {
-    removeItem?: keyof YEAY.VideoStatisticsResponse;
+interface Props extends BULLZ.QueryVideoStatisticsResponse {
+    removeItem?: keyof BULLZ.VideoStatisticsResponse;
 }
-interface DataTable extends YEAY.QueryVideoStatisticsResponse {
+interface DataTable extends BULLZ.QueryVideoStatisticsResponse {
     [key: string]: any;
 }
 export const StatisticsTable = ({ items, removeItem }: Props) => {

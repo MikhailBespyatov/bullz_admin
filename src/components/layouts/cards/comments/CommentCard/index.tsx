@@ -28,7 +28,7 @@ import {
     errorImageDiameter
 } from './constants';
 
-interface Props extends YEAY.GetPostResponse {
+interface Props extends BULLZ.GetPostResponse {
     isBlocked?: boolean;
 }
 

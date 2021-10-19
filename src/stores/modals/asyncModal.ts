@@ -161,8 +161,7 @@ const editProductInfo = createEffect({
             name,
             // description,
             // brand,
-            tags,
-            brandId
+            tags
             // color,
             // features,
             // category,
@@ -175,7 +174,6 @@ const editProductInfo = createEffect({
             // description: description || '',
             // brand: brand || '',
             tags: tags || [],
-            brandId,
             // color: color || '',
             // features: features || [],
             // category: category || [],

@@ -12,7 +12,7 @@ import React from 'react';
 import { CreateVideoProps } from 'stores/initialize/initialize.modal.store';
 import { trendingsEffects } from 'stores/trendings';
 
-interface Props extends YEAY.AdminGetVideoResponse, CreateVideoProps {}
+interface Props extends BULLZ.AdminGetVideoResponse, CreateVideoProps {}
 
 export const CreateTrendingVideoCard = ({ id = '', thumbnailUrl, definedPosition }: Props) => {
     // const loading = useStore(trendingsStores.createLoading);

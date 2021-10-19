@@ -109,24 +109,27 @@ const removeDuplicatedItem = createEffect({
     }
 });
 
-const setTags = createEvent<YEAY.QueryTrendingOverridesResponse>();
-const setVideos = createEvent<YEAY.QueryTrendingOverridesResponse>();
-const setUsers = createEvent<YEAY.QueryTrendingOverridesResponse>();
-const tags = createStore<YEAY.QueryTrendingOverridesResponse>({}).on([getTags.doneData, setTags], (_, newState) => ({
+const setTags = createEvent<BULLZ.QueryTrendingOverridesResponse>();
+const setVideos = createEvent<BULLZ.QueryTrendingOverridesResponse>();
+const setUsers = createEvent<BULLZ.QueryTrendingOverridesResponse>();
+const tags = createStore<BULLZ.QueryTrendingOverridesResponse>({}).on([getTags.doneData, setTags], (_, newState) => ({
     ...newState,
     items: sortTrending(newState?.items || [])
 }));
-const videos = createStore<YEAY.QueryTrendingOverridesResponse>({}).on(
+const videos = createStore<BULLZ.QueryTrendingOverridesResponse>({}).on(
     [getVideos.doneData, setVideos],
     (_, newState) => ({
         ...newState,
         items: sortTrending(newState?.items || [])
     })
 );
-const users = createStore<YEAY.QueryTrendingOverridesResponse>({}).on([getUsers.doneData, setUsers], (_, newState) => ({
-    ...newState,
-    items: sortTrending(newState?.items || [])
-}));
+const users = createStore<BULLZ.QueryTrendingOverridesResponse>({}).on(
+    [getUsers.doneData, setUsers],
+    (_, newState) => ({
+        ...newState,
+        items: sortTrending(newState?.items || [])
+    })
+);
 // !!! this console.log is necessary to check validity so far
 videos.watch(state => {
     //console.log('STORE video items', state?.items);

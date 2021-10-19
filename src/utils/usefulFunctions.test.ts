@@ -507,27 +507,27 @@ describe('capitalizeChar', () => {
 
 describe('getAuthData', () => {
     it('Test for getAuthData', () => {
-        const mockUserAdministrator: YEAY.UserAuthorizeResponse = {
+        const mockUserAdministrator: BULLZ.UserAuthorizeResponse = {
             user: { userId: '123', roles: ['Administrator'] }
         };
 
-        const mockUserContentManager: YEAY.UserAuthorizeResponse = {
+        const mockUserContentManager: BULLZ.UserAuthorizeResponse = {
             user: { userId: '123', roles: ['ContentManager'] }
         };
 
-        const mockUserCurator: YEAY.UserAuthorizeResponse = {
+        const mockUserCurator: BULLZ.UserAuthorizeResponse = {
             user: { userId: '123', roles: ['Curator'] }
         };
 
-        const mockUserCombined: YEAY.UserAuthorizeResponse = {
+        const mockUserCombined: BULLZ.UserAuthorizeResponse = {
             user: { userId: '123', roles: ['ContentManager', 'Administrator', 'Curator'] }
         };
 
-        const mockUserAny: YEAY.UserAuthorizeResponse = {
+        const mockUserAny: BULLZ.UserAuthorizeResponse = {
             user: { userId: '123', roles: ['Any'] }
         };
 
-        const mockEmptyUserWithMessage: YEAY.UserAuthorizeResponse = {
+        const mockEmptyUserWithMessage: BULLZ.UserAuthorizeResponse = {
             message: 'Error'
         };
 

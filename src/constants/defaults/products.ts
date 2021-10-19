@@ -3,7 +3,7 @@ import { defaultLimit, defaultPage } from './filterSettings';
 
 export const sortTagsValuesProductsDefault = sortTagsProductsValues[0];
 
-export const defaultProductsValues: YEAY.QueryProductsRequest = {
+export const defaultProductsValues: BULLZ.QueryTopicsRequest = {
     //isReferenced: true,
     pageIndex: defaultPage,
     limit: defaultLimit,

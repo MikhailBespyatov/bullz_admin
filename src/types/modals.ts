@@ -20,17 +20,17 @@ export interface UseModal extends Visibility {
     close?: noop;
 }
 
-export interface EditVideoModalProps extends VideoCardEditableChange, YEAY.UpdateVideoRequest {}
-export interface CurateVideoModalProps extends VideoCurateEditableChange, YEAY.SubmitVideoCurationRequest {}
+export interface EditVideoModalProps extends VideoCardEditableChange, BULLZ.UpdateVideoRequest {}
+export interface CurateVideoModalProps extends VideoCurateEditableChange, BULLZ.SubmitVideoCurationRequest {}
 
-export interface EditProductModalProps extends ProductCardEditableChange, YEAY.UpdateProductRequest {}
-export interface EditTeamModalProps extends TeamCardEditableChange, YEAY.GetTeamResponse {}
-export interface CreateAffiliateLinkModalProps extends YEAY.CreateManagedProductAffiliateLinkRequest {}
+export interface EditProductModalProps extends ProductCardEditableChange, BULLZ.UpdateTopicRequest {}
+export interface EditTeamModalProps extends TeamCardEditableChange, BULLZ.GetTeamResponse {}
+export interface CreateAffiliateLinkModalProps extends BULLZ.CreateManagedProductAffiliateLinkRequest {}
 export interface ChangeDefaultAffiliateLinkModalProps
-    extends YEAY.CreateManagedProductAffiliateLinkRequest,
+    extends BULLZ.CreateManagedProductAffiliateLinkRequest,
         DefaultAffiliateLinkEditableChange {}
 export interface ChangeAffiliateLinkModalProps
-    extends YEAY.CreateManagedProductAffiliateLinkRequest,
+    extends BULLZ.CreateManagedProductAffiliateLinkRequest,
         Index,
         AffiliateLinksEditableChange {}
 
@@ -41,10 +41,10 @@ export interface UploadProductImageModalProps extends ProductCardEditableChange,
 
 export interface UploadNewVideoModalProps {
     formData: FormData;
-    data: YEAY.CreateVideoRequest;
+    data: BULLZ.CreateVideoRequest;
 }
 
-export interface CreateProductAsPrimaryProps extends YEAY.CreateProductRequest {
+export interface CreateProductAsPrimaryProps extends BULLZ.CreateTopicRequest {
     videoId: string;
     setSecondVisible?: (visible: boolean) => void;
 }

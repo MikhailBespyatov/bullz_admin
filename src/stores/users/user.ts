@@ -1,5 +1,7 @@
+import history from 'browserHistory';
 import { defaultLanguage } from 'constants/defaults/others';
 import { registerSuccessMessage } from 'constants/notifications';
+import { authLink } from 'constants/routes';
 import { storageName } from 'constants/storage';
 import { createEffect, createEvent, createStore, restore } from 'effector';
 import { API } from 'services';
@@ -9,8 +11,6 @@ import { initializeToggleStore } from 'stores/initialize/initialize.toggle.store
 import { Auth } from 'types/global';
 import { AuthValuesType, RegisterValuesType } from 'types/types';
 import { getAuthData } from 'utils/usefulFunctions';
-import { authLink } from 'constants/routes';
-import history from 'browserHistory';
 
 const [loading, updateLoading] = initializeToggleStore();
 
@@ -56,7 +56,7 @@ const loadToken = createEffect({
     }
 });
 
-const user = createStore<YEAY.UserAuthorizeResponse>(JSON.parse(localStorage.getItem(storageName) || '{}'))
+const user = createStore<BULLZ.UserAuthorizeResponse>(JSON.parse(localStorage.getItem(storageName) || '{}'))
     .on(loadToken.doneData, (_, newState) => newState)
     .on(logout, () => {
         history.push(authLink);

@@ -230,7 +230,7 @@ const PercentageValueSpan: FC = ({ children }) => (
     </MarginWrapper>
 );
 
-export interface WOMVideoDescriptionProps extends YEAY.AdminGetVideoResponse, YEAY.YeayValidationInfo {}
+export interface WOMVideoDescriptionProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzValidationInfo {}
 
 export const WOMVideoDescription = ({
     curationEndedReason = 0,

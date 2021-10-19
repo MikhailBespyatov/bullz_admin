@@ -1,5 +1,5 @@
 // * a shell sort to sort faster
-export const sortTrending = (array: YEAY.GetTrendingOverridesResponse[]) => {
+export const sortTrending = (array: BULLZ.GetTrendingOverridesResponse[]) => {
     const length = array.length;
     for (let i = 0; i < length; i++) if (array[i]?.position === undefined) return [];
 

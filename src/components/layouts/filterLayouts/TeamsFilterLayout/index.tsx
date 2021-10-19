@@ -23,7 +23,7 @@ import { SearchParameters, TotalRecords } from 'types/data';
 
 const { updateValues, setDefaultValues, setIsFirstToFalse } = teamsEvents;
 
-interface TeamsQueryParams extends Partial<YEAY.QueryAdminTeamsRequest> {}
+interface TeamsQueryParams extends Partial<BULLZ.QueryAdminTeamsRequest> {}
 
 const updateQueryValues = (params: TeamsQueryParams) => {
     updateValues(params);

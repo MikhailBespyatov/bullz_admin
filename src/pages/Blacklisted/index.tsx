@@ -25,7 +25,7 @@ import { SearchParameters } from 'types/data';
 
 const { /*setId,*/ updateValues /*setDefaultValues*/ } = blacklistedUsersEvents;
 
-// interface BlacklistedQueryParams extends Partial<YEAY.QueryBlacklistedUsersRequest> {}
+// interface BlacklistedQueryParams extends Partial<BULLZ.QueryBlacklistedUsersRequest> {}
 
 // const updateQueryValues = ({ type, searchText, ...params }: BlacklistedQueryParams) => {
 //     console.log('type, searchText', type, searchText);

@@ -16,7 +16,7 @@ const [loading, updateLoading] = initializeToggleStore();
 const [editLoading, updateEditLoading] = initializeToggleStore();
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryAllUsersRequest) => {
+    handler: async (values: BULLZ.QueryAllUsersRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -44,7 +44,7 @@ const loadItemById = createEffect({
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data: YEAY.AdminGetUserCommon = await API.adminUsers.getUserById(
+            const data: BULLZ.AdminGetUserCommon = await API.adminUsers.getUserById(
                 {
                     id: id
                 },
@@ -112,7 +112,7 @@ const deleteUsersById = createEffect({
     }
 });
 
-const editInfoItem = createStore<YEAY.AdminGetUserCommon>({}).on(
+const editInfoItem = createStore<BULLZ.AdminGetUserCommon>({}).on(
     loadEditInfoItemById.doneData,
     (_, newState) => newState
 );
@@ -131,7 +131,7 @@ const addRoleByUserId = createEvent<UpdateRolesProps>();
 const removeRoleByUserId = createEvent<UpdateRolesProps>();
 const changeAbilityByUserId = createEvent<UpdateAbilityProps>();
 
-const users = createStore<YEAY.QueryUsersResponse>({})
+const users = createStore<BULLZ.QueryUsersResponse>({})
     .on(loadItems.doneData, (_, state) => state)
     .on(loadItemById.doneData, (_, state) => state)
     .on(addRoleByUserId, (state, { id, role }) => ({
@@ -163,7 +163,7 @@ const loadSingleItemById = createEffect({
     handler: async (id: string) => {
         try {
             updateLoading();
-            const data: YEAY.AdminGetUserCommon = await API.adminUsers.getUserById({
+            const data: BULLZ.AdminGetUserCommon = await API.adminUsers.getUserById({
                 id: id
             });
             updateLoading();
@@ -178,7 +178,7 @@ const loadSingleItemById = createEffect({
     }
 });
 
-const user = createStore<YEAY.AdminGetUserCommon>({})
+const user = createStore<BULLZ.AdminGetUserCommon>({})
     .on(loadSingleItemById.doneData, (_, state) => state)
     .on(addRoleByUserId, (state, { id, role }) =>
         state.id !== id
@@ -210,12 +210,12 @@ const user = createStore<YEAY.AdminGetUserCommon>({})
 
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
-const updateValues = createEvent<YEAY.QueryAllUsersRequestValues>();
+const updateValues = createEvent<BULLZ.QueryAllUsersRequestValues>();
 const invokeGetItems = createEvent();
 const setDefaultValues = createEvent();
 
-const values = createStore<YEAY.QueryAllUsersRequest>(defaultUsersValues)
-    .on(updateValues, (state, values: YEAY.QueryAllUsersRequestValues) => ({
+const values = createStore<BULLZ.QueryAllUsersRequest>(defaultUsersValues)
+    .on(updateValues, (state, values: BULLZ.QueryAllUsersRequestValues) => ({
         ...state,
         pageIndex: defaultPage,
         ...values
@@ -240,7 +240,10 @@ values.watch(invokeGetItems, state => loadItems(state));
 const setId = createEvent<string>();
 const getRequestId = restore(setId, '');
 
-const getEngagementStatistics = (items: YEAY.AdminGetVideoResponse[], key: keyof YEAY.VideoDetailsEngagementDeltas) => {
+const getEngagementStatistics = (
+    items: BULLZ.AdminGetVideoResponse[],
+    key: keyof BULLZ.VideoDetailsEngagementDeltas
+) => {
     const engagementValues = items.map(({ engagementStatistics }) =>
         engagementStatistics ? engagementStatistics[key] : 0
     );
@@ -253,7 +256,7 @@ const getEngagementStatistics = (items: YEAY.AdminGetVideoResponse[], key: keyof
 };
 
 const generateUserReport = createEffect({
-    handler: async (userId: string): Promise<YEAY.UserReport> => {
+    handler: async (userId: string): Promise<BULLZ.UserReport> => {
         const {
             /*@ts-ignore - Removing from API Model*/
             email,
@@ -422,12 +425,12 @@ const generateUserReport = createEffect({
                     shares: maxShares.engagementStatistics?.shares || 0
                 }
             },
-            userLevel: 'low' as YEAY.LevelType
+            userLevel: 'low' as BULLZ.LevelType
         };
     }
 });
 
-const userReport = createStore<Partial<YEAY.UserReport>>({}).on(generateUserReport.doneData, (_, newState) => ({
+const userReport = createStore<Partial<BULLZ.UserReport>>({}).on(generateUserReport.doneData, (_, newState) => ({
     ...newState
 }));
 

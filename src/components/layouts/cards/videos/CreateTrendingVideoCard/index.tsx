@@ -16,7 +16,7 @@ import { CreateVideoProps } from 'stores/initialize/initialize.modal.store';
 import { trendingsEffects, trendingsStores } from 'stores/trendings';
 import { numberConverter } from 'utils/usefulFunctions';
 
-interface Props extends YEAY.AdminGetVideoResponse, CreateVideoProps {}
+interface Props extends BULLZ.AdminGetVideoResponse, CreateVideoProps {}
 
 export const CreateTrendingVideoCard = ({
     id = '',

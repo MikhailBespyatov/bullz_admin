@@ -5,7 +5,7 @@ import { black } from 'constants/styles/colors';
 import React from 'react';
 import { ReactClick } from 'types/react';
 
-export interface Props extends YEAY.GetTrendingUserResponse, ReactClick<HTMLButtonElement> {}
+export interface Props extends BULLZ.GetTrendingUserResponse, ReactClick<HTMLButtonElement> {}
 
 export const CreateTrendingCardHoverModal = ({ onClick }: Props) => (
     <SimpleButton background={black} height={hoverModalHeight} width={hoverModalWidth} onClick={onClick}>

@@ -67,8 +67,8 @@
     "lint": "npx eslint src/**/*.{ts,tsx}",
     "lint:fix": "npx eslint src/**/*.{ts,tsx} --fix",
     "prettier": "prettier --write src",
-    "swagger:ts": "npx NSwagStudio yeay-swagger.json -o src/models/yeay-models.d.ts --namespace YEAY --sort-props",
-    "models": "dtsgen -o src/models/yeay-models.d.ts --url https://yeay-dev.xc.io/docs/schema.json",
+    "swagger:ts": "npx NSwagStudio bullz-swagger.json -o src/models/bullz-models.d.ts --namespace BULLZ --sort-props",
+    "models": "dtsgen -o src/models/bullz-models.d.ts --url https://bullz-dev.bullz.io/docs/schema.json",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "find-unused-exports": "npx find-unused-exports --module-glob 'src/**/*.{ts,tsx}'"

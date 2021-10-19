@@ -17,7 +17,7 @@ import { parseCalendarDate } from 'utils/usefulFunctions';
 
 const { Item } = Descriptions;
 
-interface Props extends YEAY.GetTeamInfoResponse {}
+interface Props extends BULLZ.GetTeamInfoResponse {}
 
 export const TeamDescription = ({ urlName, name = '', owner, admins, members, id = '', banned, utcCreated }: Props) => {
     const ownerImg = useMemo(() => owner?.profileImageUrl, [owner]);

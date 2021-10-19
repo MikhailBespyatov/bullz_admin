@@ -1,26 +1,26 @@
+import { SaveCSVButton } from 'componentsNewDesign/common/buttons/SaveCSVButton';
 import { DashboardGraphicMemo } from 'componentsNewDesign/common/graphicComponents/DashboardGraphic';
+import { Span } from 'componentsNewDesign/common/typography/Span';
+import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { DashboardAddButtonBlock, DashboardBlock } from 'componentsNewDesign/layouts/blocks/DashboardBlock';
 import { DashboardBlockGrid } from 'componentsNewDesign/layouts/blocks/DashboardBlock/styles';
-import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
-import React, { useEffect, useState } from 'react';
-import { useStore } from 'effector-react';
-import { statisticsEffects, statisticsEvents, statisticsStores } from 'stores/statistics';
-import { noop } from 'constants/functions';
-import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { Span } from 'componentsNewDesign/common/typography/Span';
 import { DashboardLayout } from 'componentsNewDesign/layouts/blocks/DashboardLayout';
-import { csvFilename, dateFormatInCSV, defaultDateRangeRequest, headerForCSVTable } from 'pages/Dashboard/constants';
 import { DashboardTotalValue } from 'componentsNewDesign/layouts/blocks/DashboardTotalValue';
-import { useQueryParams } from 'hooks/queryParams';
-import { SaveCSVButton } from 'componentsNewDesign/common/buttons/SaveCSVButton';
+import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { Loader } from 'componentsNewDesign/dynamic/Loader';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { noop } from 'constants/functions';
 import format from 'date-fns/format';
+import { useStore } from 'effector-react';
+import { useQueryParams } from 'hooks/queryParams';
+import { csvFilename, dateFormatInCSV, defaultDateRangeRequest, headerForCSVTable } from 'pages/Dashboard/constants';
+import React, { useEffect, useState } from 'react';
+import { statisticsEffects, statisticsEvents, statisticsStores } from 'stores/statistics';
 
 const { reloadStatistics, getActivityStatistics } = statisticsEffects;
 const { clearStatistics, removeActivityStatistics, setCountStatistics } = statisticsEvents;
 
-interface DashboardQueryParams extends YEAY.CreateMarketingStatisticsRequest {
+interface DashboardQueryParams extends BULLZ.CreateMarketingStatisticsRequest {
     countStatistics?: number;
 }
 

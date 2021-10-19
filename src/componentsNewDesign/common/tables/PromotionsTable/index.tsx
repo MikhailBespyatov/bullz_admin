@@ -11,7 +11,7 @@ import React from 'react';
 import { DataTable } from 'types/data';
 
 export interface PromotionsTableProps {
-    items: YEAY.GetAdminPromotionResponse[];
+    items: BULLZ.GetAdminPromotionResponse[];
 }
 
 export const PromotionsTable = ({ items }: PromotionsTableProps) => {

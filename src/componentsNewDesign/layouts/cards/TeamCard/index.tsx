@@ -40,7 +40,7 @@ import {
 
 const { updateAsyncModalLoading } = modalEvents;
 
-export interface TeamCardProps extends YEAY.GetTeamResponse {}
+export interface TeamCardProps extends BULLZ.GetTeamResponse {}
 
 export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId }: TeamCardProps) => {
     const { access } = useStore(userStores.auth);
@@ -58,7 +58,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
 
     // TODO Improve logic of the connection team store and editTeamInfo effect
 
-    const changeEditableFieldsCallback = (fields: YEAY.UpdateTeamRequest) =>
+    const changeEditableFieldsCallback = (fields: BULLZ.UpdateTeamRequest) =>
         teamsEvents.updateItemById({ id, ...fields });
 
     const deleteOkHandler = async (subject: SubjectType) => {

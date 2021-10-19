@@ -25,7 +25,9 @@ import { productsEffects, productsEvents } from 'stores/products/products';
 
 // const { updateAsyncModalLoading } = modalEvents;
 
-export interface ProductDescriptionProps extends YEAY.ProductResponse, YEAY.AffiliateLinkEntryResponse {}
+export interface ProductDescriptionProps extends BULLZ.TopicResponse, BULLZ.AffiliateLinkEntryResponse {
+    primaryReferenceCount?: number;
+}
 
 export const ProductDescription = ({
     id = '',
@@ -45,7 +47,7 @@ export const ProductDescription = ({
     const loading = useStore(loadingStores.loading);
     const productLoading = useStore(modalEffects.editProductInfo.pending);
 
-    const changeInfoCallBack = (fields: YEAY.UpdateProductRequest) => productsEvents.updateItemById({ id, ...fields });
+    const changeInfoCallBack = (fields: BULLZ.UpdateTopicRequest) => productsEvents.updateItemById({ id, ...fields });
 
     const onConfirm = async (hashtags: string[]) => {
         try {
@@ -190,7 +192,7 @@ export const ProductDescription = ({
                                             color={grey7}
                                             marginRight={descriptionPadding}
                                         >
-                                            Edit Info
+                                            Edit Link
                                         </CardButton>
                                     </EditProductPopover>
                                 </Row>

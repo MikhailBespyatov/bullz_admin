@@ -11,7 +11,7 @@ const testValuesArray = ['373jf7fh487444f89fyf2', 'test-email@gmail.com', '(704)
 
 export type SearchType = 1 | 2 | 3;
 
-export const MockBlacklistedUsers: YEAY.GetBlacklistedUsersResponse[] = [
+export const MockBlacklistedUsers: BULLZ.GetBlacklistedUsersResponse[] = [
     {
         id: testValuesArray[0],
         type: testType,

@@ -39,7 +39,7 @@ export const BlockUserInTeamModal = ({ id, title, removeMarginRight, removeMargi
         cancel();
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.RemoveTeamMemberRequest) => {
+    const onFinish = async (values: BULLZ.RemoveTeamMemberRequest) => {
         await removeOrBanMember({
             userId: values.userId,
             teamId: id,

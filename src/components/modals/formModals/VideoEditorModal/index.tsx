@@ -18,7 +18,7 @@ import { videosEffects, videosStores } from 'stores/videos/videos';
 import { ButtonTitle } from 'types/data';
 import { Disabled, VideoCardEditableChange } from 'types/form';
 
-interface Props extends VideoCardEditableChange, YEAY.AdminGetVideoResponse, ButtonTitle, Disabled {}
+interface Props extends VideoCardEditableChange, BULLZ.AdminGetVideoResponse, ButtonTitle, Disabled {}
 
 export const VideoEditorModal = ({ id = '', onChange = noop, buttonTitle, hashTags, disabled }: Props) => {
     const [form] = Form.useForm();
@@ -33,7 +33,7 @@ export const VideoEditorModal = ({ id = '', onChange = noop, buttonTitle, hashTa
         cancel();
     };
     const onConfirmedChange = (e: CheckboxChangeEvent) => (e.target.checked ? confirm() : cancel());
-    const onFinish = async (values: YEAY.UpdateVideoRequest) => {
+    const onFinish = async (values: BULLZ.UpdateVideoRequest) => {
         try {
             modalEffects.editVideoInfo({ onChange: onChange, ...values, id: id });
             cancel();

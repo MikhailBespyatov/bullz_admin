@@ -13,7 +13,7 @@ import { trendingsEffects, trendingsStores } from 'stores/trendings';
 
 // const { Meta } = Card;
 
-interface Props extends YEAY.AdminGetUserCommon {}
+interface Props extends BULLZ.AdminGetUserCommon {}
 
 export const CreateTrendingUserCard = ({ profileImageUrl, username, id, isTrusted }: Props) => {
     const loading = useStore(trendingsStores.createLoading);

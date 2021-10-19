@@ -51,7 +51,7 @@ import { FixSize } from 'types/styles';
 import { averageValue, numberConverter } from 'utils/usefulFunctions';
 
 interface GradingProps {
-    grading: YEAY.VideoDetailsValidationWOMGradingCommon;
+    grading: BULLZ.VideoDetailsValidationWOMGradingCommon;
 }
 
 export const Grading = ({ grading }: GradingProps) => {
@@ -73,7 +73,7 @@ export const Grading = ({ grading }: GradingProps) => {
     );
 };
 
-interface Props extends FixSize, YEAY.PlaylistVideoResponse {}
+interface Props extends FixSize, BULLZ.PlaylistVideoResponse {}
 
 export const TeamVideoCard = ({
     id = '',

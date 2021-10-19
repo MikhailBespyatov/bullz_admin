@@ -25,7 +25,7 @@ import { SearchParameters, TotalRecords } from 'types/data';
 
 const { setDefaultValues, updateIsFirst, updateValues } = statisticsEvents;
 
-interface StatisticsQueryParams extends Partial<YEAY.QueryVideoStatisticsRequest> {
+interface StatisticsQueryParams extends Partial<BULLZ.QueryVideoStatisticsRequest> {
     //userId?: string;
 }
 

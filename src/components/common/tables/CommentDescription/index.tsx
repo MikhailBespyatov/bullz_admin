@@ -19,7 +19,7 @@ import { parseCalendarDate } from 'utils/usefulFunctions';
 
 const { Item } = Descriptions;
 
-interface Props extends YEAY.GetPostResponse {
+interface Props extends BULLZ.GetPostResponse {
     isBlocked?: boolean;
 }
 

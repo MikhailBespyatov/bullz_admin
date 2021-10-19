@@ -1,4 +1,4 @@
-declare namespace YEAY {
+declare namespace BULLZ {
     interface RemoveValues {
         removeValues: string[];
     }
@@ -20,20 +20,23 @@ declare namespace YEAY {
         priority?: number;
     }
 
+    export interface TopicsResponse {
+        id?: string;
+    }
+
     export interface GetAffiliateLinkResponse {
         productId?: string;
         utcCreated?: string;
         entries?: AffiliateLinkEntryResponse[];
     }
 
-    export interface UserAuthorizeResponse extends YEAY.Error400BadRequest {
+    export interface UserAuthorizeResponse extends BULLZ.Error400BadRequest {
         token?: string;
         user?: GetUserResponse;
     }
 
-    export interface AdminGetVideoResponse {
-        productLink?: string;
-        userInfo?: BriefUserInfo;
+    export interface UpdateProductRequest {
+        link?: string;
     }
     export interface QueryAllVideosRequest {
         brandText?: string;
@@ -68,13 +71,6 @@ declare namespace YEAY {
     export interface QueryPlaylistVideosRequestValues
         extends Omit<QueryPlaylistVideosRequest, 'pageIndex' | 'limit'>,
             Pagination {}
-
-    export interface QueryVideosByProductIdRequest {
-        productId?: string;
-        pageIndex: number;
-        limit: number;
-        returnQueryCount?: boolean;
-    }
 
     export interface QueryAllUsersRequest {
         username?: string;
@@ -167,8 +163,8 @@ declare namespace YEAY {
     export interface AdminQueryPostsRequestWithoutPageLimit extends Partial<AdminQueryPostsRequest> {}
 
     export interface MarketingStatistics
-        extends YEAY.MarketingStatisticsResponse,
-            YEAY.CreateMarketingStatisticsRequest {}
+        extends BULLZ.MarketingStatisticsResponse,
+            BULLZ.CreateMarketingStatisticsRequest {}
 
     export interface EngagementsParameters {
         maxViews: number;
@@ -223,6 +219,6 @@ declare namespace YEAY {
     export interface VideoDetailsValidation {
         wom?: /* videoDetailsValidationWom */ VideoDetailsValidationWOM;
         yeay?: /* yeayValidationInfo */ YeayValidationInfo;
-        bullz?: YeayValidationInfo;
+        bullz?: BullzValidationInfo;
     }
 }

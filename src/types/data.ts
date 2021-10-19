@@ -89,11 +89,11 @@ export interface AccessList {
 }
 
 export interface ActivityStatistics {
-    activityStatistics?: YEAY.MarketingStatistics[];
+    activityStatistics?: BULLZ.MarketingStatistics[];
 }
 
 export interface UserLevel {
-    level: YEAY.LevelType;
+    level: BULLZ.LevelType;
 }
 export interface Alignment {
     alignment?: AlignmentType[];

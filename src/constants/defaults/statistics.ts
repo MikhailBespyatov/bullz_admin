@@ -1,7 +1,7 @@
-import { getDateBeforeAndReturnISO } from 'utils/parsers';
 import { defaultPage } from 'constants/defaults/filterSettings';
+import { getDateBeforeAndReturnISO } from 'utils/parsers';
 
-export const defaultStatisticsValues: YEAY.QueryVideoStatisticsRequest = {
+export const defaultStatisticsValues: BULLZ.QueryVideoStatisticsRequest = {
     pageIndex: defaultPage,
     limit: 100,
     returnQueryCount: true,

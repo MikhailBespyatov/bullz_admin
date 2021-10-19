@@ -79,7 +79,7 @@ interface ParamsProps {
     videoId: string;
 }
 
-// interface Props extends YEAY.YeayValidationInfo, YEAY.AdminGetVideoResponse {}
+// interface Props extends BULLZ.YeayValidationInfo, BULLZ.AdminGetVideoResponse {}
 
 // const Product = ({ id }: Props) => {
 //     const product = useStore(productsStores.product);
@@ -443,7 +443,7 @@ export const Video = () => {
                             <Section marginBottom="20px">
                                 <VideoEngagementBlock
                                     engagementStatistics={video.engagementStatistics}
-                                    title="Engagements YEAY"
+                                    title="Engagements BULLZ"
                                     width="300px"
                                 />
                             </Section>

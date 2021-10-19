@@ -7,7 +7,7 @@ import React from 'react';
 import { RemoveClick } from 'types/modals';
 import { ReactClick } from 'types/react';
 
-export interface Props extends YEAY.GetTrendingUserResponse, RemoveClick, ReactClick<HTMLButtonElement> {}
+export interface Props extends BULLZ.GetTrendingUserResponse, RemoveClick, ReactClick<HTMLButtonElement> {}
 
 export const TrendingCardHoverModal = ({ onRemove, onClick }: Props) => (
     <>

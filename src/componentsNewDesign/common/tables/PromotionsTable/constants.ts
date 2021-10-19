@@ -7,7 +7,7 @@ export const cellPadding = '10px 30px';
 export const promotionsTableColumnTitles = ['Image', 'Promotion Name', 'Page route', 'Active / Not Active'];
 
 // Mock promotion data
-// export const MockPromotionData: YEAY.GetAdminPromotionResponse[] = [
+// export const MockPromotionData: BULLZ.GetAdminPromotionResponse[] = [
 //     {
 //         id: '1',
 //         icon: defaultImage,

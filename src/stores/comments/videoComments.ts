@@ -9,20 +9,20 @@ let cancelToken: CancelTokenSource | undefined;
 
 const { isFirst, setIsFirstToTrue, setIsFirstToFalse } = initializeIsFirstStore();
 
-const updateCommentValues = createEvent<YEAY.QueryPostsRequest>();
+const updateCommentValues = createEvent<BULLZ.QueryPostsRequest>();
 const setDefaultCommentValues = createEvent();
 const invokeGetComments = createEvent();
 
-const updateCommentRepliesValues = createEvent<YEAY.QueryRepliesRequest>();
+const updateCommentRepliesValues = createEvent<BULLZ.QueryRepliesRequest>();
 const setDefaultCommentRepliesValues = createEvent();
 const invokeGetCommentReplies = createEvent();
 
-const commentValues = createStore<YEAY.QueryPostsRequest>(defaultVideoCommentsValues)
+const commentValues = createStore<BULLZ.QueryPostsRequest>(defaultVideoCommentsValues)
     .on(invokeGetComments, state => state)
     .on(updateCommentValues, (state, values) => ({ ...state, ...values }))
     .on(setDefaultCommentValues, () => defaultVideoCommentsValues);
 
-const commentRepliesValues = createStore<YEAY.QueryRepliesRequest>(defaultVideoCommentRepliesValues)
+const commentRepliesValues = createStore<BULLZ.QueryRepliesRequest>(defaultVideoCommentRepliesValues)
     .on(invokeGetCommentReplies, state => state)
     .on(updateCommentRepliesValues, (state, values) => ({ ...state, ...values }))
     .on(setDefaultCommentRepliesValues, () => defaultVideoCommentRepliesValues);
@@ -34,7 +34,7 @@ export const commentPaginationState = createStore(false).on(updateCommentPaginat
 const [loadingVideoComments, updateLoadingVideoComments] = initializeToggleStore();
 
 const loadVideoComments = createEffect({
-    handler: async (commentValues: YEAY.QueryPostsRequest) => {
+    handler: async (commentValues: BULLZ.QueryPostsRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -59,7 +59,7 @@ const loadVideoComments = createEffect({
 });
 
 export const blockVideoCommentsForUser = createEffect({
-    handler: async (values: YEAY.BlockUserRequest) => {
+    handler: async (values: BULLZ.BlockUserRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -83,7 +83,7 @@ export const blockVideoCommentsForUser = createEffect({
 });
 
 export const loadVideoCommentReplies = createEffect({
-    handler: async (commentRepliesValues: YEAY.QueryRepliesRequest) => {
+    handler: async (commentRepliesValues: BULLZ.QueryRepliesRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -108,12 +108,12 @@ forward({
     to: [loadVideoComments]
 });
 
-interface Item extends YEAY.GetPostResponse {
-    replies?: YEAY.GetPostResponse[] | null;
+interface Item extends BULLZ.GetPostResponse {
+    replies?: BULLZ.GetPostResponse[] | null;
 }
 
 export interface QueryPostsResponseExtended
-    extends Pick<YEAY.QueryPostsResponse, 'queryStatistics' | 'totalRecords' | 'returnedRecords'> {
+    extends Pick<BULLZ.QueryPostsResponse, 'queryStatistics' | 'totalRecords' | 'returnedRecords'> {
     items?: Item[] | null;
 }
 

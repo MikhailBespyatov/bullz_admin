@@ -30,7 +30,7 @@ export default {
     ]
 } as Meta;
 
-const Template: Story<YEAY.AdminGetUserCommon> = args => <UserDescription {...args} />;
+const Template: Story<BULLZ.AdminGetUserCommon> = args => <UserDescription {...args} />;
 
 export const DefaultUserDescription = Template.bind({});
 DefaultUserDescription.args = {

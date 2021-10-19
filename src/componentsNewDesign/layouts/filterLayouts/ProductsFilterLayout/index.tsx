@@ -3,27 +3,28 @@ import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { Footer } from 'componentsNewDesign/grid/Footer';
 import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWrapperLayout';
+import { searchProductByIdParameter } from 'componentsNewDesign/layouts/filterLayouts/ProductsFilterLayout/constants';
 import { selectorWidth } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { sortTagsName, sortTagsProductsData, sortTagsProductsValues } from 'constants/filters/sorts';
+import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
+import { useQueryParams } from 'hooks/queryParams';
 import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
 import React, { FC, useEffect } from 'react';
 import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
-import { searchProductByIdParameter } from 'componentsNewDesign/layouts/filterLayouts/ProductsFilterLayout/constants';
-import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
-import { useQueryParams } from 'hooks/queryParams';
 
 const { updateValues, setDefaultValues, setIsFirstToFalse, setId } = productsEvents;
 const { loadItemById } = productsEffects;
 
-interface ProductsQueryParams extends Partial<YEAY.QueryProductsRequest> {
+interface ProductsQueryParams extends Partial<BULLZ.QueryTopicsRequest> {
     productId?: string;
+    isReferenced?: boolean;
 }
 
 const updateQueryValues = ({ productId, ...params }: ProductsQueryParams) => {

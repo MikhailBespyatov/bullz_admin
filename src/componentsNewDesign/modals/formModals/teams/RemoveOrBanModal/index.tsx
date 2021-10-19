@@ -23,7 +23,7 @@ import {
 
 const { removeOrBanMember } = teamsEffects;
 
-export interface RemoveOrBanModalProps extends YEAY.RemoveTeamMemberRequest {}
+export interface RemoveOrBanModalProps extends BULLZ.RemoveTeamMemberRequest {}
 
 export const RemoveOrBanModal = () => {
     const [visible, { teamId }] = useStore(removeOrBanUserModal.modal);

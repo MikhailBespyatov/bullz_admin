@@ -18,7 +18,7 @@ export const CreateProduct = () => {
     const loading = useStore(productsStores.loading);
     const error = useStore(productsStores.creationError);
 
-    const onFinish = (values: YEAY.CreateProductRequest) => productsEffects.createItem(values);
+    const onFinish = (values: BULLZ.CreateTopicRequest) => productsEffects.createItem(values);
 
     const onFinishFailed = () => message.error(errorEmptyMessage);
 

@@ -10,7 +10,7 @@ import { TotalRecords, WithoutFooter } from 'types/data';
 const { /*setId,*/ updateValues, /*setDefaultValues,*/ invokeGetItems, setIsFirstToFalse } = promotionsEvents;
 //const { loadItems } = promotionsEffects;
 
-interface MarketingToolsQueryParams extends YEAY.QueryAdminPromotionRequest {
+interface MarketingToolsQueryParams extends BULLZ.QueryAdminPromotionRequest {
     // promotionName?: string;
 }
 

@@ -11,7 +11,7 @@ let cancelToken: CancelTokenSource | undefined;
 const [loading, updateLoading] = initializeToggleStore();
 
 const createPromotion = createEffect({
-    handler: async (values: YEAY.CreatePromotionRequest) => {
+    handler: async (values: BULLZ.CreatePromotionRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -44,7 +44,7 @@ const createPromotion = createEffect({
 // });
 
 const updatePromotion = createEffect({
-    handler: async (values: YEAY.UpdateAdminPromotionRequest) => {
+    handler: async (values: BULLZ.UpdateAdminPromotionRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -61,18 +61,18 @@ const updatePromotion = createEffect({
     }
 });
 
-const setPromotionValues = createEvent<YEAY.GetAdminPromotionResponse>();
+const setPromotionValues = createEvent<BULLZ.GetAdminPromotionResponse>();
 
-const promotion = createStore<YEAY.GetAdminPromotionResponse>(defaultPromotionValues).on(
+const promotion = createStore<BULLZ.GetAdminPromotionResponse>(defaultPromotionValues).on(
     setPromotionValues,
-    (state, values: YEAY.GetAdminPromotionResponse) => ({
+    (state, values: BULLZ.GetAdminPromotionResponse) => ({
         ...state,
         ...values
     })
 );
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryAdminPromotionRequest) => {
+    handler: async (values: BULLZ.QueryAdminPromotionRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -93,15 +93,15 @@ const loadItems = createEffect({
     }
 });
 
-const promotions = createStore<YEAY.QueryAdminPromotionResponse>({}).on(loadItems.doneData, (_, newState) => newState);
+const promotions = createStore<BULLZ.QueryAdminPromotionResponse>({}).on(loadItems.doneData, (_, newState) => newState);
 
-const updateValues = createEvent<YEAY.QueryAdminPromotionRequest>();
+const updateValues = createEvent<BULLZ.QueryAdminPromotionRequest>();
 const invokeGetItems = createEvent();
 const setDefaultValues = createEvent();
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
-const values = createStore<YEAY.QueryAdminPromotionRequest>(defaultPromotionsValues)
-    .on(updateValues, (state, values: YEAY.QueryAdminPromotionRequest) => ({
+const values = createStore<BULLZ.QueryAdminPromotionRequest>(defaultPromotionsValues)
+    .on(updateValues, (state, values: BULLZ.QueryAdminPromotionRequest) => ({
         ...state,
         ...values
     }))

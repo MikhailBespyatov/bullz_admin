@@ -25,7 +25,7 @@ export const Header = () => {
             <Row alignCenter>
                 <VersionSpan>
                     {appVersion} BASY: {environmentBASY}
-                    {/*{appVersion} YEAY: {environmentYEAY}*/}
+                    {/*{appVersion} BULLZ: {environmentBULLZ}*/}
                 </VersionSpan>
                 <AdministratorLayout>
                     <Row marginRight="20px">

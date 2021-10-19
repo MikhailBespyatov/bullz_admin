@@ -1,7 +1,3 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
-import _ from 'lodash';
 import {
     chartFieldsOption,
     chartsStyle,
@@ -13,8 +9,12 @@ import {
     totalRatioRange,
     VideoStatisticsProps
 } from 'components/common/charts/VideoStatisticsChart/constants';
+import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
+import ReactEcharts from 'echarts-for-react';
+import _ from 'lodash';
+import React from 'react';
 
-interface VideoStatisticsChartProps extends YEAY.QueryVideoStatisticsResponse {
+interface VideoStatisticsChartProps extends BULLZ.QueryVideoStatisticsResponse {
     onFilter: (userId: string) => void;
 }
 
@@ -103,15 +103,15 @@ export const VideoStatisticsChart = ({ items = [], onFilter }: VideoStatisticsCh
 
     const rowVideoStatisticsData =
         items && items.length > 0
-            ? ((Object.keys(items[0]) as Array<keyof YEAY.VideoStatisticsResponse>).reduce((currentObject, key) => {
+            ? ((Object.keys(items[0]) as Array<keyof BULLZ.VideoStatisticsResponse>).reduce((currentObject, key) => {
                   // @ts-ignore TODO: Adding type
                   currentObject[key] = items.map(el => el[key]);
                   return currentObject;
-              }, {}) as { [key in keyof YEAY.VideoStatisticsResponse]: string[] | number[] })
+              }, {}) as { [key in keyof BULLZ.VideoStatisticsResponse]: string[] | number[] })
             : undefined;
 
     rowVideoStatisticsData &&
-        (Object.keys(defaultVideoStatisticsData) as Array<keyof YEAY.VideoStatisticsResponse>).map(key => {
+        (Object.keys(defaultVideoStatisticsData) as Array<keyof BULLZ.VideoStatisticsResponse>).map(key => {
             const item = rowVideoStatisticsData[key] as number[];
             const sum = item.reduce((sum, nextValue) => sum + nextValue, 0);
 
@@ -119,7 +119,7 @@ export const VideoStatisticsChart = ({ items = [], onFilter }: VideoStatisticsCh
         });
 
     const seriesData = rowVideoStatisticsData
-        ? (Object.keys(defaultVideoStatisticsData) as Array<keyof YEAY.VideoStatisticsResponse>).map(key => {
+        ? (Object.keys(defaultVideoStatisticsData) as Array<keyof BULLZ.VideoStatisticsResponse>).map(key => {
               const item = rowVideoStatisticsData[key] as number[];
               const sum = item.reduce((sum, nextValue) => sum + nextValue, 0);
               return item.map(value => {
@@ -186,7 +186,7 @@ export const VideoStatisticsChart = ({ items = [], onFilter }: VideoStatisticsCh
             ? items.map(item => {
                   const sum = Object.keys(defaultTotalRatioData).reduce(
                       (prevValue, currentValue) =>
-                          prevValue + (item[currentValue as keyof YEAY.VideoStatisticsResponse] as number),
+                          prevValue + (item[currentValue as keyof BULLZ.VideoStatisticsResponse] as number),
                       0
                   );
                   return { sum, totalCount: item.totalCount, userId: item.userId };

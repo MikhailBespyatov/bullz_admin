@@ -45,7 +45,7 @@ const {
 } = videosEvents;
 const { loadItemById } = videosEffects;
 
-interface VideosQueryParams extends Partial<YEAY.QueryAllVideosRequest> {
+interface VideosQueryParams extends Partial<BULLZ.QueryAllVideosRequest> {
     sortPrefix?: string;
     sortPostfix?: SortType;
     videoId?: string;

@@ -112,7 +112,7 @@ const isPromotionCreate = createStore<boolean>(false)
     .on(editSubmit, _ => false);
 
 export const handlePromotion = createEffect({
-    handler: async (values: YEAY.CreatePromotionRequest) => {
+    handler: async (values: BULLZ.CreatePromotionRequest) => {
         try {
             loadingEffects.updateInitialLoading();
             const isCreate = isPromotionCreate.getState();

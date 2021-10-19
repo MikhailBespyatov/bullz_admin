@@ -15,6 +15,7 @@ import { TeamEditorModal } from 'components/modals/formModals/TeamEditorModal';
 import { Tooltip } from 'components/modals/Tooltip';
 import { DivClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
 import { teamsLink } from 'constants/routes';
 import { antdCardStyle, padding } from 'constants/styles/sizes';
@@ -27,13 +28,12 @@ import { userStores } from 'stores/users/user';
 import { ProductCardEditableFields } from 'types/form';
 import { SubjectType } from 'types/types';
 import { parseCalendarDate } from 'utils/usefulFunctions';
-import { Roles } from 'constants/defaults/users';
 
 const { updateAsyncModalLoading } = modalEvents;
 
 const { Meta } = Card;
 
-interface Props extends YEAY.GetTeamResponse {}
+interface Props extends BULLZ.GetTeamResponse {}
 
 export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId }: Props) => {
     const { access } = useStore(userStores.auth);

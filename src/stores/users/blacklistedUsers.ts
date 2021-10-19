@@ -10,7 +10,7 @@ let cancelToken: CancelTokenSource | undefined;
 const [loading, updateLoading] = initializeToggleStore();
 
 const loadItems = createEffect({
-    handler: async (values: YEAY.QueryBlacklistedUsersRequest) => {
+    handler: async (values: BULLZ.QueryBlacklistedUsersRequest) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
@@ -31,16 +31,16 @@ const loadItems = createEffect({
     }
 });
 
-const blacklistedUsers = createStore<YEAY.QueryBlacklistedUsersResponse>({}).on(
+const blacklistedUsers = createStore<BULLZ.QueryBlacklistedUsersResponse>({}).on(
     loadItems.doneData,
     (_, state) => state
 );
 
-const updateValues = createEvent<YEAY.QueryBlacklistedUsersRequest>();
+const updateValues = createEvent<BULLZ.QueryBlacklistedUsersRequest>();
 const setDefaultValues = createEvent();
 
-const values = createStore<YEAY.QueryBlacklistedUsersRequest>(defaultBlacklistedUsersValues)
-    .on(updateValues, (state, values: YEAY.QueryBlacklistedUsersRequest) => ({
+const values = createStore<BULLZ.QueryBlacklistedUsersRequest>(defaultBlacklistedUsersValues)
+    .on(updateValues, (state, values: BULLZ.QueryBlacklistedUsersRequest) => ({
         ...state,
         ...values
     }))

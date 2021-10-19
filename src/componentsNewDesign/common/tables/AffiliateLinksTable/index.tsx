@@ -34,7 +34,7 @@ import { noop } from 'constants/functions';
 import { black, white } from 'constants/styles/colors';
 import React from 'react';
 
-interface Props extends YEAY.GetAffiliateLinkResponse {
+interface Props extends BULLZ.GetAffiliateLinkResponse {
     empty?: boolean;
 }
 

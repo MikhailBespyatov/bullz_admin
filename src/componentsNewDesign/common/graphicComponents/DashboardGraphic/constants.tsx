@@ -104,7 +104,7 @@ export const getSeriesData = ({ data, name, color }: seriesDataProps) => ({
     data
 });
 
-export const getSeries = (activityStatistics: YEAY.MarketingStatistics[]) =>
+export const getSeries = (activityStatistics: BULLZ.MarketingStatistics[]) =>
     graphicBlocks.map(({ statisticKey, nameBlock, selectedBackgroundColor }) =>
         getSeriesData({
             /* TODO: adding type because need typing statisticKey as key for statistic */

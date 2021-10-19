@@ -26,7 +26,7 @@ export const EditProductPopover: FC<PopoverProps> = ({ id, name, ...rest }) => {
     const onApplyClick = async () => {
         await loadEditInfoItemById(id);
         modalEffects.editProductInfo({
-            onChange: (fields: YEAY.UpdateProductRequest) => productsEvents.updateItemById({ id, ...fields }),
+            onChange: (fields: BULLZ.UpdateTopicRequest) => productsEvents.updateItemById({ id, ...fields }),
             name: productNameValue,
             id: id
         });
