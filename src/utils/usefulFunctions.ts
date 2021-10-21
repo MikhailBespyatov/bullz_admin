@@ -321,3 +321,14 @@ export const getDiffDateMoreDateNow = (date: string) => {
 
     return Math.abs(dateNowTime - dateBeforeTime) > dayInMillisecond;
 };
+
+export function isValidHttpUrl(string: string) {
+    let url;
+    try {
+        url = new URL(string);
+    } catch (_) {
+        return false;
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:';
+}
