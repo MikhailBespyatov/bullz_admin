@@ -7,6 +7,7 @@ export const lightBlack = '#060c07';
 export const white = '#fff';
 export const blue = '#3360ff';
 export const blue2 = '#4b73ff';
+export const blue3 = '#5076FF';
 export const paleBlue = '#e7f3ff';
 export const lightBlue = '#d6d6ff';
 

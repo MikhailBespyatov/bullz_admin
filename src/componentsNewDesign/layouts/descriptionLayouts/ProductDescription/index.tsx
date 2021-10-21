@@ -3,7 +3,7 @@ import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
 import { HashtagsInput } from 'componentsNewDesign/common/inputs/HashtagsInput';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
-import { copyProductIDMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
+import { copyTopicLinkMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
 import {
     propertyBlockHorizontalPadding,
     propertyBlockWidth
@@ -14,7 +14,6 @@ import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { productsLink } from 'constants/routes';
 import { grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -32,6 +31,7 @@ export interface ProductDescriptionProps extends BULLZ.TopicResponse, BULLZ.Affi
 export const ProductDescription = ({
     id = '',
     name = '',
+    link = '',
     // primaryReferencesCount,
     // imageUrl,
     // TODO: NaN -> undefined
@@ -41,9 +41,7 @@ export const ProductDescription = ({
     primaryReferenceCount = 0
 }: ProductDescriptionProps) => {
     // const [isApplied, toggleIsApplied] = useToggle(false);
-
     // const { access } = useStore(userStores.auth);
-
     const loading = useStore(loadingStores.loading);
     const productLoading = useStore(modalEffects.editProductInfo.pending);
 
@@ -165,12 +163,12 @@ export const ProductDescription = ({
                             <MarginWrapper marginRight="8px">
                                 <PropertyBlock
                                     copiable
+                                    isLink
                                     backgroundColor={grey27}
                                     horizontalPadding={propertyBlockHorizontalPadding}
-                                    linkRoute={productsLink}
-                                    subtitle={id}
-                                    success={copyProductIDMessage}
-                                    title="Copy productID"
+                                    subtitle={link || ''}
+                                    success={copyTopicLinkMessage}
+                                    title="Topic link"
                                     width={propertyBlockWidth}
                                 />
                             </MarginWrapper>
