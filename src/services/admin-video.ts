@@ -61,3 +61,9 @@ export const getVideoWOMDataById = (data: WOM.ContentQueryRequest) =>
         url: '/catalogue/query',
         data
     });
+
+export const getVideoSourceFile = (data: BULLZ.GetVideoMetaRequest) =>
+    axios<BULLZ.GetVideoPreviewResponse>({
+        url: '/admin/video/get-source-file',
+        data
+    });
