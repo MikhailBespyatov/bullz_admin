@@ -1,4 +1,3 @@
-import { disabledCardButtonTextColor } from 'componentsNewDesign/common/buttons/CardButton/constants';
 import {
     buttonBorderRadius,
     buttonInnerTextFontSize,
@@ -6,13 +5,12 @@ import {
     buttonPadding
 } from 'componentsNewDesign/common/buttons/SimpleButton/constants';
 import { SimpleButtonProps } from 'componentsNewDesign/common/buttons/SimpleButton/types';
-import { black, greenYellow, grey24, grey7 } from 'constants/styles/colors';
+import { black, greenYellow, grey7 } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin } from 'constants/styles/mixins';
 import styled, { css } from 'styled-components';
 
 const disableButtonMixin = css`
-    background: ${grey24};
-    color: ${disabledCardButtonTextColor};
+    opacity: 0.5;
 `;
 
 export const SimpleButton = styled.button<SimpleButtonProps>`

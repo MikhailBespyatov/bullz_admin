@@ -1,12 +1,13 @@
 import { DataPickerStyles } from 'componentsNewDesign/common/inputs/DateRangePicker/styles';
 import { createGlobalStyle } from 'styled-components';
-import { black, grey23, lightBlack, primaryColor, white, yeayColor } from './colors';
+import { black, grey23, grey28, grey29, lightBlack, primaryColor, white, yeayColor } from './colors';
 import { padding, scrollBarWidth } from './sizes';
 // import normalRoboto from '../../assets/fonts/Roboto-Regular.ttf';
 
 export const GlobalStyle = createGlobalStyle`    
   body, html, #root {
     height: 100%;
+    background-color: ${grey28};
   }
 
   body {
@@ -17,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: ${white};
-    background-color: ${black};
+    background-color: ${grey28};
   }
 
   code {
@@ -41,7 +42,7 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-track
   {
     //-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-    background-color: &{grey29};
+    background-color: ${grey29};
   }
 
   ::-webkit-scrollbar
@@ -71,7 +72,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    background-color: ${black};
+    background-color: ${grey28};
     width: 100%;
     //min-height: 100%;
   }

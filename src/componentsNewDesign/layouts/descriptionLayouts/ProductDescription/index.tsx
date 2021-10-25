@@ -145,7 +145,7 @@ export const ProductDescription = ({
                         {/*</ContentWrapper>*/}
                         <Column>
                             <Row marginBottom="8px" marginTop="8px">
-                                <Span fontSize="12px" fontWeight="500" lineHeight="12px">
+                                <Span fontSize="10px" fontWeight="500" lineHeight="12px">
                                     {name}
                                 </Span>
                             </Row>

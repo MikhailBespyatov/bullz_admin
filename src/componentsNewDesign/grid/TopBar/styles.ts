@@ -8,8 +8,8 @@ interface ItemSpanProps extends Pointer {}
 export const ItemSpan = styled(Span)<ItemSpanProps>`
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 16px;
+    line-height: 19px;
     ${({ pointer }) => (pointer ? 'cursor: pointer;' : '')};
     :hover {
         color: ${({ textHover }) => textHover || 'initial'};

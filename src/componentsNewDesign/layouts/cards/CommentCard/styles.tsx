@@ -1,5 +1,4 @@
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
-import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { BlockButtonProps } from 'componentsNewDesign/layouts/cards/CommentCard';
 import {
     blockButtonFontWeight,
@@ -10,12 +9,14 @@ import {
     secondaryFontSize,
     secondaryFontWeight,
     tertiaryFontSize,
-    tertiaryFontWeight
+    tertiaryFontWeight,
+    usernamePadding
 } from 'componentsNewDesign/layouts/cards/CommentCard/constants';
+import { ContentText } from 'componentsNewDesign/modals/AsyncModal/styles';
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { blockedColor, errorColor, grey16, grey9 } from 'constants/styles/colors';
+import { blockedColor, errorColor, grey27, grey9 } from 'constants/styles/colors';
 import styled, { css } from 'styled-components';
 
 interface CommentCardWrapperProps {
@@ -42,7 +43,7 @@ export const CommentCardWrapper = styled(ContentWrapper)<CommentCardWrapperProps
         `}
 
     :hover {
-        background-color: ${({ isBlocked }) => (isBlocked ? '#ffe8e8' : grey16)};
+        background-color: ${grey27};
     }
 `;
 
@@ -50,6 +51,7 @@ export const UserNameSpan = styled(ContentText)`
     font-size: ${primaryFontSize};
     font-weight: ${primaryFontWeight};
     white-space: normal;
+    padding: ${usernamePadding};
 `;
 
 export const CommentSpan = styled(ContentText)`

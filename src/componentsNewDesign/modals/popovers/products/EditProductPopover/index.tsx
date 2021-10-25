@@ -76,16 +76,14 @@ export const EditProductPopover: FC<PopoverProps> = ({ id, name, ...rest }) => {
                             Topic Link
                         </Span>
                     </MarginWrapper>
-                    <MarginWrapper marginBottom="4px">
-                        <StyledTextInput
-                            disableClearButton
-                            disableEnterKeyDown
-                            backgroundColor="transparent"
-                            defaultValue={productLinkValue}
-                            placeholder="Type here..."
-                            onChange={setProductLinkValue}
-                        />
-                    </MarginWrapper>
+                    <StyledTextInput
+                        disableClearButton
+                        disableEnterKeyDown
+                        backgroundColor="transparent"
+                        defaultValue={productLinkValue}
+                        placeholder="Type here..."
+                        onChange={setProductLinkValue}
+                    />
                     <Row alignCenter>
                         <MarginWrapper marginRight="4px">
                             {productLinkValue !== '' ? (

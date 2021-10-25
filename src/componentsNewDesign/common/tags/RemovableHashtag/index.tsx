@@ -1,13 +1,14 @@
-import closeImg from 'assets/white_close_button.svg';
+import closeImg, { ReactComponent as CloseImg } from 'assets/white_close_button.svg';
 import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { closeImgDiameter } from 'componentsNewDesign/common/tags/RemovableHashtag/constants';
 import { Span } from 'componentsNewDesign/common/typography/Span';
+import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
 import React from 'react';
 import { Disabled } from 'types/form';
-import { Wrapper } from './styled';
+import { CloseButton, Wrapper } from './styled';
 import { HashtagType } from './types';
 
 export interface RemovableHashtagProps extends Disabled, HashtagType {
@@ -40,6 +41,9 @@ export const RemovableHashtag = ({
                             width={closeImgDiameter}
                             onClick={() => onRemove(subject)}
                         />
+                        <ClickableWrapper>
+                            <CloseImg />
+                        </ClickableWrapper>
                     </MarginWrapper>
                 )}
             </ManagerLayout>
@@ -47,13 +51,13 @@ export const RemovableHashtag = ({
             <>
                 {!untouchable && (
                     <MarginWrapper marginLeft="8px">
-                        <CustomImg
-                            pointer
+                        <CloseButton
                             height={closeImgDiameter}
-                            src={closeImg}
                             width={closeImgDiameter}
                             onClick={() => onRemove(subject)}
-                        />
+                        >
+                            <CloseImg />
+                        </CloseButton>
                     </MarginWrapper>
                 )}
             </>

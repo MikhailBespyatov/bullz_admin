@@ -60,7 +60,7 @@ export const TableRow = styled.tr<TableProps>`
 
 export const TableHeader = styled.th<TableProps>`
     text-align: center;
-    font-size: 14px;
+    font-size: 10px;
     ${({ width }) => width && `width: ${width}`};
 `;
 export const TableData = styled.td<TableProps>`

@@ -3,12 +3,12 @@ import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { black, blue } from 'constants/styles/colors';
+import { blue, grey29 } from 'constants/styles/colors';
 import { primaryBorderRadius } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
 export const ModalAbsoluteWrapper = styled(AbsoluteCenterAlignment)`
-    background-color: ${black};
+    background-color: ${grey29};
     width: 322px;
     min-height: 301px;
     border-radius: ${primaryBorderRadius};
