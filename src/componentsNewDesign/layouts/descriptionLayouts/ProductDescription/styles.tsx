@@ -35,6 +35,7 @@ export const EllipsisTableText = styled.span<TableProps>`
 export const TableWrapper = styled.div<TableProps>`
     margin-top: 8px;
     width: 100%;
+    padding: 19px 20px;
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
     ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
     ${({ border }) => border && `border: ${border}`};
@@ -55,6 +56,8 @@ export const TableRow = styled.tr<TableProps>`
     ${({ borderTop }) => borderTop && `border-top: ${borderTop}`};
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
     ${({ color }) => color && `color: ${color}`};
+    ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
+
     text-align: center;
 `;
 
@@ -62,6 +65,13 @@ export const TableHeader = styled.th<TableProps>`
     text-align: center;
     font-size: 10px;
     ${({ width }) => width && `width: ${width}`};
+
+    &:first-child {
+        border-radius: 8px 0px 0px 0px;
+    }
+    &:last-child {
+        border-radius: 0px 8px 0px 0px;
+    }
 `;
 export const TableData = styled.td<TableProps>`
     text-align: center;
