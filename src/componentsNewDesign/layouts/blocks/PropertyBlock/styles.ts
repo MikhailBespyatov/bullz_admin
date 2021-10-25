@@ -27,7 +27,7 @@ export const BlockTitle = styled(Span)`
     text-transform: uppercase;
     line-height: 14px;
     font-weight: 500;
-    font-size: 10px;
+    font-size: 12px;
     color: #7b8193;
     margin-right: 5px;
     ${ellipsisMixin};
@@ -37,8 +37,8 @@ export const BlockSubTitle = styled(Span)`
     display: block;
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 16px;
     color: ${({ color }) => color || white};
     ${ellipsisMixin};
 `;

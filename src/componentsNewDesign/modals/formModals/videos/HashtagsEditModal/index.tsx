@@ -18,7 +18,7 @@ import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { closeIconDiameter } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { grey23, white } from 'constants/styles/colors';
+import { grey27, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { default as React, KeyboardEvent, useEffect, useState } from 'react';
 import { videoHashtagsEditorModal } from 'stores/initialize/initialize.modal.store';
@@ -100,7 +100,7 @@ export const VideoHashtagsEditorModal = () => {
                         />
                     </Section>
                     <HashtagsWrapper
-                        backgroundColor={grey23}
+                        backgroundColor={grey27}
                         marginBottom="20px"
                         minHeight="75px"
                         padding=" 13px 13px 13px 10px"

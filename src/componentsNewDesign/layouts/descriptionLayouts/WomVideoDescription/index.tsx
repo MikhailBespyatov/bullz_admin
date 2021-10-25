@@ -393,12 +393,12 @@ export const WOMVideoDescription = ({
                         </Section>
 
                         <Section marginBottom={titleMarginBottom}>
-                            <Title backgroundColor={grey27}>Product Information</Title>
+                            <Title backgroundColor={grey27}>Topic Information</Title>
                         </Section>
 
                         <Section>
                             <WomPropertyBlock background="transparent" title="Brand" width={propertyBlockWidth}>
-                                <ContentText fontWeight={textFontWeight} lineHeight={textLineHeight}>
+                                <ContentText fontSize="14px" fontWeight={textFontWeight} lineHeight={textLineHeight}>
                                     {brandName || ''}
                                 </ContentText>
                             </WomPropertyBlock>

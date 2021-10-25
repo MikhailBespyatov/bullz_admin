@@ -1,7 +1,7 @@
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { blue, grey13 } from 'constants/styles/colors';
+import { blue, white } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { PopoverType } from 'types/data';
 import { Sizes } from 'types/styles';
@@ -55,6 +55,6 @@ export const ContentWrapper = styled.div`
 export const AgreementSpan = styled(Span)`
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    color: ${grey13};
+    font-size: 11px;
+    color: ${white};
 `;

@@ -8,7 +8,7 @@ import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapp
 import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { closeIconDiameter } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
-import { grey10 } from 'constants/styles/colors';
+import { grey10, grey27 } from 'constants/styles/colors';
 import { useModal } from 'hooks/modal';
 import React, { FC, useState } from 'react';
 import { Loading, PopoverType, Title } from 'types/data';
@@ -82,7 +82,11 @@ export const ApplyPopoverLayout: FC<ApplyPopoverLayoutProps> = ({
                                 <AgreementSpan>Are you sure?</AgreementSpan>
                             </Section>
                             <Section justifyCenter zIndex="31">
-                                <CardButton disabled={!checked || loading || !isApplyAllowed} onClick={applyClick}>
+                                <CardButton
+                                    background={grey27}
+                                    disabled={!checked || loading || !isApplyAllowed}
+                                    onClick={applyClick}
+                                >
                                     {loading ? 'Loading...' : 'Apply'}
                                 </CardButton>
                             </Section>

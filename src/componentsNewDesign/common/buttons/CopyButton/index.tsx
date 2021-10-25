@@ -1,4 +1,4 @@
-import copyIcon from 'assets/copy_icon.svg';
+import copyIcon, { ReactComponent as CopyIcon } from 'assets/copy_icon.svg';
 import greyCopyIcon from 'assets/grey_copy_icon.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
@@ -9,7 +9,7 @@ import { message } from 'stores/alerts';
 import { Success } from 'types/data';
 import { Disabled } from 'types/form';
 import { triggerCopy } from 'utils/usefulFunctions';
-import { Button, ButtonImg } from './styles';
+import { Button, ButtonImg, HoveredButtonImg } from './styles';
 
 export interface CopyButtonProps extends Success {
     subject?: string | null;
@@ -36,6 +36,23 @@ export const CopyButton = ({ subject, success, customCopyIcon, diameter }: CopyB
             width={diameter}
             onClick={triggerButtonCopy}
         />
+    );
+};
+
+export const HoveredCopyButton = ({ subject, success, diameter }: CopyButtonProps) => {
+    const disabled = subject === defaultMongoDBId || !subject;
+
+    const triggerButtonCopy = () => {
+        if (!disabled) {
+            triggerCopy(subject || '');
+            message.success(success);
+        }
+    };
+
+    return (
+        <HoveredButtonImg disabled={disabled} height={diameter} width={diameter} onClick={triggerButtonCopy}>
+            <CopyIcon />
+        </HoveredButtonImg>
     );
 };
 

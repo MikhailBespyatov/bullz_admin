@@ -39,7 +39,18 @@ import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapp
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { Roles } from 'constants/defaults/users';
 import { homeLink, usersLink } from 'constants/routes';
-import { darkError, errorColor, grey23, grey27, grey29, grey30, grey4, grey7, white } from 'constants/styles/colors';
+import {
+    blue,
+    darkError,
+    errorColor,
+    grey27,
+    grey29,
+    grey30,
+    grey32,
+    grey4,
+    grey7,
+    white
+} from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -287,6 +298,7 @@ export const VideoCard = (video: Props) => {
                             background="transparent"
                             color={grey4}
                             padding="0px 0px 0px 20px"
+                            textHover={blue}
                             onClick={() => onEditClick(id, hashTags || [])}
                         >
                             Edit
@@ -364,7 +376,7 @@ export const VideoCard = (video: Props) => {
                         >
                             <VideoCardButton
                                 backgroundColor={grey27}
-                                backgroundHover={grey23}
+                                backgroundHover={grey32}
                                 color={grey7}
                                 width={videoCardButtonWidth}
                                 onClick={moreInfoHandleClick}
@@ -380,7 +392,7 @@ export const VideoCard = (video: Props) => {
                             >
                                 <VideoCardButton
                                     backgroundColor={grey27}
-                                    backgroundHover={grey23}
+                                    backgroundHover={grey32}
                                     color={grey7}
                                     disabled={curationState !== 1}
                                     width="100%"

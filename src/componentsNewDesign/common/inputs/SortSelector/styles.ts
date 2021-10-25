@@ -7,7 +7,7 @@ export const StyledButton = styled.button<Active>`
     ${disableDefaultButtonStyleMixin};
     padding-bottom: 12px;
     opacity: 0.5;
-    ${({ active }) => active && 'border-bottom: 1px solid black; opacity: 1;'};
+    ${({ active }) => active && 'border-bottom: 1px solid white; opacity: 1;'};
     //margin-right: ${filterMargin};
     //margin-bottom: ${filterMargin};
     margin: 15px 15px 0px;

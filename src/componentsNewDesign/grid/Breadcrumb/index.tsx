@@ -1,5 +1,4 @@
-import whiteCopyIcon from 'assets/copy_icon_white.svg';
-import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
+import { HoveredCopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { grey13 } from 'constants/styles/colors';
@@ -24,8 +23,7 @@ export const Breadcrumb = () => {
                             {item}
                         </ContentText>
                     ))}
-                    <CopyButton
-                        customCopyIcon={whiteCopyIcon}
+                    <HoveredCopyButton
                         subject={subsections[subsections.length - 1]}
                         success={section.slice(0, -1) + 'ID was copied'}
                     />

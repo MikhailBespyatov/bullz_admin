@@ -10,4 +10,5 @@ export const SingleMainWrapper = styled.div`
     padding-top: ${singleLayoutPaddingTop};
     padding-bottom: 30px;
     background-color: ${grey30};
+    border-radius: 32px;
 `;

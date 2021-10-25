@@ -27,7 +27,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { routesArray } from 'constants/routes';
-import { blue2, grey29 } from 'constants/styles/colors';
+import { blue2, grey23 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { useToggle } from 'hooks/toggle';
 import React, { useMemo } from 'react';
@@ -59,7 +59,7 @@ export const SideBar = () => {
                     <LogoImg />
                 </MarginWrapper>
 
-                <ContentWrapper backgroundColor={grey29} borderRadius="4px" padding="5px 10px">
+                <ContentWrapper backgroundColor={grey23} borderRadius="4px" padding="5px 10px">
                     <DateBadge color={blue2} />
                     <Section justifyCenter>
                         <TimeBadge color={blue2} />

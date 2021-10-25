@@ -1,6 +1,6 @@
 import { clearInputButtonWidthAndHeight } from 'componentsNewDesign/common/buttons/ClearInputButton/constants';
 
-export const inputFontSize = '12px';
+export const inputFontSize = '11px';
 export const inputWrapperHeight = countInputWrapperHeight(parseInt(inputFontSize));
 export const inputVerticalPadding = countInputVerticalPadding(parseInt(inputFontSize));
 

@@ -13,7 +13,7 @@ import {
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey29, grey30 } from 'constants/styles/colors';
+import { grey29 } from 'constants/styles/colors';
 import { useToggle } from 'hooks/toggle';
 import React, { FC } from 'react';
 import { DefaultValueBoolean } from 'types/form';
@@ -29,8 +29,8 @@ export const DropdownSection: FC<Props> = ({ children, title, defaultValue = fal
     const [isOpened, toggleIsOpened] = useToggle(defaultValue);
 
     return (
-        <DropdownSectionWrapper backgroundColor={isOpened ? grey30 : grey29} isOpened={isOpened} {...rest}>
-            <DropdownSectionButton backgroundColor={isOpened ? grey30 : grey29} onClick={toggleIsOpened} {...rest}>
+        <DropdownSectionWrapper backgroundColor={grey29} isOpened={isOpened} {...rest}>
+            <DropdownSectionButton backgroundColor={grey29} onClick={toggleIsOpened} {...rest}>
                 <ContentText fontSize="16px" fontWeight="700" padding={titlePadding}>
                     {title}
                 </ContentText>

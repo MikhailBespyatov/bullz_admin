@@ -1,11 +1,7 @@
 import blockIconBlack from 'assets/block_icon_black.svg';
 import blockIconRed from 'assets/block_icon_red.svg';
 import noImageIcon from 'assets/no_product_icon.svg';
-import {
-    avatarDiameter,
-    commentMargin,
-    usernamePadding
-} from 'componentsNewDesign/layouts/cards/CommentCard/constants';
+import { avatarDiameter, commentMargin } from 'componentsNewDesign/layouts/cards/CommentCard/constants';
 import {
     BlockButtonSpan,
     BlockIconBlack,
@@ -104,7 +100,7 @@ CommentCardProps) => {
                             <FlexGrow height="100%">
                                 <Section marginLeft="10px">
                                     <Link to={usersLink + '/' + userId}>
-                                        <UserNameSpan padding={usernamePadding}>{username}</UserNameSpan>
+                                        <UserNameSpan>{username}</UserNameSpan>
                                     </Link>
                                     <SupplementarySpan>{commentDate}</SupplementarySpan>
                                 </Section>

@@ -32,7 +32,9 @@ export interface VideoCardButtonProps
         Sizes,
         Disabled,
         Padding,
-        MarginRightBottom {}
+        MarginRightBottom {
+    textHover?: string;
+}
 
 export const VideoCardButton: FC<VideoCardButtonProps> = ({
     children,
@@ -43,6 +45,7 @@ export const VideoCardButton: FC<VideoCardButtonProps> = ({
     borderRadius,
     padding,
     width,
+    textHover,
     ...props
 }) => (
     <SimpleButton
@@ -53,6 +56,7 @@ export const VideoCardButton: FC<VideoCardButtonProps> = ({
         fontSize={fontSize || videoCardButtonTextFontSize}
         marginBottom={videoCardButtonMarginBottom}
         padding={padding || videoCardButtonPadding}
+        textHover={textHover}
         width={width || videoCardButtonWidth}
         {...props}
     >

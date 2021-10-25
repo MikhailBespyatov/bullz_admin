@@ -3,7 +3,7 @@ import { contentWrapperBorderRadius } from 'componentsNewDesign/wrappers/Content
 export const popoverWidth = '210px';
 //to calculate the middle of the parent block popover
 export const popoverHalfWidth = parseInt(popoverWidth) / 2 + 'px';
-export const popoverBackgroundColor = '#292929';
+export const popoverBackgroundColor = '#2C2E3A';
 
 export const popoverVerticalMargin = '5px';
 

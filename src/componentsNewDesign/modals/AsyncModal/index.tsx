@@ -2,7 +2,7 @@ import { ModalButton } from 'componentsNewDesign/common/buttons/ModalButton';
 import { ContentText, TitleText } from 'componentsNewDesign/modals/AsyncModal/styles';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
-import { black, errorColor } from 'constants/styles/colors';
+import { errorColor, grey27 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { modalEvents, modalStores } from 'stores/modals/asyncModal';
@@ -28,7 +28,7 @@ export const AsyncModal = () => {
                             Cancel
                         </ModalButton>
                     </Column>
-                    <ModalButton background={black} onClick={okHandler}>
+                    <ModalButton background={grey27} onClick={okHandler}>
                         {loading ? 'Loading...' : 'Ok'}
                     </ModalButton>
                 </Row>

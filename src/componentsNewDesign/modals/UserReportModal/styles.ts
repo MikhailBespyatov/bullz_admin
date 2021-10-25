@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { bodyModalHeight, modalWidth } from 'componentsNewDesign/modals/UserReportModal/constants';
+import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { modalVerticalPadding } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
+import styled from 'styled-components';
 
 export const ModalHeader = styled(Column)`
     position: absolute;
@@ -35,7 +35,7 @@ export const Report = styled.pre`
     display: flex;
     flex-direction: column;
     height: 390px;
-    overflow: scroll;
+    overflow: auto;
     width: 100%;
     flex-wrap: nowrap;
 
