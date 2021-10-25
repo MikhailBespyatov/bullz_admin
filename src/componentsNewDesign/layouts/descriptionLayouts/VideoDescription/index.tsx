@@ -1,11 +1,17 @@
+import { ReactComponent as CloseImg } from 'assets/close.svg';
 import whiteLinkIcon from 'assets/copy_icon_white.svg';
+import downloadPopupDoneImg from 'assets/download_popup_done.svg';
+import downloadPopupLoadingImg from 'assets/download_popup_loading.svg';
+import { ReactComponent as DownloadIcon } from 'assets/icons/download_icon.svg';
 import noVideoPoster from 'assets/no_video_poster.svg';
 import { Loader } from 'components/common/dynamic/Loader';
+import { Button } from 'componentsNewDesign/common/buttons/CopyButton/styles';
 import { VideoContainer } from 'componentsNewDesign/common/dividers/VideoContainer';
 import { hlsIsSupported } from 'componentsNewDesign/common/dividers/VideoContainer/constants';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { HashtagsInput } from 'componentsNewDesign/common/inputs/HashtagsInput';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
+import { Span } from 'componentsNewDesign/common/typography/Span';
 import { CommentBlock } from 'componentsNewDesign/layouts/blocks/CommentBlock';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
 import {
@@ -25,19 +31,27 @@ import {
     titlePadding,
     videoPlayerWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/constants';
-import { VideoCommentsWrapper } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/styles';
+import {
+    Backdrop,
+    DownloadPopupWrapper,
+    VideoCommentsWrapper
+} from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { PosterLayout } from 'componentsNewDesign/layouts/PosterLayout';
+import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
+import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultVideoCommentsValues } from 'constants/defaults/comments';
 import { homeLink, productsLink, usersLink } from 'constants/routes';
-import { black, grey23, grey27, grey29 } from 'constants/styles/colors';
+import { black, grey23, grey27, grey29, white } from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
-import React, { useEffect } from 'react';
+import { saveAs } from 'file-saver';
+import React, { useEffect, useState } from 'react';
 import {
     updateCommentPaginationState,
     videoCommentsEffects,
@@ -53,6 +67,72 @@ import { getLanguagesName } from 'utils/usefulFunctions';
 // const { updateAsyncModalLoading, openAsyncModal, closeAsyncModal } = modalEvents;
 const { /*invokeGetComments,*/ /*setDefaultCommentValues,*/ updateCommentValues } = videoCommentsEvents;
 const { limit: defaultLimit, pageIndex: defaultPageIndex } = defaultVideoCommentsValues;
+
+interface DownloadPopupProps {
+    setIsOpened: (value: boolean) => void;
+    status?: BULLZ.CreationStatus;
+    url?: string | null;
+    id?: string;
+}
+
+const DownloadPopup = ({ setIsOpened, status, url, id }: DownloadPopupProps) => {
+    const saveFile = () => {
+        saveAs(`${url}`, `${id}`);
+    };
+
+    return (
+        <>
+            <Backdrop
+                onClick={() => {
+                    setIsOpened(false);
+                }}
+            />
+            <DownloadPopupWrapper>
+                <MarginWrapper marginLeft="22px">
+                    {status && status === 3 ? (
+                        <CustomImg height="auto" src={downloadPopupDoneImg} width="302px" />
+                    ) : (
+                        <CustomImg height="auto" src={downloadPopupLoadingImg} width="302px" />
+                    )}
+                </MarginWrapper>
+
+                <Column alignCenter marginTop="33px">
+                    <MarginWrapper marginBottom="6px">
+                        <Span fontSize="24px" fontWeight="bold" lineHeight="28px">
+                            {status && status === 3 ? 'Wait is over' : 'Wait please...'}
+                        </Span>
+                    </MarginWrapper>
+
+                    <MarginWrapper marginBottom="33px">
+                        <Span alignCenter color={white} fontSize="16px" fontWeight="500" lineHeight="23px">
+                            {status && status === 3
+                                ? 'Video is ready to be downloaded'
+                                : 'We are generating the video. It may take 2 to 5 minutes. Then refresh a page.'}
+                        </Span>
+                    </MarginWrapper>
+
+                    {status && status === 3 && url !== null ? (
+                        <Button background={black} height="35px" width="134px" onClick={saveFile}>
+                            <Span color={white} fontSize="16px" fontWeight="normal" lineHeight="19px">
+                                Download
+                            </Span>
+                        </Button>
+                    ) : null}
+                </Column>
+
+                <AbsoluteWrapper right="20px" top="17px">
+                    <ClickableWrapper
+                        onClick={() => {
+                            setIsOpened(false);
+                        }}
+                    >
+                        <CloseImg />
+                    </ClickableWrapper>
+                </AbsoluteWrapper>
+            </DownloadPopupWrapper>
+        </>
+    );
+};
 
 interface VideoEngagementBlockProps
     extends Pick<BULLZ.AdminGetVideoResponse, 'engagementStatistics'>,
@@ -184,15 +264,24 @@ export const VideoDescription = ({
     curationEndedReason = 0,
     thumbnailUrl,
     hashTags = [],
-    isDeleted = false
+    isDeleted = false,
+    isPublic
 }: VideoDescriptionProps) => {
     const loading = useStore(loadingStores.loading);
     const commentsLoading = useStore(videoCommentsEffects.loadVideoComments.pending);
     const videoLoading = useStore(videosStores.editLoading);
-
+    const [isOpened, setIsOpened] = useState<boolean>(false);
+    const [videoSourse, setVideoSourse] = useState<BULLZ.GetVideoPreviewResponse>();
+    const videoSourseDetails = useStore(videosStores.videoSourse);
     //const isFirst = useStore(videoCommentsStores.isFirst);
     const videoComments = useStore(videoCommentsStores.videoComments);
     const totalVideoCommentsQuantity = countTotalVideoCommentsQuantity(videoComments);
+
+    useEffect(() => {
+        videosEffects.getVideoSourceFile({ videoId: id });
+        setVideoSourse(videoSourseDetails);
+        // setTimeout(() => videosEffects.getVideoSourceFile({ videoId: id }), 120000);
+    }, [id, videoSourseDetails]);
 
     const { pageIndex, limit } = useStore(videoCommentsStores.commentValues);
 
@@ -210,6 +299,10 @@ export const VideoDescription = ({
     //    videosEvents.updateCurationStateById({ id, curationState: fields.curationState });
 
     const onConfirm = async (tags: string[]) => videosEffects.updateVideoTags({ id, tags });
+
+    const onDownloadClick = () => {
+        setIsOpened(true);
+    };
 
     const onCurrentPageChange = (page: number, pageSize: number | undefined = defaultLimit) => {
         updateCommentValues({
@@ -244,7 +337,7 @@ export const VideoDescription = ({
                 marginBottom={filterMargin}
                 marginRight={filterMargin}
             >
-                <Section marginBottom={descriptionPadding}>
+                <Row justifyBetween marginBottom={descriptionPadding} width={videoPlayerWidth}>
                     <ContentText
                         uppercase
                         color={
@@ -259,7 +352,21 @@ export const VideoDescription = ({
                                 `${statuses[3].text} (${rejectionReasonText[curationEndedReason]})`) ||
                             (curationState !== undefined && statuses[curationState].text)}
                     </ContentText>
-                </Section>
+                    {isPublic && (
+                        <Row alignCenter>
+                            <ClickableWrapper onClick={onDownloadClick}>
+                                <DownloadIcon />
+                            </ClickableWrapper>
+                            {videoSourse && videoSourse.status === 3 && (
+                                <MarginWrapper marginLeft="7px">
+                                    <ClickableWrapper onClick={onDownloadClick}>
+                                        <Span fontWeight="500">Download Ready</Span>
+                                    </ClickableWrapper>
+                                </MarginWrapper>
+                            )}
+                        </Row>
+                    )}
+                </Row>
                 <Section>
                     <Column marginRight={cardMargin}>
                         <RelativeWrapper height="100%" width={videoPlayerWidth}>
@@ -480,6 +587,14 @@ export const VideoDescription = ({
                     {/*        </CuratePopoverLayout>*/}
                     {/*    </Row>*/}
                     {/*</Column>*/}
+                    {isOpened ? (
+                        <DownloadPopup
+                            id={id}
+                            setIsOpened={setIsOpened}
+                            status={videoSourse?.status}
+                            url={videoSourse?.url}
+                        />
+                    ) : null}
                 </Section>
             </DescriptionWrapper>
             <VideoCommentsWrapper backgroundColor={grey29} marginRight={filterMargin}>

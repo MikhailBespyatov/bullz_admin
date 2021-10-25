@@ -410,6 +410,22 @@ const validationState = restore<BULLZ.ValidationStateResponse>(getValidationStat
 // values.watch(setDefaultValues, state => loadItems(state));
 // values.watch(setDefaultValues, state => loadItems(state));
 
+const getVideoSourceFile = createEffect({
+    handler: async (value: BULLZ.GetVideoMetaRequest) => {
+        try {
+            const data = await API.adminVideos.getVideoSourceFile(value);
+            return data || {};
+        } catch {
+            return {};
+        }
+    }
+});
+
+const videoSourse = createStore<BULLZ.GetVideoPreviewResponse>({}).on(
+    getVideoSourceFile.doneData,
+    (_, newState) => newState
+);
+
 const setId = createEvent<string>();
 const getRequestId = restore(setId, '');
 
@@ -429,6 +445,7 @@ export const videosEvents = {
     removeVideoFromItemsById,
     invokeGetItems
 };
+
 export const videosEffects = {
     loadItemById,
     loadSingleItemById,
@@ -439,8 +456,10 @@ export const videosEffects = {
     updateVideoTags,
     getWOMVideoDataById,
     getVideoDetailsByIds,
-    getValidationStateByContentIds
+    getValidationStateByContentIds,
+    getVideoSourceFile
 };
+
 export const videosStores = {
     videos,
     video,
@@ -457,5 +476,6 @@ export const videosStores = {
     removeLoading,
     initialLoading,
     editInfoItem,
-    editLoading
+    editLoading,
+    videoSourse
 };
