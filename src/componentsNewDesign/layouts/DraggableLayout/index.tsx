@@ -154,14 +154,17 @@ export const DraggableTrendingVideos = ({ items, onDragEnded }: DraggableTrendin
         setIsFirstIndex(i);
     };
     const onDragEnd = () => {
-        if (secondIndex !== undefined && secondIndex !== firstIndex) onDragEnded(firstIndex || 0, secondIndex);
+        if (secondIndex !== undefined && secondIndex !== firstIndex) {
+            onDragEnded(firstIndex || 0, secondIndex);
+        }
+
         setIsFirstIndex(undefined);
         setIsSecondIndex(undefined);
     };
     const onDragOver = (i: number) => {
         firstIndex !== undefined && setIsSecondIndex(i);
     };
-    const onDragLeave = () => setIsSecondIndex(undefined);
+    //const onDragLeave = () => setIsSecondIndex(undefined);
 
     return (
         <>
@@ -176,7 +179,7 @@ export const DraggableTrendingVideos = ({ items, onDragEnded }: DraggableTrendin
                                 i * cardsInBlock + blockOrderNumber === firstIndex
                             }
                             onDragEnd={onDragEnd}
-                            onDragLeave={onDragLeave}
+                            //onDragLeave={onDragLeave}
                             onDragOver={() => onDragOver(i * cardsInBlock + blockOrderNumber)}
                             onDragStart={() => onDragStart(i * cardsInBlock + blockOrderNumber)}
                         >
