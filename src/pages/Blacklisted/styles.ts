@@ -1,5 +1,5 @@
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
-import { grey23 } from 'constants/styles/colors';
+import { grey23, grey29 } from 'constants/styles/colors';
 import { fullHeaderHeight } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
@@ -19,4 +19,5 @@ export const LayoutContentWrapper = styled(ContentWrapper)`
     width: 800px;
     padding: 16px 30px;
     border-radius: 8px 8px 0px 0px;
+    background: ${grey29};
 `;

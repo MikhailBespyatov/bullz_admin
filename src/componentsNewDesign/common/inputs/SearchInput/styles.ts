@@ -1,8 +1,8 @@
 import { inputBorderBottom, inputPadding } from 'componentsNewDesign/common/inputs/SearchInput/constants';
 import styled from 'styled-components';
-import { BorderProperties, Padding, Sizes } from 'types/styles';
+import { BackgroundColor, BorderProperties, Padding, Sizes } from 'types/styles';
 
-interface InputProps extends Pick<Padding, 'padding'>, Sizes, Pick<BorderProperties, 'border'> {}
+interface InputProps extends Pick<Padding, 'padding'>, Sizes, Pick<BorderProperties, 'border'>, BackgroundColor {}
 
 export const InputWrapper = styled.div<InputProps>`
     flex-wrap: nowrap;
@@ -15,6 +15,7 @@ export const InputWrapper = styled.div<InputProps>`
     border-bottom: ${inputBorderBottom};
     ${({ border }) => border && `border: ${border}; border-radius: 8px`};
     min-width: 200px;
+    ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`}
 `;
 
 // export const Input = styled.input<InputProps>`

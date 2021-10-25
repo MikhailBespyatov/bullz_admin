@@ -5,12 +5,10 @@ import {
 } from 'componentsNewDesign/common/tables/BlacklistedUsersTable/constants';
 import { Table } from 'componentsNewDesign/common/tables/Table';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
-import {
-    tableBorderRadius,
-    tableDataBorder
-} from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
+import { tableBorderRadius } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import { TableWrapper } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/styles';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { grey27 } from 'constants/styles/colors';
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'types/data';
 
@@ -45,8 +43,8 @@ export const BlacklistedUsersTable = ({ items, type = 1 }: BlacklistedUsersTable
     }, [type]);
 
     return (
-        <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
-            <Table columns={tableColumnTitles} data={dataTable} />
+        <TableWrapper backgroundColor={grey27} borderRadius={tableBorderRadius}>
+            <Table backgroundColor={grey27} columns={tableColumnTitles} data={dataTable} />
         </TableWrapper>
     );
 };

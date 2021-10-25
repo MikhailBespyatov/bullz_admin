@@ -10,14 +10,15 @@ import { userStores } from 'stores/users/user';
 import { SearchParameters } from 'types/data';
 import { OnStringChange } from 'types/form';
 import { ReactClick, ReactKeyboard } from 'types/react';
-import { BorderProperties, Padding } from 'types/styles';
+import { BackgroundColor, BorderProperties, Padding } from 'types/styles';
 
 export interface SearchInputProps
     extends Pick<Padding, 'padding'>,
         Pick<BorderProperties, 'border'>,
         OnStringChange,
         ReactKeyboard<HTMLInputElement>,
-        ReactClick<HTMLButtonElement> {
+        ReactClick<HTMLButtonElement>,
+        BackgroundColor {
     searchParameters: SearchParameters[];
     value?: string;
     disableClearButton?: boolean;
@@ -32,7 +33,8 @@ export const SearchInput = ({
     selectPadding,
     searchParameters,
     disableClearButton,
-    disableEnterKeyDown
+    disableEnterKeyDown,
+    backgroundColor
 }: // byIdParameters
 SearchInputProps) => {
     const { access } = useStore(userStores.auth);
@@ -150,7 +152,7 @@ SearchInputProps) => {
             <Section alignCenter noWrap marginBottom="0" marginRight="50px">
                 {/* <RelativeWrapper height="fit-content"> */}
                 {/* <AbsoluteWrapper left={searchButtonLeftMargin} top={closeButtonTopPadding}> */}
-                <InputWrapper border={border} padding={padding}>
+                <InputWrapper backgroundColor={backgroundColor} border={border} padding={padding}>
                     {/* <MarginWrapper marginRight={searchButtonRightMargin}> */}
 
                     <SearchButton active={isFocused} onClick={onSearchClick} />
@@ -213,6 +215,7 @@ SearchInputProps) => {
                     <BorderInputBlock />
                 </MarginWrapper> */}
                 <Select
+                    backgroundColor={backgroundColor}
                     border={border}
                     defaultIndex={activeItemIndex}
                     minWidth="140px"
