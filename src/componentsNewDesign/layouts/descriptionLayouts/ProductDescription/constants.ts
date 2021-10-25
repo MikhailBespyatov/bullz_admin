@@ -1,4 +1,4 @@
-import { grey12, grey13, grey23 } from 'constants/styles/colors';
+import { grey12, grey13 } from 'constants/styles/colors';
 
 export const buttonsFontSize = '10px';
 export const buttonsFontWeight = '400';
@@ -8,7 +8,7 @@ export const brandImageHeight = '104px';
 
 export const tableHeaderBackgroundColor = grey12;
 export const tableDataPadding = '0px 25px';
-export const tableDataBorder = `1px solid ${grey23}`;
+export const tableDataBorder = `1px solid rgba(196,196,196, 0.2)`;
 export const tableBorderRadius = '8px';
 
 export const assistiveTextColor = grey13;

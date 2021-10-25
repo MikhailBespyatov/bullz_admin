@@ -22,7 +22,7 @@ import {
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { homeLink, usersLink } from 'constants/routes';
-import { black, grey27 } from 'constants/styles/colors';
+import { grey27, grey29 } from 'constants/styles/colors';
 import React from 'react';
 import { noContentMessage } from './constants';
 import { ItemSpan, ItemWrapper } from './styles';
@@ -38,7 +38,13 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
         const dataTable: DataTable = {
             ...rest,
             userId: userId ? (
-                <ItemWrapper alignCenter justifyCenter marginBottom="0" opacity={userInfo?.isDisabled ? 0.3 : 1}>
+                <ItemWrapper
+                    alignCenter
+                    justifyBetween
+                    noWrap
+                    marginBottom="0"
+                    opacity={userInfo?.isDisabled ? 0.3 : 1}
+                >
                     <Column alignCenter justifyCenter marginRight="10px">
                         <SubtitleIdLink id={userId} linkRoute={usersLink}>
                             <ItemSpan fontSize="12px" fontWeight="bold" lineThrough={userInfo?.isDisabled || undefined}>
@@ -55,14 +61,20 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                         </MarginWrapper>
                     )}
                     <MarginWrapper marginRight="10px">
-                        <CopyButton diameter="30px" subject={userId} success={`Success copy User ID (${userId})`} />
+                        <CopyButton diameter="18px" subject={userId} success={`Success copy User ID (${userId})`} />
                     </MarginWrapper>
                 </ItemWrapper>
             ) : (
                 <AbsentInfo>{noContentMessage}</AbsentInfo>
             ),
             videoId: videoId ? (
-                <ItemWrapper alignCenter justifyCenter marginBottom="0" opacity={videoInfo?.isDeleted ? 0.3 : 1}>
+                <ItemWrapper
+                    alignCenter
+                    justifyBetween
+                    noWrap
+                    marginBottom="0"
+                    opacity={videoInfo?.isDeleted ? 0.3 : 1}
+                >
                     <MarginWrapper marginRight="10px">
                         <SubtitleIdLink id={videoId} linkRoute={homeLink}>
                             <ItemSpan fontSize="12px" fontWeight="bold" lineThrough={videoInfo?.isDeleted || undefined}>
@@ -70,7 +82,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                             </ItemSpan>
                         </SubtitleIdLink>
                     </MarginWrapper>
-                    <CopyButton diameter="30px" subject={videoId} success={`Success copy Video ID ( ${videoId})`} />
+                    <CopyButton diameter="18px" subject={videoId} success={`Success copy Video ID ( ${videoId})`} />
                 </ItemWrapper>
             ) : (
                 <AbsentInfo>{noContentMessage}</AbsentInfo>
@@ -87,9 +99,9 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
 
     return (
         <OverflowAutoLayout>
-            <TableWrapper backgroundColor={grey27} borderRadius="20px">
+            <TableWrapper backgroundColor={grey29} borderRadius="20px">
                 <Table>
-                    <TableRow>
+                    <TableRow backgroundColor={grey27}>
                         {statisticsTableColumns
                             .filter(({ key }) => removeItem !== key)
                             .map(({ title, width }) => (
@@ -100,12 +112,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                     </TableRow>
                     {data &&
                         data.map((dataRow, i) => (
-                            <TableRow
-                                key={i.toString()}
-                                backgroundColor={black}
-                                borderTop={tableDataBorder}
-                                color={assistiveTextColor}
-                            >
+                            <TableRow key={i.toString()} borderTop={tableDataBorder} color={assistiveTextColor}>
                                 {statisticsTableColumns
                                     .filter(({ key }) => removeItem !== key)
                                     .map(({ key, width }, i) => (
@@ -116,7 +123,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                                         >
                                             <Row alignCenter justifyCenter width="100%">
                                                 {typeof dataRow[key] === 'number' ? (
-                                                    <Span fontSize="12px" fontWeight="bold">
+                                                    <Span fontSize="10px" fontWeight="bold" lineHeight="12px">
                                                         {dataRow[key]}
                                                     </Span>
                                                 ) : (
