@@ -1,4 +1,4 @@
-import emptyStateImage from 'assets/icons/blacklist_empty_state_icon.svg';
+import emptyStateImage from 'assets/icons/blacklist_empty_state_icon_white.svg';
 import { ResetSearchButton } from 'componentsNewDesign/common/buttons/ResetButton';
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { BlacklistedUsersTable } from 'componentsNewDesign/common/tables/BlacklistedUsersTable';
@@ -8,7 +8,7 @@ import { MainLayout } from 'componentsNewDesign/layouts/MainLayout';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultBlacklistedUsersValues } from 'constants/defaults/users';
-import { selectHover } from 'constants/styles/colors';
+import { grey23, grey27 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import {
     defaultMessage,
@@ -115,6 +115,7 @@ export const Blacklisted = () => {
                     <Section marginBottom="8px">
                         <FlexGrow flexGrow="1" marginRight="20px">
                             <SearchInput
+                                backgroundColor={grey27}
                                 border={searchInputBorder}
                                 padding={searchInputPadding}
                                 searchParameters={searchParameters}
@@ -139,7 +140,7 @@ export const Blacklisted = () => {
                                         imageHeight="18px"
                                         imageSrc={emptyStateImage}
                                         imageWidth="22px"
-                                        imageWrapperBackgroundColor={selectHover}
+                                        imageWrapperBackgroundColor={grey23}
                                         imageWrapperBorderRadius="50%"
                                         imageWrapperHeight={emptyStateImageWrapperDiameter}
                                         imageWrapperWidth={emptyStateImageWrapperDiameter}

@@ -12,16 +12,27 @@ import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapp
 import { black, grey23, white } from 'constants/styles/colors';
 import styled, { css } from 'styled-components';
 import { Active } from 'types/global';
-import { BorderProperties, MaxSizes, Padding, PaddingLeft, TextProperties, Visibility } from 'types/styles';
+import {
+    BackgroundColor,
+    BorderProperties,
+    MaxSizes,
+    Padding,
+    PaddingLeft,
+    TextProperties,
+    Visibility
+} from 'types/styles';
 
-export interface SelectWrapperProps extends Pick<Padding, 'padding'>, Pick<BorderProperties, 'border'> {
+export interface SelectWrapperProps
+    extends Pick<Padding, 'padding'>,
+        Pick<BorderProperties, 'border'>,
+        BackgroundColor {
     disabled?: boolean;
 }
 
 export const SelectWrapper = styled(ContentWrapper)<SelectWrapperProps>`
     position: relative;
     min-width: 170px;
-    background-color: transparent;
+    background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : 'transparent')};
     ${({ border }) => border && `border: ${border}`};
     padding: ${({ padding }) => (padding ? padding : selectPadding)};
     color: ${white};
