@@ -16,6 +16,7 @@ import {
     pageRoutePlaceholder,
     promotionNamePlaceholder,
     targetRegionsPlaceholder,
+    wrapperBorderRadius,
     wrapperPadding
 } from 'componentsNewDesign/layouts/cards/PromotionCard/constants';
 import { ImageContainer } from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
@@ -26,7 +27,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { noop } from 'constants/functions';
 import { marketingToolsLink } from 'constants/routes';
-import { black, errorColor, grey23, white } from 'constants/styles/colors';
+import { black, errorColor, grey23, grey28, white } from 'constants/styles/colors';
 import { useToggle } from 'hooks/toggle';
 import React, { KeyboardEvent, useState } from 'react';
 //import { promotionsEffects } from 'stores/promotions/promotions';
@@ -141,7 +142,12 @@ export const PromotionCard = ({
     // }, []);
 
     return (
-        <ContentWrapper padding={wrapperPadding} width="745px">
+        <ContentWrapper
+            backgroundColor={grey28}
+            borderRadius={wrapperBorderRadius}
+            padding={wrapperPadding}
+            width="745px"
+        >
             <Section marginBottom="30px">
                 <ClickableWrapper onClick={onBackArrowClick}>
                     <MarginWrapper marginRight="20px">

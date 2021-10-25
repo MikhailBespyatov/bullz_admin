@@ -37,6 +37,7 @@ export const MarketingTools = () => {
                             </Span>
                             <SimpleButton
                                 background={white}
+                                borderRadius="4px"
                                 color={black}
                                 fontSize="10px"
                                 fontWeight="400"

@@ -9,3 +9,5 @@ export const inputBorderBottom = '1px solid #BFBFBF';
 export const promotionNamePlaceholder = 'Type promotion name here';
 export const pageRoutePlaceholder = 'Type page route here';
 export const targetRegionsPlaceholder = 'Add regions';
+
+export const wrapperBorderRadius = '8px 0px 0px 8px';
