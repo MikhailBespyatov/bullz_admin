@@ -1,4 +1,4 @@
-import arrowDown from 'assets/icons/sort_arrow_down.svg';
+import arrowDown from 'assets/icons/sort_arrow_down_white.svg';
 import { arrowHeight, arrowWidth, SortType } from 'componentsNewDesign/common/buttons/SortSelectorButton/constants';
 import { ButtonSpan, SortButtonWrapper } from 'componentsNewDesign/common/buttons/SortSelectorButton/styles';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
