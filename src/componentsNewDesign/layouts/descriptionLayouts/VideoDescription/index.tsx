@@ -260,8 +260,6 @@ export const VideoDescription = ({
     isTrusted,
     commentsCount,
     productLink,
-    // * 0 = None; 1 = DeclineRequested; 2 = Inappropriate; 3 = GraphicContent; 4 = Violence; 5 = Copyright; 6 = TestVideo; 7 = IncorrectFormat; 8 = UserRequested; 9 = Other; 10 = NotProductRecommendation
-    curationEndedReason = 0,
     thumbnailUrl,
     hashTags = [],
     isDeleted = false,
@@ -276,6 +274,7 @@ export const VideoDescription = ({
     //const isFirst = useStore(videoCommentsStores.isFirst);
     const videoComments = useStore(videoCommentsStores.videoComments);
     const totalVideoCommentsQuantity = countTotalVideoCommentsQuantity(videoComments);
+    const curationEndedReason = validation?.bullz?.curationEndedReason || 0;
 
     useEffect(() => {
         videosEffects.getVideoSourceFile({ videoId: id });
