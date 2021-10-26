@@ -1,5 +1,6 @@
-import { hoveredColor, selectorRightPadding } from 'componentsNewDesign/common/inputs/Select/constants';
+import { selectorRightPadding } from 'componentsNewDesign/common/inputs/Select/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
+import { grey23 } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
@@ -17,7 +18,7 @@ export const SortButtonWrapper = styled(ContentWrapper)`
     ${flexCenter};
 
     :hover {
-        background-color: ${hoveredColor};
+        background-color: ${grey23};
     }
 
     @media (min-width: 1270px) {
