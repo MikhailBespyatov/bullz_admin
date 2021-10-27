@@ -1,4 +1,4 @@
-import { black } from 'constants/styles/colors';
+import { grey28 } from 'constants/styles/colors';
 import { flexStart } from 'constants/styles/mixins';
 import { footerHeight, padding, sideBarWidth, sm } from 'constants/styles/sizes';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ export const Wrapper = styled.footer`
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: ${black};
+    background-color: ${grey28};
     //height: ${footerHeight};
     ${flexStart};
     flex-direction: row;
