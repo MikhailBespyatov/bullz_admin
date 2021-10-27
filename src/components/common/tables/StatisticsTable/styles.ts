@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Opacity } from 'types/styles';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import styled from 'styled-components';
+import { Opacity } from 'types/styles';
 
 interface ItemSpanProps {
     lineThrough?: boolean;

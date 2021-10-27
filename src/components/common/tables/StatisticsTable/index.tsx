@@ -47,11 +47,21 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                 >
                     <Column alignCenter justifyCenter marginRight="10px">
                         <SubtitleIdLink id={userId} linkRoute={usersLink}>
-                            <ItemSpan fontSize="12px" fontWeight="bold" lineThrough={userInfo?.isDisabled || undefined}>
+                            <ItemSpan
+                                fontSize="10px"
+                                fontWeight="bold"
+                                lineHeight="12px"
+                                lineThrough={userInfo?.isDisabled || undefined}
+                            >
                                 {userId}
                             </ItemSpan>
                         </SubtitleIdLink>
-                        <ItemSpan fontSize="12px" fontWeight="bold" lineThrough={userInfo?.isDisabled || undefined}>
+                        <ItemSpan
+                            fontSize="10px"
+                            fontWeight="bold"
+                            lineHeight="12px"
+                            lineThrough={userInfo?.isDisabled || undefined}
+                        >
                             {userInfo?.username}
                         </ItemSpan>
                     </Column>
