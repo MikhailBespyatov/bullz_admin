@@ -269,8 +269,7 @@ export const VideoDescription = ({
     const commentsLoading = useStore(videoCommentsEffects.loadVideoComments.pending);
     const videoLoading = useStore(videosStores.editLoading);
     const [isOpened, setIsOpened] = useState<boolean>(false);
-    const [videoSourse, setVideoSourse] = useState<BULLZ.GetVideoPreviewResponse>();
-    const videoSourseDetails = useStore(videosStores.videoSourse);
+    const videoSourse = useStore(videosStores.videoSourse);
     //const isFirst = useStore(videoCommentsStores.isFirst);
     const videoComments = useStore(videoCommentsStores.videoComments);
     const totalVideoCommentsQuantity = countTotalVideoCommentsQuantity(videoComments);
@@ -278,9 +277,8 @@ export const VideoDescription = ({
 
     useEffect(() => {
         videosEffects.getVideoSourceFile({ videoId: id });
-        setVideoSourse(videoSourseDetails);
         // setTimeout(() => videosEffects.getVideoSourceFile({ videoId: id }), 120000);
-    }, [id, videoSourseDetails]);
+    }, [id]);
 
     const { pageIndex, limit } = useStore(videoCommentsStores.commentValues);
 
@@ -300,6 +298,8 @@ export const VideoDescription = ({
     const onConfirm = async (tags: string[]) => videosEffects.updateVideoTags({ id, tags });
 
     const onDownloadClick = () => {
+        videosEffects.getVideoSourceFile({ videoId: id });
+
         setIsOpened(true);
     };
 

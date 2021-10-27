@@ -8,7 +8,13 @@ import { ReactClick } from 'types/react';
 export interface Props extends BULLZ.GetTrendingUserResponse, ReactClick<HTMLButtonElement> {}
 
 export const CreateTrendingCardHoverModal = ({ onClick }: Props) => (
-    <SimpleButton background={black} height={hoverModalHeight} width={hoverModalWidth} onClick={onClick}>
+    <SimpleButton
+        background={black}
+        backgroundHover={black}
+        height={hoverModalHeight}
+        width={hoverModalWidth}
+        onClick={onClick}
+    >
         <AddIcon />
     </SimpleButton>
 );
