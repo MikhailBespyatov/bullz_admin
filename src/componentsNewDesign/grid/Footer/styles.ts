@@ -1,6 +1,6 @@
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { grey, grey28 } from 'constants/styles/colors';
-import { flexStart } from 'constants/styles/mixins';
+import { flexCenter, flexStart } from 'constants/styles/mixins';
 import { borderWidth, footerHeight, lg_1, padding, sideBarWidth, smallSideBarWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
@@ -23,4 +23,18 @@ export const Wrapper = styled.footer`
     @media (max-width: ${lg_1}) {
         padding-left: calc(2 * ${padding} + ${smallSideBarWidth});
     }
+`;
+
+export const TrendingsWrapper = styled.footer`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: ${paginationHeight};
+    background-color: ${grey28};
+    ${flexCenter};
+    flex-direction: row;
+    justify-content: space-between;
+    // border-top: ${borderWidth} solid ${grey};
+    z-index: 9;
 `;

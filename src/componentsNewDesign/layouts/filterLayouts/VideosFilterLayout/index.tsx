@@ -5,7 +5,7 @@ import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePick
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { SortSelector } from 'componentsNewDesign/common/inputs/SortSelector';
-import { Footer } from 'componentsNewDesign/grid/Footer';
+import { Footer, TrendingsFooter } from 'componentsNewDesign/grid/Footer';
 import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWrapperLayout';
 import {
     searchVideoByUserIdParameter,
@@ -276,12 +276,14 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
             </Section>
             {children}
             {withoutFooter ? (
-                <Pagination
-                    currentIndex={pageIndex + 1}
-                    defaultSize={limit}
-                    totalItems={totalRecords}
-                    onSizeChange={onCurrentPageChange}
-                />
+                <TrendingsFooter>
+                    <Pagination
+                        currentIndex={pageIndex + 1}
+                        defaultSize={limit}
+                        totalItems={totalRecords}
+                        onSizeChange={onCurrentPageChange}
+                    />
+                </TrendingsFooter>
             ) : (
                 <Footer>
                     <Pagination

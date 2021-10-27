@@ -1,11 +1,8 @@
 import { CardHoverOpacityEffect } from 'componentsNewDesign/dynamic/effects';
 import { UserCard } from 'componentsNewDesign/layouts/cards/TrendingUserCard';
-import {
-    cardWrapperMargin,
-    hoverModalPositionLeft
-} from 'componentsNewDesign/layouts/cards/TrendingUserCard/constants';
+import { cardWrapperMargin } from 'componentsNewDesign/layouts/cards/TrendingUserCard/constants';
 import { CreateTrendingCardHoverModal } from 'componentsNewDesign/modals/CreateTrendingCardHoverModal';
-import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
+import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { grey23 } from 'constants/styles/colors';
 // import { useStore } from 'effector-react';
@@ -26,11 +23,11 @@ export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUr
                 marginRight={cardWrapperMargin}
                 width="fit-content"
             >
-                <AbsoluteWrapper left={hoverModalPositionLeft} top="0px" zIndex="5">
+                <AbsoluteCenterAlignment zIndex="5">
                     <CardHoverOpacityEffect>
                         <CreateTrendingCardHoverModal onClick={selectHandleClick} />
                     </CardHoverOpacityEffect>
-                </AbsoluteWrapper>
+                </AbsoluteCenterAlignment>
                 <UserCard isTrusted={isTrusted} profileImageUrl={profileImageUrl} username={username} />
             </TrendingCardWrapper>
         </>

@@ -4,7 +4,7 @@ import { NestedSelect } from 'componentsNewDesign/common/inputs/NestedSelect';
 import { FilterParameters, selectorsArray } from 'componentsNewDesign/common/inputs/NestedSelect/constants';
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
-import { Footer } from 'componentsNewDesign/grid/Footer';
+import { Footer, TrendingsFooter } from 'componentsNewDesign/grid/Footer';
 import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWrapperLayout';
 import {
     defaultSearchParameters,
@@ -303,13 +303,15 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
             {/*</Section>*/}
             {children}
             {withoutFooter ? (
-                <Pagination
-                    currentIndex={pageIndex + 1}
-                    defaultSize={limit}
-                    pagesLimit={100}
-                    totalItems={totalRecords}
-                    onSizeChange={onCurrentPageChange}
-                />
+                <TrendingsFooter>
+                    <Pagination
+                        currentIndex={pageIndex + 1}
+                        defaultSize={limit}
+                        pagesLimit={100}
+                        totalItems={totalRecords}
+                        onSizeChange={onCurrentPageChange}
+                    />
+                </TrendingsFooter>
             ) : (
                 <Footer>
                     <Pagination

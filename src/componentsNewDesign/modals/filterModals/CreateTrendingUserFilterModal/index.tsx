@@ -5,7 +5,7 @@ import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
-import { black } from 'constants/styles/colors';
+import { grey29 } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/constants';
@@ -33,7 +33,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
         <>
             <ModalWrapper
                 expanded
-                background={black}
+                background={grey29}
                 visible={visible}
                 width="100%"
                 onClose={() => closeModal()}
