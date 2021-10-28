@@ -1,0 +1,41 @@
+{
+  "PROJECT_NAME": "BULLZ ADMIN SYSTEM",
+  "STARTUP_BRANCH": "master",
+  "STARTUP_FILES": ["DEV_VERSION", "PROD_VERSION", "package.json"],
+  "FILES_TO_UPDATE_WITH_VERSION": [
+    {
+      "fileName": "package.json",
+      "lookingFor": "version",
+      "isJson": true
+    },
+    {
+      "fileName": "PROD_VERSION"
+    },
+    {
+      "fileName": ".dev.env",
+      "lookingFor": "REACT_APP_VERSION=",
+      "isEnvFile": true
+    },
+    {
+      "fileName": ".feat.env",
+      "lookingFor": "REACT_APP_VERSION=",
+      "isEnvFile": true
+    },
+    {
+      "fileName": ".stage.env",
+      "lookingFor": "REACT_APP_VERSION=",
+      "isEnvFile": true
+    },
+    {
+      "fileName": ".prod.env",
+      "lookingFor": "REACT_APP_VERSION=",
+      "isEnvFile": true
+    }
+  ],
+  "NEW_VERSION_FILE": "DEV_VERSION",
+  "OLD_VERSION_FILE": "PROD_VERSION",
+  "GIT_RELEASE_BRANCH_NAME_BASE": "BASY-RELEASE",
+  "GIT_RELEASE_TAG_NAME_BASE": "BASY-BUILD",
+  "GIT_INTEGRATION_RELEASE_BRANCH_BASE": "IN-RELEASE",
+  "BUILDING_SCRIPT": "yarn && yarn build:prod"
+}
