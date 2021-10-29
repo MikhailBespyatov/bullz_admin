@@ -14,6 +14,7 @@ import {
 } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
 import { ComponentWrapper } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
+import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import {
@@ -280,6 +281,7 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
                     <Pagination
                         currentIndex={pageIndex + 1}
                         defaultSize={limit}
+                        height={paginationHeight}
                         totalItems={totalRecords}
                         onSizeChange={onCurrentPageChange}
                     />

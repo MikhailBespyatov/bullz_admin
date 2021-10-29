@@ -58,7 +58,7 @@ export const ModalWrapper: FC<Props> = ({
                 background={background}
                 height={height}
                 overflow={overflow}
-                padding={modalVerticalPadding + ' ' + modalHorizontalPadding}
+                padding={`${modalVerticalPadding} ${modalHorizontalPadding} 0 ${modalHorizontalPadding}`}
                 width={width}
             >
                 {customHeader || (
