@@ -45,6 +45,7 @@ export interface WrapperProps {
     totalItems?: number;
     defaultSize?: number;
     onSizeChange: (current: number, size: number) => void;
+    height?: string;
 }
 
 interface Props {
@@ -179,7 +180,8 @@ export const Pagination = ({
     onSizeChange,
     totalItems = 0,
     defaultSize = defaultLimit,
-    pagesLimit
+    pagesLimit,
+    height
 }: WrapperProps) => {
     const total = useMemo(() => {
         if (totalItems === 0) return totalItems;
@@ -216,7 +218,7 @@ export const Pagination = ({
     return (
         <>
             {total !== 0 && (
-                <Section alignCenter justifyCenter>
+                <Section alignCenter justifyCenter height={height}>
                     <MarginWrapper marginRight={paginationWrapperHorizontalMargin}>
                         <Arrow disabled={currentIndex === 1} onClick={() => onIndexChange(currentIndex - 1)}>
                             <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />

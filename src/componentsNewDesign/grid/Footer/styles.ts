@@ -1,4 +1,5 @@
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
+import { modalHorizontalPadding } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
 import { grey, grey28 } from 'constants/styles/colors';
 import { flexCenter, flexStart } from 'constants/styles/mixins';
 import { borderWidth, footerHeight, lg_1, padding, sideBarWidth, smallSideBarWidth } from 'constants/styles/sizes';
@@ -26,10 +27,10 @@ export const Wrapper = styled.footer`
 `;
 
 export const TrendingsWrapper = styled.footer`
-    position: absolute;
+    position: sticky;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: ${paginationHeight};
     background-color: ${grey28};
     ${flexCenter};
@@ -37,4 +38,6 @@ export const TrendingsWrapper = styled.footer`
     justify-content: space-between;
     // border-top: ${borderWidth} solid ${grey};
     z-index: 9;
+    margin-left: -${modalHorizontalPadding};
+    margin-right: -${modalHorizontalPadding};
 `;
