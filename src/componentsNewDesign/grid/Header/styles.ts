@@ -1,5 +1,6 @@
 import { headerHeight, headerPaddingTop } from 'componentsNewDesign/grid/Header/constants';
-import { white } from 'constants/styles/colors';
+import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { grey28, white } from 'constants/styles/colors';
 import { filterMargin, sideBarWidth } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
@@ -28,4 +29,14 @@ export const VersionSpan = styled.span`
     padding-right: 5px;
     text-align: right;
     color: ${white};
+`;
+
+export const MobileHeaderWrapper = styled(Section)`
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    height: 80px;
+    padding: 0 16px;
+    background-color: ${grey28};
+    z-index: 100;
 `;

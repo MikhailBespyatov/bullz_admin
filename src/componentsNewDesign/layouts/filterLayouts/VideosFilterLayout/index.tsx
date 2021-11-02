@@ -25,7 +25,7 @@ import {
     sortTagsName,
     sortTagsValues
 } from 'constants/filters/sorts';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import { sortName1, sortName3, userIdSearchPlaceholder, videoIdSearchPlaceholder } from 'pages/Home/constants';
@@ -86,6 +86,7 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
     const isFirst = useStore(videosStores.isFirst);
     const sortPrefix = useStore(videosStores.sortPrefix);
     const sortPostfix = useStore(videosStores.sortPostfix);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const [queryParams, setQueryParams] = useQueryParams<VideosQueryParams>(updateQueryValues);
 
@@ -236,45 +237,51 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
 
     return (
         <>
-            <SearchWrapperLayout alignCenter>
-                <FlexGrow marginRight={filterMargin}>
-                    <SearchInput searchParameters={searchParameters} />
-                </FlexGrow>
-                <Row alignCenter marginRight="20px" marginTop={isMd ? '20px' : '0'}>
-                    <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
-                        Is trusted
-                    </CheckboxFilter>
-                </Row>
-            </SearchWrapperLayout>
-            <Section alignCenter /*noWrap*/>
-                <ComponentWrapper>
-                    <Select
-                        defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
-                        selector={sortTagsCurationStateData}
-                        title={sortTagsName + sortName3}
-                        width={selectorWidth}
-                        onChange={onSortCurationStateChange}
-                    />
+            {!isMobile && (
+                <>
+                    <SearchWrapperLayout alignCenter>
+                        <FlexGrow marginRight={filterMargin}>
+                            <SearchInput searchParameters={searchParameters} />
+                        </FlexGrow>
+                        <Row alignCenter marginRight="20px" marginTop={isMd ? '20px' : '0'}>
+                            <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
+                                Is trusted
+                            </CheckboxFilter>
+                        </Row>
+                    </SearchWrapperLayout>
+                    <Section alignCenter /*noWrap*/>
+                        <ComponentWrapper>
+                            <Select
+                                defaultIndex={sortTagsCurationStateValues.findIndex(
+                                    item => videoCurationState === item
+                                )}
+                                selector={sortTagsCurationStateData}
+                                title={sortTagsName + sortName3}
+                                width={selectorWidth}
+                                onChange={onSortCurationStateChange}
+                            />
 
-                    <Select
-                        defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
-                        selector={sortTagsValues}
-                        title={sortTagsName + sortName1}
-                        width={selectorWidth}
-                        onChange={onSortChange}
-                    />
-                </ComponentWrapper>
-                <ComponentWrapper>
-                    <DateRangePicker
-                        dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
-                        onChange={onDateRangeClick}
-                    />
-                </ComponentWrapper>
-                <ComponentWrapper>
-                    <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
-                    <ResetSearchButton onClick={resetFilters} />
-                </ComponentWrapper>
-            </Section>
+                            <Select
+                                defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
+                                selector={sortTagsValues}
+                                title={sortTagsName + sortName1}
+                                width={selectorWidth}
+                                onChange={onSortChange}
+                            />
+                        </ComponentWrapper>
+                        <ComponentWrapper>
+                            <DateRangePicker
+                                dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
+                                onChange={onDateRangeClick}
+                            />
+                        </ComponentWrapper>
+                        <ComponentWrapper>
+                            <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
+                            <ResetSearchButton onClick={resetFilters} />
+                        </ComponentWrapper>
+                    </Section>
+                </>
+            )}
             {children}
             {withoutFooter ? (
                 <TrendingsFooter>
