@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import menuImg from 'assets/icons/sideBarIcons/menu_icon.svg';
 import { DateBadge } from 'componentsNewDesign/common/badges/DateBadge';
 import { TimeBadge } from 'componentsNewDesign/common/badges/TimeBadge';
@@ -28,6 +29,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { routesArray } from 'constants/routes';
 import { blue2, grey23 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useToggle } from 'hooks/toggle';
 import React, { useMemo } from 'react';
@@ -42,6 +44,7 @@ export const SideBar = () => {
     const { user } = useStore(userStores.user);
     const { access } = useStore(userStores.auth);
     const [isExpanded, toggleIsExpanded] = useToggle();
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const avatar = useMemo(() => user?.profile?.profileImageUrl, [user]);
     const username = useMemo(() => user?.username, [user]);
@@ -52,7 +55,7 @@ export const SideBar = () => {
     //const goTo = (path: string) => () => history.push(path);
     const logout = () => userEvents.logout();
 
-    return (
+    return !isMobile ? (
         <>
             <Wrapper isExpanded={isExpanded}>
                 <MarginWrapper marginBottom="35px">
@@ -125,7 +128,7 @@ export const SideBar = () => {
             </Wrapper>
             {isExpanded && <BlackoutBackground onClick={toggleIsExpanded} />}
         </>
-    );
+    ) : null;
 };
 
 // const { SubMenu } = Menu;
