@@ -8,9 +8,11 @@ import {
 } from 'componentsNewDesign/common/buttons/ResetButton/constants';
 import { blue } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
+import { TextProperties } from 'types/styles';
 
-export const ResetButton = styled.button`
+export const ResetButton = styled.button<TextProperties>`
     ${disableDefaultButtonStyleMixin};
     width: 60px;
     // width: ${resetButtonWidth};
@@ -33,4 +35,9 @@ export const ResetButton = styled.button`
     justify-content: space-evenly;
     align-items: center;
     cursor: pointer;
+
+    @media (max-width: ${xs}) {
+        font-size: ${({ fontSize }) => (fontSize ? fontSize : '11px')};
+        line-height: ${({ lineHeight }) => (lineHeight ? lineHeight : '19px')};
+    }
 `;

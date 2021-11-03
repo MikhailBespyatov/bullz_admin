@@ -21,7 +21,7 @@ export const Container = styled.div`
         padding-left: calc(2 * ${padding} + ${smallSideBarWidth});
     }
     @media (max-width: ${xs}) {
-        padding: 0 15px;
+        padding: 0;
         padding-top: ${headerHeight};
     }
 `;

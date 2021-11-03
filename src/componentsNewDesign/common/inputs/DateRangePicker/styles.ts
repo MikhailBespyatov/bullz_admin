@@ -2,6 +2,7 @@ import arrow from 'assets/black_left_arrow.svg';
 import { dataPickerIconDiameter } from 'componentsNewDesign/common/inputs/DateRangePicker/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { xs } from 'constants/styles/sizes';
 import styled, { css } from 'styled-components';
 
 export const DataPickerStyles = css`
@@ -106,6 +107,10 @@ export const DataPickerWrapper = styled(Row)`
 
     @media (min-width: 1340px) {
         width: 260px;
+    }
+
+    @media (max-width: ${xs}) {
+        width: 100%;
     }
 `;
 export const DataPickerIconWrapper = styled(ContentWrapper)`

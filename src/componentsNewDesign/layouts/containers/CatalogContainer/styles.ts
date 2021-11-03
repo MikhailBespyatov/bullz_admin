@@ -1,5 +1,5 @@
 import { grey30 } from 'constants/styles/colors';
-import { cardMargin } from 'constants/styles/sizes';
+import { cardMargin, xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
 export const CatalogContainerWrapper = styled.div`
@@ -11,4 +11,9 @@ export const CatalogContainerWrapper = styled.div`
     padding-right: ${cardMargin};
     padding-top: ${cardMargin};
     padding-bottom: 48px;
+
+    @media (max-width: ${xs}) {
+        border-radius: 0;
+        padding-top: 24px;
+    }
 `;

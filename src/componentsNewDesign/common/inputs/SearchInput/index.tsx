@@ -1,9 +1,12 @@
+import { useMediaQuery } from '@material-ui/core';
 import { ClearInputButton } from 'componentsNewDesign/common/buttons/ClearInputButton';
 import { SearchButton } from 'componentsNewDesign/common/buttons/SearchButton';
 import { InputWrapper } from 'componentsNewDesign/common/inputs/SearchInput/styles';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { IconWrapper, Input } from 'componentsNewDesign/common/inputs/TextInput/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { grey30 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { userStores } from 'stores/users/user';
@@ -38,6 +41,8 @@ export const SearchInput = ({
 }: // byIdParameters
 SearchInputProps) => {
     const { access } = useStore(userStores.auth);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
+
     const filteredSearchParameters = searchParameters.filter(({ accessFilter }) =>
         accessFilter ? accessFilter.some(role => role === access) : true
     );
@@ -147,7 +152,7 @@ SearchInputProps) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParameters]);
 
-    return (
+    return !isMobile ? (
         <>
             <Section alignCenter noWrap marginBottom="0" marginRight="50px">
                 {/* <RelativeWrapper height="fit-content"> */}
@@ -224,6 +229,34 @@ SearchInputProps) => {
                     onChange={onChangeSelector}
                 />
             </Section>
+        </>
+    ) : (
+        <>
+            <InputWrapper border={border} padding={padding}>
+                <SearchButton active={isFocused} onClick={onSearchClick} />
+
+                <Input
+                    fontWeight="700"
+                    placeholder={filteredSearchParameters[activeItemIndex].placeholder}
+                    type="text"
+                    value={value}
+                    onBlur={onInputBlur}
+                    onChange={onInputChange}
+                    onFocus={onInputFocus}
+                    onKeyDown={disableEnterKeyDown ? undefined : searchStart}
+                />
+                <IconWrapper>{value && !disableClearButton && <ClearInputButton onClick={clearSearch} />}</IconWrapper>
+            </InputWrapper>
+
+            <Select
+                backgroundColor={grey30}
+                border={border}
+                defaultIndex={activeItemIndex}
+                minWidth="140px"
+                padding={selectPadding}
+                selector={selectorItems}
+                onChange={onChangeSelector}
+            />
         </>
     );
 };

@@ -12,9 +12,14 @@ import {
     searchVideoByVideoIdParameter,
     selectorWidth
 } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
-import { ComponentWrapper } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/styles';
+import {
+    ComponentWrapper,
+    FilterMobileWrapper,
+    SearchMobileWrapper
+} from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
+import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import {
@@ -25,11 +30,13 @@ import {
     sortTagsName,
     sortTagsValues
 } from 'constants/filters/sorts';
+import { grey30 } from 'constants/styles/colors';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import { sortName1, sortName3, userIdSearchPlaceholder, videoIdSearchPlaceholder } from 'pages/Home/constants';
 import React, { FC, useEffect } from 'react';
+import { mobileHeaderStores } from 'stores/mobileHeader';
 import { videosEffects, videosEvents, videosStores } from 'stores/videos/videos';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
 import { SortType } from 'types/types';
@@ -87,7 +94,8 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
     const sortPrefix = useStore(videosStores.sortPrefix);
     const sortPostfix = useStore(videosStores.sortPostfix);
     const isMobile = useMediaQuery(`(max-width: ${xs})`);
-
+    const filterVisible = useStore(mobileHeaderStores.filterVisible);
+    const searchVisible = useStore(mobileHeaderStores.searchVisible);
     const [queryParams, setQueryParams] = useQueryParams<VideosQueryParams>(updateQueryValues);
 
     const isMd = useMediaQuery(`(max-width: 781px)`);
@@ -282,6 +290,46 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
                     </Section>
                 </>
             )}
+
+            {isMobile && (
+                <FilterMobileWrapper isClosed={!filterVisible}>
+                    <Select
+                        defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
+                        selector={sortTagsValues}
+                        title={sortTagsName + sortName1}
+                        width={selectorWidth}
+                        onChange={onSortChange}
+                    />
+
+                    <Select
+                        defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
+                        selector={sortTagsCurationStateData}
+                        title={sortTagsName + sortName3}
+                        width={selectorWidth}
+                        onChange={onSortCurationStateChange}
+                    />
+
+                    <DateRangePicker
+                        dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
+                        onChange={onDateRangeClick}
+                    />
+                    <ContentWrapper backgroundColor={grey30} borderRadius="0" padding="0">
+                        <ResetSearchButton onClick={resetFilters} />
+                    </ContentWrapper>
+                </FilterMobileWrapper>
+            )}
+
+            {isMobile && (
+                <SearchMobileWrapper isClosed={!searchVisible || filterVisible}>
+                    <SearchInput searchParameters={searchParameters} />
+                    <Row alignCenter marginLeft="19px" marginTop="16px">
+                        <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
+                            Is trusted
+                        </CheckboxFilter>
+                    </Row>
+                </SearchMobileWrapper>
+            )}
+
             {children}
             {withoutFooter ? (
                 <TrendingsFooter>
