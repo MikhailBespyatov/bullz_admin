@@ -2,7 +2,7 @@ import { VideoCommentsWrapperProps } from 'componentsNewDesign/layouts/descripti
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { black, grey28 } from 'constants/styles/colors';
 import { wrapperDisabledStyleMixin } from 'constants/styles/mixins';
-import { descriptionPadding } from 'constants/styles/sizes';
+import { descriptionPadding, xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { Disabled } from 'types/form';
 
@@ -50,4 +50,14 @@ export const Backdrop = styled.div`
     background: ${black};
     opacity: 0.6;
     z-index: 100;
+`;
+
+export const HashtagsWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: ${xs}) {
+        flex-direction: column;
+        width: 100%;
+    }
 `;

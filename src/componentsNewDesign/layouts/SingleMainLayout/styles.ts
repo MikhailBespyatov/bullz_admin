@@ -1,5 +1,5 @@
 import { grey30 } from 'constants/styles/colors';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { singleLayoutPaddingTop } from './constants';
 
@@ -11,4 +11,8 @@ export const SingleMainWrapper = styled.div`
     padding-bottom: 30px;
     background-color: ${grey30};
     border-radius: 32px;
+
+    @media (max-width: ${xs}) {
+        border-radius: 0;
+    }
 `;

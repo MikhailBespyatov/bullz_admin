@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { TextInput } from 'componentsNewDesign/common/inputs/TextInput';
@@ -17,7 +18,7 @@ import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/gri
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { black, blue, grey27, hoverGrey2, white } from 'constants/styles/colors';
-import { descriptionPadding } from 'constants/styles/sizes';
+import { descriptionPadding, xs } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import React, { KeyboardEvent, useEffect, useState } from 'react';
 import { Loading } from 'types/data';
@@ -32,6 +33,7 @@ export interface HashtagsInputProps extends Pick<Sizes, 'width'>, Loading, Hasht
 export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfirm, type }: HashtagsInputProps) => {
     const [isEdit, toggleIsEdit] = useToggle();
     const [isApplied, toggleIsApplied] = useToggle(false);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const [hashtags, setHashtags] = useState<string[]>(hashTags);
 
@@ -68,7 +70,7 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
 
     return (
         <Column width={width}>
-            <Row alignCenter marginBottom={descriptionPadding}>
+            <Row alignCenter marginBottom={isMobile ? '8px' : descriptionPadding}>
                 <ContentText color={subTitleColor} fontWeight={subTitleFontWeight} lineHeight={contentTextLineHeight}>
                     Hashtags
                 </ContentText>
@@ -106,9 +108,10 @@ export const HashtagsInput = ({ width = '100%', hashTags = [], loading, onConfir
                 // marginBottom={descriptionPadding}
                 padding=" 8px 6px 3px 10px"
                 // width="370px"
+                width={width}
             >
                 <Column noWrap height="100%" width="100%">
-                    <ScrollableWrapper overflowY="scroll" width="350px">
+                    <ScrollableWrapper width={isMobile ? '100%' : '350px'}>
                         {hashtags?.length
                             ? hashtags.map(item => (
                                   <RemovableHashtag
