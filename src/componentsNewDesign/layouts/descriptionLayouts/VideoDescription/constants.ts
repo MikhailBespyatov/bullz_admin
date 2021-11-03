@@ -39,6 +39,8 @@ export const neutralMessageColor = '#9d41ac';
 // export const propertyBlockHeight = '50px';
 //export const propertyBlockPadding = '8px 8px 10px';
 export const propertyBlockWidth = '209px';
+export const mobilePropertyPadding = '10px';
+export const mobilePropertyWidth = '47%';
 
 export function formatDate(dateISOString: string) {
     // '2021-01-09T13:57:15.832Z'

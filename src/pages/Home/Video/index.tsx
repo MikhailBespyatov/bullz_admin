@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { VideoStatisticsChartMemo } from 'components/common/charts/VideoStatisticsChart';
 import { Loader } from 'components/common/dynamic/Loader';
 import { StatisticsTable } from 'components/common/tables/StatisticsTable';
@@ -43,7 +44,7 @@ import { Roles } from 'constants/defaults/users';
 import { defaultVideosValuesWithoutDate } from 'constants/defaults/videos';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { black, errorColor, grey29, hoverGrey2, white } from 'constants/styles/colors';
-import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
+import { descriptionPadding, filterMargin, xs } from 'constants/styles/sizes';
 import { addDays } from 'date-fns';
 import { useStore } from 'effector-react';
 import {
@@ -112,6 +113,7 @@ export const Video = () => {
     const userVideos = useStore(userVideosStores.userVideos);
     //console.log(userVideos);
     const userVideosLoading = useStore(userVideosEffects.loadItems.pending);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const user = useStore(usersStores.user);
     const product = useStore(productsStores.product);
@@ -286,10 +288,10 @@ export const Video = () => {
             <CreatePrimaryProductFilterModal />
             <SingleMainLayout>
                 <Section alignCenter justifyBetween>
-                    <Row>
+                    <Row width={isMobile ? '100%' : 'auto'}>
                         <TopBar content={tabs} defaultActiveItem={tab} onChange={setTab} />
                     </Row>
-                    <Row marginRight="22px">
+                    <Row marginBottom={isMobile ? '16px' : '0'} marginRight="22px" noWrap={isMobile}>
                         {!isTabs(InfoTabs.User) && !isTabs(InfoTabs.Statistics) && !isTabs(InfoTabs.WomVideo) && (
                             <ManagerLayout>
                                 <SimpleButton
