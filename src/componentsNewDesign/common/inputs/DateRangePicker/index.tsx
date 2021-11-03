@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import calendarIcon from 'assets/calendar.svg';
 import dataPickerIcon from 'assets/dataPicker.svg';
 import { ArrowImg } from 'componentsNewDesign/common/imgComponents/ArrowImg';
@@ -9,6 +10,7 @@ import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
+import { xs } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -80,7 +82,9 @@ const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange }: Dat
             endDate={endDateValue}
             minDate={!isStartType ? startDateValue : undefined}
             open={!disabled && isCalendarOpened}
+            popperModifiers={{ flip: { flipVariations: false, behavior: 'clockwise' } }}
             popperPlacement="bottom"
+            portalId="portal-root"
             selected={isStartType ? startDateValue : endDateValue}
             selectsEnd={!isStartType}
             selectsRange={selectsRange}
@@ -108,6 +112,7 @@ export interface DateRangePickerProps extends Disabled, OnDataRangeChange {
 
 export const DateRangePicker = ({ dateRange, onChange, disabled }: DateRangePickerProps) => {
     const [dateRangeValue, setDateRangeValue] = useState(dateRange);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     useEffect(() => setDateRangeValue(dateRange), [dateRange]);
 
@@ -121,7 +126,7 @@ export const DateRangePicker = ({ dateRange, onChange, disabled }: DateRangePick
         onChange([dateRangeValue[0], date]);
     };
 
-    return (
+    return !isMobile ? (
         <Section alignCenter noWrap>
             <DataPickerWrapper>
                 <DatePicker isStartType date={dateRangeValue} disabled={disabled} onChange={onChangeFrom} />
@@ -133,6 +138,19 @@ export const DateRangePicker = ({ dateRange, onChange, disabled }: DateRangePick
                 <DatePicker date={dateRangeValue} disabled={disabled} onChange={onChangeTo} />
             </DataPickerWrapper>
         </Section>
+    ) : (
+        <>
+            <Section alignCenter noWrap>
+                <DataPickerWrapper>
+                    <DatePicker isStartType date={dateRangeValue} disabled={disabled} onChange={onChangeFrom} />
+                </DataPickerWrapper>
+            </Section>
+            <Section alignCenter noWrap>
+                <DataPickerWrapper>
+                    <DatePicker date={dateRangeValue} disabled={disabled} onChange={onChangeTo} />
+                </DataPickerWrapper>
+            </Section>
+        </>
     );
 };
 

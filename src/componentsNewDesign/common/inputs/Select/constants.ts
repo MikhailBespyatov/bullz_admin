@@ -24,3 +24,5 @@ export const borderItemColor = 'rgba(0, 0, 0, 0.2)';
 export const titleMarginBottom = '0px';
 export const absoluteWrapperTop = '50px';
 export const absoluteWrapperWithTitleTop = parseInt(absoluteWrapperTop) + parseInt(titleMarginBottom) + 'px';
+export const mobileItemHeight = 32;
+export const selectZIndex = 10;

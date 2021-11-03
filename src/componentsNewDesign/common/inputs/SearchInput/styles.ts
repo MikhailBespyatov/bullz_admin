@@ -1,4 +1,9 @@
-import { inputBorderBottom, inputPadding } from 'componentsNewDesign/common/inputs/SearchInput/constants';
+import {
+    inputBorderBottom,
+    inputPadding,
+    mobileInputBorderBottom
+} from 'componentsNewDesign/common/inputs/SearchInput/constants';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { BackgroundColor, BorderProperties, Padding, Sizes } from 'types/styles';
 
@@ -16,6 +21,13 @@ export const InputWrapper = styled.div<InputProps>`
     ${({ border }) => border && `border: ${border}; border-radius: 8px`};
     min-width: 200px;
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`}
+
+    @media (max-width: ${xs}) {
+        margin-left: 19px;
+        margin-right: 26px;
+        padding-left: 0;
+        border-bottom: ${mobileInputBorderBottom};
+    }
 `;
 
 // export const Input = styled.input<InputProps>`
