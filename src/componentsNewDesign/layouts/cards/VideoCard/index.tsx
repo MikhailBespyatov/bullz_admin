@@ -296,7 +296,7 @@ export const VideoCard = (video: Props) => {
                     <Row alignCenter justifyEnd marginRight="20px">
                         <SimpleButton
                             background="transparent"
-                            color={grey4}
+                            color={blue}
                             padding="0px 0px 0px 20px"
                             textHover={blue}
                             onClick={() => onEditClick(id, hashTags || [])}

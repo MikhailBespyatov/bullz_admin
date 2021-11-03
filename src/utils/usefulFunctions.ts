@@ -332,3 +332,6 @@ export function isValidHttpUrl(string: string) {
 
     return url.protocol === 'http:' || url.protocol === 'https:';
 }
+
+export const getEllipsisAddress = (str: string, quantity = 12) =>
+    str.length < quantity ? '' : '...' + str.substring(str.length - quantity, str.length);
