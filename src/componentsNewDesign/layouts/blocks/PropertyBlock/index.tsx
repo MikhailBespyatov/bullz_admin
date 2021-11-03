@@ -21,7 +21,7 @@ import { Success, Title } from 'types/data';
 import { Disabled } from 'types/form';
 import { BackgroundColor, HorizontalPadding, MarginRightBottom, MinSizes, Sizes } from 'types/styles';
 import { PropertyBlockType } from 'types/types';
-import { formatDateISOString, getTimeFromString } from 'utils/usefulFunctions';
+import { formatDateISOString, getEllipsisAddress, getTimeFromString } from 'utils/usefulFunctions';
 import {
     BlockSubTitle,
     BlockTitle,
@@ -139,7 +139,7 @@ export const PropertyBlock = ({
                 ) : (
                     <SubtitleIdLink id={subtitle} linkRoute={linkRoute}>
                         <BlockSubTitle color={white}>
-                            {subtitle !== defaultMongoDBId ? subtitle : 'Empty'}
+                            {subtitle !== defaultMongoDBId ? getEllipsisAddress(subtitle as string) : 'Empty'}
                         </BlockSubTitle>
                         {isTrusted && (
                             <MarginWrapper marginLeft="8px">
