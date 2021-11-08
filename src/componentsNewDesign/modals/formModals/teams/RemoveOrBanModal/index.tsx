@@ -6,7 +6,7 @@ import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { TitleText } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/styles';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
-import { black, errorColor } from 'constants/styles/colors';
+import { errorColor, grey27 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { useState } from 'react';
 import { removeOrBanUserModal } from 'stores/initialize/initialize.modal.store';
@@ -94,10 +94,10 @@ export const RemoveOrBanModal = () => {
                     />
                 </Section>
 
-                <Row marginBottom="0">
+                <Row marginBottom="19px">
                     <Column marginRight="8px">
                         <ModalButton
-                            background={black}
+                            background={grey27}
                             disabled={!isRemovalConfirmed}
                             width={modalButtonWidth}
                             onClick={okApplyClick}
