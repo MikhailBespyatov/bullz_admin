@@ -7,7 +7,7 @@ import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { videosNotFoundMessage } from 'constants/notifications';
-import { grey26 } from 'constants/styles/colors';
+import { grey29 } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage, teamVideosWrapperPadding } from 'pages/Teams/Team/constants';
@@ -51,23 +51,29 @@ export const Team = () => {
                     </Section>
 
                     {item?.id === teamId && (
-                        <ContentWrapper backgroundColor={grey26} padding={teamVideosWrapperPadding}>
-                            <TeamVideosFilterLayout totalRecords={totalRecords}>
-                                {playlistLoading ? (
-                                    <Section justifyCenter>
-                                        <Loader size="large" />
-                                    </Section>
-                                ) : (
-                                    <Section>
-                                        {items?.length ? (
-                                            items.map(item => <TeamVideoCard key={item.id} {...item} />)
-                                        ) : (
-                                            <Empty title={videosNotFoundMessage} />
-                                        )}
-                                    </Section>
-                                )}
-                            </TeamVideosFilterLayout>
-                        </ContentWrapper>
+                        <>
+                            <ContentWrapper
+                                backgroundColor={grey29}
+                                marginBottom="8px"
+                                padding={teamVideosWrapperPadding}
+                            >
+                                <TeamVideosFilterLayout totalRecords={totalRecords}></TeamVideosFilterLayout>
+                            </ContentWrapper>
+
+                            {playlistLoading ? (
+                                <Section justifyCenter>
+                                    <Loader size="large" />
+                                </Section>
+                            ) : (
+                                <Section>
+                                    {items?.length ? (
+                                        items.map(item => <TeamVideoCard key={item.id} {...item} />)
+                                    ) : (
+                                        <Empty title={videosNotFoundMessage} />
+                                    )}
+                                </Section>
+                            )}
+                        </>
                     )}
                 </>
             )}
