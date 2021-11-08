@@ -41,6 +41,21 @@ export const graphicBlocks = [
         calculatedTitle: 'Rejected videos'
     },
     {
+        selectedBackgroundColor: '#FF8743',
+        title: 'Upload',
+        subtitle: 'Error',
+        nameBlock: 'Upload Error',
+        statisticKey: 'unProcessedVideoCount',
+        calculatedTitle: 'Upload Errors'
+    },
+    {
+        selectedBackgroundColor: '#FF53A5',
+        title: 'Phone Numbers',
+        nameBlock: 'Phone Numbers',
+        statisticKey: 'phoneVerifiedUserCount',
+        calculatedTitle: 'Phone Numbers'
+    },
+    {
         selectedBackgroundColor: '#B360DB',
         title: 'Comments',
         nameBlock: 'Comments',

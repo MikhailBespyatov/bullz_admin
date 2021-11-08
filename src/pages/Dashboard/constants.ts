@@ -25,7 +25,9 @@ export const headerForCSVTable: Array<{ label: string; key: keyof BULLZ.Marketin
     { label: 'Rejected Videos', key: 'rejectedVideoCount' },
     { label: 'Comments', key: 'commentCount' },
     { label: 'Views', key: 'viewCount' },
-    { label: 'Shares', key: 'shareCount' }
+    { label: 'Shares', key: 'shareCount' },
+    { label: 'Phone Numbers', key: 'phoneVerifiedUserCount' },
+    { label: 'Upload', key: 'unProcessedVideoCount' }
 ];
 
 export const csvFilename = () => `dashboard_${format(new Date(), 'yyyy_MM_dd_HH_mm_ss')}.csv`;

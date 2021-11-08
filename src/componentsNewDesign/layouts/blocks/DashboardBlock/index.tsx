@@ -60,6 +60,8 @@ export const DashboardBlock = ({
     verifiedUserCount = 0,
     videoCount = 0,
     viewCount = 0,
+    unProcessedVideoCount = 0,
+    phoneVerifiedUserCount = 0,
     disabled,
     onChange,
     activeIndexStatistic,
@@ -72,7 +74,9 @@ export const DashboardBlock = ({
         { subtitle: rejectedVideoCount, title: 'Total Videos Rejected' },
         { subtitle: commentCount, title: 'Total Comments' },
         { subtitle: viewCount, title: 'Total Views' },
-        { subtitle: shareCount, title: 'Total Share' }
+        { subtitle: shareCount, title: 'Total Share' },
+        { subtitle: phoneVerifiedUserCount, title: 'Phone Number' },
+        { subtitle: unProcessedVideoCount, title: 'Upload Errors' }
     ];
 
     return (
