@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { CreateTrendingTagModal } from 'components/modals/formModals/CreateTrendingTagModal';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
@@ -13,11 +14,11 @@ import { AsyncDeleteTrendingModal } from 'componentsNewDesign/modals/AsyncDelete
 import { CreateTrendingUserFilterModal } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal';
 import { CreateTrendingVideoFilterModal } from 'componentsNewDesign/modals/filterModals/CreateTrendingVideoFilterModal';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { trendingVideoLimit } from 'constants/defaults/trendings';
 import { grey23, white } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { plugHeight, plugWidth, trendingFeaturesHeight } from 'pages/Trendings/constants';
 import React, { FC, useEffect, useState } from 'react';
@@ -67,6 +68,7 @@ export const Trendings = () => {
     const [loadingTags, tags] = useStore(trendingsStores.tagsStore);
     const [loadingVideos, videos] = useStore(trendingsStores.videosStore);
     const [loadingUsers, users] = useStore(trendingsStores.usersStore);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const [newTag, setNewTag] = useState('');
 
@@ -131,21 +133,22 @@ export const Trendings = () => {
                 </InfoTitle>
             </Section> */}
                 <TrendingContainer
+                    isTags
                     features={
-                        <>
-                            <MarginWrapper marginRight="8px">
+                        <Section noWrap justifyBetween={isMobile}>
+                            <Row marginRight={isMobile ? '6px' : '8px'} width={isMobile ? '100%' : 'fit-content'}>
                                 <StyledTextInput
                                     disableEnterKeyDown
                                     defaultValue={newTag}
                                     height={trendingFeaturesHeight}
-                                    width="295px"
+                                    width={isMobile ? '100%' : '295px'}
                                     onChange={onTagChange}
                                 />
-                            </MarginWrapper>
+                            </Row>
                             <TrendingButton disabled={!newTag} onClick={onAddTag}>
                                 Add tag
                             </TrendingButton>
-                        </>
+                        </Section>
                     }
                     title="Tags"
                     totalRecords={tags?.totalRecords}
@@ -202,26 +205,24 @@ export const Trendings = () => {
                         </Section>
                     ) : (
                         <>
-                            <Section>
-                                {!!users?.items?.length && (
-                                    <DraggableItems
-                                        items={users.items.map(({ id = '', user }) => (
-                                            <TrendingUserCard
-                                                key={id}
-                                                {...user}
-                                                onRemove={() => onRemove('user', user?.username || '', id)}
-                                            />
-                                        ))}
-                                        onDragEnded={onUsersDragEnded}
-                                    />
-                                )}
-                                {/* {(users?.items?.length || 0) < 15 && (
+                            {!!users?.items?.length && (
+                                <DraggableItems
+                                    items={users.items.map(({ id = '', user }) => (
+                                        <TrendingUserCard
+                                            key={id}
+                                            {...user}
+                                            onRemove={() => onRemove('user', user?.username || '', id)}
+                                        />
+                                    ))}
+                                    onDragEnded={onUsersDragEnded}
+                                />
+                            )}
+                            {/* {(users?.items?.length || 0) < 15 && (
                                     <AddTrendingButton
                                         height="135px"
                                         onClick={() => createUserTrendingModal.openModal()}
                                     />
                                 )} */}
-                            </Section>
                         </>
                     )}
                 </TrendingContainer>

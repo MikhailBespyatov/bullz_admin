@@ -36,6 +36,7 @@ interface ModalContentWrapperProps extends Overflow {
 
 export const ModalContentWrapper = styled(ContentWrapper)<ModalContentWrapperProps>`
     ${absoluteCenterAlignmentMixin};
+    position: fixed;
     display: flex;
     flex-direction: column;
     min-width: 300px;
@@ -43,4 +44,5 @@ export const ModalContentWrapper = styled(ContentWrapper)<ModalContentWrapperPro
     max-height: 80vh;
     overflow: ${({ overflow }) => overflow || 'auto'};
     background: ${({ background }) => (background ? background : grey29)};
+    z-index: ${sideBarZIndex + 2};
 `;

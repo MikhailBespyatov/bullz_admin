@@ -7,6 +7,7 @@ import {
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { grey14 } from 'constants/styles/colors';
 import { disableDefaultInputStyleMixin } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { BorderProperties, Opacity, Sizes, TextProperties } from 'types/styles';
 
@@ -54,5 +55,12 @@ export const Input = styled.input<InputProps>`
 
     :focus::placeholder {
         color: transparent;
+    }
+
+    @media (max-width: ${xs}) {
+        :placeholder {
+            font-size: 14px;
+            line-height: 16px;
+        }
     }
 `;

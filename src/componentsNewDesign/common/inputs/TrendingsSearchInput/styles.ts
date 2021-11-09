@@ -23,7 +23,6 @@ export const InputWrapper = styled.div<InputProps>`
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`}
 
     @media (max-width: ${xs}) {
-        width: ${({ width }) => (width ? width : '100%')};
         margin-left: 19px;
         margin-right: 26px;
         padding-left: 0;

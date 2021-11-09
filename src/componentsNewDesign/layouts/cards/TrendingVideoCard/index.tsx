@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import defaultImg from 'assets/defaults/default_img.svg';
 import playButtonImage from 'assets/play_button_image.svg';
 import history from 'browserHistory';
@@ -26,6 +27,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { homeLink } from 'constants/routes';
 import { grey15, white } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 // import { useStore } from 'effector-react';
 import React from 'react';
 import { RemoveClick } from 'types/modals';
@@ -78,14 +80,15 @@ export const VideoCard = ({ viewCount, position }: VideoCardProps) => (
 export const TrendingVideoCard = ({ onRemove, thumbnailUrl, videoId, ...rest }: Props) => {
     // const { access } = useStore(userStores.auth);
     const moreInfoHandleClick = () => history.push(homeLink + '/' + videoId);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     return (
         <TrendingCardWrapper
             background={`url(${thumbnailUrl || defaultImg})  no-repeat`}
             backgroundColor={grey15}
             marginBottom={cardWrapperMargin}
-            marginRight={cardWrapperMargin}
-            width={videoPosterWidth}
+            marginRight={isMobile ? '0' : cardWrapperMargin}
+            width={isMobile ? '92px' : videoPosterWidth}
         >
             <AbsoluteCenterAlignment z-index="5">
                 <CardHoverOpacityEffect>
