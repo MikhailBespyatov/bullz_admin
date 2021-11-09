@@ -23,6 +23,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { noop } from 'constants/functions';
+import { grey27, grey29 } from 'constants/styles/colors';
 import React, { useMemo } from 'react';
 import { removeOrBanUserModal } from 'stores/initialize/initialize.modal.store';
 import { teamsEvents } from 'stores/team';
@@ -31,6 +32,7 @@ import { MaxSizes, Sizes } from 'types/styles';
 
 interface ScrollablePropertyBlockProps extends Title, MaxSizes, Sizes {
     // titleUppercase?: boolean;
+    backgroundColor?: string;
 }
 
 export const ScrollablePropertyBlock = ({
@@ -38,9 +40,10 @@ export const ScrollablePropertyBlock = ({
     //titleUppercase
     subtitle,
     width,
-    maxHeight
+    maxHeight,
+    backgroundColor
 }: ScrollablePropertyBlockProps) => (
-    <BlockWrapper width={width}>
+    <BlockWrapper backgroundColor={backgroundColor} width={width}>
         <MarginWrapper marginBottom="8px">
             <BlockTitle /*uppercase={titleUppercase}*/>{title}</BlockTitle>
         </MarginWrapper>
@@ -80,7 +83,7 @@ export const TeamDescription = ({
         teamsEvents.updateItemById({ id, ...fields });
 
     return (
-        <ContentWrapper padding="16px 32px" width="100%">
+        <ContentWrapper backgroundColor={grey29} padding="16px 32px" width="100%">
             <Column width="100%">
                 <Section justifyBetween marginBottom="28px">
                     <Row alignCenter>
@@ -135,6 +138,7 @@ export const TeamDescription = ({
                             <PropertyBlock
                                 copiable
                                 // titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={id || ''}
                                 success={copyTeamIdMessage}
                                 title="id"
@@ -143,6 +147,7 @@ export const TeamDescription = ({
 
                             <PropertyBlock
                                 // titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={name || undefined}
                                 title="Name"
                                 width={propertyBlockHalfWidth}
@@ -152,6 +157,7 @@ export const TeamDescription = ({
                             <PropertyBlock
                                 copiable
                                 //titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={ownerId}
                                 success={copyTeamIdMessage}
                                 title="Owner id"
@@ -160,6 +166,7 @@ export const TeamDescription = ({
 
                             <PropertyBlock
                                 // titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={ownerName || undefined}
                                 title="Owner name"
                                 width={propertyBlockHalfWidth}
@@ -168,6 +175,7 @@ export const TeamDescription = ({
                         <TeamPropertyWrapper>
                             <ScrollablePropertyBlock
                                 // titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={membersList}
                                 title="Members"
                                 width={propertyBlockFullWidth}
@@ -185,6 +193,7 @@ export const TeamDescription = ({
                             <PropertyBlock
                                 copiable
                                 //titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={urlName || undefined}
                                 success={copyTeamUrlMessage}
                                 title="URL Name"
@@ -195,6 +204,7 @@ export const TeamDescription = ({
                             <PropertyBlock
                                 isDate
                                 //titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={utcCreated}
                                 title="Created account"
                                 width={propertyBlockHalfWidth}
@@ -202,6 +212,7 @@ export const TeamDescription = ({
 
                             <PropertyBlock
                                 //titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={adminsList}
                                 title="Admins"
                                 width={propertyBlockHalfWidth}
@@ -210,6 +221,7 @@ export const TeamDescription = ({
                         <TeamPropertyWrapper>
                             <ScrollablePropertyBlock
                                 // titleUppercase
+                                backgroundColor={grey27}
                                 subtitle={bannedList}
                                 title="Banned"
                                 width={propertyBlockFullWidth}

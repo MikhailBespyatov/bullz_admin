@@ -7,6 +7,7 @@ export const SingleMainWrapper = styled.div`
     width: 100%;
     height: 100%;
     padding-left: ${filterMargin};
+    padding-right: ${filterMargin};
     padding-top: ${singleLayoutPaddingTop};
     padding-bottom: 30px;
     background-color: ${grey30};
