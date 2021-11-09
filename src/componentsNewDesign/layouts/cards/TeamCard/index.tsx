@@ -18,6 +18,7 @@ import { Roles } from 'constants/defaults/users';
 import { noop } from 'constants/functions';
 import { asyncError } from 'constants/notifications';
 import { teamsLink, usersLink } from 'constants/routes';
+import { grey27, grey29, grey34, grey7 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { API } from 'services';
@@ -90,7 +91,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
         });
 
     return (
-        <CardWrapper isSelected={copiedDataId === id} onClick={onCardClick} /*width="287px"*/>
+        <CardWrapper backgroundColor={grey29} isSelected={copiedDataId === id} onClick={onCardClick} /*width="287px"*/>
             <Column height="100%">
                 <Row alignCenter noWrap margin="0 10px" minHeight="46px" width="300px">
                     <StyledLink to={teamsLink + '/' + id}>
@@ -98,11 +99,12 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                     </StyledLink>
                 </Row>
 
-                <HorizontalLine />
+                <HorizontalLine background="rgba(153, 153, 153, 0.2);" />
                 <ContentWrapper padding="16px 20px 10px" width="100%">
                     <Section alignCenter justifyBetween height="100%">
                         <PropertyBlock
                             // titleUppercase
+                            backgroundColor={grey27}
                             marginBottom={propertyBlockMarginBottom}
                             minHeight={propertyBlockHeight}
                             subtitle={urlName || undefined}
@@ -112,6 +114,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                         <PropertyBlock
                             copiable
                             // titleUppercase
+                            backgroundColor={grey27}
                             marginBottom={propertyBlockMarginBottom}
                             minHeight={propertyBlockHeight}
                             subtitle={urlName || undefined}
@@ -122,6 +125,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                         <PropertyBlock
                             copiable
                             // titleUppercase
+                            backgroundColor={grey27}
                             marginBottom={propertyBlockMarginBottom}
                             minHeight={propertyBlockHeight}
                             subtitle={id}
@@ -133,6 +137,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                         <PropertyBlock
                             isDate
                             // titleUppercase
+                            backgroundColor={grey27}
                             marginBottom={propertyBlockMarginBottom}
                             minHeight={propertyBlockHeight}
                             subtitle={utcCreated}
@@ -142,6 +147,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                         <PropertyBlock
                             copiable
                             // titleUppercase
+                            backgroundColor={grey27}
                             linkRoute={usersLink}
                             marginBottom={propertyBlockMarginBottom}
                             minHeight={propertyBlockHeight}
@@ -156,7 +162,12 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                 <Column width="100%">
                     <ContentWrapper padding="10px 18px 0px" width="100%">
                         <Row alignCenter height="100%" justifyBetween={isAdminAccess} justifyCenter={!isAdminAccess}>
-                            <CardButton width={cardButtonWidth} onClick={moreInfoHandleClick}>
+                            <CardButton
+                                background={grey34}
+                                color={grey7}
+                                width={cardButtonWidth}
+                                onClick={moreInfoHandleClick}
+                            >
                                 More Info
                             </CardButton>
                             <Row width={cardButtonWidth}>
@@ -167,7 +178,7 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                                         urlName={urlName || ''}
                                         onChange={changeEditableFieldsCallback}
                                     >
-                                        <CardButton width="100%" onClick={noop}>
+                                        <CardButton background={grey34} color={grey7} width="100%" onClick={noop}>
                                             Edit Info
                                         </CardButton>
                                     </EditTeamInfoPopover>
