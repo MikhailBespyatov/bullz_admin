@@ -87,7 +87,7 @@ export const StatisticsTable = ({ items, removeItem }: Props) => {
                 >
                     <MarginWrapper marginRight="10px">
                         <SubtitleIdLink id={videoId} linkRoute={homeLink}>
-                            <ItemSpan fontSize="12px" fontWeight="bold" lineThrough={videoInfo?.isDeleted || undefined}>
+                            <ItemSpan fontSize="10px" fontWeight="bold" lineThrough={videoInfo?.isDeleted || undefined}>
                                 {videoId}
                             </ItemSpan>
                         </SubtitleIdLink>
