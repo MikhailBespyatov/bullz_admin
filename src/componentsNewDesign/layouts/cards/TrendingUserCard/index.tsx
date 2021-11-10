@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import history from 'browserHistory';
 import { AvatarImg } from 'componentsNewDesign/common/imgComponents/AvatarImg';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
@@ -18,6 +19,7 @@ import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { usersLink } from 'constants/routes';
 import { grey23, grey27 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 // import { useStore } from 'effector-react';
 import React from 'react';
 // import { userStores } from 'stores/users/user';
@@ -28,7 +30,7 @@ export interface Props extends BULLZ.GetTrendingUserResponse, RemoveClick {}
 export interface UserCardProps extends BULLZ.GetTrendingUserResponse {}
 
 export const UserCard = ({ isTrusted, username, profileImageUrl }: UserCardProps) => (
-    <ContentWrapper backgroundColor={grey27}>
+    <ContentWrapper backgroundColor={grey27} minWidth="0">
         <Row alignCenter justifyCenter>
             <Column
                 alignCenter
@@ -62,13 +64,15 @@ export const UserCard = ({ isTrusted, username, profileImageUrl }: UserCardProps
 export const TrendingUserCard = ({ profileImageUrl, userId, isTrusted, username, onRemove }: Props) => {
     // const { access } = useStore(userStores.auth);
     const moreInfoHandleClick = () => history.push(usersLink + '/' + userId);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
+
     return (
         <>
             <TrendingCardWrapper
                 backgroundColor={grey23}
                 marginBottom={cardWrapperMargin}
-                marginRight={cardWrapperMargin}
-                width="fit-content"
+                marginRight={isMobile ? '0' : cardWrapperMargin}
+                width={isMobile ? '92px' : 'fit-content'}
             >
                 <AbsoluteCenterAlignment zIndex="5">
                     <CardHoverOpacityEffect>

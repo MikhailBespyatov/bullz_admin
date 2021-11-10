@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import defaultImg from 'assets/defaults/default_img.svg';
 import { CardHoverOpacityEffect } from 'componentsNewDesign/dynamic/effects';
 import { cardWrapperMargin } from 'componentsNewDesign/layouts/cards/TrendingUserCard/constants';
@@ -7,6 +8,7 @@ import { CreateTrendingCardHoverModal } from 'componentsNewDesign/modals/CreateT
 import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { grey15 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 // import { useStore } from 'effector-react';
 import React from 'react';
 import { CreateVideoProps } from 'stores/initialize/initialize.modal.store';
@@ -16,6 +18,7 @@ interface Props extends BULLZ.AdminGetVideoResponse, CreateVideoProps {}
 
 export const CreateTrendingVideoCard = ({ id = '', thumbnailUrl, definedPosition }: Props) => {
     // const loading = useStore(trendingsStores.createLoading);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const selectHandleClick = () => trendingsEffects.createVideo({ id, definedPosition });
 
@@ -25,8 +28,8 @@ export const CreateTrendingVideoCard = ({ id = '', thumbnailUrl, definedPosition
                 background={`url(${thumbnailUrl || defaultImg})  no-repeat`}
                 backgroundColor={grey15}
                 marginBottom={cardWrapperMargin}
-                marginRight={cardWrapperMargin}
-                width={videoPosterWidth}
+                marginRight={isMobile ? '0' : cardWrapperMargin}
+                width={isMobile ? '85px' : videoPosterWidth}
             >
                 <AbsoluteCenterAlignment z-index="5">
                     <CardHoverOpacityEffect>
