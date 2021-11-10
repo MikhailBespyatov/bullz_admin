@@ -14,6 +14,7 @@ import { videosStores } from 'stores/videos/videos';
 export const Home = () => {
     const { totalRecords, items } = useStore(videosStores.videos);
     const loading = useStore(videosStores.initialLoading);
+
     return (
         <MainLayout>
             {/* <VideoHashtagsEditorModal /> */}
