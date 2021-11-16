@@ -90,12 +90,12 @@ export const Header = () => {
             </AbsoluteCenterAlignment>
 
             <Row alignCenter>
-                <MarginWrapper marginRight="18px">
+                <MarginWrapper marginRight="16px">
                     <ClickableWrapper onClick={onSearch}>
                         <CustomImage alt="search" height="16px" src={searchMobileIcon} width="16px" />
                     </ClickableWrapper>
                 </MarginWrapper>
-                <MarginWrapper marginRight="6px">
+                <MarginWrapper marginRight="16px">
                     <ClickableWrapper onClick={onFilter}>
                         <CustomImage
                             alt="filter"

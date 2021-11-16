@@ -32,7 +32,7 @@ export const GroupedButtons: FC<GroupedButtonsProps> = ({ children }) => {
 
     return (
         <RelativeWrapper ref={componentRef}>
-            <StyledButton onClick={visible ? close : open}>
+            <StyledButton width="fit-content" onClick={visible ? close : open}>
                 <CustomImg alt="three dot icon" height="18px" src={dotsIcon} />
             </StyledButton>
             <GroupedButtonsWrapper left={absoluteWrapperLeft} top={absoluteWrapperTop} visible={visible}>
