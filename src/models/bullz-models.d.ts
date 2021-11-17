@@ -405,7 +405,7 @@ declare namespace BULLZ {
         subtitle?: string | null;
         /**
          * list1
-         * Ids of the secondary products. Each product should be already stored in the  database.
+         * Ids of the secondary products. Each product should be already stored in the YEAY database.
          */
         secondaryProductIds?: string /* objectId */[] | null;
         /**
@@ -415,7 +415,7 @@ declare namespace BULLZ {
         audioLanguages?: string /* string */[] | null;
         /**
          * objectId
-         * Id of the primary product. It should reference the product which is already stored in the  database.
+         * Id of the primary product. It should reference the product which is already stored in the YEAY database.
          * example:
          * 000000000000000000000000
          */
@@ -1149,11 +1149,42 @@ declare namespace BULLZ {
         /**
          * list1
          */
-        location?: string[] | null;
+        location?: string /* string */[] | null;
         /**
          * string
          */
         pageLocation?: string | null;
+    }
+    /**
+     * createPromotionResponse
+     */
+    export interface CreatePromotionResponse {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * list1
+         */
+        userAgeRanges?: /* ageRange */ AgeRange[] | null;
+        /**
+         * list1
+         */
+        userGenders?: /**
+         * userGender
+         * Represents a gender of a user.<br/><br/>Values:<br/>0 = NotGiven<br/>1 = Male<br/>2 = Female<br/>3 = NonBinary
+         */
+        UserGender /* int32 */[] | null;
+        /**
+         * list1
+         */
+        location?: string /* string */[] | null;
+        /**
+         * string
+         */
+        pageRoute?: string | null;
     }
     /**
      * createSavedVideoRequest
@@ -1339,6 +1370,10 @@ declare namespace BULLZ {
          * 000000000000000000000000
          */
         productId?: string; // objectId
+        /**
+         * string
+         */
+        uploadSessionId?: string | null;
         /**
          * languageInfo
          * List of languages which are spoken in this video. Empty array means that video is not language specific and can be targeted to all users.
@@ -1625,7 +1660,7 @@ declare namespace BULLZ {
         /**
          * list1
          */
-        location?: string[] | null;
+        location?: string /* string */[] | null;
         /**
          * objectId
          * example:
@@ -3053,6 +3088,10 @@ declare namespace BULLZ {
         /**
          * int32
          */
+        phoneVerifiedUserCount?: number; // int32
+        /**
+         * int32
+         */
         notVerifiedUserCount?: number; // int32
         /**
          * int32
@@ -3062,6 +3101,10 @@ declare namespace BULLZ {
          * int32
          */
         rejectedVideoCount?: number; // int32
+        /**
+         * int32
+         */
+        unProcessedVideoCount?: number; // int32
         /**
          * int32
          */
@@ -6051,6 +6094,10 @@ declare namespace BULLZ {
          * string
          */
         imageUrl?: string | null;
+        /**
+         * boolean
+         */
+        hasAffiliateLink?: boolean;
     }
     /**
      * topicsResponse
@@ -6113,7 +6160,7 @@ declare namespace BULLZ {
         /**
          * list1
          */
-        geoLocations?: string[] | null;
+        geoLocations?: string /* string */[] | null;
         /**
          * string
          */
@@ -7531,54 +7578,54 @@ declare namespace BULLZ {
 declare namespace Paths {
     namespace AdminLocationQueryCountries {
         namespace Post {
-            export type RequestBody = /* adminGetCountriesRequest */ BULLZ.AdminGetCountriesRequest;
+            export type RequestBody = /* adminGetCountriesRequest */ Components.Schemas.AdminGetCountriesRequest;
             namespace Responses {
-                export type $200 = /* adminAllCountriesResponse */ BULLZ.AdminAllCountriesResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminAllCountriesResponse */ Components.Schemas.AdminAllCountriesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminLocationQueryRegions {
         namespace Post {
-            export type RequestBody = /* adminGetRegionsByCountryRequest */ BULLZ.AdminGetRegionsByCountryRequest;
+            export type RequestBody = /* adminGetRegionsByCountryRequest */ Components.Schemas.AdminGetRegionsByCountryRequest;
             namespace Responses {
-                export type $200 = /* adminAllRegionsByCountryResponse */ BULLZ.AdminAllRegionsByCountryResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminAllRegionsByCountryResponse */ Components.Schemas.AdminAllRegionsByCountryResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminPromotionCreate {
         namespace Post {
-            export type RequestBody = /* createPromotionRequest */ BULLZ.CreatePromotionRequest;
+            export type RequestBody = /* createPromotionRequest */ Components.Schemas.CreatePromotionRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* createPromotionResponse */ Components.Schemas.CreatePromotionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminPromotionQuery {
         namespace Post {
-            export type RequestBody = /* queryAdminPromotionRequest */ BULLZ.QueryAdminPromotionRequest;
+            export type RequestBody = /* queryAdminPromotionRequest */ Components.Schemas.QueryAdminPromotionRequest;
             namespace Responses {
-                export type $200 = /* queryAdminPromotionResponse */ BULLZ.QueryAdminPromotionResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryAdminPromotionResponse */ Components.Schemas.QueryAdminPromotionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminPromotionUpdate {
         namespace Post {
-            export type RequestBody = /* updateAdminPromotionRequest */ BULLZ.UpdateAdminPromotionRequest;
+            export type RequestBody = /* updateAdminPromotionRequest */ Components.Schemas.UpdateAdminPromotionRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -7600,206 +7647,206 @@ declare namespace Paths {
                 file: string; // binary
             }
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminTeamDeleteTeam {
         namespace Post {
-            export type RequestBody = /* adminDeleteTeamRequest */ BULLZ.AdminDeleteTeamRequest;
+            export type RequestBody = /* adminDeleteTeamRequest */ Components.Schemas.AdminDeleteTeamRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminTeamQuery {
         namespace Post {
-            export type RequestBody = /* queryAdminTeamsRequest */ BULLZ.QueryAdminTeamsRequest;
+            export type RequestBody = /* queryAdminTeamsRequest */ Components.Schemas.QueryAdminTeamsRequest;
             namespace Responses {
-                export type $200 = /* queryAdminTeamsResponse */ BULLZ.QueryAdminTeamsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryAdminTeamsResponse */ Components.Schemas.QueryAdminTeamsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminTrendingCreate {
         namespace Post {
-            export type RequestBody = /* createTrendingOverridesRequest */ BULLZ.CreateTrendingOverridesRequest;
+            export type RequestBody = /* createTrendingOverridesRequest */ Components.Schemas.CreateTrendingOverridesRequest;
             namespace Responses {
-                export type $200 = /* createTrendingOverridesResponse */ BULLZ.CreateTrendingOverridesResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* createTrendingOverridesResponse */ Components.Schemas.CreateTrendingOverridesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminTrendingQuery {
         namespace Post {
-            export type RequestBody = /* queryTrendingOverridesRequest */ BULLZ.QueryTrendingOverridesRequest;
+            export type RequestBody = /* queryTrendingOverridesRequest */ Components.Schemas.QueryTrendingOverridesRequest;
             namespace Responses {
-                export type $200 = /* queryTrendingOverridesResponse */ BULLZ.QueryTrendingOverridesResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryTrendingOverridesResponse */ Components.Schemas.QueryTrendingOverridesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminTrendingRemove {
         namespace Post {
-            export type RequestBody = /* removeTrendingOverridesRequest */ BULLZ.RemoveTrendingOverridesRequest;
+            export type RequestBody = /* removeTrendingOverridesRequest */ Components.Schemas.RemoveTrendingOverridesRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminTrendingUpdate {
         namespace Post {
-            export type RequestBody = /* updateTrendingOverridesRequest */ BULLZ.UpdateTrendingOverridesRequest;
+            export type RequestBody = /* updateTrendingOverridesRequest */ Components.Schemas.UpdateTrendingOverridesRequest;
             namespace Responses {
-                export type $200 = /* updateTrendingOverridesResponse */ BULLZ.UpdateTrendingOverridesResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* updateTrendingOverridesResponse */ Components.Schemas.UpdateTrendingOverridesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminUserDelete {
         namespace Post {
-            export type RequestBody = /* adminDeleteUsersRequest */ BULLZ.AdminDeleteUsersRequest;
+            export type RequestBody = /* adminDeleteUsersRequest */ Components.Schemas.AdminDeleteUsersRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminUserGet {
         namespace Post {
-            export type RequestBody = /* adminGetUserRequest */ BULLZ.AdminGetUserRequest;
+            export type RequestBody = /* adminGetUserRequest */ Components.Schemas.AdminGetUserRequest;
             namespace Responses {
-                export type $200 = /* adminGetUserCommon */ BULLZ.AdminGetUserCommon;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminGetUserCommon */ Components.Schemas.AdminGetUserCommon;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminUserManageRole {
         namespace Post {
-            export type RequestBody = /* userRoleChangeRequest */ BULLZ.UserRoleChangeRequest;
+            export type RequestBody = /* userRoleChangeRequest */ Components.Schemas.UserRoleChangeRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminUserQuery {
         namespace Post {
-            export type RequestBody = /* queryAllUsersRequest */ BULLZ.QueryAllUsersRequest;
+            export type RequestBody = /* queryAllUsersRequest */ Components.Schemas.QueryAllUsersRequest;
             namespace Responses {
-                export type $200 = /* queryUsersResponse */ BULLZ.QueryUsersResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryUsersResponse */ Components.Schemas.QueryUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminUserQueryBlacklistedUsers {
         namespace Post {
-            export type RequestBody = /* queryBlacklistedUsersRequest */ BULLZ.QueryBlacklistedUsersRequest;
+            export type RequestBody = /* queryBlacklistedUsersRequest */ Components.Schemas.QueryBlacklistedUsersRequest;
             namespace Responses {
-                export type $200 = /* queryBlacklistedUsersResponse */ BULLZ.QueryBlacklistedUsersResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryBlacklistedUsersResponse */ Components.Schemas.QueryBlacklistedUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminUserUpdate {
         namespace Post {
-            export type RequestBody = /* adminUpdateUserRequest */ BULLZ.AdminUpdateUserRequest;
+            export type RequestBody = /* adminUpdateUserRequest */ Components.Schemas.AdminUpdateUserRequest;
             namespace Responses {
-                export type $200 = /* adminGetUserCommon */ BULLZ.AdminGetUserCommon;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminGetUserCommon */ Components.Schemas.AdminGetUserCommon;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminUserVerifyAccount {
         namespace Post {
-            export type RequestBody = /* adminVerifyUserAccountRequest */ BULLZ.AdminVerifyUserAccountRequest;
+            export type RequestBody = /* adminVerifyUserAccountRequest */ Components.Schemas.AdminVerifyUserAccountRequest;
             namespace Responses {
-                export type $200 = /* adminGetUserCommon */ BULLZ.AdminGetUserCommon;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminGetUserCommon */ Components.Schemas.AdminGetUserCommon;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace AdminVideoCommentQuery {
         namespace Post {
-            export type RequestBody = /* adminQueryPostsRequest */ BULLZ.AdminQueryPostsRequest;
+            export type RequestBody = /* adminQueryPostsRequest */ Components.Schemas.AdminQueryPostsRequest;
             namespace Responses {
-                export type $200 = /* adminQueryPostsResponse */ BULLZ.AdminQueryPostsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminQueryPostsResponse */ Components.Schemas.AdminQueryPostsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoCommentQueryReported {
         namespace Post {
-            export type RequestBody = /* queryReportedPostsRequest */ BULLZ.QueryReportedPostsRequest;
+            export type RequestBody = /* queryReportedPostsRequest */ Components.Schemas.QueryReportedPostsRequest;
             namespace Responses {
-                export type $200 = /* adminQueryPostsResponse */ BULLZ.AdminQueryPostsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminQueryPostsResponse */ Components.Schemas.AdminQueryPostsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoCommentUpdate {
         namespace Post {
-            export type RequestBody = /* updatePostRequest */ BULLZ.UpdatePostRequest;
+            export type RequestBody = /* updatePostRequest */ Components.Schemas.UpdatePostRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace AdminVideoGet {
         namespace Post {
-            export type RequestBody = /* getVideoRequest */ BULLZ.GetVideoRequest;
+            export type RequestBody = /* getVideoRequest */ Components.Schemas.GetVideoRequest;
             namespace Responses {
-                export type $200 = /* adminGetVideoResponse */ BULLZ.AdminGetVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminGetVideoResponse */ Components.Schemas.AdminGetVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoGetSourceFile {
         namespace Post {
-            export type RequestBody = /* getVideoSourceFileRequest */ BULLZ.GetVideoSourceFileRequest;
+            export type RequestBody = /* getVideoSourceFileRequest */ Components.Schemas.GetVideoSourceFileRequest;
             namespace Responses {
-                export type $200 = /* getVideoSourceFileResponse */ BULLZ.GetVideoSourceFileResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getVideoSourceFileResponse */ Components.Schemas.GetVideoSourceFileResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoPromoteVideo {
         namespace Post {
-            export type RequestBody = /* promoteVideoRequest */ BULLZ.PromoteVideoRequest;
+            export type RequestBody = /* promoteVideoRequest */ Components.Schemas.PromoteVideoRequest;
             namespace Responses {
-                export type $200 = /* promoteVideoResponse */ BULLZ.PromoteVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* promoteVideoResponse */ Components.Schemas.PromoteVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -7809,20 +7856,20 @@ declare namespace Paths {
             export type RequestBody = /**
              * queryAllVideosRequest
              * Allows filtering videos using AND logic. If the field is null then it's not used for filtering.
-             */ BULLZ.QueryAllVideosRequest;
+             */ Components.Schemas.QueryAllVideosRequest;
             namespace Responses {
-                export type $200 = /* queryAllVideosResponse */ BULLZ.QueryAllVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryAllVideosResponse */ Components.Schemas.QueryAllVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoQueryByProduct {
         namespace Post {
-            export type RequestBody = /* queryVideosByProductIdRequest */ BULLZ.QueryVideosByProductIdRequest;
+            export type RequestBody = /* queryVideosByProductIdRequest */ Components.Schemas.QueryVideosByProductIdRequest;
             namespace Responses {
-                export type $200 = /* queryVideosByProductIdResponse */ BULLZ.QueryVideosByProductIdResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryVideosByProductIdResponse */ Components.Schemas.QueryVideosByProductIdResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -7832,33 +7879,33 @@ declare namespace Paths {
             export type RequestBody = /**
              * queryVideoStatisticsRequest
              * This will help to get video-event aggregation statistics by quering on event streams by passing UserId/VideoId to track the suspicious activities
-             */ BULLZ.QueryVideoStatisticsRequest;
+             */ Components.Schemas.QueryVideoStatisticsRequest;
             namespace Responses {
-                export type $200 = /* queryVideoStatisticsResponse */ BULLZ.QueryVideoStatisticsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryVideoStatisticsResponse */ Components.Schemas.QueryVideoStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoSimulateData {
         namespace Post {
-            export type RequestBody = /* simulatedDataRequest */ BULLZ.SimulatedDataRequest;
+            export type RequestBody = /* simulatedDataRequest */ Components.Schemas.SimulatedDataRequest;
             namespace Responses {
                 /**
                  * string
                  */
                 export type $200 = string;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace AdminVideoUpdate {
         namespace Post {
-            export type RequestBody = /* updateVideoRequest */ BULLZ.UpdateVideoRequest;
+            export type RequestBody = /* updateVideoRequest */ Components.Schemas.UpdateVideoRequest;
             namespace Responses {
-                export type $200 = /* adminGetVideoResponse */ BULLZ.AdminGetVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* adminGetVideoResponse */ Components.Schemas.AdminGetVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -7876,74 +7923,74 @@ declare namespace Paths {
             }
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace CurationAffiliateLinkCreate {
         namespace Post {
-            export type RequestBody = /* createManagedProductAffiliateLinkRequest */ BULLZ.CreateManagedProductAffiliateLinkRequest;
+            export type RequestBody = /* createManagedProductAffiliateLinkRequest */ Components.Schemas.CreateManagedProductAffiliateLinkRequest;
             namespace Responses {
-                export type $200 = /* createManagedProductAffiliateLinkResponse */ BULLZ.CreateManagedProductAffiliateLinkResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* createManagedProductAffiliateLinkResponse */ Components.Schemas.CreateManagedProductAffiliateLinkResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace CurationAffiliateLinkGet {
         namespace Post {
-            export type RequestBody = /* getAffiliateLinkRequest */ BULLZ.GetAffiliateLinkRequest;
+            export type RequestBody = /* getAffiliateLinkRequest */ Components.Schemas.GetAffiliateLinkRequest;
             namespace Responses {
-                export type $200 = /* getAffiliateLinkResponse */ BULLZ.GetAffiliateLinkResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getAffiliateLinkResponse */ Components.Schemas.GetAffiliateLinkResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationNextVideo {
         namespace Post {
-            export type RequestBody = /* getNextCuratedVideoRequest */ BULLZ.GetNextCuratedVideoRequest;
+            export type RequestBody = /* getNextCuratedVideoRequest */ Components.Schemas.GetNextCuratedVideoRequest;
             namespace Responses {
-                export type $200 = /* getNextCuratedVideoResponse */ BULLZ.GetNextCuratedVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getNextCuratedVideoResponse */ Components.Schemas.GetNextCuratedVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationProductDelete {
         namespace Post {
-            export type RequestBody = /* deleteManagedProductRequest */ BULLZ.DeleteManagedProductRequest;
+            export type RequestBody = /* deleteManagedProductRequest */ Components.Schemas.DeleteManagedProductRequest;
             namespace Responses {
-                export type $200 = /* deleteManagedProductResponse */ BULLZ.DeleteManagedProductResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* deleteManagedProductResponse */ Components.Schemas.DeleteManagedProductResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationProductGet {
         namespace Post {
-            export type RequestBody = /* getManagedProductRequest */ BULLZ.GetManagedProductRequest;
+            export type RequestBody = /* getManagedProductRequest */ Components.Schemas.GetManagedProductRequest;
             namespace Responses {
-                export type $200 = /* getManagedProductResponse */ BULLZ.GetManagedProductResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getManagedProductResponse */ Components.Schemas.GetManagedProductResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationProductPut {
         namespace Post {
-            export type RequestBody = /* putManagedProductRequest */ BULLZ.PutManagedProductRequest;
+            export type RequestBody = /* putManagedProductRequest */ Components.Schemas.PutManagedProductRequest;
             namespace Responses {
-                export type $200 = /* putManagedProductResponse */ BULLZ.PutManagedProductResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* putManagedProductResponse */ Components.Schemas.PutManagedProductResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -7952,34 +7999,34 @@ declare namespace Paths {
             export type RequestBody = /**
              * queryManagedProductRequest
              * AND logic is used is multiple search filters are not null.
-             */ BULLZ.QueryManagedProductRequest;
+             */ Components.Schemas.QueryManagedProductRequest;
             namespace Responses {
-                export type $200 = /* queryManagedProductResponse */ BULLZ.QueryManagedProductResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryManagedProductResponse */ Components.Schemas.QueryManagedProductResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationSubmit {
         namespace Post {
-            export type RequestBody = /* submitVideoCurationRequest */ BULLZ.SubmitVideoCurationRequest;
+            export type RequestBody = /* submitVideoCurationRequest */ Components.Schemas.SubmitVideoCurationRequest;
             namespace Responses {
-                export type $200 = /* submitVideoCurationResponse */ BULLZ.SubmitVideoCurationResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* submitVideoCurationResponse */ Components.Schemas.SubmitVideoCurationResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace CurationVideoUpdate {
         namespace Post {
-            export type RequestBody = /* updateVideoCuratorRequest */ BULLZ.UpdateVideoCuratorRequest;
+            export type RequestBody = /* updateVideoCuratorRequest */ Components.Schemas.UpdateVideoCuratorRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -7998,29 +8045,29 @@ declare namespace Paths {
                 fileName?: string; // binary
             }
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace NotificationGet {
         namespace Post {
-            export type RequestBody = /* getNotificationsRequest */ BULLZ.GetNotificationsRequest;
+            export type RequestBody = /* getNotificationsRequest */ Components.Schemas.GetNotificationsRequest;
             namespace Responses {
-                export type $200 = /* notificationsResponse */ BULLZ.NotificationsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* notificationsResponse */ Components.Schemas.NotificationsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace NotificationQuery {
         namespace Post {
-            export type RequestBody = /* queryNotificationsRequest */ BULLZ.QueryNotificationsRequest;
+            export type RequestBody = /* queryNotificationsRequest */ Components.Schemas.QueryNotificationsRequest;
             namespace Responses {
-                export type $200 = /* queryNotificationsResponse */ BULLZ.QueryNotificationsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryNotificationsResponse */ Components.Schemas.QueryNotificationsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -8053,78 +8100,78 @@ declare namespace Paths {
             }
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace PlaylistCheckAffiliateLinks {
         namespace Post {
-            export type RequestBody = /* hasAffiliateLinksRequest */ BULLZ.HasAffiliateLinksRequest;
+            export type RequestBody = /* hasAffiliateLinksRequest */ Components.Schemas.HasAffiliateLinksRequest;
             namespace Responses {
-                export type $200 = /* hasAffiliateLinksResponse */ BULLZ.HasAffiliateLinksResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* hasAffiliateLinksResponse */ Components.Schemas.HasAffiliateLinksResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace PlaylistGet {
         namespace Post {
-            export type RequestBody = /* getPlaylistVideoRequest */ BULLZ.GetPlaylistVideoRequest;
+            export type RequestBody = /* getPlaylistVideoRequest */ Components.Schemas.GetPlaylistVideoRequest;
             namespace Responses {
-                export type $200 = /* playlistSingleVideoResponse */ BULLZ.PlaylistSingleVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* playlistSingleVideoResponse */ Components.Schemas.PlaylistSingleVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace PlaylistGetMeta {
         namespace Post {
-            export type RequestBody = /* getVideoMetaRequest */ BULLZ.GetVideoMetaRequest;
+            export type RequestBody = /* getVideoMetaRequest */ Components.Schemas.GetVideoMetaRequest;
             namespace Responses {
-                export type $200 = /* getVideoMetaResponse */ BULLZ.GetVideoMetaResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $200 = /* getVideoMetaResponse */ Components.Schemas.GetVideoMetaResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace PlaylistQuery {
         namespace Post {
-            export type RequestBody = /* createPlaylistRequest */ BULLZ.CreatePlaylistRequest;
+            export type RequestBody = /* createPlaylistRequest */ Components.Schemas.CreatePlaylistRequest;
             namespace Responses {
-                export type $200 = /* createPlaylistForVideosResponse */ BULLZ.CreatePlaylistForVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* createPlaylistForVideosResponse */ Components.Schemas.CreatePlaylistForVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace PlaylistQueryByCreator {
         namespace Post {
-            export type RequestBody = /* queryPlaylistByCreatorRequest */ BULLZ.QueryPlaylistByCreatorRequest;
+            export type RequestBody = /* queryPlaylistByCreatorRequest */ Components.Schemas.QueryPlaylistByCreatorRequest;
             namespace Responses {
-                export type $200 = /* queryPlaylistVideosResponse */ BULLZ.QueryPlaylistVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryPlaylistVideosResponse */ Components.Schemas.QueryPlaylistVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace PlaylistQueryVideos {
         namespace Post {
-            export type RequestBody = /* queryPlaylistVideosRequest */ BULLZ.QueryPlaylistVideosRequest;
+            export type RequestBody = /* queryPlaylistVideosRequest */ Components.Schemas.QueryPlaylistVideosRequest;
             namespace Responses {
-                export type $200 = /* queryPlaylistVideosResponse */ BULLZ.QueryPlaylistVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryPlaylistVideosResponse */ Components.Schemas.QueryPlaylistVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductGetByBarcode {
         namespace Post {
-            export type RequestBody = /* getProductByBarcodeRequest */ BULLZ.GetProductByBarcodeRequest;
+            export type RequestBody = /* getProductByBarcodeRequest */ Components.Schemas.GetProductByBarcodeRequest;
             namespace Responses {
-                export type $200 = /* getProductResponse */ BULLZ.GetProductResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getProductResponse */ Components.Schemas.GetProductResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8146,253 +8193,253 @@ declare namespace Paths {
                 file?: string; // binary
             }
             namespace Responses {
-                export type $200 = /* uploadTopicImageResponse */ BULLZ.UploadTopicImageResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* uploadTopicImageResponse */ Components.Schemas.UploadTopicImageResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace ProductManageCreate {
         namespace Post {
-            export type RequestBody = /* createTopicRequest */ BULLZ.CreateTopicRequest;
+            export type RequestBody = /* createTopicRequest */ Components.Schemas.CreateTopicRequest;
             namespace Responses {
-                export type $200 = /* topicResponse */ BULLZ.TopicResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* topicResponse */ Components.Schemas.TopicResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductManageDelete {
         namespace Post {
-            export type RequestBody = /* deleteTopicRequest */ BULLZ.DeleteTopicRequest;
+            export type RequestBody = /* deleteTopicRequest */ Components.Schemas.DeleteTopicRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductManageGet {
         namespace Post {
-            export type RequestBody = /* getTopicRequest */ BULLZ.GetTopicRequest;
+            export type RequestBody = /* getTopicRequest */ Components.Schemas.GetTopicRequest;
             namespace Responses {
-                export type $200 = /* topicResponse */ BULLZ.TopicResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* topicResponse */ Components.Schemas.TopicResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductManageQuery {
         namespace Post {
-            export type RequestBody = /* queryTopicsRequest */ BULLZ.QueryTopicsRequest;
+            export type RequestBody = /* queryTopicsRequest */ Components.Schemas.QueryTopicsRequest;
             namespace Responses {
-                export type $200 = /* topicsResponse */ BULLZ.TopicsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* topicsResponse */ Components.Schemas.TopicsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductManageUpdate {
         namespace Post {
-            export type RequestBody = /* updateTopicRequest */ BULLZ.UpdateTopicRequest;
+            export type RequestBody = /* updateTopicRequest */ Components.Schemas.UpdateTopicRequest;
             namespace Responses {
-                export type $200 = /* topicResponse */ BULLZ.TopicResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* topicResponse */ Components.Schemas.TopicResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductQueryByName {
         namespace Post {
-            export type RequestBody = /* getProductsByNameRequest */ BULLZ.GetProductsByNameRequest;
+            export type RequestBody = /* getProductsByNameRequest */ Components.Schemas.GetProductsByNameRequest;
             namespace Responses {
-                export type $200 = /* getProductsResponse */ BULLZ.GetProductsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getProductsResponse */ Components.Schemas.GetProductsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace ProductQueryByVideo {
         namespace Post {
-            export type RequestBody = /* queryAffiliateProductsByVideoIdRequest */ BULLZ.QueryAffiliateProductsByVideoIdRequest;
+            export type RequestBody = /* queryAffiliateProductsByVideoIdRequest */ Components.Schemas.QueryAffiliateProductsByVideoIdRequest;
             namespace Responses {
-                export type $200 = /* queryAffiliateProductsByVideoIdResponse */ BULLZ.QueryAffiliateProductsByVideoIdResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryAffiliateProductsByVideoIdResponse */ Components.Schemas.QueryAffiliateProductsByVideoIdResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace PromotionGet {
         namespace Post {
-            export type RequestBody = /* getPromotionForCurrentUserRequest */ BULLZ.GetPromotionForCurrentUserRequest;
+            export type RequestBody = /* getPromotionForCurrentUserRequest */ Components.Schemas.GetPromotionForCurrentUserRequest;
             namespace Responses {
-                export type $200 = /* getPromotionForCurrentUserResponse */ BULLZ.GetPromotionForCurrentUserResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $200 = /* getPromotionForCurrentUserResponse */ Components.Schemas.GetPromotionForCurrentUserResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace Search {
         namespace Post {
-            export type RequestBody = /* querySearchRequest */ BULLZ.QuerySearchRequest;
+            export type RequestBody = /* querySearchRequest */ Components.Schemas.QuerySearchRequest;
             namespace Responses {
-                export type $200 = /* querySearchResponse */ BULLZ.QuerySearchResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* querySearchResponse */ Components.Schemas.QuerySearchResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace SearchQueryTrendingByLanguage {
         namespace Post {
-            export type RequestBody = /* getLanguageTrendingRequest */ BULLZ.GetLanguageTrendingRequest;
+            export type RequestBody = /* getLanguageTrendingRequest */ Components.Schemas.GetLanguageTrendingRequest;
             namespace Responses {
-                export type $200 = /* getTrendingResponse */ BULLZ.GetTrendingResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getTrendingResponse */ Components.Schemas.GetTrendingResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace SearchTrending {
         namespace Post {
-            export type RequestBody = /* getTrendingRequest */ BULLZ.GetTrendingRequest;
+            export type RequestBody = /* getTrendingRequest */ Components.Schemas.GetTrendingRequest;
             namespace Responses {
-                export type $200 = /* getTrendingResponse */ BULLZ.GetTrendingResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getTrendingResponse */ Components.Schemas.GetTrendingResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace StatisticsActivityGet {
         namespace Post {
-            export type RequestBody = /* createMarketingStatisticsRequest */ BULLZ.CreateMarketingStatisticsRequest;
+            export type RequestBody = /* createMarketingStatisticsRequest */ Components.Schemas.CreateMarketingStatisticsRequest;
             namespace Responses {
-                export type $200 = /* marketingStatisticsResponse */ BULLZ.MarketingStatisticsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* marketingStatisticsResponse */ Components.Schemas.MarketingStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace TeamCreate {
         namespace Post {
-            export type RequestBody = /* createTeamRequest */ BULLZ.CreateTeamRequest;
+            export type RequestBody = /* createTeamRequest */ Components.Schemas.CreateTeamRequest;
             namespace Responses {
-                export type $200 = /* createTeamResponse */ BULLZ.CreateTeamResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* createTeamResponse */ Components.Schemas.CreateTeamResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamGet {
         namespace Post {
-            export type RequestBody = /* getTeamInfoRequest */ BULLZ.GetTeamInfoRequest;
+            export type RequestBody = /* getTeamInfoRequest */ Components.Schemas.GetTeamInfoRequest;
             namespace Responses {
-                export type $200 = /* getTeamInfoResponse */ BULLZ.GetTeamInfoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getTeamInfoResponse */ Components.Schemas.GetTeamInfoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamGetInfo {
         namespace Post {
-            export type RequestBody = /* getTeamDetailRequest */ BULLZ.GetTeamDetailRequest;
+            export type RequestBody = /* getTeamDetailRequest */ Components.Schemas.GetTeamDetailRequest;
             namespace Responses {
-                export type $200 = /* getTeamDetailResponse */ BULLZ.GetTeamDetailResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getTeamDetailResponse */ Components.Schemas.GetTeamDetailResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamGetMembers {
         namespace Post {
-            export type RequestBody = /* queryMembersRequest */ BULLZ.QueryMembersRequest;
+            export type RequestBody = /* queryMembersRequest */ Components.Schemas.QueryMembersRequest;
             namespace Responses {
-                export type $200 = /* queryMembersResponse */ BULLZ.QueryMembersResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryMembersResponse */ Components.Schemas.QueryMembersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamGetVideos {
         namespace Post {
-            export type RequestBody = /* queryTeamVideosRequest */ BULLZ.QueryTeamVideosRequest;
+            export type RequestBody = /* queryTeamVideosRequest */ Components.Schemas.QueryTeamVideosRequest;
             namespace Responses {
-                export type $200 = /* queryTeamVideosResponse */ BULLZ.QueryTeamVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryTeamVideosResponse */ Components.Schemas.QueryTeamVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamJoin {
         namespace Post {
-            export type RequestBody = /* joinTeamRequest */ BULLZ.JoinTeamRequest;
+            export type RequestBody = /* joinTeamRequest */ Components.Schemas.JoinTeamRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamLeave {
         namespace Post {
-            export type RequestBody = /* leaveTeamRequest */ BULLZ.LeaveTeamRequest;
+            export type RequestBody = /* leaveTeamRequest */ Components.Schemas.LeaveTeamRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamQuery {
         namespace Post {
-            export type RequestBody = /* queryTeamsRequest */ BULLZ.QueryTeamsRequest;
+            export type RequestBody = /* queryTeamsRequest */ Components.Schemas.QueryTeamsRequest;
             namespace Responses {
-                export type $200 = /* queryTeamsResponse */ BULLZ.QueryTeamsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryTeamsResponse */ Components.Schemas.QueryTeamsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamRemove {
         namespace Post {
-            export type RequestBody = /* removeTeamMemberRequest */ BULLZ.RemoveTeamMemberRequest;
+            export type RequestBody = /* removeTeamMemberRequest */ Components.Schemas.RemoveTeamMemberRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamUpdate {
         namespace Post {
-            export type RequestBody = /* updateTeamRequest */ BULLZ.UpdateTeamRequest;
+            export type RequestBody = /* updateTeamRequest */ Components.Schemas.UpdateTeamRequest;
             namespace Responses {
-                export type $200 = /* updateTeamResponse */ BULLZ.UpdateTeamResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* updateTeamResponse */ Components.Schemas.UpdateTeamResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace TeamVideoStatus {
         namespace Post {
-            export type RequestBody = /* changeVideoExclusivityStatusRequest */ BULLZ.ChangeVideoExclusivityStatusRequest;
+            export type RequestBody = /* changeVideoExclusivityStatusRequest */ Components.Schemas.ChangeVideoExclusivityStatusRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
@@ -8403,7 +8450,7 @@ declare namespace Paths {
                  * boolean
                  */
                 export type $200 = boolean;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -8421,9 +8468,9 @@ declare namespace Paths {
             }
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8431,7 +8478,7 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -8440,7 +8487,7 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -8449,9 +8496,9 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8459,9 +8506,9 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8469,9 +8516,9 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8479,9 +8526,9 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
@@ -8489,261 +8536,261 @@ declare namespace Paths {
         namespace Post {
             namespace Responses {
                 export interface $200 {}
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserAuthenticate {
         namespace Post {
-            export type RequestBody = /* userAuthChallengeEmailOrUsernameOrPhoneRequest */ BULLZ.UserAuthChallengeEmailOrUsernameOrPhoneRequest;
+            export type RequestBody = /* userAuthChallengeEmailOrUsernameOrPhoneRequest */ Components.Schemas.UserAuthChallengeEmailOrUsernameOrPhoneRequest;
             namespace Responses {
-                export type $200 = /* userJwtTokenResponse */ BULLZ.UserJwtTokenResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $200 = /* userJwtTokenResponse */ Components.Schemas.UserJwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserAuthenticateWebrecorder {
         namespace Post {
-            export type RequestBody = /* authenticateWebRecorderRequest */ BULLZ.AuthenticateWebRecorderRequest;
+            export type RequestBody = /* authenticateWebRecorderRequest */ Components.Schemas.AuthenticateWebRecorderRequest;
             namespace Responses {
-                export type $200 = /* jwtTokenResponse */ BULLZ.JwtTokenResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* jwtTokenResponse */ Components.Schemas.JwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserAuthenticateWithToken {
         namespace Post {
-            export type RequestBody = /* authenticateWithTokenRequest */ BULLZ.AuthenticateWithTokenRequest;
+            export type RequestBody = /* authenticateWithTokenRequest */ Components.Schemas.AuthenticateWithTokenRequest;
             namespace Responses {
-                export type $200 = /* userJwtTokenResponse */ BULLZ.UserJwtTokenResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $200 = /* userJwtTokenResponse */ Components.Schemas.UserJwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserChangePassword {
         namespace Post {
-            export type RequestBody = /* userChangePasswordRequest */ BULLZ.UserChangePasswordRequest;
+            export type RequestBody = /* userChangePasswordRequest */ Components.Schemas.UserChangePasswordRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserCreateAccount {
         namespace Post {
-            export type RequestBody = /* userCreateAccountRequest */ BULLZ.UserCreateAccountRequest;
+            export type RequestBody = /* userCreateAccountRequest */ Components.Schemas.UserCreateAccountRequest;
             namespace Responses {
-                export type $200 = /* userJwtTokenResponse */ BULLZ.UserJwtTokenResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* userJwtTokenResponse */ Components.Schemas.UserJwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace UserCreateAccountAnonymous {
         namespace Post {
-            export type RequestBody = /* userCreateAnonymousAccountRequest */ BULLZ.UserCreateAnonymousAccountRequest;
+            export type RequestBody = /* userCreateAnonymousAccountRequest */ Components.Schemas.UserCreateAnonymousAccountRequest;
             namespace Responses {
-                export type $200 = /* userJwtTokenResponse */ BULLZ.UserJwtTokenResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* userJwtTokenResponse */ Components.Schemas.UserJwtTokenResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserDeleteAccount {
         namespace Post {
-            export type RequestBody = /* deleteUserRequest */ BULLZ.DeleteUserRequest;
+            export type RequestBody = /* deleteUserRequest */ Components.Schemas.DeleteUserRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserFollow {
         namespace Post {
-            export type RequestBody = /* userFollowRequest */ BULLZ.UserFollowRequest;
+            export type RequestBody = /* userFollowRequest */ Components.Schemas.UserFollowRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace UserGet {
         namespace Post {
-            export type RequestBody = /* getBullzUserRequest */ BULLZ.GetBullzUserRequest;
+            export type RequestBody = /* getBullzUserRequest */ Components.Schemas.GetBullzUserRequest;
             namespace Responses {
-                export type $200 = /* getUserResponse */ BULLZ.GetUserResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getUserResponse */ Components.Schemas.GetUserResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserGetCurrentAuthorization {
         namespace Post {
-            export type RequestBody = /* getCurrentAuthorizationsRequest */ BULLZ.GetCurrentAuthorizationsRequest;
+            export type RequestBody = /* getCurrentAuthorizationsRequest */ Components.Schemas.GetCurrentAuthorizationsRequest;
             namespace Responses {
-                export type $200 = /* getCurrentAuthorizationsResponse */ BULLZ.GetCurrentAuthorizationsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getCurrentAuthorizationsResponse */ Components.Schemas.GetCurrentAuthorizationsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserGetProfile {
         namespace Post {
-            export type RequestBody = /* getUserProfileRequest */ BULLZ.GetUserProfileRequest;
+            export type RequestBody = /* getUserProfileRequest */ Components.Schemas.GetUserProfileRequest;
             namespace Responses {
-                export type $200 = /* getUserProfileResponse */ BULLZ.GetUserProfileResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getUserProfileResponse */ Components.Schemas.GetUserProfileResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserHashtagFollow {
         namespace Post {
-            export type RequestBody = /* userFollowHashTagRequest */ BULLZ.UserFollowHashTagRequest;
+            export type RequestBody = /* userFollowHashTagRequest */ Components.Schemas.UserFollowHashTagRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace UserHashtagQueryFollowed {
         namespace Post {
-            export type RequestBody = /* queryFollowedHashTagsRequest */ BULLZ.QueryFollowedHashTagsRequest;
+            export type RequestBody = /* queryFollowedHashTagsRequest */ Components.Schemas.QueryFollowedHashTagsRequest;
             namespace Responses {
-                export type $200 = /* queryFollowingHashTagsResponse */ BULLZ.QueryFollowingHashTagsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryFollowingHashTagsResponse */ Components.Schemas.QueryFollowingHashTagsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserQueryFacilitators {
         namespace Post {
-            export type RequestBody = /* queryFacilitatorsListRequest */ BULLZ.QueryFacilitatorsListRequest;
+            export type RequestBody = /* queryFacilitatorsListRequest */ Components.Schemas.QueryFacilitatorsListRequest;
             namespace Responses {
-                export type $200 = /* queryFacilitatorsListResponse */ BULLZ.QueryFacilitatorsListResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryFacilitatorsListResponse */ Components.Schemas.QueryFacilitatorsListResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserQueryFollowed {
         namespace Post {
-            export type RequestBody = /* queryFollowedUsersRequest */ BULLZ.QueryFollowedUsersRequest;
+            export type RequestBody = /* queryFollowedUsersRequest */ Components.Schemas.QueryFollowedUsersRequest;
             namespace Responses {
-                export type $200 = /* queryFollowedUsersResponse */ BULLZ.QueryFollowedUsersResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryFollowedUsersResponse */ Components.Schemas.QueryFollowedUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserQueryFollowers {
         namespace Post {
-            export type RequestBody = /* queryFollowersRequest */ BULLZ.QueryFollowersRequest;
+            export type RequestBody = /* queryFollowersRequest */ Components.Schemas.QueryFollowersRequest;
             namespace Responses {
-                export type $200 = /* queryFollowersResponse */ BULLZ.QueryFollowersResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryFollowersResponse */ Components.Schemas.QueryFollowersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserSendForgottenPasswordEmail {
         namespace Post {
-            export type RequestBody = /* userWantsForgottenPasswordRequest */ BULLZ.UserWantsForgottenPasswordRequest;
+            export type RequestBody = /* userWantsForgottenPasswordRequest */ Components.Schemas.UserWantsForgottenPasswordRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserSendValidationLinkEmail {
         namespace Post {
-            export type RequestBody = /* userWantsValidationLinkEmailRequest */ BULLZ.UserWantsValidationLinkEmailRequest;
+            export type RequestBody = /* userWantsValidationLinkEmailRequest */ Components.Schemas.UserWantsValidationLinkEmailRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace UserSmsAnalyzeMobileNumber {
         namespace Post {
-            export type RequestBody = /* analyzeMobileNumberRequest */ BULLZ.AnalyzeMobileNumberRequest;
+            export type RequestBody = /* analyzeMobileNumberRequest */ Components.Schemas.AnalyzeMobileNumberRequest;
             namespace Responses {
-                export type $200 = /* analyzeMobileNumberResponse */ BULLZ.AnalyzeMobileNumberResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* analyzeMobileNumberResponse */ Components.Schemas.AnalyzeMobileNumberResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserSmsChangeUserPassword {
         namespace Post {
-            export type RequestBody = /* changeUserPasswordViaSmsRequest */ BULLZ.ChangeUserPasswordViaSmsRequest;
+            export type RequestBody = /* changeUserPasswordViaSmsRequest */ Components.Schemas.ChangeUserPasswordViaSmsRequest;
             namespace Responses {
-                export type $200 = /* changeUserPasswordViaSmsResponse */ BULLZ.ChangeUserPasswordViaSmsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* changeUserPasswordViaSmsResponse */ Components.Schemas.ChangeUserPasswordViaSmsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserSmsCheckVerificationCode {
         namespace Post {
-            export type RequestBody = /* checkSmsCodeRequest */ BULLZ.CheckSmsCodeRequest;
+            export type RequestBody = /* checkSmsCodeRequest */ Components.Schemas.CheckSmsCodeRequest;
             namespace Responses {
-                export type $200 = /* checkSmsCodeResponse */ BULLZ.CheckSmsCodeResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* checkSmsCodeResponse */ Components.Schemas.CheckSmsCodeResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserSmsSendForgottenPassword {
         namespace Post {
-            export type RequestBody = /* sendForgottenPasswordSmsRequest */ BULLZ.SendForgottenPasswordSmsRequest;
+            export type RequestBody = /* sendForgottenPasswordSmsRequest */ Components.Schemas.SendForgottenPasswordSmsRequest;
             namespace Responses {
-                export type $200 = /* sendForgottenPasswordSmsResponse */ BULLZ.SendForgottenPasswordSmsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* sendForgottenPasswordSmsResponse */ Components.Schemas.SendForgottenPasswordSmsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserSmsSendVerification {
         namespace Post {
-            export type RequestBody = /* sendVerificationSmsRequest */ BULLZ.SendVerificationSmsRequest;
+            export type RequestBody = /* sendVerificationSmsRequest */ Components.Schemas.SendVerificationSmsRequest;
             namespace Responses {
-                export type $200 = /* sendVerificationSmsResponse */ BULLZ.SendVerificationSmsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* sendVerificationSmsResponse */ Components.Schemas.SendVerificationSmsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserUpdate {
         namespace Post {
-            export type RequestBody = /* userUpdateRequest */ BULLZ.UserUpdateRequest;
+            export type RequestBody = /* userUpdateRequest */ Components.Schemas.UserUpdateRequest;
             namespace Responses {
-                export type $200 = /* getUserResponse */ BULLZ.GetUserResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getUserResponse */ Components.Schemas.GetUserResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace UserUploadProfileImage {
         namespace Post {
-            export type RequestBody = /* uploadUserProfileImageContentRequest */ BULLZ.UploadUserProfileImageContentRequest;
+            export type RequestBody = /* uploadUserProfileImageContentRequest */ Components.Schemas.UploadUserProfileImageContentRequest;
             namespace Responses {
-                export type $200 = /* uploadUserProfileImageContentResponse */ BULLZ.UploadUserProfileImageContentResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* uploadUserProfileImageContentResponse */ Components.Schemas.UploadUserProfileImageContentResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
@@ -8770,295 +8817,295 @@ declare namespace Paths {
                 fileName?: string; // binary
             }
             namespace Responses {
-                export type $200 = /* getUserProfileImageResponse */ BULLZ.GetUserProfileImageResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getUserProfileImageResponse */ Components.Schemas.GetUserProfileImageResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserUsernameExists {
         namespace Post {
-            export type RequestBody = /* usernameExistsRequest */ BULLZ.UsernameExistsRequest;
+            export type RequestBody = /* usernameExistsRequest */ Components.Schemas.UsernameExistsRequest;
             namespace Responses {
-                export type $200 = /* existenceResponse */ BULLZ.ExistenceResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* existenceResponse */ Components.Schemas.ExistenceResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
             }
         }
     }
     namespace UserVideoQuerySaved {
         namespace Post {
-            export type RequestBody = /* querySavedVideosRequest */ BULLZ.QuerySavedVideosRequest;
+            export type RequestBody = /* querySavedVideosRequest */ Components.Schemas.QuerySavedVideosRequest;
             namespace Responses {
-                export type $200 = /* querySavedVideosResponse */ BULLZ.QuerySavedVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* querySavedVideosResponse */ Components.Schemas.QuerySavedVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace UserVideoSave {
         namespace Post {
-            export type RequestBody = /* createSavedVideoRequest */ BULLZ.CreateSavedVideoRequest;
+            export type RequestBody = /* createSavedVideoRequest */ Components.Schemas.CreateSavedVideoRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace VideoCommentBlock {
         namespace Post {
-            export type RequestBody = /* blockUserRequest */ BULLZ.BlockUserRequest;
+            export type RequestBody = /* blockUserRequest */ Components.Schemas.BlockUserRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoCommentDelete {
         namespace Post {
-            export type RequestBody = /* deletePostRequest */ BULLZ.DeletePostRequest;
+            export type RequestBody = /* deletePostRequest */ Components.Schemas.DeletePostRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoCommentPost {
         namespace Post {
-            export type RequestBody = /* createPostRequest */ BULLZ.CreatePostRequest;
+            export type RequestBody = /* createPostRequest */ Components.Schemas.CreatePostRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoCommentQuery {
         namespace Post {
-            export type RequestBody = /* queryPostsRequest */ BULLZ.QueryPostsRequest;
+            export type RequestBody = /* queryPostsRequest */ Components.Schemas.QueryPostsRequest;
             namespace Responses {
-                export type $200 = /* queryPostsResponse */ BULLZ.QueryPostsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryPostsResponse */ Components.Schemas.QueryPostsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoCommentQueryReplies {
         namespace Post {
-            export type RequestBody = /* queryRepliesRequest */ BULLZ.QueryRepliesRequest;
+            export type RequestBody = /* queryRepliesRequest */ Components.Schemas.QueryRepliesRequest;
             namespace Responses {
-                export type $200 = /* queryPostsResponse */ BULLZ.QueryPostsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryPostsResponse */ Components.Schemas.QueryPostsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoCommentReport {
         namespace Post {
-            export type RequestBody = /* reportPostRequest */ BULLZ.ReportPostRequest;
+            export type RequestBody = /* reportPostRequest */ Components.Schemas.ReportPostRequest;
             namespace Responses {
-                export type $200 = /* messageResponseBase */ BULLZ.MessageResponseBase;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoDelete {
         namespace Post {
-            export type RequestBody = /* deleteVideoRequest */ BULLZ.DeleteVideoRequest;
+            export type RequestBody = /* deleteVideoRequest */ Components.Schemas.DeleteVideoRequest;
             namespace Responses {
-                export type $200 = /* deleteVideoResponse */ BULLZ.DeleteVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* deleteVideoResponse */ Components.Schemas.DeleteVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoGet {
         namespace Post {
-            export type RequestBody = /* getVideoDetailsRequest */ BULLZ.GetVideoDetailsRequest;
+            export type RequestBody = /* getVideoDetailsRequest */ Components.Schemas.GetVideoDetailsRequest;
             namespace Responses {
-                export type $200 = /* getVideoDetailsResponse */ BULLZ.GetVideoDetailsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getVideoDetailsResponse */ Components.Schemas.GetVideoDetailsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoNew {
         namespace Post {
-            export type RequestBody = /* createVideoRequest */ BULLZ.CreateVideoRequest;
+            export type RequestBody = /* createVideoRequest */ Components.Schemas.CreateVideoRequest;
             namespace Responses {
                 export type $200 = /**
                  * createVideoResponse
                  * Contains upload identifiers which should be used to upload files.
-                 */ BULLZ.CreateVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                 */ Components.Schemas.CreateVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
-                export type $409 = /* error409ConflictResponse */ BULLZ.Error409ConflictResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
             }
         }
     }
     namespace VideoPreviewGet {
         namespace Post {
-            export type RequestBody = /* getVideoPreviewRequest */ BULLZ.GetVideoPreviewRequest;
+            export type RequestBody = /* getVideoPreviewRequest */ Components.Schemas.GetVideoPreviewRequest;
             namespace Responses {
-                export type $200 = /* getVideoPreviewResponse */ BULLZ.GetVideoPreviewResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getVideoPreviewResponse */ Components.Schemas.GetVideoPreviewResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoQueryUploaded {
         namespace Post {
-            export type RequestBody = /* queryUploadedVideosRequest */ BULLZ.QueryUploadedVideosRequest;
+            export type RequestBody = /* queryUploadedVideosRequest */ Components.Schemas.QueryUploadedVideosRequest;
             namespace Responses {
-                export type $200 = /* queryUploadedVideosResponse */ BULLZ.QueryUploadedVideosResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryUploadedVideosResponse */ Components.Schemas.QueryUploadedVideosResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
         }
     }
     namespace VideoRegisterEvent {
         namespace Post {
-            export type RequestBody = /* registerAggregatedEventRequest */ BULLZ.RegisterAggregatedEventRequest;
+            export type RequestBody = /* registerAggregatedEventRequest */ Components.Schemas.RegisterAggregatedEventRequest;
             namespace Responses {
-                export type $200 = /* registerAggregatedEventResponse */ BULLZ.RegisterAggregatedEventResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* registerAggregatedEventResponse */ Components.Schemas.RegisterAggregatedEventResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VideoReport {
         namespace Post {
-            export type RequestBody = /* reportVideoRequest */ BULLZ.ReportVideoRequest;
+            export type RequestBody = /* reportVideoRequest */ Components.Schemas.ReportVideoRequest;
             namespace Responses {
-                export type $200 = /* reportVideoResponse */ BULLZ.ReportVideoResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* reportVideoResponse */ Components.Schemas.ReportVideoResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherGet {
         namespace Post {
-            export type RequestBody = /* getVoucherTransactionRequest */ BULLZ.GetVoucherTransactionRequest;
+            export type RequestBody = /* getVoucherTransactionRequest */ Components.Schemas.GetVoucherTransactionRequest;
             namespace Responses {
-                export type $200 = /* voucherTransactionResponse */ BULLZ.VoucherTransactionResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* voucherTransactionResponse */ Components.Schemas.VoucherTransactionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherPurchase {
         namespace Post {
-            export type RequestBody = /* createVoucherTransactionRequest */ BULLZ.CreateVoucherTransactionRequest;
+            export type RequestBody = /* createVoucherTransactionRequest */ Components.Schemas.CreateVoucherTransactionRequest;
             namespace Responses {
-                export type $200 = /* voucherTransactionResponse */ BULLZ.VoucherTransactionResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* voucherTransactionResponse */ Components.Schemas.VoucherTransactionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherQuery {
         namespace Post {
-            export type RequestBody = /* queryVoucherTransactionRequest */ BULLZ.QueryVoucherTransactionRequest;
+            export type RequestBody = /* queryVoucherTransactionRequest */ Components.Schemas.QueryVoucherTransactionRequest;
             namespace Responses {
-                export type $200 = /* queryVoucherTransactionResponse */ BULLZ.QueryVoucherTransactionResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryVoucherTransactionResponse */ Components.Schemas.QueryVoucherTransactionResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherQueryBrands {
         namespace Post {
-            export type RequestBody = /* getVoucherBrandsRequest */ BULLZ.GetVoucherBrandsRequest;
+            export type RequestBody = /* getVoucherBrandsRequest */ Components.Schemas.GetVoucherBrandsRequest;
             namespace Responses {
-                export type $200 = /* getVoucherBrandsResponse */ BULLZ.GetVoucherBrandsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getVoucherBrandsResponse */ Components.Schemas.GetVoucherBrandsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherQueryCountries {
         namespace Post {
-            export type RequestBody = /* getVoucherCountriesRequest */ BULLZ.GetVoucherCountriesRequest;
+            export type RequestBody = /* getVoucherCountriesRequest */ Components.Schemas.GetVoucherCountriesRequest;
             namespace Responses {
-                export type $200 = /* getVoucherCountriesResponse */ BULLZ.GetVoucherCountriesResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* getVoucherCountriesResponse */ Components.Schemas.GetVoucherCountriesResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace VoucherQueryStatistics {
         namespace Post {
-            export type RequestBody = /* queryVoucherStatisticsRequest */ BULLZ.QueryVoucherStatisticsRequest;
+            export type RequestBody = /* queryVoucherStatisticsRequest */ Components.Schemas.QueryVoucherStatisticsRequest;
             namespace Responses {
-                export type $200 = /* queryVoucherStatisticsResponse */ BULLZ.QueryVoucherStatisticsResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* queryVoucherStatisticsResponse */ Components.Schemas.QueryVoucherStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace WomBeginValidation {
         namespace Post {
-            export type RequestBody = /* WOMStartValidationRequest */ BULLZ.WOMStartValidationRequest;
+            export type RequestBody = /* WOMStartValidationRequest */ Components.Schemas.WOMStartValidationRequest;
             namespace Responses {
-                export type $200 = /* validationStateResponse */ BULLZ.ValidationStateResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* validationStateResponse */ Components.Schemas.ValidationStateResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace WomCreateWomWallet {
         namespace Post {
             namespace Responses {
-                export type $200 = /* walletResponse */ BULLZ.WalletResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* walletResponse */ Components.Schemas.WalletResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace WomGetValidationState {
         namespace Post {
-            export type RequestBody = /* getValidationStateRequest */ BULLZ.GetValidationStateRequest;
+            export type RequestBody = /* getValidationStateRequest */ Components.Schemas.GetValidationStateRequest;
             namespace Responses {
-                export type $200 = /* validationStateResponse */ BULLZ.ValidationStateResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* validationStateResponse */ Components.Schemas.ValidationStateResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }
     namespace WomRestartValidation {
         namespace Post {
-            export type RequestBody = /* WOMRestartValidationRequest */ BULLZ.WOMRestartValidationRequest;
+            export type RequestBody = /* WOMRestartValidationRequest */ Components.Schemas.WOMRestartValidationRequest;
             namespace Responses {
-                export type $200 = /* validationStateResponse */ BULLZ.ValidationStateResponse;
-                export type $400 = /* error400BadRequest */ BULLZ.Error400BadRequest;
+                export type $200 = /* validationStateResponse */ Components.Schemas.ValidationStateResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
-                export type $404 = /* error404NotFoundResponse */ BULLZ.Error404NotFoundResponse;
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
             }
         }
     }

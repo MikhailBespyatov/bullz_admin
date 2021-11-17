@@ -23,5 +23,6 @@ export const Container = styled.div`
     @media (max-width: ${xs}) {
         padding: 0;
         padding-top: ${headerHeight};
+        height: 100%;
     }
 `;

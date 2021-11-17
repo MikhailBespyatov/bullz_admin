@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { ManagerLayout } from 'components/layouts/RolesLayouts';
 import { CardButton } from 'componentsNewDesign/common/buttons/CardButton';
 import { HashtagsInput } from 'componentsNewDesign/common/inputs/HashtagsInput';
@@ -5,17 +6,19 @@ import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
 import { copyTopicLinkMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
 import {
+    productCardWidth,
     propertyBlockHorizontalPadding,
-    propertyBlockWidth
+    propertyBlockWidth,
+    propertyBlockWidthMobile
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import { EditProductPopover } from 'componentsNewDesign/modals/popovers/products/EditProductPopover';
 import { UploadProductImgPopover } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
-import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
-import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
+import { descriptionPadding, filterMargin, filterMarginMobile, xxs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { loadingStores } from 'stores/loading';
@@ -55,6 +58,8 @@ export const ProductDescription = ({
         } catch {}
     };
 
+    const isMobile = useMediaQuery(`(max-width: ${xxs})`);
+
     // const deleteOkHandler = async (subject: SubjectType) => {
     //     try {
     //         updateAsyncModalLoading();
@@ -90,7 +95,7 @@ export const ProductDescription = ({
     // };
     // const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
 
-    return (
+    return !isMobile ? (
         <DescriptionWrapper
             backgroundColor={grey29}
             marginBottom={filterMargin}
@@ -114,52 +119,22 @@ export const ProductDescription = ({
                             />
                         </AlignCenter>
                     </ContentWrapper> */}
-                    <MarginWrapper marginRight={descriptionPadding}>
-                        {/*<ContentWrapper*/}
-                        {/*    backgroundColor={grey3}*/}
-                        {/*    height="104px"*/}
-                        {/*    padding=" 8px 8px 16px 12px"*/}
-                        {/*    width="290px"*/}
-                        {/*>*/}
-                        {/*    <Column noWrap height="100%" width="100%">*/}
-                        {/*        <ContentText fontSize={textFontSize} padding="0px 0px 16px 0px" width="260px">*/}
-                        {/*            {name}*/}
-                        {/*        </ContentText>*/}
-                        {/*        <ScrollableWrapper height="100%" overflowY="scroll" paddingRight="4px" width="100%">*/}
-                        {/*            {tags?.length ? (*/}
-                        {/*                tags.map(item => (*/}
-                        {/*                    <RemovableHashtag*/}
-                        {/*                        key={item}*/}
-                        {/*                        // TODO background={white}*/}
-                        {/*                        subject={item}*/}
-                        {/*                        text={item}*/}
-                        {/*                    />*/}
-                        {/*                ))*/}
-                        {/*            ) : (*/}
-                        {/*                <ContentText color={assistiveTextColor} fontSize={textFontSize}>*/}
-                        {/*                    No hashtags*/}
-                        {/*                </ContentText>*/}
-                        {/*            )}*/}
-                        {/*        </ScrollableWrapper>*/}
-                        {/*    </Column>*/}
-                        {/*</ContentWrapper>*/}
-                        <Column>
-                            <Row marginBottom="8px" marginTop="8px">
-                                <Span fontSize="10px" fontWeight="500" lineHeight="12px">
-                                    {name}
-                                </Span>
-                            </Row>
-                            <HashtagsInput
-                                hashTags={tags || undefined}
-                                loading={productLoading || loading}
-                                type="product"
-                                onConfirm={onConfirm}
-                            />
-                        </Column>
-                    </MarginWrapper>
+                    <Column marginRight={descriptionPadding}>
+                        <Row marginBottom="8px" marginTop="8px">
+                            <Span fontSize="10px" fontWeight="500" lineHeight="12px">
+                                {name}
+                            </Span>
+                        </Row>
+                        <HashtagsInput
+                            hashTags={tags || undefined}
+                            loading={productLoading || loading}
+                            type="product"
+                            onConfirm={onConfirm}
+                        />
+                    </Column>
 
                     <Column>
-                        <Section alignCenter justifyBetween height="100%" marginBottom="11px">
+                        <Section alignCenter justifyBetween height="100%" marginBottom="7px">
                             <MarginWrapper marginRight="8px">
                                 <PropertyBlock
                                     copiable
@@ -181,7 +156,7 @@ export const ProductDescription = ({
                             />
                         </Section>
                         <ManagerLayout>
-                            <Section alignCenter height="100%" marginBottom="-8px">
+                            <Section alignCenter height="100%">
                                 <Row>
                                     <EditProductPopover id={id} name={name || ''} type="down">
                                         <CardButton
@@ -231,81 +206,84 @@ export const ProductDescription = ({
                     {/*    </AdministratorLayout>*/}
                     {/*</FlexGrow>*/}
                 </Section>
-                {/* <OverflowAutoLayout>
-                    <TableWrapper border={tableDataBorder} borderRadius={tableBorderRadius}>
-                        <Table>
-                            <TableRow backgroundColor={tableHeaderBackgroundColor}>
-                                {/*<TableHeader>Locale</TableHeader>
-                                <TableHeader>Default affiliate link</TableHeader>
-                                <TableHeader>Priority</TableHeader>
-                                <TableHeader>Action</TableHeader>
-                            </TableRow>
-                            <TableRow borderTop={tableDataBorder} color={assistiveTextColor}>
-                                <TableData color={cultureInfo && black} padding={tableDataPadding} width="15%">
-                                   <Row alignCenter justifyCenter width="100%">
-                                       <EllipsisTableText>{cultureInfo || tableDataPlaceholder}</EllipsisTableText>
-                                   </Row>
-                                </TableData>
-                                <TableData color={url && urlColor} padding={tableDataPadding} width="42%">
-                                    <ContentWrapper
-                                        backgroundColor={url && urlBackgroundColor}
-                                        borderRadius="4px"
-                                        padding="0px 4px"
+            </ContentWrapper>
+        </DescriptionWrapper>
+    ) : (
+        <DescriptionWrapper
+            backgroundColor={grey29}
+            marginBottom={filterMarginMobile}
+            marginRight="0"
+            padding="24px 8px 18px"
+            width="100%"
+        >
+            <ContentWrapper borderRadius="8px" width="100%">
+                <FlexGrow noWrap>
+                    <Section marginBottom="8px" marginTop="8px">
+                        <Span fontSize="12px" fontWeight="500" lineHeight="12px">
+                            {name}
+                        </Span>
+                    </Section>
+                    <Section marginBottom={descriptionPadding}>
+                        <HashtagsInput
+                            hashTags={tags || undefined}
+                            loading={productLoading || loading}
+                            type="product"
+                            onConfirm={onConfirm}
+                        />
+                    </Section>
+
+                    <Section noWrap height="100%" marginBottom="4px">
+                        <MarginWrapper marginRight="8px">
+                            <PropertyBlock
+                                copiable
+                                isLink
+                                backgroundColor={grey27}
+                                horizontalPadding={propertyBlockHorizontalPadding}
+                                subtitle={link || ''}
+                                success={copyTopicLinkMessage}
+                                title="Topic link"
+                                width={propertyBlockWidthMobile}
+                            />
+                        </MarginWrapper>
+                        <PropertyBlock
+                            backgroundColor={grey27}
+                            horizontalPadding={propertyBlockHorizontalPadding}
+                            marginBottom="0"
+                            subtitle={primaryReferenceCount.toString()}
+                            title="Referenced count"
+                            width={propertyBlockWidthMobile}
+                        />
+                    </Section>
+                    <ManagerLayout>
+                        <Section alignCenter justifyCenter height="100%">
+                            <Row marginRight="8px" width={productCardWidth}>
+                                <EditProductPopover id={id} name={name || ''} type="down">
+                                    <CardButton
+                                        background={grey27}
+                                        backgroundHover={hoverGrey2}
+                                        color={grey7}
+                                        marginRight={descriptionPadding}
                                     >
-                                        <Row alignCenter justifyBetween width="100%">
-                                            <EllipsisTableText
-                                                alignTextCenter={!url}
-                                                color={url && urlColor}
-                                                width={(url && '90%') || '100%'}
-                                            >
-                                                {(url && <ExternalLink href={url} />) || tableDataPlaceholder}
-                                            </EllipsisTableText>
-                                            {url && (
-                                                <MarginWrapper marginLeft="5px">
-                                                    <CopyButton
-                                                        customCopyIcon={blackCopyIcon}
-                                                        subject={url}
-                                                        success={'Link was copied'}
-                                                    />
-                                                </MarginWrapper>
-                                            )}
-                                        </Row>
-                                    </ContentWrapper>
-                                </TableData>
-                                <TableData padding={tableDataPadding}>
-                                    <Row alignCenter justifyCenter width="100%">
-                                        <EllipsisTableText color={(priority >= 0 && black) || ''}>
-                                            {priority || tableDataPlaceholder}
-                                        </EllipsisTableText>
-                                    </Row>
-                                </TableData>
-                                <TableData padding={tableDataPadding} width="30%">
-                                    <Row alignCenter justifyCenter>
-                                        <Row>
-                                            <ManagerLayout>
-                                                <CreateDefaultAffiliateLinkPopover id={id} urlData={url}>
-                                                    <SimpleButton
-                                                        background={black}
-                                                        borderRadius={buttonsBorderRadius}
-                                                        color={white}
-                                                        fontSize={buttonsFontSize}
-                                                        fontWeight={buttonsFontWeight}
-                                                        height="42px"
-                                                        padding={descriptionPadding}
-                                                        width="137px"
-                                                        onClick={noop}
-                                                    >
-                                                        {url ? 'Update' : 'Create'} Default Affiliate Link
-                                                    </SimpleButton>
-                                                </CreateDefaultAffiliateLinkPopover>
-                                            </ManagerLayout>
-                                        </Row>
-                                    </Row>
-                                </TableData>
-                            </TableRow>
-                        </Table>
-                    </TableWrapper>
-                </OverflowAutoLayout> */}
+                                        Edit Link
+                                    </CardButton>
+                                </EditProductPopover>
+                            </Row>
+
+                            <Row width={productCardWidth}>
+                                <UploadProductImgPopover id={id} type="down">
+                                    <CardButton
+                                        background={grey27}
+                                        backgroundHover={hoverGrey2}
+                                        color={grey7}
+                                        marginRight={descriptionPadding}
+                                    >
+                                        Upload Image
+                                    </CardButton>
+                                </UploadProductImgPopover>
+                            </Row>
+                        </Section>
+                    </ManagerLayout>
+                </FlexGrow>
             </ContentWrapper>
         </DescriptionWrapper>
     );

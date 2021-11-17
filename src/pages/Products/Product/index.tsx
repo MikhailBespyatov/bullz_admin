@@ -17,10 +17,11 @@ import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { errorColor, hoverGrey2, white } from 'constants/styles/colors';
-import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
+import { descriptionPadding, filterMargin, xxs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router';
 import { API } from 'services';
 import { message } from 'stores/alerts';
@@ -68,6 +69,7 @@ export const Product = () => {
     const loading = useStore(productsStores.loading);
     // const linksLoading = useStore(affiliateLinksStores.loading);
     const videosLoading = useStore(productVideosStores.initialLoading);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
 
     useEffect(() => {
         productsEffects.loadSingleItemById(productId);
@@ -118,7 +120,7 @@ export const Product = () => {
             ) : productId === product.id ? (
                 <Column marginRight={filterMargin} width="100%">
                     <Section justifyEnd>
-                        <Row marginBottom="20px" marginRight={filterMargin}>
+                        <Row marginBottom={isMobile ? '8px' : '20px'} marginRight={isMobile ? '0' : filterMargin}>
                             <AdministratorLayout>
                                 <SimpleButton
                                     background={errorColor}
@@ -127,7 +129,7 @@ export const Product = () => {
                                     color={white}
                                     fontSize={buttonsFontSize}
                                     fontWeight={buttonsFontWeight}
-                                    marginRight={descriptionPadding}
+                                    marginRight={isMobile ? '0' : descriptionPadding}
                                     padding={buttonsPadding}
                                     onClick={deleteProductHandler}
                                 >

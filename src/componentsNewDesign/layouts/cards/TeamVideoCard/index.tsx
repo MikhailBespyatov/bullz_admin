@@ -141,12 +141,12 @@ export const TeamVideoCard = ({
                 <Section alignCenter justifyBetween marginTop="8px">
                     <Row alignCenter noWrap marginLeft="10px">
                         {/* <DateContent>{utcUploaded}</DateContent> */}
-
                         <MarginWrapper /*marginLeft="24px"*/>
                             <BlockTitle color={grey4}>{audioLanguages}</BlockTitle>
                         </MarginWrapper>
                     </Row>
                     {/* <Row alignCenter justifyEnd marginRight="20px">
+
                         <SimpleButton
                             background="transparent"
                             color={grey4}
@@ -157,7 +157,6 @@ export const TeamVideoCard = ({
                         </SimpleButton>
                     </Row> */}
                 </Section>
-
                 <ContentWrapper borderRadius="0px" height="46px" padding="8px 10px 4px" width="100%">
                     <ScrollableWrapper alignCenter noWrap paddingBottom="8px" width="100%">
                         {hashTags?.length
@@ -169,13 +168,14 @@ export const TeamVideoCard = ({
                             : 'no hashtags'}
                     </ScrollableWrapper>
                 </ContentWrapper>
+
                 <ContentWrapper borderRadius="0px" padding="4px 10px" width="100%">
                     <Section alignCenter justifyBetween>
                         <PropertyBlock
                             //copiable
-                            horizontalPadding={propertyBlockHorizontalPadding}
                             //noWrap
                             //linkRoute={homeLink}
+                            horizontalPadding={propertyBlockHorizontalPadding}
                             subtitle={id}
                             //success="Video ID was copied"
                             title="Video ID "
@@ -184,8 +184,8 @@ export const TeamVideoCard = ({
 
                         <PropertyBlock
                             copiable
-                            horizontalPadding={propertyBlockHorizontalPadding}
                             //noWrap
+                            horizontalPadding={propertyBlockHorizontalPadding}
                             linkRoute={usersLink}
                             subtitle={ownerId}
                             success="User ID was copied"
