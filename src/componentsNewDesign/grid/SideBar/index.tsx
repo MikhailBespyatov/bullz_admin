@@ -31,7 +31,7 @@ import { blue2, grey23 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { useToggle } from 'hooks/toggle';
 import React, { useMemo } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { userEvents, userStores } from 'stores/users/user';
 import { parseKeyWithoutId } from 'utils/usefulFunctions';
 

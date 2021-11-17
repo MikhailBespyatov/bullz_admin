@@ -53,6 +53,7 @@ export const selectHover = '#F0F0F0';
 export const darkGrey = 'greylatedark';
 export const greenYellow = '#00ff44';
 export const green = '#149C2B';
+export const green2 = '#29E20A';
 export const pink = '#f4e2ff';
 export const purple = '#6519ca';
 export const skyBlue = '#0f52ff';

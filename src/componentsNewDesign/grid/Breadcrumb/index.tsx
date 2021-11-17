@@ -3,7 +3,7 @@ import { ContentText } from 'componentsNewDesign/common/typography/ContentText/s
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { grey13 } from 'constants/styles/colors';
 import React from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { capitalizeChar } from 'utils/usefulFunctions';
 
 export const Breadcrumb = () => {

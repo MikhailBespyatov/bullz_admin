@@ -1,3 +1,4 @@
+import { noop } from 'constants/functions';
 import { combine, createEvent, createStore } from 'effector';
 import { StrictVisibility } from 'types/styles';
 
@@ -81,3 +82,33 @@ export interface RemoveOrBanUserModalProps {
 }
 
 export const removeOrBanUserModal = initializeGenericStore<RemoveOrBanUserModalProps>({ teamId: '' });
+
+export interface PromotionCreatedCongratsModalProps {
+    promotionName?: string;
+    promotionId?: string;
+}
+
+export const promotionCreatedCongratsModal = initializeGenericStore<PromotionCreatedCongratsModalProps>({
+    promotionName: '',
+    promotionId: ''
+});
+
+export interface ConfirmPromotionActivationModalProps {
+    promotionName?: string;
+    promotionId?: string;
+    onOk: () => void;
+}
+
+export const confirmPromotionActivationModal = initializeGenericStore<ConfirmPromotionActivationModalProps>({
+    promotionName: '',
+    promotionId: '',
+    onOk: noop
+});
+
+export interface InformationalModalProps {
+    infoText: string;
+}
+
+export const informationalModal = initializeGenericStore<InformationalModalProps>({
+    infoText: ''
+});

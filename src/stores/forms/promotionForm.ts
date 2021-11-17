@@ -1,143 +1,112 @@
-//import history from 'browserHistory';
-//import { routes } from 'constants/routes';
-import { createEffect, createEvent, createStore /*forward*/ } from 'effector';
-//import { createForm } from 'effector-forms';
-import { loadingEffects } from 'stores/loading';
-import { promotionsEffects } from 'stores/promotions/promotions';
+import addDays from 'date-fns/addDays';
+import { createForm } from 'effector-forms';
 
-const { createPromotion, updatePromotion } = promotionsEffects;
-
-// export const promotionForm = createForm({
-//     fields: {
-//         id: {
-//             init: ''
-//             // rules: [
-//             //     createRule<string>({
-//             //         name: 'promotionId',
-//             //         schema:
-//             //     })
-//             // ]
-//         },
-//         name: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'promotionName'
-//                     // schema: ,
-//                 })
-//             ]
-//         },
-//         startDate: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'startDate'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         endDate: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'endDate'
-//                     // schema:
-//                 })
-//             ]
-//         },
-//         ageRanges: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'ageRanges'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         userGender: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'userGender'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         pageRoute: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'pageRoute'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         targetRegion: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'targetRegion'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         isPromotionActive: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'promotionStatus'
-//                     //schema:
-//                 })
-//             ]
-//         },
-//         imageUrl: {
-//             init: '',
-//             rules: [
-//                 createRule<string>({
-//                     name: 'thumbnailImage'
-//                     //schema:
-//                 })
-//             ]
-//         }
-//     },
-//     validateOn: ['change', 'blur', 'submit']
-// });
-
-//using form for different events
-const editSubmit = createEvent();
-const addSubmit = createEvent();
-
-const isPromotionCreate = createStore<boolean>(false)
-    .on(addSubmit, _ => true)
-    .on(editSubmit, _ => false);
-
-export const handlePromotion = createEffect({
-    handler: async (values: BULLZ.CreatePromotionRequest) => {
-        try {
-            loadingEffects.updateInitialLoading();
-            const isCreate = isPromotionCreate.getState();
-            const data = isCreate ? await createPromotion(values) : await updatePromotion(values);
-
-            loadingEffects.updateInitialLoading();
-            //history.push(themeStores.globalPrefixUrl.getState() + routes.campaignManager.products.index);
-
-            return data || {};
-        } catch {
-            loadingEffects.updateInitialLoading();
-            return {};
+export const promotionForm = createForm({
+    fields: {
+        id: {
+            init: '',
+            validateOn: ['change'],
+            rules: [
+                {
+                    name: 'promotionId',
+                    validator: (value: string) => !!value
+                }
+            ]
+        },
+        name: {
+            init: '',
+            validateOn: ['change'],
+            rules: [
+                {
+                    name: 'promotionName',
+                    validator: (value: string) => !!value
+                }
+            ]
+        },
+        startDate: {
+            init: new Date().toISOString()
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'startDate',
+            //         validator: (value: string) => !!value
+            //     }
+            // ]
+        },
+        endDate: {
+            init: addDays(new Date(), 1).toISOString()
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'endDate',
+            //         validator: (value: string) => !!value
+            //     }
+            // ]
+        },
+        ageRanges: {
+            init: [] as BULLZ.AgeRange[]
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'ageRanges',
+            //         validator: (value: BULLZ.AgeRange[]) => !!value
+            //     }
+            // ]
+        },
+        userGenders: {
+            init: [] as BULLZ.UserGender[]
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'userGenders',
+            //         validator: (value: BULLZ.UserGender[]) => !!value
+            //     }
+            // ]
+        },
+        targetRegions: {
+            init: [] as string[]
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'targetRegions',
+            //         validator: (value: string[]) => !!value
+            //     }
+            // ]
+        },
+        isPromotionActive: {
+            init: false
+            // validateOn: ['change'],
+            // rules: [
+            //     {
+            //         name: 'promotionStatus',
+            //         validator: (value: boolean) => value
+            //     }
+            // ]
+        },
+        pageRoute: {
+            init: '',
+            validateOn: ['change'],
+            rules: [
+                {
+                    name: 'pageRoute',
+                    validator: (value: string) => !!value
+                }
+            ]
+        },
+        imageUrl: {
+            init: '',
+            validateOn: ['change'],
+            rules: [
+                {
+                    name: 'thumbnailImage',
+                    validator: (value: string) => !!value
+                }
+            ]
         }
-    }
+    },
+    validateOn: ['change', 'blur', 'submit']
 });
 
-//form will submit by triggered events
-//forward({ from: [addSubmit, editSubmit], to: promotionForm.submit });
-
-//forward({ from: promotionForm.formValidated, to: handlePromotion });
-
-//reset form
-// forward({
-//     from: [handlePromotion.doneData],
-//     to: promotionForm.resetValues
+// promotionForm.$values.watch(state => {
+//     console.log('form changed', state);
 // });
-
-export const promotionFormEvents = { editSubmit, addSubmit };

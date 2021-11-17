@@ -1,8 +1,7 @@
 import { Breadcrumb as AntBreadcrumb } from 'antd';
 import { Section } from 'components/grid/Section';
 import React from 'react';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Breadcrumb = () => {
     const location = useLocation();

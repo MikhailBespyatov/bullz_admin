@@ -7,294 +7,364 @@ import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePick
 import { TextInput } from 'componentsNewDesign/common/inputs/TextInput';
 import { RemovableHashtag } from 'componentsNewDesign/common/tags/RemovableHashtag';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
+import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import {
     arrowDiameter,
+    imageRequiredMessage,
     imageWrapperBorderRadius,
     imageWrapperHeight,
     imageWrapperWidth,
     inputBorderBottom,
     pageRoutePlaceholder,
     promotionNamePlaceholder,
+    regionTagsPadding,
     targetRegionsPlaceholder,
-    wrapperBorderRadius,
+    textFontSize,
+    textFontWeight,
     wrapperPadding
 } from 'componentsNewDesign/layouts/cards/PromotionCard/constants';
-import { ImageContainer } from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
+import { ImageContainer, PromotionCardButton } from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
+import { UploadPromotionImgPopover } from 'componentsNewDesign/modals/popovers/marketingTools/UploadPromotionImgPopover';
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
-import { noop } from 'constants/functions';
 import { marketingToolsLink } from 'constants/routes';
-import { black, errorColor, grey23, grey28, white } from 'constants/styles/colors';
-import { useToggle } from 'hooks/toggle';
-import React, { KeyboardEvent, useState } from 'react';
-//import { promotionsEffects } from 'stores/promotions/promotions';
+import { black, errorColor, green2, grey23, grey28, white } from 'constants/styles/colors';
+import { useField } from 'effector-forms/dist';
+import { useStore } from 'effector-react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { promotionForm } from 'stores/forms/promotionForm';
+import {
+    confirmPromotionActivationModal,
+    informationalModal,
+    promotionCreatedCongratsModal
+} from 'stores/initialize/initialize.modal.store';
+import { promotionsEffects, promotionsEvents, promotionsStores } from 'stores/promotions/promotions';
 
-// const {
-// id,
-// name,
-// startDate,
-// endDate,
-//ageRanges,
-//userGender,
-// pageRoute,
-// targetRegions,
-//isPromotionActive,
-// imageUrl
-// } = forms.promotionForm.fields;
+const { /*createPromotion,*/ updatePromotion } = promotionsEffects;
+const { invokeGetItems } = promotionsEvents;
+const { openModal: openCongratsModal } = promotionCreatedCongratsModal;
+const { openModal: openInfoModal } = informationalModal;
+const { openModal: openConfirmActivationModal } = confirmPromotionActivationModal;
 
-//const { createPromotion, updatePromotion } = promotionsEffects;
-
-export interface PromotionCardProps {
-    id?: string;
-    name?: string;
-    startDate?: string;
-    endDate?: string;
-    //ageRanges,
-    //userGender,
-    pageRoute?: string;
-    targetRegions?: string[];
-    isPromotionActive?: boolean;
-    imageUrl?: string;
+interface ParamsProps {
+    promotionId: string;
 }
 
-export const PromotionCard = ({
-    id,
-    name,
-    startDate,
-    endDate,
-    pageRoute,
-    targetRegions,
-    imageUrl,
-    isPromotionActive = false
-}: PromotionCardProps) => {
-    //const {
-    //id
-    // userAgeRanges,
-    // userGenders,
-    // location,
-    // icon,
-    // isActive,
-    // pageLocation
-    //imageUrl: imageUrlValue
-    //} = useStore(promotionsStores.promotion);
+export const PromotionCard = () => {
+    /*isValid: isIdValid, validate: validateId* , onChange: onIdChange*/
+    /*isValid: isNameValid ,validate: validateName*/
+    /*isValid: isStartDateValid, validate: validateStartDate*/
+    /*isValid: isEndDateValid ,validate: validateEndDate*/
+    const { promotionId } = useParams<ParamsProps>();
+    const { items: promotions } = useStore(promotionsStores.promotions);
+    const [isCardLoading, setIsCardLoading] = useState(false);
+    const isUpdatePending = useStore(updatePromotion.pending);
+    const [currentlyActivePromotion, setCurrentlyActivePromotion] = useState<BULLZ.GetAdminPromotionResponse>({});
 
-    //const { reset } = useForm(forms.promotionCardForm);
-    //const { imageUrl: imageUrlValue } = useStore(promotionsStores.promotion);
-    //const { promotionId } = useParams<ParamsProps>();
-    //const onStateChange = (isActive: boolean) => isPromotionActive.onChange(isActive);
+    const { value: id, set: setId } = useField(promotionForm.fields.id);
+    const { value: promotionName, onChange: onNameChange } = useField(promotionForm.fields.name);
+    const { value: imageUrl, set: setImageUrl } = useField(promotionForm.fields.imageUrl);
+    const { value: startDate, onChange: onStartDateChange } = useField(promotionForm.fields.startDate);
+    const { value: endDate, onChange: onEndDateChange } = useField(promotionForm.fields.endDate);
+    const { value: ageRanges /*, onChange: onAgeRangesChange*/ } = useField(promotionForm.fields.ageRanges);
+    const { value: userGenders /*, onChange: onUserGendersChange */ } = useField(promotionForm.fields.userGenders);
+
+    const { value: pageRoute, onChange: onPageRouteChange, set: setPageRoute } = useField(
+        promotionForm.fields.pageRoute
+    );
+    const { value: targetRegions, onChange: onTargetRegionsChange, set: setTargetRegions } = useField(
+        promotionForm.fields.targetRegions
+    );
+    const { value: isPromotionActive, set: setIsPromotionActive } = useField(promotionForm.fields.isPromotionActive);
+
+    const [toggleButtonIsActive, setToggleButtonIsActive] = useState(false);
+    const [toggleButtonText, setToggleButtonText] = useState('Activate Promotion');
+
     const [location, setLocation] = useState<string>('');
-    const [locations, setLocations] = useState<string[]>(targetRegions || []);
-    const [isActive, setIsActive] = useToggle(isPromotionActive);
 
     const addNewLocation = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            !locations.some(item => e.currentTarget.value === item) &&
-                setLocations([...locations, e.currentTarget.value]);
+            !targetRegions.some((item: string) => e.currentTarget.value === item) &&
+                onTargetRegionsChange([...targetRegions, e.currentTarget.value]);
             setLocation('');
         }
     };
-    const removeLocation = (name: string) => setLocations(state => state.filter(i => i !== name));
+    const removeLocation = (name: string) => onTargetRegionsChange(targetRegions.filter(i => i !== name));
 
-    //* GENDER  0 = NotGiven<br/>1 = Male<br/>2 = Female<br/>3 = NonBinary
-
-    const onDateRangeClick = (/*dateRange: [string, string]*/) => {
-        //setPromotionStartDate(dateRange[0]);
-        //setPromotionEndDate(dateRange[1]);
+    const onDateRangeClick = (dateRange: [string, string]) => {
+        onStartDateChange(dateRange[0]);
+        onEndDateChange(dateRange[1]);
     };
 
-    const onBackArrowClick = () => history.push(marketingToolsLink);
+    const onBackArrowClick = () => {
+        history.push(marketingToolsLink);
+        promotionForm.resetValues();
+    };
 
-    // const onCreateButtonClick = () => {
-    //     createPromotion({
-    //         name: promotionName //! There is no promotionName in create request?
-    //         userAgeRanges: promotionAgeRanges, //! no in design
-    //         userGenders: promotionUserGender, //! no in design
-    //         location: targetRegions,
-    //         pageLocation: pageRoute
-    //         icon: undefined, //! There is no promotionImage in create request?
-    //         isActive: isPromotionActive, //! There is no status in create request?
-    //     });
-    // };
+    const onCreateButtonClick = () => {
+        openInfoModal({ infoText: imageRequiredMessage });
 
-    // const onUpdateButtonClick = () => {
-    //     updatePromotion({
-    //         id: id,
-    //         name: promotionName //! is this possible to update Name
-    //         userAgeRanges: promotionAgeRanges, //! no in design
-    //         userGenders: promotionUserGender, //! no in design
-    //         geoLocations: targetRegions,
-    //         pageLocation: pageRoute,
-    //         icon: undefined, //! is this possible to update image
-    //         isActive: isPromotionActive
-    //     });
-    // };
+        // promotionForm.resetValues();
+        // createPromotion({
+        //     userAgeRanges: ageRanges, //! no in design
+        //     userGenders, //! no in design
+        //     location: targetRegions,
+        //     pageLocation: pageRoute
+        //     //name: promotionName //! There is no promotionName in create request
+        //     //isActive: isPromotionActive, //! There is no status in create request
+        //     // startDate: startDate, //! There is no promotion duration in create request
+        //     // endDate?: endDate,
+        // });
+        // onBackArrowClick();
+    };
 
-    // useEffect(() => {
-    //     isEditPage ? promotionsEffects.getItemById(promotionsId) : promotionsEffects.resetItem();
-    //     isEditPage && imageUrlValue && imageUrl.set(imageUrlValue);
+    const onUpdateButtonClick = async () => {
+        const activatePromotion = !isPromotionActive && toggleButtonIsActive;
 
-    //     reset();
+        if (!isPromotionActive && toggleButtonIsActive && currentlyActivePromotion) {
+            await updatePromotion({
+                id: currentlyActivePromotion.id,
+                isActive: false
+            });
+        }
 
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
+        const { isSuccess } = await updatePromotion({
+            id: id,
+            userAgeRanges: ageRanges.length ? ageRanges : undefined, //! no in design
+            userGenders: userGenders.length ? userGenders : undefined, //! no in design
+            geoLocations: targetRegions.length ? targetRegions : undefined,
+            pageLocation: pageRoute,
+            isActive: isPromotionActive ? !toggleButtonIsActive : toggleButtonIsActive
+            //name: promotionName //! There is no name in update request
+            //icon: imageUrl, //! There is no name in icon update request
+            // startDate: startDate, //! There is no promotion duration in update request
+            // endDate?: endDate,
+        });
+
+        if (activatePromotion && isSuccess) {
+            openCongratsModal({ promotionId: id });
+        }
+    };
+
+    const onToggleButtonClick = () => {
+        if (!isPromotionActive && currentlyActivePromotion.id && id !== currentlyActivePromotion.id) {
+            openConfirmActivationModal({
+                promotionId: currentlyActivePromotion.id,
+                onOk: () => setToggleButtonIsActive(!toggleButtonIsActive)
+            });
+        } else {
+            setToggleButtonIsActive(!toggleButtonIsActive);
+        }
+    };
+
+    useEffect(() => {
+        if (promotionId) {
+            setIsCardLoading(true);
+            const selectedPromotion = promotions?.find(item => item.id === promotionId);
+
+            setId(promotionId);
+            selectedPromotion?.location && setTargetRegions(selectedPromotion.location);
+            selectedPromotion?.pageLocation && setPageRoute(selectedPromotion.pageLocation);
+            selectedPromotion?.isActive !== undefined && setIsPromotionActive(selectedPromotion.isActive);
+            selectedPromotion?.icon && setImageUrl(selectedPromotion?.icon);
+
+            setToggleButtonIsActive(false);
+            selectedPromotion?.isActive
+                ? setToggleButtonText('Deactivate Promotion')
+                : setToggleButtonText('Activate Promotion');
+
+            setIsCardLoading(false);
+        }
+
+        const activePromotion = promotions?.find(item => item.isActive === true);
+        activePromotion ? setCurrentlyActivePromotion(activePromotion) : setCurrentlyActivePromotion({});
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [promotionId, promotions]);
+
+    useEffect(() => {
+        invokeGetItems();
+        setToggleButtonIsActive(false);
+    }, [promotionId]);
 
     return (
-        <ContentWrapper
-            backgroundColor={grey28}
-            borderRadius={wrapperBorderRadius}
-            padding={wrapperPadding}
-            width="745px"
-        >
-            <Section marginBottom="30px">
-                <ClickableWrapper onClick={onBackArrowClick}>
-                    <MarginWrapper marginRight="20px">
-                        <CustomImage src={arrow} width={arrowDiameter} />
-                    </MarginWrapper>
-                    <ContentText fontSize="16px" fontWeight="700">
-                        Create Promotion
-                    </ContentText>
-                </ClickableWrapper>
-            </Section>
-            <Section noWrap>
-                <ContentWrapper
-                    backgroundColor={grey23}
-                    borderRadius={imageWrapperBorderRadius}
-                    height={imageWrapperHeight}
-                    marginLeft="35px"
-                    padding="8px"
-                    width={imageWrapperWidth}
-                >
-                    <ImageContainer>
-                        {imageUrl ? (
-                            <CustomImage src={imageUrl}></CustomImage>
+        <>
+            {isCardLoading ? (
+                <Section alignCenter justifyCenter height="70vh">
+                    <Loader size="large" />
+                </Section>
+            ) : (
+                <ContentWrapper backgroundColor={grey28} padding={wrapperPadding} width="745px">
+                    <Section justifyBetween marginBottom="30px">
+                        <ClickableWrapper onClick={onBackArrowClick}>
+                            <MarginWrapper marginRight="20px">
+                                <CustomImage src={arrow} width={arrowDiameter} />
+                            </MarginWrapper>
+                            <ContentText fontSize="16px" fontWeight="700">
+                                {promotionId ? `Update Promotion` : 'Create Promotion'}
+                            </ContentText>
+                        </ClickableWrapper>
+                        {isUpdatePending ? (
+                            <Loader size="small" />
                         ) : (
-                            <ClickableWrapper onClick={noop}>
-                                <ContentText fontSize="12px" fontWeight="500">
-                                    Add Image
-                                </ContentText>
-                            </ClickableWrapper>
-                        )}
-                    </ImageContainer>
-                </ContentWrapper>
-                <Column marginLeft="25px" marginRight="25px" width="465px">
-                    <ContentText fontSize="12px" fontWeight="500">
-                        Promotion Name
-                    </ContentText>
-                    <Section marginBottom="16px" marginTop="5px">
-                        <TextInput
-                            borderBottom={inputBorderBottom}
-                            placeholder={promotionNamePlaceholder}
-                            value={name}
-                        />
-                    </Section>
-
-                    <ContentText fontSize="12px" fontWeight="500">
-                        Page Route
-                    </ContentText>
-
-                    <Section marginBottom="16px" marginTop="5px">
-                        <TextInput
-                            borderBottom={inputBorderBottom}
-                            placeholder={pageRoutePlaceholder}
-                            value={pageRoute || undefined}
-                        />
-                    </Section>
-
-                    <ContentText fontSize="12px" fontWeight="500">
-                        Target regions
-                    </ContentText>
-                    <Section marginTop="5px">
-                        <TextInput
-                            borderBottom={inputBorderBottom}
-                            placeholder={targetRegionsPlaceholder}
-                            value={location}
-                            onChange={setLocation}
-                            onKeyDown={addNewLocation}
-                        />
-                    </Section>
-                    <Section marginBottom="16px">
-                        {!!locations?.length && (
-                            <ContentWrapper height="50px" padding=" 10px 13px 13px 0px" width="100%">
-                                <ScrollableWrapper maxHeight="50px" overflowY="scroll" width="100%">
-                                    {locations.map(item => (
-                                        <RemovableHashtag
-                                            key={item}
-                                            subject={item}
-                                            text={item}
-                                            type="video"
-                                            untouchable={false}
-                                            onRemove={removeLocation}
-                                        />
-                                    ))}
-                                </ScrollableWrapper>
-                            </ContentWrapper>
+                            <ContentWrapper
+                                backgroundColor={isPromotionActive ? green2 : errorColor}
+                                borderRadius="50%"
+                                height={arrowDiameter}
+                                minWidth={arrowDiameter}
+                                width={arrowDiameter}
+                            />
                         )}
                     </Section>
+                    <Section noWrap>
+                        <ContentWrapper
+                            backgroundColor={grey23}
+                            borderRadius={imageWrapperBorderRadius}
+                            height={imageWrapperHeight}
+                            marginLeft="35px"
+                            padding="8px"
+                            width={imageWrapperWidth}
+                        >
+                            <ImageContainer>
+                                {imageUrl ? (
+                                    <Section alignCenter justifyCenter height="100%">
+                                        <UploadPromotionImgPopover id={id} type="down">
+                                            <CustomImage height="auto" src={imageUrl} width="100%" />
+                                        </UploadPromotionImgPopover>
+                                    </Section>
+                                ) : (
+                                    <UploadPromotionImgPopover id={id} type="down">
+                                        <SimpleButton
+                                            background="transparent"
+                                            color={white}
+                                            fontSize={textFontSize}
+                                            fontWeight={textFontWeight}
+                                            height="150px"
+                                            width="100%"
+                                        >
+                                            Add Image
+                                        </SimpleButton>
+                                    </UploadPromotionImgPopover>
+                                )}
+                            </ImageContainer>
+                        </ContentWrapper>
 
-                    <ContentText fontSize="12px" fontWeight="500">
-                        Select Date
-                    </ContentText>
-                    <Row marginBottom="35px" marginTop="15px" maxWidth="400px">
-                        <DateRangePicker dateRange={[startDate || '', endDate || '']} onChange={onDateRangeClick} />
-                    </Row>
-                    <Section marginBottom="16px">
-                        <SimpleButton background={grey23}>
-                            <Row alignCenter marginRight="16px">
-                                <ToggleButton value={isActive} onChange={setIsActive} />
+                        <Column marginLeft="25px" marginRight="25px" width="465px">
+                            <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
+                                Promotion Name
+                            </ContentText>
+                            <Section marginBottom="16px" marginTop="5px">
+                                <TextInput
+                                    borderBottom={inputBorderBottom}
+                                    placeholder={promotionNamePlaceholder}
+                                    value={promotionName}
+                                    onChange={value => onNameChange(value)}
+                                    onClick={() => onNameChange('')}
+                                />
+                            </Section>
+
+                            <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
+                                Page Route
+                            </ContentText>
+
+                            <Section marginBottom="16px" marginTop="5px">
+                                <TextInput
+                                    borderBottom={inputBorderBottom}
+                                    placeholder={pageRoutePlaceholder}
+                                    value={pageRoute}
+                                    onChange={value => onPageRouteChange(value)}
+                                    onClick={() => setPageRoute('')}
+                                />
+                            </Section>
+
+                            <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
+                                Target regions
+                            </ContentText>
+                            <Section marginTop="5px">
+                                <TextInput
+                                    borderBottom={inputBorderBottom}
+                                    placeholder={targetRegionsPlaceholder}
+                                    value={location}
+                                    onChange={setLocation}
+                                    onClick={() => setLocation('')}
+                                    onKeyDown={addNewLocation}
+                                />
+                            </Section>
+                            <Section marginBottom="16px">
+                                {!!targetRegions?.length && (
+                                    <ContentWrapper height="50px" padding={regionTagsPadding} width="100%">
+                                        <ScrollableWrapper maxHeight="50px" overflowY="scroll" width="100%">
+                                            {targetRegions.map((item: string) => (
+                                                <RemovableHashtag
+                                                    key={item}
+                                                    subject={item}
+                                                    text={item}
+                                                    type="video"
+                                                    untouchable={false}
+                                                    onRemove={removeLocation}
+                                                />
+                                            ))}
+                                        </ScrollableWrapper>
+                                    </ContentWrapper>
+                                )}
+                            </Section>
+
+                            <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
+                                Select Date
+                            </ContentText>
+                            <Row marginBottom="35px" marginTop="15px" maxWidth="400px">
+                                <DateRangePicker
+                                    dateRange={[startDate || '', endDate || '']}
+                                    onChange={onDateRangeClick}
+                                />
                             </Row>
-                            <ContentText>{id ? 'Deactivate Promotion' : 'Activate Promotion'}</ContentText>
-                        </SimpleButton>
-                    </Section>
+                            <Section marginBottom="16px">
+                                <SimpleButton background={grey23} backgroundHover="#383636">
+                                    <Row alignCenter marginRight="16px">
+                                        <ToggleButton value={toggleButtonIsActive} onChange={onToggleButtonClick} />
+                                    </Row>
 
-                    <Section>
-                        {!id && (
-                            <SimpleButton
-                                background={white}
-                                borderRadius="4px"
-                                color={black}
-                                fontWeight="400"
-                                marginBottom="10px"
-                                padding="8px"
-                                onClick={noop}
-                            >
-                                Create Promotion
-                            </SimpleButton>
-                        )}
+                                    <ContentText>{toggleButtonText}</ContentText>
+                                </SimpleButton>
+                            </Section>
 
-                        {id && (
-                            <>
-                                <SimpleButton
-                                    background={black}
-                                    borderRadius="4px"
-                                    color={white}
-                                    fontWeight="400"
-                                    marginBottom="10px"
-                                    marginRight="8px"
-                                    padding="8px"
-                                    onClick={noop}
-                                >
-                                    Update Promotion
-                                </SimpleButton>
-                                <SimpleButton
-                                    background={errorColor}
-                                    borderRadius="4px"
-                                    color={white}
-                                    fontWeight="400"
-                                    marginBottom="10px"
-                                    padding="8px"
-                                    width="110px"
-                                    onClick={noop}
-                                >
-                                    Delete
-                                </SimpleButton>
-                            </>
-                        )}
+                            <Section>
+                                {!promotionId && (
+                                    <PromotionCardButton background={white} color={black} onClick={onCreateButtonClick}>
+                                        Create Promotion
+                                    </PromotionCardButton>
+                                )}
+
+                                {promotionId && (
+                                    <>
+                                        <PromotionCardButton
+                                            background={black}
+                                            color={white}
+                                            marginRight="8px"
+                                            onClick={onUpdateButtonClick}
+                                        >
+                                            Update Promotion
+                                        </PromotionCardButton>
+                                        {/* <PromotionCardButton
+                                            disabled
+                                            background={errorColor}
+                                            color={white}
+                                            width="110px"
+                                            onClick={noop}
+                                        >
+                                            Delete
+                                        </PromotionCardButton> */}
+                                    </>
+                                )}
+                            </Section>
+                        </Column>
                     </Section>
-                </Column>
-            </Section>
-        </ContentWrapper>
+                </ContentWrapper>
+            )}
+        </>
     );
 };

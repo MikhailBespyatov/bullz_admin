@@ -4,7 +4,12 @@ import {
 } from 'components/common/tables/AffiliateLinksTable/types';
 import { VideoCurateEditableChange } from 'components/layouts/cards/videos/VideoCard/types';
 import { Id, Index, StrictTitle } from 'types/data';
-import { ProductCardEditableChange, TeamCardEditableChange, VideoCardEditableChange } from 'types/form';
+import {
+    ProductCardEditableChange,
+    PromotionCardImageUrlChange,
+    TeamCardEditableChange,
+    VideoCardEditableChange
+} from 'types/form';
 import { Visibility } from 'types/styles';
 import { noop, OkHandlerType, SubjectType } from 'types/types';
 
@@ -35,6 +40,11 @@ export interface ChangeAffiliateLinkModalProps
         AffiliateLinksEditableChange {}
 
 export interface UploadProductImageModalProps extends ProductCardEditableChange, Id {
+    formData: FormData;
+    url: string;
+}
+
+export interface UploadPromotionImageModalProps extends PromotionCardImageUrlChange, Id {
     formData: FormData;
     url: string;
 }

@@ -57,8 +57,7 @@ import {
     userNotFoundMessage
 } from 'pages/Home/Video/constants';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { createDescriptionVideoCardModal } from 'stores/initialize/initialize.modal.store';

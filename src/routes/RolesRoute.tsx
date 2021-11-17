@@ -1,7 +1,7 @@
-import React from 'react';
-import { RouteProps } from 'react-router';
-import { AccessRoute } from 'routes/AccessRoute';
 import { Roles } from 'constants/defaults/users';
+import React from 'react';
+import { RouteProps } from 'react-router-dom';
+import { AccessRoute } from 'routes/AccessRoute';
 import { PrivateRoute } from './PrivateRoute';
 
 export const AdministratorRoute = (props: RouteProps) => (
