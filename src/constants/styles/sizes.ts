@@ -4,6 +4,7 @@ import { dividePixels, pixelsAddition } from 'utils/parsers';
 // * padding
 export const padding = '10px';
 export const filterMargin = '21px';
+export const filterMarginMobile = '8px';
 export const cardMargin = '16px';
 export const descriptionPadding = '8px';
 
@@ -52,6 +53,7 @@ export const antdTrendingCardStyle = {
 };
 
 // * adaptive
+export const xxs = '320px';
 export const xs = '480px';
 export const sm = '576px';
 export const md = '768px';

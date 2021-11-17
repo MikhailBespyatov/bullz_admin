@@ -8,3 +8,4 @@ export const rightArrowIconHeight = '12px';
 export const rightArrowIconWidth = '7px';
 
 export const dropdownWrapperWidth = `calc(100% - ${filterMargin})`;
+export const dropdownWrapperWidthMobile = '100%';

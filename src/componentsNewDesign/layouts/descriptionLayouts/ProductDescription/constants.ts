@@ -6,6 +6,8 @@ export const buttonsBorderRadius = '4px';
 
 export const brandImageHeight = '104px';
 
+export const productCardWidth = '103px';
+
 export const tableHeaderBackgroundColor = grey12;
 export const tableDataPadding = '0px 25px';
 export const tableDataBorder = `1px solid rgba(196,196,196, 0.2)`;
@@ -17,6 +19,7 @@ export const urlColor = '#3360ff';
 
 export const propertyBlockHeight = '48px';
 export const propertyBlockWidth = '158px';
+export const propertyBlockWidthMobile = '140px';
 export const propertyBlockHorizontalPadding = '4px';
 
 export const parseDeleteSuccessMessage = (name: string) => 'Video ' + name + ' successfully deleted';

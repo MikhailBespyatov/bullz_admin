@@ -1,6 +1,8 @@
+import { useMediaQuery } from '@material-ui/core';
 import arrowRight from 'assets/arrow_right.svg';
 import {
     dropdownWrapperWidth,
+    dropdownWrapperWidthMobile,
     rightArrowIconHeight,
     rightArrowIconWidth,
     titlePadding
@@ -14,11 +16,19 @@ import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { grey29 } from 'constants/styles/colors';
+import { xxs } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import React, { FC } from 'react';
 import { DefaultValueBoolean } from 'types/form';
 
-export const DropdownColumn: FC = ({ children }) => <Column width={dropdownWrapperWidth}>{children}</Column>;
+export const DropdownColumn: FC = ({ children }) => {
+    const isMobile = useMediaQuery(`(max-width: ${xxs})`);
+    return !isMobile ? (
+        <Column width={dropdownWrapperWidth}>{children}</Column>
+    ) : (
+        <Column width={dropdownWrapperWidthMobile}>{children}</Column>
+    );
+};
 
 export interface Props extends DropdownSectionProps, DefaultValueBoolean {
     title: string;
