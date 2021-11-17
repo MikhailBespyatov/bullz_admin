@@ -3,7 +3,7 @@ import {
     inputPadding,
     mobileInputBorderBottom
 } from 'componentsNewDesign/common/inputs/SearchInput/constants';
-import { xs } from 'constants/styles/sizes';
+import { xs, xxs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { BackgroundColor, BorderProperties, Padding, Sizes } from 'types/styles';
 
@@ -24,10 +24,14 @@ export const InputWrapper = styled.div<InputProps>`
 
     @media (max-width: ${xs}) {
         width: ${({ width }) => (width ? width : '100%')};
+        padding-left: 0;
         margin-left: 19px;
         margin-right: 26px;
-        padding-left: 0;
         border-bottom: ${mobileInputBorderBottom};
+        margin-bottom: 10px;
+    }
+    @media (max-width: ${xxs}) {
+        max-width: 280px;
     }
 `;
 
