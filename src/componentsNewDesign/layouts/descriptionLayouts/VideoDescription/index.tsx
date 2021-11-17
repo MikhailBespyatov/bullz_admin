@@ -83,7 +83,7 @@ const DownloadPopup = ({ setIsOpened, status, url, id }: DownloadPopupProps) => 
     const saveFile = () => {
         saveAs(`${url}`, `${id}`);
     };
-
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     return (
         <>
             <Backdrop
@@ -92,11 +92,11 @@ const DownloadPopup = ({ setIsOpened, status, url, id }: DownloadPopupProps) => 
                 }}
             />
             <DownloadPopupWrapper>
-                <MarginWrapper marginLeft="22px">
+                <MarginWrapper marginLeft={isMobile ? '0' : '22px'}>
                     {status && status === 3 ? (
-                        <CustomImg height="auto" src={downloadPopupDoneImg} width="302px" />
+                        <CustomImg height="auto" src={downloadPopupDoneImg} width={isMobile ? '280px' : '302px'} />
                     ) : (
-                        <CustomImg height="auto" src={downloadPopupLoadingImg} width="302px" />
+                        <CustomImg height="auto" src={downloadPopupLoadingImg} width={isMobile ? '280px' : '302px'} />
                     )}
                 </MarginWrapper>
 
@@ -148,7 +148,7 @@ export const VideoEngagementBlock = ({
     width = '100%',
     title = 'Engagements'
 }: VideoEngagementBlockProps) => (
-    <Column>
+    <Column width={width}>
         <Row alignCenter marginBottom={descriptionPadding} width={width}>
             <ContentText
                 color={subTitleColor}
@@ -275,7 +275,6 @@ export const VideoDescription = ({
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const videoSourse = useStore(videosStores.videoSourse);
     const isMobile = useMediaQuery(`(max-width: ${xs})`);
-
     //const isFirst = useStore(videoCommentsStores.isFirst);
     const videoComments = useStore(videoCommentsStores.videoComments);
     const totalVideoCommentsQuantity = countTotalVideoCommentsQuantity(videoComments);
@@ -340,9 +339,9 @@ export const VideoDescription = ({
                 backgroundColor={grey29}
                 disabled={isDeleted}
                 marginBottom={filterMargin}
-                marginRight={filterMargin}
+                marginRight={isMobile ? '0' : filterMargin}
             >
-                <Row justifyBetween marginBottom={descriptionPadding} width={videoPlayerWidth}>
+                <Row justifyBetween marginBottom={descriptionPadding} width={isMobile ? '100%' : videoPlayerWidth}>
                     <ContentText
                         uppercase
                         color={
@@ -403,12 +402,12 @@ export const VideoDescription = ({
                             {/* </Row> */}
                         </RelativeWrapper>
                     </Column>
-                    <Column>
+                    <Column width="100%">
                         <Section marginBottom="20px">
                             <VideoEngagementBlock
                                 engagementStatistics={engagementStatistics}
                                 title="Engagements BULLZ"
-                                width="300px"
+                                width={isMobile ? '100%' : '300px'}
                             />
                         </Section>
 
@@ -505,13 +504,12 @@ export const VideoDescription = ({
 
                         {isMobile && (
                             <>
-                                <Section>
+                                <Section justifyBetween>
                                     <PropertyBlock
                                         copiable
                                         backgroundColor={grey27}
                                         linkRoute={homeLink}
                                         marginBottom={mobilePropertyPadding}
-                                        marginRight={mobilePropertyPadding}
                                         subtitle={id}
                                         success="VideoID was copied"
                                         title="Copy videoID "
@@ -534,7 +532,6 @@ export const VideoDescription = ({
                                         backgroundColor={grey27}
                                         linkRoute={productsLink}
                                         marginBottom={mobilePropertyPadding}
-                                        marginRight={mobilePropertyPadding}
                                         subtitle={primaryProductId}
                                         success="ProductID was copied"
                                         title="Copy productID"
@@ -553,8 +550,6 @@ export const VideoDescription = ({
                                     <PropertyBlock
                                         backgroundColor={grey27}
                                         marginBottom={mobilePropertyPadding}
-                                        //subtitle={getFullLanguage(audioLanguages)}
-                                        marginRight={mobilePropertyPadding}
                                         subtitle={languagesOfTheVideo}
                                         title="Audio Language"
                                         width={mobilePropertyWidth}
@@ -577,7 +572,7 @@ export const VideoDescription = ({
                         <HashtagsWrapper>
                             <Column
                                 marginBottom={isMobile ? '16px' : '0'}
-                                marginRight={descriptionPadding}
+                                marginRight={isMobile ? '0' : descriptionPadding}
                                 width={isMobile ? '100%' : '370px'}
                             >
                                 <HashtagsInput
@@ -689,7 +684,7 @@ export const VideoDescription = ({
                     ) : null}
                 </Section>
             </DescriptionWrapper>
-            <VideoCommentsWrapper backgroundColor={grey29} marginRight={filterMargin}>
+            <VideoCommentsWrapper backgroundColor={grey29} marginRight={isMobile ? '0' : filterMargin}>
                 {commentsLoading ? (
                     <Section justifyCenter>
                         <Loader size="large" />

@@ -22,7 +22,7 @@ export const getLanguagesName = (array: string[]) => {
             continue;
         }
 
-        stringOfLanguagesName += locale.getByTag(array[i]).name + ' ';
+        if (locale.getByTag(array[i])) stringOfLanguagesName += locale.getByTag(array[i]).name + ' ';
     }
 
     return stringOfLanguagesName.trim();

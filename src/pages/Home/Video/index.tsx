@@ -295,7 +295,7 @@ export const Video = () => {
                         {!isTabs(InfoTabs.User) && !isTabs(InfoTabs.Statistics) && !isTabs(InfoTabs.WomVideo) && (
                             <ManagerLayout>
                                 <SimpleButton
-                                    background={black}
+                                    background={isMobile ? hoverGrey2 : black}
                                     backgroundHover={hoverGrey2}
                                     borderRadius={buttonsBorderRadius}
                                     color={white}
@@ -328,7 +328,7 @@ export const Video = () => {
                         )}
                         <CuratePopoverLayout disabled={curationState !== 1} id={videoId} type="down">
                             <VideoCardButton
-                                backgroundColor={black}
+                                backgroundColor={isMobile ? hoverGrey2 : black}
                                 backgroundHover={hoverGrey2}
                                 borderRadius={buttonsBorderRadius}
                                 color={white}

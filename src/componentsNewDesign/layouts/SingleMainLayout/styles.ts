@@ -14,5 +14,6 @@ export const SingleMainWrapper = styled.div`
 
     @media (max-width: ${xs}) {
         border-radius: 0;
+        padding: 14px 8px;
     }
 `;
