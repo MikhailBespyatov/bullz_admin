@@ -334,4 +334,4 @@ export function isValidHttpUrl(string: string) {
 }
 
 export const getEllipsisAddress = (str: string, quantity = 12) =>
-    str.length < quantity ? '' : '...' + str.substring(str.length - quantity, str.length);
+    str.length < quantity ? str : '...' + str.substring(str.length - quantity, str.length);

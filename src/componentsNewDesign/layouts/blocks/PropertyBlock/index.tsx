@@ -139,7 +139,7 @@ export const PropertyBlock = ({
                 ) : (
                     <SubtitleIdLink id={subtitle} linkRoute={linkRoute}>
                         <BlockSubTitle color={white}>
-                            {subtitle !== defaultMongoDBId ? getEllipsisAddress(subtitle as string) : 'Empty'}
+                            {subtitle !== defaultMongoDBId && !!subtitle ? getEllipsisAddress(subtitle) : 'Empty'}
                         </BlockSubTitle>
                         {isTrusted && (
                             <MarginWrapper marginLeft="8px">
