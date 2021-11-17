@@ -375,7 +375,7 @@ export const Video = () => {
                                         </OverflowAutoLayout>
                                     )}
                                 </DropdownSection> */}
-                                <DropdownSection title="Topic Videos">
+                                <DropdownSection title="Primary Topic Videos">
                                     <ProductVideosFilterLayout totalRecords={totalRecords}>
                                         {productVideosLoading ? (
                                             <Section justifyCenter>
