@@ -30,7 +30,7 @@ export const DownloadPopupWrapper = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-209px) translateY(-165px);
+    transform: translateX(-50%) translateY(-50%);
     width: 418px;
     min-height: 329px;
     z-index: 101;
@@ -39,6 +39,11 @@ export const DownloadPopupWrapper = styled.div`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.0778245);
     border-radius: 16px;
     background: ${grey28};
+
+    @media (max-width: ${xs}) {
+        width: 300px;
+        padding: 6px 6px;
+    }
 `;
 
 export const Backdrop = styled.div`
