@@ -11,7 +11,7 @@ import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { black, grey23, grey28, grey30, white } from 'constants/styles/colors';
-import { xs } from 'constants/styles/sizes';
+import { xs, xxs } from 'constants/styles/sizes';
 import styled, { css } from 'styled-components';
 import { IsClosed } from 'types/data';
 import { Active } from 'types/global';
@@ -102,6 +102,12 @@ export const TitleSpan = styled(Span)`
         font-size: 11px;
         line-height: 19px;
     }
+
+    @media (max-width: ${xxs}) {
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 8px;
+    }
 `;
 
 export const ItemSpan = styled.span<ItemWrapperProps>`
@@ -114,6 +120,11 @@ export const ItemSpan = styled.span<ItemWrapperProps>`
 
     @media (max-width: ${xs}) {
         font-size: 11px;
+        line-height: 21px;
+    }
+
+    @media (max-width: ${xxs}) {
+        font-size: 18px;
         line-height: 21px;
     }
 `;

@@ -56,6 +56,10 @@ export const PaginationWrapper = styled.div`
     ${flexStart};
     margin-right: ${paginationWrapperMarginRight};
     border-radius: ${paginationCellBorderRadius};
+
+    @media (max-width: 320px) {
+        margin-right: 0;
+    } ;
 `;
 
 export const PaginationInput = styled.input`

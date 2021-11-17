@@ -146,7 +146,8 @@ export const TeamVideoCard = ({
                         </MarginWrapper>
                     </Row>
                     {/* <Row alignCenter justifyEnd marginRight="20px">
-
+                        </Row>
+                        {/* <Row alignCenter justifyEnd marginRight="20px">
                         <SimpleButton
                             background="transparent"
                             color={grey4}

@@ -6,18 +6,21 @@ import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWr
 import { searchProductByIdParameter } from 'componentsNewDesign/layouts/filterLayouts/ProductsFilterLayout/constants';
 import { selectorWidth } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
-import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { sortTagsName, sortTagsProductsData, sortTagsProductsValues } from 'constants/filters/sorts';
 import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xxs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
 import React, { FC, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { mobileHeaderStores } from 'stores/mobileHeader';
 import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
+import { FilterMobileWrapper, SearchMobileWrapper } from './styles';
 
 const { updateValues, setDefaultValues, setIsFirstToFalse, setId } = productsEvents;
 const { loadItemById } = productsEffects;
@@ -44,6 +47,9 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
     const { pageIndex, limit, name, isReferenced } = useStore(productsStores.values);
     const isFirst = useStore(productsStores.isFirst);
     const defaultId = useStore(productsStores.getRequestId);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const filterVisible = useStore(mobileHeaderStores.filterVisible);
+    const searchVisible = useStore(mobileHeaderStores.searchVisible);
 
     const [
         { productId, limit: queryParamLimit, pageIndex: queryParamPageIndex },
@@ -126,41 +132,46 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
 
     return (
         <>
-            <SearchWrapperLayout alignCenter justifyBetween>
-                <FlexGrow flexGrow="1" marginRight={filterMargin}>
-                    <SearchInput searchParameters={searchParameters} />
-                </FlexGrow>
-                <MarginWrapper marginBottom={filterMargin} marginRight={filterMargin}>
-                    <Select
-                        defaultIndex={sortTagsProductsValues.findIndex(item => item === isReferenced)}
-                        selector={sortTagsProductsData}
-                        title={sortTagsName + sortName1}
-                        width={selectorWidth}
-                        onChange={onSortChange}
-                    />
-                </MarginWrapper>
-                <ResetSearchButton onClick={resetFilters} />
+            {!isMobile && (
+                <SearchWrapperLayout alignCenter justifyBetween>
+                    <FlexGrow flexGrow="1" marginRight={filterMargin}>
+                        <SearchInput searchParameters={searchParameters} />
+                    </FlexGrow>
+                    <MarginWrapper marginBottom={filterMargin} marginRight={filterMargin}>
+                        <Select
+                            defaultIndex={sortTagsProductsValues.findIndex(item => item === isReferenced)}
+                            selector={sortTagsProductsData}
+                            title={sortTagsName + sortName1}
+                            width={selectorWidth}
+                            onChange={onSortChange}
+                        />
+                    </MarginWrapper>
+                    <ResetSearchButton onClick={resetFilters} />
+                </SearchWrapperLayout>
+            )}
 
-                {/*<SearchCell lg={6}>*/}
-                {/*    <Search*/}
-                {/*        defaultValue={name || ''}*/}
-                {/*        placeholder={productNameSearchPlaceholder}*/}
-                {/*        onSearch={onProductNameSearch}*/}
-                {/*    />*/}
-                {/*</SearchCell>*/}
-                {/*<SearchCell removePaddingRight lg={6}>*/}
-                {/*    <Search defaultValue={defaultId} placeholder={productIdSearchPlaceholder} onSearch={onIdSearch} />*/}
-                {/*</SearchCell>*/}
-            </SearchWrapperLayout>
-            {/* <Section alignCenter> */}
-            {/* <NumberValuesRadio
-                    defaultValue={isReferenced}
-                    name={sortTagsName + sortName1}
-                    tagsData={sortTagsProductsData}
-                    tagsValues={sortTagsProductsValues}
-                    onChange={onSortChange}
-                /> */}
-            {/* </Section> */}
+            {isMobile && (
+                <FilterMobileWrapper isClosed={!filterVisible}>
+                    <MarginWrapper>
+                        <Select
+                            defaultIndex={sortTagsProductsValues.findIndex(item => item === isReferenced)}
+                            selector={sortTagsProductsData}
+                            title={sortTagsName + sortName1}
+                            width={selectorWidth}
+                            onChange={onSortChange}
+                        />
+                    </MarginWrapper>
+                    <Row justifyEnd>
+                        <ResetSearchButton onClick={resetFilters} />
+                    </Row>
+                </FilterMobileWrapper>
+            )}
+
+            {isMobile && (
+                <SearchMobileWrapper isClosed={!searchVisible || filterVisible} paddingTop="25px" width="100%">
+                    <SearchInput searchParameters={searchParameters} />
+                </SearchMobileWrapper>
+            )}
 
             {children}
             {withoutFooter ? (
