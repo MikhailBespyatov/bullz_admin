@@ -1,9 +1,9 @@
 import axios, { CancelTokenSource } from 'axios';
-import { createEffect, createEvent, createStore, forward, restore } from 'effector';
+import { createEffect, createEvent, createStore } from 'effector';
 import { API } from 'services';
 import { initializeIsFirstStore } from 'stores/initialize/initialize.isFirst.store';
 import { initializeToggleStore } from 'stores/initialize/initialize.toggle.store';
-import { defaultPromotionsValues, defaultPromotionValues } from '../../constants/defaults/promotion';
+import { defaultPromotionsValues } from '../../constants/defaults/promotion';
 
 let cancelToken: CancelTokenSource | undefined;
 
@@ -28,29 +28,11 @@ const createPromotion = createEffect({
     }
 });
 
-// createPromotion({
-//name: promotionName
-// userAgeRanges: [
-//     {
-//         start: 15,
-//         end: 20
-//     }
-// ],
-// userGenders: [1, 2],
-// location: ['Russia'],
-// pageLocation: 'https://someurl.com/3456'
-//icon: undefined,
-//isActive: isPromotionActive,
-// });
-
 const updatePromotion = createEffect({
     handler: async (values: BULLZ.UpdateAdminPromotionRequest) => {
         try {
-            cancelToken && cancelToken.cancel();
-            cancelToken = axios.CancelToken.source();
-
             updateLoading();
-            const response = await API.promotions.createPromotion(values, cancelToken.token);
+            const response = await API.promotions.updatePromotion(values);
             updateLoading();
 
             return response;
@@ -61,15 +43,18 @@ const updatePromotion = createEffect({
     }
 });
 
-const setPromotionValues = createEvent<BULLZ.GetAdminPromotionResponse>();
+// const setPromotionValues = createEvent<BULLZ.GetAdminPromotionResponse>();
 
-const promotion = createStore<BULLZ.GetAdminPromotionResponse>(defaultPromotionValues).on(
-    setPromotionValues,
-    (state, values: BULLZ.GetAdminPromotionResponse) => ({
-        ...state,
-        ...values
-    })
-);
+// const promotion = createStore<BULLZ.GetAdminPromotionResponse>(defaultPromotionValues).on(
+//     setPromotionValues,
+//     (state, values: BULLZ.GetAdminPromotionResponse) => ({
+//         ...state,
+//         ...values
+//     })
+// );
+
+// const setId = createEvent<string>();
+// const getRequestId = restore(setId, '');
 
 const loadItems = createEffect({
     handler: async (values: BULLZ.QueryAdminPromotionRequest) => {
@@ -108,23 +93,24 @@ const values = createStore<BULLZ.QueryAdminPromotionRequest>(defaultPromotionsVa
     .on(setDefaultValues, () => defaultPromotionsValues)
     .on(invokeGetItems, state => state);
 
-forward({
-    from: [values],
-    to: [loadItems]
-});
+// forward({
+//     from: [values],
+//     to: [loadItems]
+// });
 
 values.watch(invokeGetItems, state => loadItems(state));
 
-const setId = createEvent<string>();
-const getRequestId = restore(setId, '');
+updatePromotion.done.watch(() => {
+    loadItems(defaultPromotionsValues);
+});
 
 export const promotionsEvents = {
     updateValues,
     setDefaultValues,
     invokeGetItems,
     setIsFirstToFalse,
-    setIsFirstToTrue,
-    setId
+    setIsFirstToTrue
+    // setId
 };
 export const promotionsEffects = {
     loadItems,
@@ -132,11 +118,11 @@ export const promotionsEffects = {
     updatePromotion
 };
 export const promotionsStores = {
-    promotion,
+    //promotion,
     promotions,
     values,
     loading,
     //initialLoading,
-    isFirst,
-    getRequestId
+    isFirst
+    //getRequestId
 };

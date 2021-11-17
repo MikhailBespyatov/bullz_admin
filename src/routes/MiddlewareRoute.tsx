@@ -1,9 +1,9 @@
-import React from 'react';
-import { useStore } from 'effector-react';
-import { userStores } from 'stores/users/user';
 import { Roles } from 'constants/defaults/users';
-import { Redirect } from 'react-router';
 import { authLink, homeLink } from 'constants/routes';
+import { useStore } from 'effector-react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { userStores } from 'stores/users/user';
 
 export const MiddlewareRoute = () => {
     const { access } = useStore(userStores.auth);

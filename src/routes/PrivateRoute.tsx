@@ -1,9 +1,9 @@
 import { error403Link } from 'constants/routes';
 import { useStore } from 'effector-react';
 import React, { FC } from 'react';
-import { Redirect, RouteProps } from 'react-router';
-import { userStores } from 'stores/users/user';
+import { Redirect, RouteProps } from 'react-router-dom';
 import { RemoveTrailingSlashRoute } from 'routes/RemoveTrailingSlashRoute';
+import { userStores } from 'stores/users/user';
 import { AccessList } from 'types/data';
 
 interface PrivateRoute extends RouteProps, AccessList {}

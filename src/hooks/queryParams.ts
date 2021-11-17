@@ -1,7 +1,6 @@
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export const useQueryParams = <T extends {}>(callback: (queryParams: T) => void): [T, (params: T) => void] => {
     const location = useLocation();

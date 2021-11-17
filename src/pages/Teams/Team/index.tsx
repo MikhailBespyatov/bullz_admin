@@ -12,7 +12,7 @@ import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage, teamVideosWrapperPadding } from 'pages/Teams/Team/constants';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { teamsEffects, teamsStores } from 'stores/team';
 import { playlistEvents, playlistStores } from 'stores/videos/playlist';
 

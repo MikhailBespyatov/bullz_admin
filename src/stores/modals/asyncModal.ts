@@ -1,10 +1,13 @@
+import history from 'browserHistory';
 import { createAffiliateLinkSuccessMessage } from 'components/modals/formModals/CreateAffiliateLinkModal/constants';
 import { uploadNewVideoSuccessMessage } from 'components/modals/formModals/UploadVideoModal/constants';
 import { curateVideoSuccessMessage } from 'components/modals/formModals/VideoCurateModal/constants';
 import { uploadProductImageSuccessMessage } from 'componentsNewDesign/modals/formModals/products/ProductImageEditorModal/constants';
+import { uploadPromotionImageSuccessMessage } from 'componentsNewDesign/modals/popovers/marketingTools/UploadPromotionImgPopover/constants';
 import { validationReasons } from 'constants/defaults/videos';
 import { noop } from 'constants/functions';
 import { asyncError, editSuccessMessage } from 'constants/notifications';
+import { marketingToolsLink } from 'constants/routes';
 import { combine, createEffect, createEvent, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
@@ -29,7 +32,8 @@ import {
     EditTeamModalProps,
     EditVideoModalProps,
     UploadNewVideoModalProps,
-    UploadProductImageModalProps
+    UploadProductImageModalProps,
+    UploadPromotionImageModalProps
 } from 'types/modals';
 
 const getInitialVideoEditData = createEffect({
@@ -99,6 +103,19 @@ const uploadProductImg = createEffect({
         });
 
         message.success(uploadProductImageSuccessMessage);
+    }
+});
+
+const uploadPromotionImg = createEffect({
+    handler: async ({ onChange = noop, formData, id, url }: UploadPromotionImageModalProps) => {
+        await API.promotions.uploadPromotionImg(formData, id);
+
+        onChange({
+            imageUrl: url
+        });
+
+        history.push(marketingToolsLink + '/' + id);
+        message.success(uploadPromotionImageSuccessMessage);
     }
 });
 
@@ -247,6 +264,7 @@ const createProductAndSetAsPrimary = createEffect({
 const loading = initializeLoadingStore([
     editVideoInfo,
     uploadProductImg,
+    uploadPromotionImg,
     uploadNewVideo,
     createAffiliateLink,
     changeAffiliateLink,
@@ -262,6 +280,7 @@ initializeEffectFailDataWatch([
     getInitialVideoEditData,
     editVideoInfo,
     uploadProductImg,
+    uploadPromotionImg,
     uploadNewVideo,
     createAffiliateLink,
     changeAffiliateLink,
@@ -294,6 +313,7 @@ export const modalEffects = {
     createAffiliateLink,
     changeAffiliateLink,
     uploadProductImg,
+    uploadPromotionImg,
     uploadNewVideo,
     createProductAndSetAsPrimary,
     changeDefaultAffiliateLink

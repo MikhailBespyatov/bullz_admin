@@ -36,8 +36,8 @@ export const homePageLink = '/home';
 export const statisticsLink = '/registered_events';
 export const blacklistedUsersLink = '/blacklisted_users';
 export const marketingToolsLink = '/marketing_tools';
-export const promotionCreateLink = '/promotion_create';
-export const promotionUpdateLink = '/promotion_update';
+export const promotionCreateLink = '/marketing_tools/promotion_create';
+export const promotionCardLink = '/marketing_tools/:promotionId';
 
 export const dashboardLinkName = 'Dashboard';
 export const authLinkName = 'Log out';

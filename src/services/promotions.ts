@@ -9,7 +9,7 @@ export const getPromotions = (data: BULLZ.QueryAdminPromotionRequest, cancelToke
     });
 
 export const createPromotion = (data: BULLZ.CreatePromotionRequest, cancelToken?: CancelToken) =>
-    axios<BULLZ.MessageResponseBase>({
+    axios<BULLZ.CreatePromotionResponse>({
         url: '/admin/promotion/create',
         cancelToken,
         data
@@ -20,4 +20,11 @@ export const updatePromotion = (data: BULLZ.UpdateAdminPromotionRequest, cancelT
         url: '/admin/promotion/update',
         cancelToken,
         data
+    });
+
+export const uploadPromotionImg = (formData: FormData, id: string) =>
+    axios<BULLZ.MessageResponseBase>({
+        url: `/admin/promotion/upload-icon/${id}`,
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
     });

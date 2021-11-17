@@ -18,7 +18,7 @@ import { commentsLink } from 'constants/routes';
 import { atPrefix } from 'constants/styles/others';
 import { avatarDiameter } from 'constants/styles/sizes';
 import React, { FC } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { parseCalendarDate } from 'utils/usefulFunctions';
 import {
     copyIdMessage,
