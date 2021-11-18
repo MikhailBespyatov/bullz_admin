@@ -42,7 +42,7 @@ import { defaultLimit } from 'constants/defaults/filterSettings';
 import { Roles } from 'constants/defaults/users';
 import { defaultVideosValuesWithoutDate } from 'constants/defaults/videos';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
-import { black, errorColor, grey29, hoverGrey2, white } from 'constants/styles/colors';
+import { errorColor, grey29, grey32, hoverGrey2, white } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin } from 'constants/styles/sizes';
 import { addDays } from 'date-fns';
 import { useStore } from 'effector-react';
@@ -292,7 +292,7 @@ export const Video = () => {
                         {!isTabs(InfoTabs.User) && !isTabs(InfoTabs.Statistics) && !isTabs(InfoTabs.WomVideo) && (
                             <ManagerLayout>
                                 <SimpleButton
-                                    background={black}
+                                    background={grey32}
                                     backgroundHover={hoverGrey2}
                                     borderRadius={buttonsBorderRadius}
                                     color={white}
@@ -325,7 +325,7 @@ export const Video = () => {
                         )}
                         <CuratePopoverLayout disabled={curationState !== 1} id={videoId} type="down">
                             <VideoCardButton
-                                backgroundColor={black}
+                                backgroundColor={grey32}
                                 backgroundHover={hoverGrey2}
                                 borderRadius={buttonsBorderRadius}
                                 color={white}
