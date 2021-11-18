@@ -1,3 +1,4 @@
+import history from 'browserHistory';
 import { TotalBadge } from 'componentsNewDesign/common/badges/TotalBadge';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { PromotionsTable } from 'componentsNewDesign/common/tables/PromotionsTable';
@@ -9,19 +10,27 @@ import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { promotionCreateLink } from 'constants/routes';
-import { black, white } from 'constants/styles/colors';
+import { black, grey32, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 // import { defaultMessage } from 'pages/MarketingTools/constants';
 import { LayoutContentWrapper, TableWrapper } from 'pages/MarketingTools/styles';
-import React from 'react';
-import { useHistory } from 'react-router';
-import { promotionsStores } from 'stores/promotions/promotions';
+import React, { useEffect } from 'react';
+import { promotionsEvents, promotionsStores } from 'stores/promotions/promotions';
+
+const { invokeGetItems, setIsFirstToFalse } = promotionsEvents;
+const { isFirst } = promotionsStores;
 
 export const MarketingTools = () => {
-    const history = useHistory();
     const { items, totalRecords } = useStore(promotionsStores.promotions);
-    const loading = useStore(promotionsStores.loading);
+    const isPageLoading = useStore(promotionsStores.loading);
     const onCreateButtonClick = () => history.push(promotionCreateLink);
+
+    useEffect(() => {
+        if (isFirst) {
+            invokeGetItems();
+            setIsFirstToFalse();
+        }
+    }, []);
 
     return (
         <MainLayout>
@@ -37,11 +46,13 @@ export const MarketingTools = () => {
                             </Span>
                             <SimpleButton
                                 background={white}
+                                backgroundHover={grey32}
                                 borderRadius="4px"
                                 color={black}
                                 fontSize="10px"
                                 fontWeight="400"
                                 height="30px"
+                                textHover={white}
                                 width="95px"
                                 onClick={onCreateButtonClick}
                             >
@@ -50,7 +61,7 @@ export const MarketingTools = () => {
                         </Section>
 
                         <Section>
-                            {loading ? (
+                            {isPageLoading ? (
                                 <Section justifyCenter>
                                     <Loader size="large" />
                                 </Section>

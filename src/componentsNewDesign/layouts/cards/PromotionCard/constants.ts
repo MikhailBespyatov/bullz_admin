@@ -4,10 +4,12 @@ export const imageWrapperHeight = '170px';
 export const imageWrapperWidth = '150px';
 export const imageWrapperBorderRadius = '8px';
 
-export const inputBorderBottom = '1px solid #BFBFBF';
+export const inputBorderBottom = '1px solid rgba(196, 196, 196, 0.1)';
 
 export const promotionNamePlaceholder = 'Type promotion name here';
 export const pageRoutePlaceholder = 'Type page route here';
 export const targetRegionsPlaceholder = 'Add regions';
-
-export const wrapperBorderRadius = '8px 0px 0px 8px';
+export const imageRequiredMessage = 'Please upload an image';
+export const textFontSize = '12px';
+export const textFontWeight = '500';
+export const regionTagsPadding = '10px 13px 13px 0px';

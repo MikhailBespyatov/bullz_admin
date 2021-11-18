@@ -7,7 +7,7 @@ import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { useStoreMap } from 'effector-react';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { commentsEvents, commentsStores } from 'stores/comments/comments';
 import { notFoundMessage, title } from './constants';
 

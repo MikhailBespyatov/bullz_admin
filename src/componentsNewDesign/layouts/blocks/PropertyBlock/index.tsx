@@ -1,5 +1,6 @@
 import selectIcon from 'assets/select_icon.svg';
 import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
+import { LinkButton } from 'componentsNewDesign/common/buttons/LinkButton';
 import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';
 import { ArrowImg } from 'componentsNewDesign/common/imgComponents/ArrowImg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
@@ -121,9 +122,9 @@ export const PropertyBlock = ({
                     {copiable && (
                         <CopyButton customCopyIcon={customCopyIcon || undefined} subject={subtitle} success={success} />
                     )}
-                    {/* <MarginWrapper marginLeft="10px">
+                    <MarginWrapper marginLeft="10px">
                         {linkRoute && subtitle && <LinkButton id={subtitle} linkRoute={linkRoute} />}
-                    </MarginWrapper> */}
+                    </MarginWrapper>
                 </Row>
             </Section>
 

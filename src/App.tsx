@@ -1,5 +1,8 @@
 import history from 'browserHistory';
 import { AsyncModal } from 'componentsNewDesign/modals/AsyncModal';
+import { ConfirmPromotionActivationModal } from 'componentsNewDesign/modals/formModals/marketingTools/ConfirmPromotionActivationModal';
+import { CongratsModal } from 'componentsNewDesign/modals/formModals/marketingTools/CongratsModal';
+import { InformationalModal } from 'componentsNewDesign/modals/formModals/marketingTools/InformationalModal';
 import { RemoveOrBanModal } from 'componentsNewDesign/modals/formModals/teams/RemoveOrBanModal';
 import { VideoHashtagsEditorModal } from 'componentsNewDesign/modals/formModals/videos/HashtagsEditModal';
 import { NotificationModal } from 'componentsNewDesign/modals/Notification';
@@ -18,6 +21,7 @@ import {
     homeLink,
     homePageLink,
     marketingToolsLink,
+    promotionCardLink,
     promotionCreateLink,
     statisticsLink,
     teamLink,
@@ -53,8 +57,7 @@ import { Trendings } from 'pages/Trendings';
 import { Users } from 'pages/Users';
 import { User } from 'pages/Users/User';
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router';
-import { Router } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { MiddlewareRoute } from 'routes/MiddlewareRoute';
 import { PrivateRoute } from 'routes/PrivateRoute';
 import { PublicRoute } from 'routes/PublicRoute';
@@ -71,6 +74,9 @@ const App = () => {
             <Router history={history}>
                 <VideoHashtagsEditorModal />
                 <RemoveOrBanModal />
+                <ConfirmPromotionActivationModal />
+                <CongratsModal />
+                <InformationalModal />
 
                 <AsyncModal />
                 {/*<Modal />*/}
@@ -134,6 +140,30 @@ const App = () => {
                         path={topicLink}
                     />
 
+                    <PrivateRoute
+                        exact
+                        accessList={[
+                            Roles.SuperAdministrator,
+                            Roles.Administrator,
+                            Roles.ContentManager,
+                            Roles.Curator
+                        ]}
+                        component={PromotionCreate}
+                        path={promotionCreateLink}
+                    />
+
+                    <PrivateRoute
+                        exact
+                        accessList={[
+                            Roles.SuperAdministrator,
+                            Roles.Administrator,
+                            Roles.ContentManager,
+                            Roles.Curator
+                        ]}
+                        component={PromotionCreate}
+                        path={promotionCardLink}
+                    />
+
                     {/* * admin */}
                     <AdministratorRoute exact component={Dashboard} path={dashboardLink} />
                     <AdministratorRoute exact component={Teams} path={teamsLink} />
@@ -142,8 +172,7 @@ const App = () => {
                     <AdministratorRoute exact component={Statistics} path={statisticsLink} />
                     <AdministratorRoute exact component={Blacklisted} path={blacklistedUsersLink} />
                     <AdministratorRoute exact component={MarketingTools} path={marketingToolsLink} />
-                    <AdministratorRoute exact component={PromotionCreate} path={promotionCreateLink} />
-                    {/* <AdministratorRoute exact component={PromotionUpdate} path={promotionUpdateLink} /> */}
+
                     {/*<AdministratorRoute exact component={Comments} path={commentsLink} />*/}
                     {/*<AdministratorRoute exact component={Comment} path={commentLink} />*/}
 

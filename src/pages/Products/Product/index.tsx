@@ -22,7 +22,7 @@ import { useStore } from 'effector-react';
 import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
 import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { modalEvents } from 'stores/modals/asyncModal';

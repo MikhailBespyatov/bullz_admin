@@ -4,7 +4,7 @@ import { Button } from 'components/common/buttons/Button';
 import { homePageLink } from 'constants/routes';
 import React from 'react';
 import { userEvents } from 'stores/users/user';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 export const Result = ({
     status = 403,

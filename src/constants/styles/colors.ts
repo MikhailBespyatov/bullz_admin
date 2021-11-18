@@ -44,6 +44,7 @@ export const grey30 = '#1A1A20';
 export const grey31 = '#2D2D34';
 export const grey32 = '#46495E';
 export const grey33 = '#c2c2c2';
+export const grey34 = '#46495D';
 
 export const hoverGrey = '#f5f5f5';
 export const hoverGrey2 = '#46495E';
@@ -52,6 +53,7 @@ export const selectHover = '#F0F0F0';
 export const darkGrey = 'greylatedark';
 export const greenYellow = '#00ff44';
 export const green = '#149C2B';
+export const green2 = '#29E20A';
 export const pink = '#f4e2ff';
 export const purple = '#6519ca';
 export const skyBlue = '#0f52ff';

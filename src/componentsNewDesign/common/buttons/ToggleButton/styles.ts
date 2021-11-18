@@ -7,7 +7,7 @@ export const StyledToggleButton = styled.input`
     position: relative;
     width: 34px;
     height: 18px;
-    background: #d1d1d1;
+    background: #999999;
     border-radius: 9px;
     cursor: pointer;
     outline: none;

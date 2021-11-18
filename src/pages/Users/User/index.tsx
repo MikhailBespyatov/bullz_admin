@@ -14,7 +14,7 @@ import { filterMargin, padding } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/User/constants';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { statisticsEvents, statisticsStores } from 'stores/statistics/statistics';
 import { userStores } from 'stores/users/user';
 import { usersEffects, usersStores } from 'stores/users/users';

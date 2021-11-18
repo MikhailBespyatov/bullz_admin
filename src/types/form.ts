@@ -136,3 +136,7 @@ export interface TeamCardEditableChange {
 export interface OnDataRangeChange {
     onChange: (dateRange: [string, string]) => void;
 }
+
+export interface PromotionCardImageUrlChange {
+    onChange?: (fields: Pick<ProductCardEditableFields, 'imageUrl'>) => void;
+}

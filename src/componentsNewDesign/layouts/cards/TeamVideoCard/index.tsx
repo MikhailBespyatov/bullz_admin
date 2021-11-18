@@ -24,7 +24,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { usersLink } from 'constants/routes';
-import { black, grey4 } from 'constants/styles/colors';
+import { grey27, grey29, grey4 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { copyEvents, copyStores } from 'stores/Copy';
@@ -70,7 +70,7 @@ export const TeamVideoCard = ({
         >
             <Column height="100%">
                 <ContentWrapper
-                    backgroundColor={black}
+                    backgroundColor={grey29}
                     borderRadius="8px 8px 0px 0px"
                     minHeight="226px"
                     padding="11px 8px 8px"
@@ -87,7 +87,7 @@ export const TeamVideoCard = ({
                             )}
                         </Row>
                     </Row>
-                    <ContentWrapper backgroundColor={black} padding="18px 0px 10px" width="100%">
+                    <ContentWrapper padding="18px 0px 10px" width="100%">
                         <RelativeWrapper>
                             <VideoContainer
                                 height="250px"
@@ -158,7 +158,14 @@ export const TeamVideoCard = ({
                         </SimpleButton>
                     </Row> */}
                 </Section>
-                <ContentWrapper borderRadius="0px" height="46px" padding="8px 10px 4px" width="100%">
+
+                <ContentWrapper
+                    backgroundColor={grey29}
+                    borderRadius="0px"
+                    height="46px"
+                    padding="8px 10px 4px"
+                    width="100%"
+                >
                     <ScrollableWrapper alignCenter noWrap paddingBottom="8px" width="100%">
                         {hashTags?.length
                             ? hashTags.map((item: string) => (
@@ -170,10 +177,11 @@ export const TeamVideoCard = ({
                     </ScrollableWrapper>
                 </ContentWrapper>
 
-                <ContentWrapper borderRadius="0px" padding="4px 10px" width="100%">
+                <ContentWrapper backgroundColor={grey29} borderRadius="0px" padding="4px 10px" width="100%">
                     <Section alignCenter justifyBetween>
                         <PropertyBlock
                             //copiable
+                            backgroundColor={grey27}
                             //noWrap
                             //linkRoute={homeLink}
                             horizontalPadding={propertyBlockHorizontalPadding}
@@ -185,6 +193,7 @@ export const TeamVideoCard = ({
 
                         <PropertyBlock
                             copiable
+                            backgroundColor={grey27}
                             //noWrap
                             horizontalPadding={propertyBlockHorizontalPadding}
                             linkRoute={usersLink}

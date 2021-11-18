@@ -35,7 +35,7 @@ import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useToggle } from 'hooks/toggle';
 import React, { useMemo } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { mobileHeaderEvents, mobileHeaderStores } from 'stores/mobileHeader';
 import { userEvents, userStores } from 'stores/users/user';
 import { parseKeyWithoutId } from 'utils/usefulFunctions';

@@ -64,11 +64,7 @@ export const ModalWrapper: FC<Props> = ({
                 background={background}
                 height={height}
                 overflow={overflow}
-                padding={
-                    isMobile
-                        ? '22px 8px'
-                        : `${modalVerticalPadding} ${modalHorizontalPadding} 0 ${modalHorizontalPadding}`
-                }
+                padding={modalVerticalPadding + ' ' + modalHorizontalPadding}
                 width={width}
             >
                 {!noCloseButton
