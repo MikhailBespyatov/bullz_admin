@@ -17,7 +17,7 @@ import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { errorColor, hoverGrey2, white } from 'constants/styles/colors';
-import { descriptionPadding, filterMargin, xxs } from 'constants/styles/sizes';
+import { descriptionPadding, filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage, parseDeleteModalContent } from 'pages/Products/Product/constants';
 import React, { useEffect } from 'react';
@@ -69,7 +69,7 @@ export const Product = () => {
     const loading = useStore(productsStores.loading);
     // const linksLoading = useStore(affiliateLinksStores.loading);
     const videosLoading = useStore(productVideosStores.initialLoading);
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     useEffect(() => {
         productsEffects.loadSingleItemById(productId);

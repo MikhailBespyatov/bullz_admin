@@ -16,13 +16,13 @@ import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { grey29 } from 'constants/styles/colors';
-import { xxs } from 'constants/styles/sizes';
+import { xs } from 'constants/styles/sizes';
 import { useToggle } from 'hooks/toggle';
 import React, { FC } from 'react';
 import { DefaultValueBoolean } from 'types/form';
 
 export const DropdownColumn: FC = ({ children }) => {
-    const isMobile = useMediaQuery(`(max-width: ${xxs})`);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     return !isMobile ? (
         <Column width={dropdownWrapperWidth}>{children}</Column>
     ) : (

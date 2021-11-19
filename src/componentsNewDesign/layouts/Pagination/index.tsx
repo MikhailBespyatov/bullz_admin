@@ -9,7 +9,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
 import { grey29 } from 'constants/styles/colors';
-import { xxs } from 'constants/styles/sizes';
+import { xs } from 'constants/styles/sizes';
 import { useCloseClick } from 'hooks/closeClick';
 import { useModal } from 'hooks/modal';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
@@ -148,7 +148,7 @@ const SmallPager = ({ activeIndex, total, onChange }: Props) => (
 );
 
 const BigPager = ({ activeIndex, total, onChange }: Props) => {
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     return !isMobile ? (
         <>
@@ -231,7 +231,7 @@ export const Pagination = ({
         return pagesLimit && totalItemsValue >= pagesLimit ? pagesLimit : totalItemsValue;
     }, [defaultSize, totalItems, pagesLimit]);
 
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const [valuePage, setValuePage] = useState('');
     const [size, setSize] = useState(defaultSize);

@@ -14,5 +14,6 @@ export const CatalogContainerWrapper = styled.div`
 
     @media (max-width: ${xs}) {
         border-radius: 0;
+        padding-bottom: 110px;
     }
 `;
