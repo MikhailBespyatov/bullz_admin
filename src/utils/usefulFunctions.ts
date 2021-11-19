@@ -22,7 +22,12 @@ export const getLanguagesName = (array: string[]) => {
             continue;
         }
 
-        if (locale.getByTag(array[i])) stringOfLanguagesName += locale.getByTag(array[i]).name + ' ';
+        //* not found in locale-codes : bh (ISO 639-1 Code) or bih (ISO 639-2 Code) => Bihari languages
+        if (array[i] === 'bh') {
+            stringOfLanguagesName += 'Bihari ';
+        } else {
+            stringOfLanguagesName += locale.getByTag(array[i]).name + ' ';
+        }
     }
 
     return stringOfLanguagesName.trim();
