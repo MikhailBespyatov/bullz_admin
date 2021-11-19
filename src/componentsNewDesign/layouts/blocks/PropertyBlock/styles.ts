@@ -49,8 +49,8 @@ export const BlockSubTitle = styled(Span)`
     ${ellipsisMixin};
 
     @media (max-width: ${xs}) {
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 14px;
+        line-height: 16px;
     }
 `;
 

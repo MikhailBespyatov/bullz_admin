@@ -11,7 +11,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { sortTagsName, sortTagsProductsData, sortTagsProductsValues } from 'constants/filters/sorts';
 import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
-import { filterMargin, xxs } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
@@ -47,7 +47,7 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
     const { pageIndex, limit, name, isReferenced } = useStore(productsStores.values);
     const isFirst = useStore(productsStores.isFirst);
     const defaultId = useStore(productsStores.getRequestId);
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
     const filterVisible = useStore(mobileHeaderStores.filterVisible);
     const searchVisible = useStore(mobileHeaderStores.searchVisible);
 
