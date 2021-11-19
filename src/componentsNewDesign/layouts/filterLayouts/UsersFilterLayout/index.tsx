@@ -15,6 +15,7 @@ import {
     SelectorKeyType
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/constants';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
+import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
@@ -307,6 +308,7 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
                     <Pagination
                         currentIndex={pageIndex + 1}
                         defaultSize={limit}
+                        height={paginationHeight}
                         pagesLimit={100}
                         totalItems={totalRecords}
                         onSizeChange={onCurrentPageChange}
