@@ -108,7 +108,7 @@ export const Header = () => {
                 <AdministratorLayout>
                     <Row>
                         <GroupedButtons>
-                            <GroupedButton onClick={handleCreateProduct}>{createProductLinkName}</GroupedButton>
+                            <GroupedButton onClick={handleCreateProduct}>{createTopicLinkName}</GroupedButton>
                             <GroupedButton onClick={handleCreateUser}>{createUserLinkName}</GroupedButton>
                             <GroupedButton color={errorColor} onClick={handleDeleteUser}>
                                 {deleteUserLinkName}

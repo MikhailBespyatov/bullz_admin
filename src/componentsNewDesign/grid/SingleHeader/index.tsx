@@ -10,8 +10,8 @@ import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import {
-    createProductLink,
-    createProductLinkName,
+    createTopicLink,
+    createTopicLinkName,
     createUserLink,
     createUserLinkName,
     deleteUserLink,
@@ -39,7 +39,7 @@ export const SingleHeader = () => {
 
     const handleCreateUser = () => history.push(createUserLink);
     const handleDeleteUser = () => history.push(deleteUserLink);
-    const handleCreateProduct = () => history.push(createProductLink);
+    const handleCreateProduct = () => history.push(createTopicLink);
 
     return !isMobile ? (
         <HeaderWrapper>
@@ -51,7 +51,7 @@ export const SingleHeader = () => {
                 <AdministratorLayout>
                     <Row marginRight="20px">
                         <GroupedButtons>
-                            <GroupedButton onClick={handleCreateProduct}>{createProductLinkName}</GroupedButton>
+                            <GroupedButton onClick={handleCreateProduct}>{createTopicLinkName}</GroupedButton>
                             <GroupedButton onClick={handleCreateUser}>{createUserLinkName}</GroupedButton>
                             <GroupedButton color={errorColor} onClick={handleDeleteUser}>
                                 {deleteUserLinkName}
@@ -78,7 +78,7 @@ export const SingleHeader = () => {
                 <AdministratorLayout>
                     <Row>
                         <GroupedButtons>
-                            <GroupedButton onClick={handleCreateProduct}>{createProductLinkName}</GroupedButton>
+                            <GroupedButton onClick={handleCreateProduct}>{createTopicLinkName}</GroupedButton>
                             <GroupedButton onClick={handleCreateUser}>{createUserLinkName}</GroupedButton>
                             <GroupedButton color={errorColor} onClick={handleDeleteUser}>
                                 {deleteUserLinkName}
