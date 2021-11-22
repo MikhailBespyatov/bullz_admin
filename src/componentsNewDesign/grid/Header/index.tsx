@@ -3,8 +3,8 @@ import { GroupedButton, GroupedButtons } from 'components/common/buttons/Grouped
 import { AdministratorLayout } from 'components/layouts/RolesLayouts';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import {
-    createProductLink,
-    createProductLinkName,
+    createTopicLink,
+    createTopicLinkName,
     createUserLink,
     createUserLinkName,
     deleteUserLink,
@@ -18,7 +18,7 @@ import { HeaderWrapper, VersionSpan } from './styles';
 export const Header = () => {
     const handleCreateUser = () => history.push(createUserLink);
     const handleDeleteUser = () => history.push(deleteUserLink);
-    const handleCreateProduct = () => history.push(createProductLink);
+    const handleCreateProduct = () => history.push(createTopicLink);
 
     return (
         <HeaderWrapper>
@@ -30,7 +30,7 @@ export const Header = () => {
                 <AdministratorLayout>
                     <Row marginRight="20px">
                         <GroupedButtons>
-                            <GroupedButton onClick={handleCreateProduct}>{createProductLinkName}</GroupedButton>
+                            <GroupedButton onClick={handleCreateProduct}>{createTopicLinkName}</GroupedButton>
                             <GroupedButton onClick={handleCreateUser}>{createUserLinkName}</GroupedButton>
                             <GroupedButton color={errorColor} onClick={handleDeleteUser}>
                                 {deleteUserLinkName}

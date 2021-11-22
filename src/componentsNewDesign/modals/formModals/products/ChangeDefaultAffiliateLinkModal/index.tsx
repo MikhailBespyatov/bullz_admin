@@ -29,7 +29,7 @@ interface Props extends ITitle, Id, DefaultAffiliateLinkEditableChange {
 export const ChangeDefaultAffiliateLinkModal = ({
     id,
     title = 'change default affiliate link',
-    subtitle = 'change default affiliate link for product',
+    subtitle = 'change default affiliate link for topic',
     url,
     onChange = noop
 }: Props) => {

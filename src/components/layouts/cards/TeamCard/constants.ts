@@ -7,8 +7,8 @@ export const descAbsentMessage = 'No description';
 export const hashTagsAbsentMessage = 'No hashtags';
 
 export const deleteTitle = 'Delete';
-export const parseDeleteSuccessMessage = (name: string) => 'Product ' + name + ' successfully deleted';
-export const parseDeleteModalContent = (name: string) => 'Are you sure you want to delete a product ' + name + '?';
+export const parseDeleteSuccessMessage = (name: string) => 'Topic ' + name + ' successfully deleted';
+export const parseDeleteModalContent = (name: string) => 'Are you sure you want to delete a topic ' + name + '?';
 
 export const assigningTitle = 'assigning a new role to a user';
 

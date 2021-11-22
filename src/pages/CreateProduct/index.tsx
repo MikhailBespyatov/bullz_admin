@@ -31,7 +31,7 @@ export const CreateProduct = () => {
                 <ErrorFormTitle>{error}</ErrorFormTitle>
             </Section>
             <Section>
-                <FormCard title="Creation of new product">
+                <FormCard title="Creation of new topic">
                     <AntForm
                         initialValues={{ remember: true }}
                         name={formName}
@@ -85,9 +85,7 @@ export const CreateProduct = () => {
                             placeholder="categories..."
                             rules={[{ required: false, message: 'Input categories' }]}
                         /> */}
-                        <FormButton disabled={loading}>
-                            {loading ? <Loader size="small" /> : 'Create product'}
-                        </FormButton>
+                        <FormButton disabled={loading}>{loading ? <Loader size="small" /> : 'Create topic'}</FormButton>
                     </AntForm>
                 </FormCard>
             </Section>

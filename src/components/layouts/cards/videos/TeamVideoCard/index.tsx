@@ -122,7 +122,7 @@ export const TeamVideoCard = ({
                     <Video ref={video} controls id="video" poster={thumbnailUrl || ''} preload="metadata" />
                     <PinnedBlock right={padding} top={padding}>
                         {(!productId || productId === absentPrimaryTemplate) && (
-                            <Tooltip title="Video has no primary product">
+                            <Tooltip title="Video has no primary topic">
                                 <CustomImg height="18px" src={absentPrimaryImg} />
                             </Tooltip>
                         )}
@@ -218,7 +218,7 @@ export const TeamVideoCard = ({
                             subject={productId === absentPrimaryTemplate ? undefined : productId}
                             success={copyProductIdMessage}
                         >
-                            Copy product id
+                            Copy topic id
                         </CopyButton>
                         <CopyButton subject={hlsUrl} success={copyUrlMessage}>
                             Copy HLS url
