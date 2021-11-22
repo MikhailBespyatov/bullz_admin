@@ -11,7 +11,7 @@ import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { ProductEditorModal } from 'componentsNewDesign/modals/formModals/products/ProductEditorModal';
 import { ProductImageEditorModal } from 'componentsNewDesign/modals/formModals/products/ProductImageEditorModal';
 import { MagnifyImage } from 'componentsNewDesign/modals/MagnifyImage';
-import { productsLink } from 'constants/routes';
+import { topicsLink } from 'constants/routes';
 import { antdCardAvatarWidth } from 'constants/styles/sizes';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -23,7 +23,7 @@ const { Item } = Descriptions;
 interface Props extends BULLZ.GetManagedProductResponse {}
 
 interface ParamsProps {
-    productId: string;
+    topicId: string;
 }
 
 export const ProductDescription = ({
@@ -34,9 +34,9 @@ export const ProductDescription = ({
     description,
     hashTags
 }: Props) => {
-    const { productId } = useParams<ParamsProps>();
+    const { topicId } = useParams<ParamsProps>();
 
-    const goToProduct = () => history.push(productsLink + '/' + id);
+    const goToProduct = () => history.push(topicsLink + '/' + id);
     const changeEditableFieldsCallback = (fields: ProductCardEditableFields) =>
         productsEvents.updateItemById({ id, ...fields });
 
@@ -45,18 +45,18 @@ export const ProductDescription = ({
             bordered
             extra={
                 <>
-                    {!productId && (
+                    {!topicId && (
                         <Button removeMarginRight onClick={goToProduct}>
-                            Go to product
+                            Go to topic
                         </Button>
                     )}
                 </>
             }
             size="small"
-            title="Product Info"
+            title="Topic Info"
         >
             <Item label="ID">
-                {id ? <Link to={productsLink + '/' + id}>{id}</Link> : <AbsentInfo>{noContentMessage}</AbsentInfo>}
+                {id ? <Link to={topicsLink + '/' + id}>{id}</Link> : <AbsentInfo>{noContentMessage}</AbsentInfo>}
             </Item>
             <Item label="Name">{name || <AbsentInfo>{noContentMessage}</AbsentInfo>}</Item>
             <Item label="Referenced count">
@@ -89,8 +89,8 @@ export const ProductDescription = ({
                 {description || <AbsentInfo>{noContentMessage}</AbsentInfo>}
             </Item> */}
             <Item label="Actions" span={3}>
-                <CopyButton removeMarginBottom subject={id} success="You successfully copied product id!">
-                    Copy product id
+                <CopyButton removeMarginBottom subject={id} success="You successfully copied topic id!">
+                    Copy topic id
                 </CopyButton>
                 <ProductEditorModal
                     key="edit"
@@ -123,7 +123,7 @@ export const ProductDescription = ({
                     onChange={changeEditableFieldsCallback}
                 />
                 <CreateAffiliateLinkModal key="affiliateLink" id={id} title="Create affiliate link" /> */}
-                {/* <Tooltip key="setting" title="Delete this product">
+                {/* <Tooltip key="setting" title="Delete this topic">
                     <DeleteOutlined onClick={deleteHandleClick} />
                 </Tooltip> */}
             </Item>

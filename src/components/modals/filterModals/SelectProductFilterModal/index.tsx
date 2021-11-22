@@ -14,7 +14,7 @@ import { Title } from 'types/data';
 
 interface Props extends Title {}
 
-export const SelectProductFilterModal = ({ title = 'Change primary product' }: Props) => {
+export const SelectProductFilterModal = ({ title = 'Change primary topic' }: Props) => {
     const { items, totalRecords } = useStore(selectProductsStores.products);
     const visible = useStore(selectProductsStores.visible);
     const loading = useStore(selectProductsStores.loading);
@@ -35,7 +35,7 @@ export const SelectProductFilterModal = ({ title = 'Change primary product' }: P
             )}
             <Modal
                 footer={[]}
-                title="Select new primary product"
+                title="Select new primary topic"
                 visible={visible}
                 width="100%"
                 //onOk={() => updateVisible()}

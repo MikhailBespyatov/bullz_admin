@@ -14,7 +14,7 @@ import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
-import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
+import { sortName1, topicIdSearchPlaceholder, topicNameSearchPlaceholder } from 'pages/Products/constants';
 import React, { FC, useEffect } from 'react';
 import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
@@ -101,13 +101,13 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
         {
             searchBy: 'Name',
             defaultValue: name || '',
-            placeholder: productNameSearchPlaceholder,
+            placeholder: topicNameSearchPlaceholder,
             onSearch: onProductNameSearch
         },
         {
             searchBy: searchProductByIdParameter,
             defaultValue: defaultId,
-            placeholder: productIdSearchPlaceholder,
+            placeholder: topicIdSearchPlaceholder,
             onSearch: onIdSearch,
             regExp: mongoDbObjectIdRegExp
         }
@@ -144,12 +144,12 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
                 {/*<SearchCell lg={6}>*/}
                 {/*    <Search*/}
                 {/*        defaultValue={name || ''}*/}
-                {/*        placeholder={productNameSearchPlaceholder}*/}
+                {/*        placeholder={topicNameSearchPlaceholder}*/}
                 {/*        onSearch={onProductNameSearch}*/}
                 {/*    />*/}
                 {/*</SearchCell>*/}
                 {/*<SearchCell removePaddingRight lg={6}>*/}
-                {/*    <Search defaultValue={defaultId} placeholder={productIdSearchPlaceholder} onSearch={onIdSearch} />*/}
+                {/*    <Search defaultValue={defaultId} placeholder={topicIdSearchPlaceholder} onSearch={onIdSearch} />*/}
                 {/*</SearchCell>*/}
             </SearchWrapperLayout>
             {/* <Section alignCenter> */}

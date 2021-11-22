@@ -53,7 +53,7 @@ export const CreateAffiliateLinkModal = ({ id, title, removeMarginRight, removeM
                     <BorderInnerOutlined onClick={open} />
                 </Tooltip>
             )}
-            <Modal footer={[]} title="Create affiliate link for product" visible={visible} onCancel={onCancel}>
+            <Modal footer={[]} title="Create affiliate link for topic" visible={visible} onCancel={onCancel}>
                 <Form
                     form={form}
                     initialValues={initialValues}

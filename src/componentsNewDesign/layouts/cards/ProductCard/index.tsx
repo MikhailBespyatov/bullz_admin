@@ -21,7 +21,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { asyncError } from 'constants/notifications';
-import { productsLink, topicsLink } from 'constants/routes';
+import { topicsLink } from 'constants/routes';
 import { darkError, grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
@@ -73,7 +73,7 @@ export const ProductCard = ({
             await productsEffects.loadSingleItemById(id || '');
             videosEvents.setSingleItem({ ...video, primaryProductId: id });
 
-            message.success('You successfully updated primary product of video');
+            message.success('You successfully updated primary topic of video');
         } catch {
             message.error(asyncError);
         }
@@ -150,10 +150,10 @@ export const ProductCard = ({
                             copiable
                             backgroundColor={grey27}
                             // titleUppercase
-                            linkRoute={productsLink}
+                            linkRoute={topicsLink}
                             subtitle={id}
                             success={copyProductIDMessage}
-                            title="Product ID"
+                            title="Topic ID"
                             width={propertyBlockWidth}
                         />
                         <PropertyBlock
@@ -192,7 +192,7 @@ export const ProductCard = ({
 
                                 {canBeSetAsPrimary && (
                                     <Row width={cardButtonWidth}>
-                                        <Tooltip title="Select this product as a primary" type="top">
+                                        <Tooltip title="Select this topic as a primary" type="top">
                                             <Section justifyCenter>
                                                 <MakePrimaryButton width="100%" onClick={onMakePrimaryClick}>
                                                     + Make Primary

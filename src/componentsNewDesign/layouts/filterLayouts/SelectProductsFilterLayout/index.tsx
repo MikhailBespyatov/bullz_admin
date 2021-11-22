@@ -10,14 +10,14 @@ import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { sortTagsName, sortTagsProductsData, sortTagsProductsValues } from 'constants/filters/sorts';
+import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
-import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
+import { sortName1, topicIdSearchPlaceholder, topicNameSearchPlaceholder } from 'pages/Products/constants';
 import React, { FC, useEffect } from 'react';
 import { selectProductsEffects, selectProductsEvents, selectProductsStores } from 'stores/products/selectProducts';
 import { videosStores } from 'stores/videos/videos';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
-import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 
 interface Props extends TotalRecords, WithoutFooter {}
 
@@ -79,13 +79,13 @@ export const SelectProductsFilterLayout: FC<Props> = ({ totalRecords, children, 
         {
             searchBy: 'Name',
             defaultValue: name || '',
-            placeholder: productNameSearchPlaceholder,
+            placeholder: topicNameSearchPlaceholder,
             onSearch: onProductNameSearch
         },
         {
-            searchBy: 'Product ID',
+            searchBy: 'Topic ID',
             defaultValue: defaultId,
-            placeholder: productIdSearchPlaceholder,
+            placeholder: topicIdSearchPlaceholder,
             onSearch: onIdSearch,
             regExp: mongoDbObjectIdRegExp
         }
@@ -114,12 +114,12 @@ export const SelectProductsFilterLayout: FC<Props> = ({ totalRecords, children, 
                 {/*<SearchCell lg={6}>*/}
                 {/*    <Search*/}
                 {/*        defaultValue={name || ''}*/}
-                {/*        placeholder={productNameSearchPlaceholder}*/}
+                {/*        placeholder={topicNameSearchPlaceholder}*/}
                 {/*        onSearch={onProductNameSearch}*/}
                 {/*    />*/}
                 {/*</SearchCell>*/}
                 {/*<SearchCell removePaddingRight lg={6}>*/}
-                {/*    <Search defaultValue={defaultId} placeholder={productIdSearchPlaceholder} onSearch={onIdSearch} />*/}
+                {/*    <Search defaultValue={defaultId} placeholder={topicIdSearchPlaceholder} onSearch={onIdSearch} />*/}
                 {/*</SearchCell>*/}
             </Section>
             {/* </SearchWrapperLayout> */}

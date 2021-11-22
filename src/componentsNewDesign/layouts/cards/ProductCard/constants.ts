@@ -18,5 +18,5 @@ export const deleteButtonTextColor = errorColor;
 export const propertyBlockWidth = calculateBlockWidth(2, 16);
 export const cardButtonWidth = calculateBlockWidth(2, 16);
 
-export const copyProductIDMessage = 'Product Id was copied!';
+export const copyProductIDMessage = 'Topic Id was copied!';
 export const copyTopicLinkMessage = 'Topic Link was copied!';

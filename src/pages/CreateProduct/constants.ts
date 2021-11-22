@@ -1,4 +1,4 @@
-export const title = 'Create product page';
+export const title = 'Create topic page';
 
 export const formName = 'basic';
 

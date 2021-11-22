@@ -22,7 +22,7 @@ import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
-import { productsLink } from 'constants/routes';
+import { topicsLink } from 'constants/routes';
 import { antdCardStyle, padding } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -60,7 +60,7 @@ export const ProductCard = ({ id = '', name = '', description, hashTags }: Props
         }
     };
 
-    const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
+    const moreInfoHandleClick = () => history.push(topicsLink + '/' + id);
     const changeEditableFieldsCallback = (fields: ProductCardEditableFields) =>
         productsEvents.updateItemById({ id, ...fields });
     const deleteHandleClick = () =>
@@ -92,7 +92,7 @@ export const ProductCard = ({ id = '', name = '', description, hashTags }: Props
                               />,
                               <ProductImageEditorModal key="image" id={id} onChange={changeEditableFieldsCallback} />,
                               <CreateAffiliateLinkModal key="affiliateLink" id={id} />,
-                              <Tooltip key="setting" title="Delete this product">
+                              <Tooltip key="setting" title="Delete this topic">
                                   <DeleteOutlined onClick={deleteHandleClick} />
                               </Tooltip>
                           ]
@@ -122,7 +122,7 @@ export const ProductCard = ({ id = '', name = '', description, hashTags }: Props
                 </DivClickableWrapper>
                 <Row marginBottom="0">
                     <CopyButton removeMarginBottom removeMarginRight subject={id} success={copyIdMessage}>
-                        Copy product id
+                        Copy topic id
                     </CopyButton>
                 </Row>
             </Card>

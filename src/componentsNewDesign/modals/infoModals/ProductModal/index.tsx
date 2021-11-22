@@ -47,7 +47,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { noop } from 'constants/functions';
-import { productsLink } from 'constants/routes';
+import { topicsLink } from 'constants/routes';
 import { black, errorColor, grey13, grey3, white } from 'constants/styles/colors';
 import React from 'react';
 import { message } from 'stores/alerts';
@@ -106,7 +106,7 @@ export const ProductModal = ({
             modalEvents.closeAsyncModal();
         }
     };
-    const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
+    const moreInfoHandleClick = () => history.push(topicsLink + '/' + id);
 
     return (
         <CardWrapper width="780px">
@@ -116,11 +116,11 @@ export const ProductModal = ({
                         <ContentText color={grey13}>Videos /</ContentText>
                         <ContentText padding="0px 4px 0px 0px">{id}</ContentText>
                     </ClickableWrapper>
-                    <CopyButton subject={id} success="VideoID was copied" />
+                    <CopyButton subject={id} success="Video ID was copied" />
                 </Section>
                 <Section alignCenter justifyBetween>
                     <ContentWrapper width="300px">
-                        <TopBar content={['Video Info', 'Product Info']} onChange={noop} />
+                        <TopBar content={['Video Info', 'Topic Info']} onChange={noop} />
                     </ContentWrapper>
                     <SimpleButton
                         background={errorColor}
@@ -131,7 +131,7 @@ export const ProductModal = ({
                         padding="8px"
                         onClick={deleteHandler}
                     >
-                        Delete Product
+                        Delete Topic
                     </SimpleButton>
                 </Section>
                 <Section marginTop="16px">
@@ -144,7 +144,7 @@ export const ProductModal = ({
                         >
                             <CustomImg
                                 center
-                                alt={name || 'Product image'}
+                                alt={name || 'Topic image'}
                                 height={brandImageUrl ? brandImageHeight : noProductImageIconHeight}
                                 src={brandImageUrl || noProductImageIcon}
                             />
@@ -186,10 +186,10 @@ export const ProductModal = ({
                             <PropertyBlock
                                 copiable
                                 horizontalPadding={propertyBlockHorizontalPadding}
-                                linkRoute={productsLink}
+                                linkRoute={topicsLink}
                                 subtitle={id}
                                 success={copyProductIDMessage}
-                                title="Copy productID"
+                                title="Copy topicID"
                                 width={propertyBlockWidth}
                             />
                             <PropertyBlock

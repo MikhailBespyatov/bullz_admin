@@ -53,7 +53,7 @@ import {
     InfoTabs,
     notFoundMessage,
     otherTabs,
-    productNotFoundMessage,
+    topicNotFoundMessage,
     userNotFoundMessage
 } from 'pages/Home/Video/constants';
 import React, { useEffect, useState } from 'react';
@@ -93,7 +93,7 @@ interface ParamsProps {
 //             {primaryProductLoading ? (
 //                 <Loader size="large" />
 //             ) : !id || id === absentPrimaryTemplate ? (
-//                 <Empty title="Video has no primary product" />
+//                 <Empty title="Video has no primary topic" />
 //             ) : (
 //                 <ProductDescription {...product} />
 //             )}
@@ -302,7 +302,7 @@ export const Video = () => {
                                     padding={buttonsPadding}
                                     onClick={() => createDescriptionVideoCardModal.openModal()}
                                 >
-                                    Change primary product
+                                    Change primary topic
                                 </SimpleButton>
                             </ManagerLayout>
                         )}
@@ -396,7 +396,7 @@ export const Video = () => {
                             </DropdownColumn>
                         </Column>
                     ) : (
-                        <Empty title={productNotFoundMessage} />
+                        <Empty title={topicNotFoundMessage} />
                     )
                 ) : isTabs(InfoTabs.User) ? (
                     userLoading ? (

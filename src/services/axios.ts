@@ -1,5 +1,5 @@
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
-import { commentsLink, error403Link, productsLink, teamsLink, usersLink } from 'constants/routes';
+import { commentsLink, error403Link, topicsLink, teamsLink, usersLink } from 'constants/routes';
 import { baseURL, baseWomURL } from 'constants/services';
 import { productsEvents } from 'stores/products/products';
 import { teamsEvents } from 'stores/team';
@@ -27,7 +27,7 @@ yeayAxiosInstance.interceptors.response.use(
                 case usersLink:
                     usersEvents.setIsFirstToTrue();
                     break;
-                case productsLink:
+                case topicsLink:
                     productsEvents.setIsFirstToTrue();
                     break;
                 case teamsLink:

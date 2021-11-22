@@ -257,7 +257,7 @@ const createProductAndSetAsPrimary = createEffect({
         videosEvents.setSingleItem({ ...videosStores.video.getState(), primaryProductId: id });
         selectProductsEvents.setVisibleToFalse();
 
-        message.success('You successfully updated primary product of video');
+        message.success('You successfully updated primary topic of video');
     }
 });
 

@@ -41,7 +41,7 @@ export const ProductCardWrapper: FC<ProductCardWrapperProps> = ({ children, id: 
             await productsEffects.loadSingleItemById(id || '');
             videosEvents.setSingleItem({ ...video, primaryProductId: id });
 
-            message.success('You successfully updated primary product of video');
+            message.success('You successfully updated primary topic of video');
         } catch {
             message.error(asyncError);
         }
@@ -65,7 +65,7 @@ export const ProductCardWrapper: FC<ProductCardWrapperProps> = ({ children, id: 
 
 interface Props extends ITitle {}
 
-export const CreatePrimaryProductFilterModal = ({ title = 'Select new primary product' }: Props) => {
+export const CreatePrimaryProductFilterModal = ({ title = 'Select new primary topic' }: Props) => {
     const { items, totalRecords } = useStore(selectProductsStores.products);
     const isFirst = useStore(productsStores.isFirst);
     const { visible } = useStore(createDescriptionVideoCardModal.modal);
