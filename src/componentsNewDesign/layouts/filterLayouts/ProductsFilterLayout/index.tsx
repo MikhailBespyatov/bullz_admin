@@ -14,7 +14,7 @@ import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
-import { productIdSearchPlaceholder, productNameSearchPlaceholder, sortName1 } from 'pages/Products/constants';
+import { sortName1, topicIdSearchPlaceholder, topicNameSearchPlaceholder } from 'pages/Products/constants';
 import React, { FC, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { mobileHeaderStores } from 'stores/mobileHeader';
@@ -107,13 +107,13 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
         {
             searchBy: 'Name',
             defaultValue: name || '',
-            placeholder: productNameSearchPlaceholder,
+            placeholder: topicNameSearchPlaceholder,
             onSearch: onProductNameSearch
         },
         {
             searchBy: searchProductByIdParameter,
             defaultValue: defaultId,
-            placeholder: productIdSearchPlaceholder,
+            placeholder: topicIdSearchPlaceholder,
             onSearch: onIdSearch,
             regExp: mongoDbObjectIdRegExp
         }

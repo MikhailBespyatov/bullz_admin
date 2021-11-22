@@ -11,7 +11,7 @@ export const hashtagsInfoAbsentMessage = 'No hashtags';
 
 export const copyIdMessage = 'Video id copied!';
 export const copyUserIdMessage = 'User id copied!';
-export const copyProductIdMessage = 'Primary product id copied!';
+export const copyProductIdMessage = 'Primary topic id copied!';
 export const copyUrlMessage = 'Video url copied!';
 
 export const absentPrimaryTemplate = '000000000000000000000000';

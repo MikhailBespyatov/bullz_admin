@@ -37,7 +37,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { noop } from 'constants/functions';
-import { homeLink, productsLink, usersLink } from 'constants/routes';
+import { homeLink, topicsLink, usersLink } from 'constants/routes';
 import { black, errorColor, grey13, grey3, white } from 'constants/styles/colors';
 import { descriptionPadding } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -174,7 +174,7 @@ export const VideoModal = ({
                         </Row>
                         <Row alignCenter justifyBetween>
                             <ContentWrapper width="300px">
-                                <TopBar content={['Video Info', 'Product Info']} onChange={noop} />
+                                <TopBar content={['Video Info', 'Topic Info']} onChange={noop} />
                             </ContentWrapper>
                             <Row alignCenter justifyBetween width="215px">
                                 <SimpleButton
@@ -231,8 +231,8 @@ export const VideoModal = ({
                                         copiable
                                         linkRoute={homeLink}
                                         subtitle={id}
-                                        success="VideoID was copied"
-                                        title="Copy videoID "
+                                        success="Video ID was copied"
+                                        title="Copy video ID "
                                         width={propertyBlockWidth}
                                     />
 
@@ -240,17 +240,17 @@ export const VideoModal = ({
                                         copiable
                                         linkRoute={usersLink}
                                         subtitle={ownerId}
-                                        success="UserID was copied"
-                                        title="Copy userID"
+                                        success="User ID was copied"
+                                        title="Copy user ID"
                                         width={propertyBlockWidth}
                                     />
 
                                     <PropertyBlock
                                         copiable
-                                        linkRoute={productsLink}
+                                        linkRoute={topicsLink}
                                         subtitle={primaryProductId}
-                                        success="ProductID was copied"
-                                        title="Copy productID"
+                                        success="Topic ID was copied"
+                                        title="Copy topic ID"
                                         width={propertyBlockWidth}
                                     />
                                 </Section>

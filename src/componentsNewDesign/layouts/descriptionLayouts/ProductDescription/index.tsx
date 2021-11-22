@@ -17,7 +17,6 @@ import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrapper';
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { productsLink } from 'constants/routes';
 import { grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
 import { descriptionPadding, filterMargin, filterMarginMobile, xxs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -94,7 +93,7 @@ export const ProductDescription = ({
     //         modalEvents.closeAsyncModal();
     //     }
     // };
-    // const moreInfoHandleClick = () => history.push(productsLink + '/' + id);
+    // const moreInfoHandleClick = () => history.push(topicsLink + '/' + id);
 
     return !isMobile ? (
         <DescriptionWrapper
@@ -142,7 +141,7 @@ export const ProductDescription = ({
                                     isLink
                                     backgroundColor={grey27}
                                     horizontalPadding={propertyBlockHorizontalPadding}
-                                    linkRoute={productsLink}
+                                    // linkRoute={topicsLink}
                                     subtitle={link || ''}
                                     success={copyTopicLinkMessage}
                                     title="Topic link"
@@ -203,7 +202,7 @@ export const ProductDescription = ({
                     {/*            padding={descriptionPadding}*/}
                     {/*            onClick={deleteHandler}*/}
                     {/*        >*/}
-                    {/*            Delete Product*/}
+                    {/*            Delete Topic*/}
                     {/*        </SimpleButton>*/}
                     {/*    </AdministratorLayout>*/}
                     {/*</FlexGrow>*/}

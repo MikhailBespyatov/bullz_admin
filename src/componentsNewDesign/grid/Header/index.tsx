@@ -13,8 +13,8 @@ import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/Absol
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import {
-    createProductLink,
-    createProductLinkName,
+    createTopicLink,
+    createTopicLinkName,
     createUserLink,
     createUserLinkName,
     deleteUserLink,
@@ -54,7 +54,7 @@ export const Header = () => {
 
     const handleCreateUser = () => history.push(createUserLink);
     const handleDeleteUser = () => history.push(deleteUserLink);
-    const handleCreateProduct = () => history.push(createProductLink);
+    const handleCreateProduct = () => history.push(createTopicLink);
 
     return !isMobile ? (
         <HeaderWrapper>
@@ -66,7 +66,7 @@ export const Header = () => {
                 <AdministratorLayout>
                     <Row marginRight="20px">
                         <GroupedButtons>
-                            <GroupedButton onClick={handleCreateProduct}>{createProductLinkName}</GroupedButton>
+                            <GroupedButton onClick={handleCreateProduct}>{createTopicLinkName}</GroupedButton>
                             <GroupedButton onClick={handleCreateUser}>{createUserLinkName}</GroupedButton>
                             <GroupedButton color={errorColor} onClick={handleDeleteUser}>
                                 {deleteUserLinkName}

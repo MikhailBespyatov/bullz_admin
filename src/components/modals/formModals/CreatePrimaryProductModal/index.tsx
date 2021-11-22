@@ -41,8 +41,8 @@ export const CreatePrimaryProductModal = ({ id, title }: Props) => {
 
     return (
         <>
-            <Button onClick={open}>{title || 'Create product and set as primary'}</Button>
-            <Modal footer={[]} title="Edit product info" visible={visible} onCancel={onCancel}>
+            <Button onClick={open}>{title || 'Create topic and set as primary'}</Button>
+            <Modal footer={[]} title="Edit topic info" visible={visible} onCancel={onCancel}>
                 <Form
                     initialValues={{ remember: true }}
                     name="create"
@@ -87,12 +87,12 @@ export const CreatePrimaryProductModal = ({ id, title }: Props) => {
                     <Section>
                         <ModalCheckbox
                             checked={isConfirmed}
-                            title="Are you sure you want to create such product ?"
+                            title="Are you sure you want to create such topic ?"
                             onChange={onConfirmedChange}
                         />
                     </Section>
                     <FormButton disabled={loading || !isConfirmed}>
-                        {loading ? <Loader size="small" /> : 'Create product'}
+                        {loading ? <Loader size="small" /> : 'Create topic'}
                     </FormButton>
                 </Form>
             </Modal>

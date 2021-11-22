@@ -6,9 +6,9 @@ import { Tag } from 'components/common/typography/Tag';
 import { AbsentInfo } from 'components/common/typography/titles/AbsentInfo';
 import { CardColumnSlider } from 'components/grid/Card';
 import { hashTagsAbsentMessage, nameAbsentMessage } from 'components/layouts/cards/products/ProductCard/constants';
-import { copyIdMessage } from 'components/layouts/cards/products/SelectProductCard/constants';
 import { Tooltip } from 'components/modals/Tooltip';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
+import { copyProductIDMessage } from 'componentsNewDesign/layouts/cards/ProductCard/constants';
 import { MagnifyImage } from 'componentsNewDesign/modals/MagnifyImage';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
@@ -44,7 +44,7 @@ export const SelectProductCard = ({ id: productId, name, tags }: Props) => {
             await productsEffects.loadSingleItemById(id || '');
             videosEvents.setSingleItem({ ...video, primaryProductId: id });
 
-            message.success('You successfully updated primary product of video');
+            message.success('You successfully updated primary topic of video');
         } catch {
             message.error(asyncError);
         }
@@ -54,7 +54,7 @@ export const SelectProductCard = ({ id: productId, name, tags }: Props) => {
         <Card
             hoverable
             actions={[
-                <Tooltip key="select" title="Select this product as primary">
+                <Tooltip key="select" title="Select this topic as primary">
                     <PlusOutlined onClick={selectHandleClick} />
                 </Tooltip>
             ]}
@@ -84,8 +84,8 @@ export const SelectProductCard = ({ id: productId, name, tags }: Props) => {
                 )}
             </CardColumnSlider>
             <Row marginBottom="0">
-                <CopyButton removeMarginBottom removeMarginRight subject={id} success={copyIdMessage}>
-                    Copy product id
+                <CopyButton removeMarginBottom removeMarginRight subject={id} success={copyProductIDMessage}>
+                    Copy topic id
                 </CopyButton>
             </Row>
         </Card>

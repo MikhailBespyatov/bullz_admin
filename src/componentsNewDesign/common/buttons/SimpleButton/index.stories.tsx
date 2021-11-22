@@ -40,7 +40,7 @@ export default {
     ]
 } as Meta;
 
-export const PrimaryButton = () => <SimpleButton>Create Product</SimpleButton>;
+export const PrimaryButton = () => <SimpleButton>Create Topic</SimpleButton>;
 
 interface TemplateProps extends Props {
     children: string;

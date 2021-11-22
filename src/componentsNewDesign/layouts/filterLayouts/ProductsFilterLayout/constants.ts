@@ -1,1 +1,1 @@
-export const searchProductByIdParameter = 'Product ID';
+export const searchProductByIdParameter = 'Topic ID';

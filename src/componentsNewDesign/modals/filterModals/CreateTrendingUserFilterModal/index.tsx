@@ -1,11 +1,11 @@
 import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { CreateTrendingUserCard } from 'componentsNewDesign/layouts/cards/CreateTrendingUserCard';
-import { TrendingsUsersFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/TrendingsUsersFilterLayout';
+import { UsersFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
+import { TrendingsModalWrapper } from 'componentsNewDesign/wrappers/TrendingsModalWrapper';
 import { grey29 } from 'constants/styles/colors';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -33,16 +33,15 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
 
     return (
         <>
-            <ModalWrapper
+            <TrendingsModalWrapper
                 expanded
                 background={grey29}
-                noCloseButton={isMobile}
                 visible={visible}
                 width="100%"
                 onClose={() => closeModal()}
                 //onOk={() => closeModal()}
             >
-                <TrendingsUsersFilterLayout withoutFooter totalRecords={totalRecords}>
+                <UsersFilterLayout withoutFooter totalRecords={totalRecords}>
                     <Section marginBottom={filterMargin}>
                         <Title>{title}</Title>
                     </Section>
@@ -65,8 +64,8 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
                             )}
                         </Section>
                     )}
-                </TrendingsUsersFilterLayout>
-            </ModalWrapper>
+                </UsersFilterLayout>
+            </TrendingsModalWrapper>
         </>
     );
 };

@@ -357,7 +357,7 @@ export const VideoCard = (video: Props) => {
                             noWrap
                             padding={propertyBlockHorizontalPadding}
                             subtitle={primaryProductId}
-                            success="Product ID was copied"
+                            success="Topic ID was copied"
                             title="Product ID"
                             width={propertyBlockWidth}
                         /> */}

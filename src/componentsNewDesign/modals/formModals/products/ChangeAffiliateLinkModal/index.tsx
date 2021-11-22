@@ -30,7 +30,7 @@ interface Props extends ITitle, Id, AffiliateLinksEditableChange, Index {
 export const ChangeAffiliateLinkModal = ({
     id,
     title = 'change affiliate link',
-    subtitle = 'change affiliate link for product',
+    subtitle = 'change affiliate link for topic',
     locale,
     url,
     i,

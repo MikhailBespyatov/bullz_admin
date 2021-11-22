@@ -50,7 +50,7 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultVideoCommentsValues } from 'constants/defaults/comments';
-import { homeLink, productsLink, usersLink } from 'constants/routes';
+import { homeLink, topicsLink, usersLink } from 'constants/routes';
 import { black, grey27, grey29, white } from 'constants/styles/colors';
 import { cardMargin, descriptionPadding, filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -422,8 +422,8 @@ export const VideoDescription = ({
                                         marginBottom={descriptionPadding}
                                         marginRight={descriptionPadding}
                                         subtitle={id}
-                                        success="VideoID was copied"
-                                        title="VideoID "
+                                        success="Video ID was copied"
+                                        title="Video ID"
                                         width={propertyBlockWidth}
                                     />
 
@@ -435,8 +435,8 @@ export const VideoDescription = ({
                                         marginBottom={descriptionPadding}
                                         marginRight={descriptionPadding}
                                         subtitle={ownerId}
-                                        success="UserID was copied"
-                                        title="UserID"
+                                        success="User ID was copied"
+                                        title="User ID"
                                         width={propertyBlockWidth}
                                     />
 
@@ -444,12 +444,12 @@ export const VideoDescription = ({
                                         copiable
                                         backgroundColor={grey27}
                                         customCopyIcon={whiteLinkIcon}
-                                        linkRoute={productsLink}
+                                        linkRoute={topicsLink}
                                         marginBottom={descriptionPadding}
                                         marginRight={descriptionPadding}
                                         subtitle={primaryProductId}
-                                        success="ProductID was copied"
-                                        title="ProductID"
+                                        success="Topic ID was copied"
+                                        title="Topic ID"
                                         width={propertyBlockWidth}
                                     />
 
@@ -458,11 +458,11 @@ export const VideoDescription = ({
                                         isLink
                                         backgroundColor={grey27}
                                         customCopyIcon={whiteLinkIcon}
-                                        linkRoute={productLink || ''}
+                                        //linkRoute={productLink || ''}
                                         marginBottom={descriptionPadding}
                                         subtitle={productLink || ''}
-                                        success="ProductLink was copied"
-                                        title="ProductLink"
+                                        success="Topic link was copied"
+                                        title="Topic Link"
                                         width={propertyBlockWidth}
                                     />
                                 </Section>
@@ -511,8 +511,8 @@ export const VideoDescription = ({
                                         linkRoute={homeLink}
                                         marginBottom={mobilePropertyPadding}
                                         subtitle={id}
-                                        success="VideoID was copied"
-                                        title="Copy videoID "
+                                        success="Video ID was copied"
+                                        title="Copy video ID "
                                         width={mobilePropertyWidth}
                                     />
 
@@ -522,19 +522,19 @@ export const VideoDescription = ({
                                         linkRoute={usersLink}
                                         marginBottom={mobilePropertyPadding}
                                         subtitle={ownerId}
-                                        success="UserID was copied"
-                                        title="Copy userID"
+                                        success="User ID was copied"
+                                        title="Copy user ID"
                                         width={mobilePropertyWidth}
                                     />
 
                                     <PropertyBlock
                                         copiable
                                         backgroundColor={grey27}
-                                        linkRoute={productsLink}
+                                        linkRoute={topicsLink}
                                         marginBottom={mobilePropertyPadding}
                                         subtitle={primaryProductId}
-                                        success="ProductID was copied"
-                                        title="Copy productID"
+                                        success="Topic ID was copied"
+                                        title="Copy topic ID"
                                         width={mobilePropertyWidth}
                                     />
 
@@ -641,7 +641,7 @@ export const VideoDescription = ({
                     {/*                padding={buttonsPadding}*/}
                     {/*                onClick={() => createDescriptionVideoCardModal.openModal()}*/}
                     {/*            >*/}
-                    {/*                Change primary product*/}
+                    {/*                Change primary topic*/}
                     {/*            </SimpleButton>*/}
                     {/*        </RolesLayout>*/}
                     {/*        <AdministratorLayout>*/}

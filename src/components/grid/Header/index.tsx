@@ -25,8 +25,8 @@ import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import {
     authLinkName,
-    createProductLink,
-    createProductLinkName,
+    createTopicLink,
+    createTopicLinkName,
     createUserLink,
     createUserLinkName
 } from 'constants/routes';
@@ -73,7 +73,7 @@ export const Header = () => {
 
     const logout = () => userEvents.logout();
     const handleCreateUser = () => history.push(createUserLink);
-    const handleCreateProduct = () => history.push(createProductLink);
+    const handleCreateProduct = () => history.push(createTopicLink);
     //const handleCreateTeam = () => history.push(createTeamLink);
 
     return (
@@ -109,7 +109,7 @@ export const Header = () => {
             </AdministratorLayout>
             <InfoBlock>
                 <Button removeMarginBottom type="primary" onClick={handleCreateProduct}>
-                    {createProductLinkName}
+                    {createTopicLinkName}
                 </Button>
             </InfoBlock>
             <LogoutBlock onClick={logout}>{authLinkName}</LogoutBlock>

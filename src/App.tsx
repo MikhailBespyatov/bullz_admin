@@ -11,8 +11,8 @@ import { Roles } from 'constants/defaults/users';
 import {
     authLink,
     blacklistedUsersLink,
-    createProductLink,
     createTeamLink,
+    createTopicLink,
     createUserLink,
     dashboardLink,
     deleteUserLink,
@@ -179,7 +179,7 @@ const App = () => {
                     {/* * pages to create */}
                     <AdministratorRoute exact component={CreateUser} path={createUserLink} />
                     <AdministratorRoute exact component={DeleteUser} path={deleteUserLink} />
-                    <AdministratorRoute exact component={CreateProduct} path={createProductLink} />
+                    <AdministratorRoute exact component={CreateProduct} path={createTopicLink} />
                     <AdministratorRoute exact component={CreateTeam} path={createTeamLink} />
 
                     {/* * error status */}

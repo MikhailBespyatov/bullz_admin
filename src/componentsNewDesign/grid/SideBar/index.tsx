@@ -123,8 +123,8 @@ export const SideBar = () => {
                 {/* <PageLink active={location.pathname === createUserLink} to={createUserLink}>
                 {createUserLinkName}
             </PageLink>
-            <PageLink active={location.pathname === createProductLink} to={createProductLink}>
-                {createProductLinkName}
+            <PageLink active={location.pathname === createTopicLink} to={createTopicLink}>
+                {createTopicLinkName}
             </PageLink> */}
                 <FixedLogoutWrapper alignCenter justifyCenter isExpanded={isExpanded}>
                     <ClickableWrapper onClick={logout}>

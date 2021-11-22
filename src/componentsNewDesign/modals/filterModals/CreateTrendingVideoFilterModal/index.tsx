@@ -2,10 +2,10 @@ import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { Empty } from 'components/layouts/resultLayouts/Empty';
 import { CreateTrendingVideoCard } from 'componentsNewDesign/layouts/cards/CreateVideoUserCard';
-import { TrendingsVideosFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/TrendingsVideosFilterLayout';
+import { VideosFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
+import { TrendingsModalWrapper } from 'componentsNewDesign/wrappers/TrendingsModalWrapper';
 import { grey29 } from 'constants/styles/colors';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -33,16 +33,15 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
 
     return (
         <>
-            <ModalWrapper
+            <TrendingsModalWrapper
                 expanded
                 background={grey29}
-                noCloseButton={isMobile}
                 visible={visible}
                 width="100%"
                 onClose={() => closeModal()}
                 //onOk={() => closeModal()}
             >
-                <TrendingsVideosFilterLayout withoutFooter totalRecords={totalRecords}>
+                <VideosFilterLayout withoutFooter totalRecords={totalRecords}>
                     <Section marginBottom={filterMargin}>
                         <Title>{title}</Title>
                     </Section>
@@ -66,8 +65,8 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
                             )}
                         </Section>
                     )}
-                </TrendingsVideosFilterLayout>
-            </ModalWrapper>
+                </VideosFilterLayout>
+            </TrendingsModalWrapper>
         </>
     );
 };

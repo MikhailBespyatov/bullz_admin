@@ -3,7 +3,7 @@ import history from 'browserHistory';
 import { defaultPage } from 'constants/defaults/filterSettings';
 import { defaultProductsValues } from 'constants/defaults/products';
 import { asyncError } from 'constants/notifications';
-import { productsLink } from 'constants/routes';
+import { topicsLink } from 'constants/routes';
 import { createEffect, createEvent, createStore, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
@@ -27,8 +27,8 @@ const createItem = createEffect({
             updateLoading();
 
             setCreationError('');
-            message.success('you successfully created product');
-            history.push(productsLink + '/' + id);
+            message.success('you successfully created topic');
+            history.push(topicsLink + '/' + id);
         } catch {
             setCreationError(asyncError);
             message.error(asyncError);

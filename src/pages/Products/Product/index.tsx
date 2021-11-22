@@ -33,7 +33,7 @@ import { Id } from 'types/data';
 import { SubjectType } from 'types/types';
 
 interface ParamsProps {
-    productId: string;
+    topicId: string;
 }
 
 interface Props extends Id {}
@@ -50,8 +50,8 @@ interface Props extends Id {}
 //         <>
 //             {loading ? (
 //                 <Loader size="large" />
-//             ) : affiliateLinks?.productId !== id ? (
-//                 <AffiliateLinksTable {...affiliateLinks} empty productId={id} />
+//             ) : affiliateLinks?.topicId !== id ? (
+//                 <AffiliateLinksTable {...affiliateLinks} empty topicId={id} />
 //             ) : (
 //                 <AffiliateLinksTable {...affiliateLinks} />
 //             )}
@@ -62,7 +62,7 @@ interface Props extends Id {}
 const { openAsyncModal, updateAsyncModalLoading } = modalEvents;
 
 export const Product = () => {
-    const { productId } = useParams<ParamsProps>();
+    const { topicId } = useParams<ParamsProps>();
     const product = useStore(productsStores.product);
     const affiliateLinks = useStore(affiliateLinksStores.items);
     const { items, totalRecords } = useStore(productVideosStores.items);
@@ -72,17 +72,17 @@ export const Product = () => {
     const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     useEffect(() => {
-        productsEffects.loadSingleItemById(productId);
-    }, [productId]);
+        productsEffects.loadSingleItemById(topicId);
+    }, [topicId]);
 
     useEffect(() => {
-        if (productId === product.id) {
+        if (topicId === product.id) {
             productVideosEvents.updateValues({
                 productId: product.id
             });
-            productId && affiliateLinksEffects.getItemsByProductId(productId);
+            topicId && affiliateLinksEffects.getItemsByProductId(topicId);
         }
-    }, [product, productId]);
+    }, [product, topicId]);
 
     const deleteOkProductHandler = async (subject: SubjectType) => {
         try {
@@ -117,7 +117,7 @@ export const Product = () => {
                 <Section justifyCenter>
                     <Loader size="large" />
                 </Section>
-            ) : productId === product.id ? (
+            ) : topicId === product.id ? (
                 <Column marginRight={filterMargin} width="100%">
                     <Section justifyEnd>
                         <Row marginBottom={isMobile ? '8px' : '20px'} marginRight={isMobile ? '0' : filterMargin}>
@@ -133,7 +133,7 @@ export const Product = () => {
                                     padding={buttonsPadding}
                                     onClick={deleteProductHandler}
                                 >
-                                    Delete Product
+                                    Delete Topic
                                 </SimpleButton>
                             </AdministratorLayout>
                         </Row>
@@ -149,7 +149,7 @@ export const Product = () => {
                             ) : (
                                 <AffiliateLinksTable
                                     {...affiliateLinks}
-                                    empty={productId !== affiliateLinks.productId}
+                                    empty={topicId !== affiliateLinks.topicId}
                                 />
                             )}
                         </DropdownSection> */}
