@@ -23,8 +23,10 @@ import { defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
 import { darkError, grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
+import { xxs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { copyEvents, copyStores } from 'stores/Copy';
@@ -45,7 +47,9 @@ import {
     parseVerifySuccessMessage,
     parseVerifyTitle,
     propertyBlockHalfWidth,
+    propertyBlockHalfWidthMobile,
     propertyBlockMarginBottom,
+    propertyBlockMarginBottomMobile,
     removeRoleTitle,
     rolesAbsentMessage
 } from './constants';
@@ -72,6 +76,11 @@ export const UserCard = ({
 }: UserCardProps) => {
     const { access } = useStore(userStores.auth);
     const copiedDataId = useStore(copyStores.copiedDataId);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const propertyMarginBottomMobile = isMobile ? propertyBlockMarginBottomMobile : propertyBlockMarginBottom;
+    const propertyHalfWidth = isMobile ? propertyBlockHalfWidthMobile : propertyBlockHalfWidth;
+    const propertyBlockWrapper = isMobile ? '16px 8px 0' : '18px 18px 10px';
+    const propertyBlockTagsWrapper = isMobile ? '10px 8px 10px' : '10px 18px 10px';
 
     //const assignedRoles = useMemo(() => assignedUserRoles.filter(i => !roles?.includes(i)), [roles]);
 
@@ -287,7 +296,7 @@ export const UserCard = ({
                 </ContentWrapper>
 
                 <HorizontalLine />
-                <ContentWrapper /*height="179px"*/ padding="18px 18px 10px" width="100%">
+                <ContentWrapper /*height="179px"*/ padding={propertyBlockWrapper} width="100%">
                     <Section alignCenter justifyBetween height="100%">
                         <PropertyBlock
                             copiable
@@ -295,56 +304,56 @@ export const UserCard = ({
                             // titleUppercase
                             customCopyIcon={whiteCopyIcon}
                             linkRoute={usersLink}
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={id}
                             success={copyUserIdMessage}
                             title="User ID"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         <PropertyBlock
                             copiable
                             backgroundColor={grey27}
                             // titleUppercase
                             customCopyIcon={whiteCopyIcon}
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={facilitatorId}
                             success={copyFacilitatorIdMessage}
                             title="Facilitator ID"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         <PropertyBlock
                             isDate
                             backgroundColor={grey27}
                             // titleUppercase
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={utcCreated}
                             title="Created Account"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         <PropertyBlock
                             isDate
                             backgroundColor={grey27}
                             // titleUppercase
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={utcLastAuthentication}
                             title="Last Logged In"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         <PropertyBlock
                             backgroundColor={grey27}
                             // titleUppercase
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={location?.countryName || ''}
                             title="Country"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         <PropertyBlock
                             backgroundColor={grey27}
                             // titleUppercase
-                            marginBottom={propertyBlockMarginBottom}
+                            marginBottom={propertyMarginBottomMobile}
                             subtitle={location?.area?.region || ''}
                             title="Region"
-                            width={propertyBlockHalfWidth}
+                            width={propertyHalfWidth}
                         />
                         {/* <PropertyBlock
                             copiable
@@ -359,7 +368,7 @@ export const UserCard = ({
                     </Section>
                 </ContentWrapper>
 
-                <ContentWrapper height="65px" padding="10px 18px 10px" width="100%">
+                <ContentWrapper height="65px" padding={propertyBlockTagsWrapper} width="100%">
                     <ScrollableWrapper alignCenter noWrap paddingBottom="10px" width="100%">
                         {roles?.length
                             ? roles.map((item: string) => (
