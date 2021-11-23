@@ -24,7 +24,7 @@ export const Wrapper = styled.div<Active>`
     padding: 16px 35px;
     border-radius: ${dashboardBorderRadius};
     border: 1px solid ${({ active }) => (active ? dashboardBorderColor : 'transparent')};
-    background: black;
+    background: #2c2e3a;
 `;
 
 export const DashboardCornerNumber = styled.div`
@@ -36,7 +36,8 @@ export const DashboardCornerNumber = styled.div`
     height: ${dashboardCornerNumberDiameter};
     border-top-left-radius: ${dashboardBorderRadius};
     background: ${dashboardBorderColor};
-    color: white;
+    color: black;
+    background-color: white;
 `;
 
 export const DashboardBlockInnerGrid = styled.section`
