@@ -13,7 +13,7 @@ import { asyncError } from 'constants/notifications';
 import { grey6 } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
-import { notFoundMessage } from 'pages/Users/constants';
+import { notFoundMessage } from 'pages/Products/constants';
 import React, { FC, useEffect, useMemo } from 'react';
 import { message } from 'stores/alerts';
 import { createDescriptionVideoCardModal } from 'stores/initialize/initialize.modal.store';
