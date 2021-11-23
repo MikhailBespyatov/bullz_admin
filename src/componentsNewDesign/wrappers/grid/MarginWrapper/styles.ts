@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Margin, ZIndex } from 'types/styles';
+import { BackgroundColor, Margin, ZIndex } from 'types/styles';
 
-interface Props extends Margin, ZIndex {}
+interface Props extends Margin, ZIndex, BackgroundColor {}
 
 export const MarginWrapper = styled.div<Props>`
     ${({ margin }) => margin && `margin: ${margin};`};
@@ -10,4 +10,5 @@ export const MarginWrapper = styled.div<Props>`
     ${({ marginRight }) => marginRight && `margin-right: ${marginRight};`};
     ${({ marginBottom }) => marginBottom && `margin-bottom: ${marginBottom};`};
     ${({ zIndex }) => (zIndex !== undefined ? `z-index: ${zIndex};` : ``)};
+    ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor};`};
 `;

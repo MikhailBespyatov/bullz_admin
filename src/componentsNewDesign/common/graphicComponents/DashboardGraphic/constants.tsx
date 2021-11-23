@@ -9,6 +9,22 @@ export const viewsIconDiameter = '16px';
 
 export const graphicBlocks = [
     {
+        selectedBackgroundColor: '#FF53A5',
+        title: 'Phone Numbers',
+        subtitle: 'Registered',
+        nameBlock: 'Phone Numbers',
+        statisticKey: 'phoneVerifiedUserCount',
+        calculatedTitle: 'Phone Numbers'
+    },
+    {
+        selectedBackgroundColor: '#FF0000',
+        title: 'Users count',
+        subtitle: 'Anonymous',
+        nameBlock: 'Users count',
+        statisticKey: 'notVerifiedUserCount',
+        calculatedTitle: 'Users Count'
+    },
+    {
         selectedBackgroundColor: '#EAB90E',
         title: 'Videos',
         subtitle: 'Accepted',
@@ -31,13 +47,6 @@ export const graphicBlocks = [
         nameBlock: 'Upload Error',
         statisticKey: 'unProcessedVideoCount',
         calculatedTitle: 'Upload Errors'
-    },
-    {
-        selectedBackgroundColor: '#FF53A5',
-        title: 'Phone Numbers',
-        nameBlock: 'Phone Numbers',
-        statisticKey: 'phoneVerifiedUserCount',
-        calculatedTitle: 'Phone Numbers'
     },
     {
         selectedBackgroundColor: '#B360DB',

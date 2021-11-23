@@ -60,16 +60,18 @@ export const DashboardBlock = ({
     viewCount = 0,
     unProcessedVideoCount = 0,
     phoneVerifiedUserCount = 0,
+    notVerifiedUserCount = 0,
     disabled,
     onChange,
     activeIndexStatistic,
     active
 }: DashboardBlockProps) => {
     const activityStatisticsValue = [
+        { subtitle: phoneVerifiedUserCount, title: 'Phone Number' },
+        { subtitle: notVerifiedUserCount, title: 'Users count' },
         { subtitle: videoCount, title: 'Total Videos Verified Email' },
         { subtitle: rejectedVideoCount, title: 'Total Videos Rejected' },
         { subtitle: unProcessedVideoCount, title: 'Upload Errors' },
-        { subtitle: phoneVerifiedUserCount, title: 'Phone Number' },
         { subtitle: commentCount, title: 'Total Comments' },
         { subtitle: viewCount, title: 'Total Views' },
         { subtitle: shareCount, title: 'Total Share' }

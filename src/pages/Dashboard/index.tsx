@@ -105,7 +105,7 @@ export const Dashboard = () => {
                         )}
                     </SaveCSVButton>
                 </Section>
-                <MarginWrapper marginBottom="12px">
+                <MarginWrapper backgroundColor="#2C2E3A" marginBottom="12px">
                     <DashboardTotalValue activityStatistics={activityStatistics} />
                 </MarginWrapper>
                 <DashboardGraphicMemo activityStatistics={activityStatistics} onClick={onGraphicClick} />

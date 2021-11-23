@@ -1,4 +1,5 @@
 import { graphicInfoBlockHeight } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock/constants';
+import { grey23 } from 'constants/styles/colors';
 import { disableDefaultHStyleMixin, ellipsisMixin } from 'constants/styles/mixins';
 import styled from 'styled-components';
 import { Background, Color } from 'types/styles';
@@ -12,6 +13,10 @@ export const Wrapper = styled.div<Background>`
     background: ${({ background }) => background || 'white'};
     padding: 0 8px;
     cursor: pointer;
+
+    :hover {
+        background: ${grey23};
+    }
 `;
 
 export const Title = styled.h3<Color>`

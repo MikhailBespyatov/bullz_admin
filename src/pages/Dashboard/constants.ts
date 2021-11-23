@@ -19,14 +19,13 @@ export const defaultNextDateRangeRequest: [string, string] = [
 export const headerForCSVTable: Array<{ label: string; key: keyof BULLZ.MarketingStatistics }> = [
     { label: 'From', key: 'utcStart' },
     { label: 'To', key: 'utcEnd' },
-    { label: 'Not Verified Users', key: 'notVerifiedUserCount' },
-    { label: 'Verified Users', key: 'verifiedUserCount' },
     { label: 'Accepted Videos', key: 'videoCount' },
     { label: 'Rejected Videos', key: 'rejectedVideoCount' },
     { label: 'Comments', key: 'commentCount' },
     { label: 'Views', key: 'viewCount' },
     { label: 'Shares', key: 'shareCount' },
     { label: 'Phone Numbers', key: 'phoneVerifiedUserCount' },
+    { label: 'Users count', key: 'notVerifiedUserCount' },
     { label: 'Upload', key: 'unProcessedVideoCount' }
 ];
 
