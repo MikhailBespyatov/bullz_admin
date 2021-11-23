@@ -3,8 +3,10 @@ import { calculateBlockWidth } from 'utils/calculators';
 // export const userNicknameFontSize = '12px';
 // export const userNicknameFontWeight = '700';
 export const propertyBlockHalfWidth = calculateBlockWidth(2, 16);
+export const propertyBlockHalfWidthMobile = calculateBlockWidth(2, 8);
 export const propertyBlockFullWidth = '100%';
 export const propertyBlockMarginBottom = '10px'; /* 20px; */
+export const propertyBlockMarginBottomMobile = '6px';
 
 export const cardButtonWidth = calculateBlockWidth(2, 16);
 
