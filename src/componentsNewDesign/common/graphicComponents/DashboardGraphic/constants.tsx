@@ -9,22 +9,6 @@ export const viewsIconDiameter = '16px';
 
 export const graphicBlocks = [
     {
-        selectedBackgroundColor: '#FF886D',
-        title: 'Users',
-        nameBlock: 'Users Email Not Verified',
-        subtitle: 'Email Not Verified',
-        statisticKey: 'notVerifiedUserCount',
-        calculatedTitle: 'Not verified users'
-    },
-    {
-        selectedBackgroundColor: '#3CBA10',
-        title: 'Users',
-        nameBlock: 'Users Email Verified',
-        subtitle: 'Email Verified',
-        statisticKey: 'verifiedUserCount',
-        calculatedTitle: 'Verified users'
-    },
-    {
         selectedBackgroundColor: '#EAB90E',
         title: 'Videos',
         subtitle: 'Accepted',
