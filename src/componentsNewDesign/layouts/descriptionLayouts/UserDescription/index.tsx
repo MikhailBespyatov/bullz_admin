@@ -36,6 +36,7 @@ import {
 } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { TitleText } from 'componentsNewDesign/modals/AsyncModal/styles';
+import { deleteReasonsList } from 'componentsNewDesign/modals/DeleteOrBlockUserModal/constants';
 import { RolesPopover } from 'componentsNewDesign/modals/popovers/RolesPopover';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
@@ -46,7 +47,6 @@ import { usersLink } from 'constants/routes';
 import { getRedirectUrlToWom } from 'constants/services';
 import { blue, errorColor, grey27, grey29, hoverGrey2, lightBlack, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
-import { contentDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
 import React, { useMemo } from 'react';
 import { API } from 'services';
 import { message } from 'stores/alerts';
@@ -59,7 +59,7 @@ import { parseAssignRoleDescription } from 'utils/usefulFunctions';
 import { BlockInformationText, UserPropertyWrapper } from './styles';
 
 const { removeRoleByUserId, addRoleByUserId, changeAbilityByUserId } = usersEvents;
-const { updateAsyncModalLoading, closeAsyncModal, openAsyncModal } = modalEvents;
+const { updateAsyncModalLoading, closeAsyncModal, openAsyncModal, openDeleteOrBlockUserModal } = modalEvents;
 
 interface Props extends BULLZ.AdminGetUserCommon {}
 
@@ -236,23 +236,21 @@ export const UserDescription = ({
             onOk: disableOkHandler
         });
 
-    const deleteOkHandler = async (subject: SubjectType) => {
-        if (typeof subject !== 'string') return;
+    const deleteOkHandler = async (id: SubjectType) => {
+        if (typeof id !== 'string') return;
 
-        await usersEffects.deleteUsersById([subject]);
-        modalEvents.closeAsyncModal();
         await usersEffects.loadSingleItemById(id);
-        // history.push(usersLink);
     };
-    const callDeleteUserModal = (userDeleted: string) =>
-        openAsyncModal({
-            visible: true,
-            title: `Are you sure to want to delete ${username} (${id}) user?`,
-            content: contentDeleteUserAsyncModal,
-            subject: userDeleted,
-            onOk: deleteOkHandler,
-            modalHeight: '310px'
+
+    const callDeleteUserModal = (userId: string) => {
+        openDeleteOrBlockUserModal({
+            userId,
+            username: username || '',
+            action: 'delete',
+            reasonsList: deleteReasonsList,
+            onOk: deleteOkHandler
         });
+    };
     const onBack = () => history.goBack();
 
     const localeOkHandler = async (subject: SubjectType) => {

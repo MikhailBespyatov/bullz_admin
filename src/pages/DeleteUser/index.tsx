@@ -21,7 +21,7 @@ export const DeleteUser = () => {
     const deleteOkHandler = async (subject: SubjectType) => {
         if (typeof subject === 'string' || typeof subject === 'boolean') return;
 
-        usersEffects.deleteUsersById(subject);
+        usersEffects.deleteUsersById({ userIds: subject });
         modalEvents.closeAsyncModal();
     };
 

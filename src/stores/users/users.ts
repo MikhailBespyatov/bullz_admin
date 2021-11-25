@@ -96,14 +96,22 @@ const loadEditInfoItemById = createEffect({
 });
 
 const deleteUsersById = createEffect({
-    handler: async (userIds: string[]) => {
+    handler: async (data: BULLZ.AdminDeleteUsersRequest) => {
         try {
             updateEditLoading();
-            const { isSuccess, message: messageResponse = '' } = await API.adminUsers.deleteUsersById({ userIds });
+            const { isSuccess, message: messageResponse = '' } = await API.adminUsers.deleteUsersById(data);
             updateEditLoading();
 
-            isSuccess ? message.success(messageResponse || '') : message.error(errorDeletionUsersMessage);
-            return isSuccess ? userIds : [];
+            //* show success notification only for bulk user deleting, for single user deleting have StatusModal:
+            isSuccess && !!data.userIds?.length && messageResponse && message.success(messageResponse);
+
+            if (isSuccess && !!data.userIds?.length) {
+                return data.userIds;
+            }
+            if (isSuccess && !!data.users?.length) {
+                return data.users.map(item => item.userId);
+            }
+            return [];
         } catch {
             message.error(errorDeletionUsersMessage);
             updateEditLoading();

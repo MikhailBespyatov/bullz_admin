@@ -1,11 +1,13 @@
 import history from 'browserHistory';
 import { AsyncModal } from 'componentsNewDesign/modals/AsyncModal';
+import { DeleteOrBlockUserModal } from 'componentsNewDesign/modals/DeleteOrBlockUserModal';
 import { ConfirmPromotionActivationModal } from 'componentsNewDesign/modals/formModals/marketingTools/ConfirmPromotionActivationModal';
 import { CongratsModal } from 'componentsNewDesign/modals/formModals/marketingTools/CongratsModal';
 import { InformationalModal } from 'componentsNewDesign/modals/formModals/marketingTools/InformationalModal';
 import { RemoveOrBanModal } from 'componentsNewDesign/modals/formModals/teams/RemoveOrBanModal';
 import { VideoHashtagsEditorModal } from 'componentsNewDesign/modals/formModals/videos/HashtagsEditModal';
 import { NotificationModal } from 'componentsNewDesign/modals/Notification';
+import { StatusModal } from 'componentsNewDesign/modals/StatusModal';
 import { UserReportWrapper } from 'componentsNewDesign/modals/UserReportModal';
 import { Roles } from 'constants/defaults/users';
 import {
@@ -77,6 +79,8 @@ const App = () => {
                 <ConfirmPromotionActivationModal />
                 <CongratsModal />
                 <InformationalModal />
+                <DeleteOrBlockUserModal />
+                <StatusModal />
 
                 <AsyncModal />
                 {/*<Modal />*/}
