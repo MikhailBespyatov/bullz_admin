@@ -83,12 +83,38 @@ declare namespace BULLZ {
         teamId?: string; // objectId
     }
     /**
+     * adminDeleteUserInfo
+     */
+    export interface AdminDeleteUserInfo {
+        /**
+         * objectId
+         * The id of user to be deleted.
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * list1
+         * Reason to delete
+         */
+        reasons?: /* userDeletionReason */ UserDeletionReason /* int32 */[] | null;
+        /**
+         * string
+         * An admin can leave the comment blank
+         */
+        comment?: string | null;
+    }
+    /**
      * adminDeleteUsersRequest
      */
     export interface AdminDeleteUsersRequest {
         /**
          * list1
-         * The id of users to be deleted.
+         * The users to be deleted.
+         */
+        users?: /* adminDeleteUserInfo */ AdminDeleteUserInfo[] | null;
+        /**
+         * list1
          */
         userIds?: string /* objectId */[] | null;
     }
@@ -970,6 +996,33 @@ declare namespace BULLZ {
         countryName?: string | null;
     }
     /**
+     * createEngagementEmitterRequest
+     */
+    export interface CreateEngagementEmitterRequest {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
+        /**
+         * dateTime
+         */
+        utcStart?: string; // date-time
+        /**
+         * dateTime
+         */
+        utcEnd?: string; // date-time
+        /**
+         * int32
+         */
+        totalViews?: number; // int32
+        /**
+         * int32
+         */
+        totalShares?: number; // int32
+    }
+    /**
      * createManagedProductAffiliateLinkRequest
      */
     export interface CreateManagedProductAffiliateLinkRequest {
@@ -1484,6 +1537,17 @@ declare namespace BULLZ {
      */
     export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11; // int32
     /**
+     * deleteEngagementEmittersRequest
+     */
+    export interface DeleteEngagementEmittersRequest {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+    }
+    /**
      * deleteManagedProductRequest
      */
     export interface DeleteManagedProductRequest {
@@ -1549,10 +1613,121 @@ declare namespace BULLZ {
      */
     export interface DeleteVideoResponse {}
     /**
+     * deletedUserResponse
+     */
+    export interface DeletedUserResponse {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * string
+         */
+        userName?: string | null;
+        /**
+         * string
+         */
+        email?: string | null;
+        /**
+         * string
+         */
+        mobileNumber?: string | null;
+        /**
+         * dateTime
+         */
+        utcDeleted?: string; // date-time
+        /**
+         * list1
+         */
+        reasons?: /* userDeletionReason */ UserDeletionReason /* int32 */[] | null;
+        /**
+         * string
+         */
+        comment?: string | null;
+        /**
+         * list1
+         */
+        videoIds?: string /* objectId */[] | null;
+        deleterInfo?: /* shortUserInfo */ ShortUserInfo;
+    }
+    /**
      * domainSearchKey
      * <br/><br/>Values:<br/>0 = None<br/>1 = User<br/>2 = Video<br/>3 = HashTag<br/>4 = Product<br/>5 = Topic
      */
     export type DomainSearchKey = 0 | 1 | 2 | 3 | 4 | 5; // int32
+    /**
+     * engagementEmitter
+     */
+    export interface EngagementEmitter {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * dateTime
+         */
+        utcCreated?: string; // date-time
+        /**
+         * nullable1
+         */
+        utcUpdated?: string | null; // date-time
+        /**
+         * dateTime
+         */
+        utcEmitStart?: string; // date-time
+        /**
+         * dateTime
+         */
+        utcEmitEnd?: string; // date-time
+        /**
+         * boolean
+         */
+        isActive?: boolean;
+        /**
+         * boolean
+         */
+        isPast?: boolean;
+        /**
+         * int32
+         */
+        viewsTotalTarget?: number; // int32
+        /**
+         * int32
+         */
+        viewsEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        viewsProgress?: number; // double
+        /**
+         * int32
+         */
+        sharesTotalTarget?: number; // int32
+        /**
+         * int32
+         */
+        sharesEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        sharesProgress?: number; // double
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id: string; // objectId
+    }
     /**
      * error400BadRequest
      */
@@ -1662,11 +1837,9 @@ declare namespace BULLZ {
          */
         location?: string /* string */[] | null;
         /**
-         * objectId
-         * example:
-         * 000000000000000000000000
+         * string
          */
-        icon?: string; // objectId
+        icon?: string | null;
         /**
          * boolean
          */
@@ -1818,6 +1991,28 @@ declare namespace BULLZ {
          * boolean
          */
         isAccountVerified?: boolean;
+    }
+    /**
+     * getEngagementEmittersRequest
+     */
+    export interface GetEngagementEmittersRequest {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+    }
+    /**
+     * getEngagementScoresRequest
+     */
+    export interface GetEngagementScoresRequest {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
     }
     /**
      * getLanguageTrendingRequest
@@ -2351,6 +2546,48 @@ declare namespace BULLZ {
          * 000000000000000000000000
          */
         id?: string; // objectId
+    }
+    /**
+     * getTotalEmittedEngagementRequest
+     */
+    export interface GetTotalEmittedEngagementRequest {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string | null; // objectId
+    }
+    /**
+     * getTotalEmittedEngagementResponse
+     */
+    export interface GetTotalEmittedEngagementResponse {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string | null; // objectId
+        /**
+         * int32
+         */
+        totalViews?: number; // int32
+        /**
+         * int32
+         */
+        totalShares?: number; // int32
     }
     /**
      * getTrendVideosResponse
@@ -4148,6 +4385,95 @@ declare namespace BULLZ {
         items?: /* getBlacklistedUsersResponse */ GetBlacklistedUsersResponse[] | null;
     }
     /**
+     * queryDeletedUsersRequest
+     */
+    export interface QueryDeletedUsersRequest {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        deletedUserId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        deleterUserId?: string | null; // objectId
+        /**
+         * nullable1
+         */
+        fromUtcDeleted?: string | null; // date-time
+        /**
+         * nullable1
+         */
+        toUtcDeleted?: string | null; // date-time
+        /**
+         * list1
+         */
+        deletionReasons?: /* userDeletionReason */ UserDeletionReason /* int32 */[] | null;
+        /**
+         * string
+         */
+        email?: string | null;
+        /**
+         * string
+         */
+        mobileNumber?: string | null;
+        /**
+         * int32
+         */
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
+    }
+    /**
+     * queryDeletedUsersResponse
+     */
+    export interface QueryDeletedUsersResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* deletedUserResponse */ DeletedUserResponse[] | null;
+    }
+    /**
+     * queryEngagementEmittersRequest
+     */
+    export interface QueryEngagementEmittersRequest {
+        /**
+         * int32
+         */
+        count?: number; // int32
+    }
+    /**
      * queryFacilitatorInfoResponse
      */
     export interface QueryFacilitatorInfoResponse {
@@ -5801,6 +6127,25 @@ declare namespace BULLZ {
         mobileNumberE164?: string | null;
     }
     /**
+     * shortUserInfo
+     */
+    export interface ShortUserInfo {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * string
+         */
+        userName?: string | null;
+        /**
+         * string
+         */
+        avatar?: string | null;
+    }
+    /**
      * simulatedDataRequest
      */
     export interface SimulatedDataRequest {
@@ -6169,6 +6514,33 @@ declare namespace BULLZ {
          * nullable1
          */
         isActive?: boolean | null;
+    }
+    /**
+     * updateEngagementEmitterRequest
+     */
+    export interface UpdateEngagementEmitterRequest {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * dateTime
+         */
+        utcStart?: string; // date-time
+        /**
+         * dateTime
+         */
+        utcEnd?: string; // date-time
+        /**
+         * int32
+         */
+        totalViews?: number; // int32
+        /**
+         * int32
+         */
+        totalShares?: number; // int32
     }
     /**
      * updatePostRequest
@@ -6587,6 +6959,10 @@ declare namespace BULLZ {
          */
         localeStandard?: string | null;
     }
+    /**
+     * userDeletionReason
+     */
+    export type UserDeletionReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // int32
     /**
      * userFollowHashTagRequest
      */
@@ -7154,6 +7530,25 @@ declare namespace BULLZ {
      */
     export type VideoDetailsValidationWOMRejectionReason = 0 | 1 | 2; // int32
     /**
+     * videoEngagementScore
+     */
+    export interface VideoEngagementScore {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
+        /**
+         * int32
+         */
+        maxViewCount?: number; // int32
+        /**
+         * int32
+         */
+        maxShareCount?: number; // int32
+    }
+    /**
      * videoExclusivityResponse
      */
     export interface VideoExclusivityResponse {
@@ -7556,6 +7951,12 @@ declare namespace BULLZ {
          * 000000000000000000000000
          */
         walletId?: string; // objectId
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
         /**
          * boolean
          */

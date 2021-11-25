@@ -10,6 +10,7 @@ import {
     TeamCardEditableChange,
     VideoCardEditableChange
 } from 'types/form';
+import { NoopClick } from 'types/global';
 import { Visibility } from 'types/styles';
 import { noop, OkHandlerType, SubjectType } from 'types/types';
 
@@ -61,4 +62,25 @@ export interface CreateProductAsPrimaryProps extends BULLZ.CreateTopicRequest {
 
 export interface RemoveClick {
     onRemove: noop;
+}
+export interface DeleteOrBlockUserModalProps {
+    visible?: boolean;
+    action?: 'delete' | 'block';
+    userId: string;
+    username: string;
+    reasonsList: Array<{
+        value: BULLZ.UserDeletionReason;
+        data: string;
+    }>;
+    onOk?: OkHandlerType;
+}
+
+export interface StatusModalProps {
+    visible?: boolean;
+    status?: 'inProcess' | 'success';
+    //subject: SubjectType;
+    title: string;
+    content: string;
+    buttonText?: string;
+    onClick?: NoopClick;
 }

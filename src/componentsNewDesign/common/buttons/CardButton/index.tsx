@@ -8,6 +8,7 @@ import {
     TextColorsType
 } from 'componentsNewDesign/common/buttons/CardButton/constants';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
+import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { noop } from 'constants/functions';
 import { grey23 } from 'constants/styles/colors';
 import React, { FC } from 'react';
@@ -22,12 +23,14 @@ export interface UserCardButtonProps extends Disabled, ReactClick<HTMLButtonElem
     color?: string;
     textHover?: string;
     type?: TextColorsType;
+    isLoading?: boolean;
 }
 
 export const CardButton: FC<UserCardButtonProps> = ({
     background,
     backgroundHover,
     children,
+    isLoading = false,
     disabled,
     color,
     textHover,
@@ -50,6 +53,6 @@ export const CardButton: FC<UserCardButtonProps> = ({
         onClick={disabled ? noop : onClick}
         {...props}
     >
-        {children}
+        {isLoading ? <Loader isWhite size="middle" /> : children}
     </SimpleButton>
 );
