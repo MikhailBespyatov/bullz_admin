@@ -54,7 +54,8 @@ export const DeletedUsers = () => {
                         <Reason key={reason}>{ReasonDeletion[reason]} </Reason>
                     ))}
                 </Section>
-            ]
+            ],
+            routeId: userId
         })
     );
 
