@@ -8,12 +8,13 @@ export interface ConfirmCheckboxProps {
     title?: string;
     isConfirmed: boolean;
     onChange?: (checked: boolean) => void;
+    fontSize?: string;
 }
 
-export const ConfirmCheckbox = ({ isConfirmed, onChange, title }: ConfirmCheckboxProps) => (
+export const ConfirmCheckbox = ({ isConfirmed, onChange, title, fontSize }: ConfirmCheckboxProps) => (
     <Row alignCenter noWrap>
         <BooleanCheckbox defaultChecked={isConfirmed} onChange={onChange} />
-        <Span noWrap color={white} fontSize="14px" fontWeight="400" lineHeight="24px">
+        <Span noWrap color={white} fontSize={fontSize ? fontSize : '14px'} fontWeight="400" lineHeight="24px">
             {title}
         </Span>
     </Row>

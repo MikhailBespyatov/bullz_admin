@@ -1,7 +1,6 @@
 import { GraphicInfoBlock } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock';
 import { graphicInfoBlockHeight } from 'componentsNewDesign/layouts/blocks/GraphicInfoBlock/constants';
 import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { black } from 'constants/styles/colors';
 import ReactEcharts from 'echarts-for-react';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -15,7 +14,7 @@ interface DashboardGraphiProps extends ActivityStatistics {
 }
 
 export const DashboardGraphic = ({ activityStatistics = [], onClick }: DashboardGraphiProps) => {
-    const [selectedBlocks, setSelectedBlocks] = useState<string[]>(['Users Email Verified']);
+    const [selectedBlocks, setSelectedBlocks] = useState<string[]>(['Phone Numbers']);
     const [series, setSeries] = useState<ReturnType<typeof getSeries>>([]);
     const graphSeries = useMemo(() => series.filter(({ name }) => selectedBlocks.some(block => block === name)), [
         series,
@@ -40,7 +39,8 @@ export const DashboardGraphic = ({ activityStatistics = [], onClick }: Dashboard
     useEffect(() => {
         setOption({
             series: graphSeries,
-            ...graphicOption
+            ...graphicOption,
+            backgroundColor: '#2C2E3A'
         });
     }, [graphSeries, graphicOption, selectedBlocks, activityStatistics]);
 
@@ -66,7 +66,7 @@ export const DashboardGraphic = ({ activityStatistics = [], onClick }: Dashboard
             <Column>
                 {graphicBlocks.map(({ nameBlock, selectedBackgroundColor, subtitle, title, icon = () => null }) => {
                     const isSelected = selectedBlocks.some(block => block === nameBlock);
-                    const background = isSelected ? selectedBackgroundColor : black;
+                    const background = isSelected ? selectedBackgroundColor : '#2C2E3A';
 
                     return (
                         <GraphicInfoBlock

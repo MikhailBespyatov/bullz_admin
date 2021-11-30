@@ -2,8 +2,8 @@ import { ModalButton } from 'componentsNewDesign/common/buttons/ModalButton';
 import { ConfirmCheckbox } from 'componentsNewDesign/common/inputs/ConfirmCheckbox';
 import { StyledTextInput } from 'componentsNewDesign/common/inputs/StyledTextInput';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
+import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Loader } from 'componentsNewDesign/dynamic/Loader';
-import { TitleText } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/styles';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
 import { errorColor, grey27 } from 'constants/styles/colors';
@@ -65,10 +65,12 @@ export const RemoveOrBanModal = () => {
         <ModalWrapper height="fit-content" visible={visible} width="700px" onClose={onClose}>
             <Column alignCenter width="100%">
                 <Row marginBottom={marginBottom}>
-                    <TitleText>{modalTitle}</TitleText>
+                    <Span fontSize="14px" fontWeight="500" lineHeight="17px">
+                        {modalTitle}
+                    </Span>
                 </Row>
                 <Section alignCenter marginBottom="8px">
-                    <ContentText>{inputLabel}</ContentText>
+                    <ContentText fontSize="11px">{inputLabel}</ContentText>
                 </Section>
                 <Section alignCenter marginBottom={marginBottom}>
                     <StyledTextInput
@@ -81,6 +83,7 @@ export const RemoveOrBanModal = () => {
                 </Section>
                 <Section marginBottom="10px">
                     <ConfirmCheckbox
+                        fontSize="11px"
                         isConfirmed={isConfirmedDefault}
                         title={banUserTitle}
                         onChange={onBanCheckboxChange}
@@ -88,6 +91,7 @@ export const RemoveOrBanModal = () => {
                 </Section>
                 <Section marginBottom={marginBottom}>
                     <ConfirmCheckbox
+                        fontSize="11px"
                         isConfirmed={isConfirmedDefault}
                         title={removeUserTitle}
                         onChange={onRemoveCheckboxChange}

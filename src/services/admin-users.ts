@@ -33,3 +33,9 @@ export const getBlacklistedUsers = (data: BULLZ.QueryBlacklistedUsersRequest, ca
         cancelToken,
         data
     });
+export const getDeletedUsers = (data: BULLZ.QueryDeletedUsersRequest, cancelToken?: CancelToken) =>
+    axios<BULLZ.QueryDeletedUsersResponse>({
+        url: '/admin/user/query-deleted',
+        cancelToken,
+        data
+    });

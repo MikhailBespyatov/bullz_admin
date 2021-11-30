@@ -1,11 +1,13 @@
 import history from 'browserHistory';
 import { AsyncModal } from 'componentsNewDesign/modals/AsyncModal';
+import { DeleteOrBlockUserModal } from 'componentsNewDesign/modals/DeleteOrBlockUserModal';
 import { ConfirmPromotionActivationModal } from 'componentsNewDesign/modals/formModals/marketingTools/ConfirmPromotionActivationModal';
 import { CongratsModal } from 'componentsNewDesign/modals/formModals/marketingTools/CongratsModal';
 import { InformationalModal } from 'componentsNewDesign/modals/formModals/marketingTools/InformationalModal';
 import { RemoveOrBanModal } from 'componentsNewDesign/modals/formModals/teams/RemoveOrBanModal';
 import { VideoHashtagsEditorModal } from 'componentsNewDesign/modals/formModals/videos/HashtagsEditModal';
 import { NotificationModal } from 'componentsNewDesign/modals/Notification';
+import { StatusModal } from 'componentsNewDesign/modals/StatusModal';
 import { UserReportWrapper } from 'componentsNewDesign/modals/UserReportModal';
 import { Roles } from 'constants/defaults/users';
 import {
@@ -15,6 +17,8 @@ import {
     createTopicLink,
     createUserLink,
     dashboardLink,
+    deletedUserLink,
+    deletedUsersLink,
     deleteUserLink,
     error401Link,
     error403Link,
@@ -43,6 +47,8 @@ import { CreateProduct } from 'pages/CreateProduct';
 import { CreateTeam } from 'pages/CreateTeam';
 import { CreateUser } from 'pages/CreateUser';
 import { Dashboard } from 'pages/Dashboard';
+import { DeletedUsers } from 'pages/DeletedUsers';
+import { DeletedUser } from 'pages/DeletedUsers/DeletedUser';
 import { DeleteUser } from 'pages/DeleteUser';
 import { Home } from 'pages/Home';
 import { Video } from 'pages/Home/Video';
@@ -77,6 +83,8 @@ const App = () => {
                 <ConfirmPromotionActivationModal />
                 <CongratsModal />
                 <InformationalModal />
+                <DeleteOrBlockUserModal />
+                <StatusModal />
 
                 <AsyncModal />
                 {/*<Modal />*/}
@@ -121,6 +129,18 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={User}
                         path={userLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={DeletedUsers}
+                        path={deletedUsersLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={DeletedUser}
+                        path={deletedUserLink}
                     />
                     <PrivateRoute
                         exact

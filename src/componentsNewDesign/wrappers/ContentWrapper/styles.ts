@@ -3,7 +3,16 @@ import {
     contentWrapperMinWidth
 } from 'componentsNewDesign/wrappers/ContentWrapper/constants';
 import styled from 'styled-components';
-import { BackgroundColor, BorderRadius, Margin, MaxSizes, MinSizes, Padding, Sizes } from 'types/styles';
+import {
+    BackgroundColor,
+    BorderProperties,
+    BorderRadius,
+    Margin,
+    MaxSizes,
+    MinSizes,
+    Padding,
+    Sizes
+} from 'types/styles';
 
 export interface ContentWrapperProps
     extends Sizes,
@@ -12,7 +21,8 @@ export interface ContentWrapperProps
         MaxSizes,
         BackgroundColor,
         BorderRadius,
-        Margin {}
+        Margin,
+        BorderProperties {}
 
 export const ContentWrapper = styled.div<ContentWrapperProps>`
     ${({ height }) => height && `height: ${height}`};
@@ -30,4 +40,5 @@ export const ContentWrapper = styled.div<ContentWrapperProps>`
     ${({ marginBottom }) => marginBottom && `margin-bottom: ${marginBottom};`};
     border-radius: ${({ borderRadius }) => borderRadius || contentWrapperBorderRadius};
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
+    ${({ border }) => border && `border: ${border}`}
 `;

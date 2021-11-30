@@ -73,3 +73,12 @@ export const Empty = ({
         </Column>
     );
 };
+//     <Row justifyCenter marginBottom="23px" marginTop="37px" width={titleWidth || 'fit-content'}>
+//         <TitleSpan fontSize={titleFontSize} fontWeight={titleFontWeight} lineHeight={titleLineHeight}>
+//             {title}
+//         </TitleSpan>
+//     </Row>
+//     <Row justifyCenter width="430px">
+//         <SubtitleSpan>{subtitle}</SubtitleSpan>
+//     </Row>
+// </Column>

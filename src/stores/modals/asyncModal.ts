@@ -8,7 +8,7 @@ import { validationReasons } from 'constants/defaults/videos';
 import { noop } from 'constants/functions';
 import { asyncError, editSuccessMessage } from 'constants/notifications';
 import { marketingToolsLink } from 'constants/routes';
-import { combine, createEffect, createEvent, restore } from 'effector';
+import { combine, createEffect, createEvent, createStore, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { initializeEffectFailDataWatch } from 'stores/initialize/initialize.effect.failData.watch';
@@ -28,9 +28,11 @@ import {
     CreateAffiliateLinkModalProps,
     CreateProductAsPrimaryProps,
     CurateVideoModalProps,
+    DeleteOrBlockUserModalProps,
     EditProductModalProps,
     EditTeamModalProps,
     EditVideoModalProps,
+    StatusModalProps,
     UploadNewVideoModalProps,
     UploadProductImageModalProps,
     UploadPromotionImageModalProps
@@ -303,7 +305,50 @@ const asyncModal = restore<AsyncModal>(openAsyncModal, initialAsyncModal).on(clo
 
 const asyncModalStore = combine(loading, asyncModal);
 
-export const modalEvents = { openAsyncModal, closeAsyncModal, updateAsyncModalLoading };
+// *********** DeleteOrBlockUserModal ***********
+
+const initialDeleteOrBlockUserModal: DeleteOrBlockUserModalProps = {
+    visible: false,
+    action: 'delete',
+    userId: '',
+    username: '',
+    reasonsList: []
+};
+
+const openDeleteOrBlockUserModal = createEvent<DeleteOrBlockUserModalProps>();
+const closeDeleteOrBlockUserModal = createEvent();
+
+const deleteOrBlockUserModal = createStore<DeleteOrBlockUserModalProps>(initialDeleteOrBlockUserModal)
+    .on(openDeleteOrBlockUserModal, (state, newState) => ({ ...state, ...newState, visible: true }))
+    .on(closeDeleteOrBlockUserModal, () => initialDeleteOrBlockUserModal);
+
+// *********** StatusModal ***********
+
+const initialStatusModal: StatusModalProps = {
+    visible: false,
+    status: 'success',
+    //subject: '',
+    title: '',
+    content: '',
+    buttonText: ''
+};
+
+const openStatusModal = createEvent<StatusModalProps>();
+const closeStatusModal = createEvent();
+
+const statusModal = createStore<StatusModalProps>(initialStatusModal)
+    .on(openStatusModal, (state, newState) => ({ ...state, ...newState, visible: true }))
+    .on(closeStatusModal, () => initialStatusModal);
+
+export const modalEvents = {
+    openAsyncModal,
+    closeAsyncModal,
+    updateAsyncModalLoading,
+    openDeleteOrBlockUserModal,
+    closeDeleteOrBlockUserModal,
+    openStatusModal,
+    closeStatusModal
+};
 export const modalEffects = {
     editVideoInfo,
     editProductInfo,
@@ -318,4 +363,11 @@ export const modalEffects = {
     createProductAndSetAsPrimary,
     changeDefaultAffiliateLink
 };
-export const modalStores = { asyncModalStore, initialLoading, loading, asyncModalLoading };
+export const modalStores = {
+    asyncModalStore,
+    initialLoading,
+    loading,
+    asyncModalLoading,
+    deleteOrBlockUserModal,
+    statusModal
+};

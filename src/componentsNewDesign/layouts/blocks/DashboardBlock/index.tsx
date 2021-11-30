@@ -54,29 +54,27 @@ export const DashboardBlock = ({
     onRemove,
     order,
     commentCount = 0,
-    notVerifiedUserCount = 0,
     rejectedVideoCount = 0,
     shareCount = 0,
-    verifiedUserCount = 0,
     videoCount = 0,
     viewCount = 0,
     unProcessedVideoCount = 0,
     phoneVerifiedUserCount = 0,
+    notVerifiedUserCount = 0,
     disabled,
     onChange,
     activeIndexStatistic,
     active
 }: DashboardBlockProps) => {
     const activityStatisticsValue = [
-        { subtitle: notVerifiedUserCount, title: 'Total Users Not Verified Email' },
-        { subtitle: verifiedUserCount, title: 'Total Users Verified Email' },
+        { subtitle: phoneVerifiedUserCount, title: 'Phone Number' },
+        { subtitle: notVerifiedUserCount, title: 'Users count' },
         { subtitle: videoCount, title: 'Total Videos Verified Email' },
         { subtitle: rejectedVideoCount, title: 'Total Videos Rejected' },
+        { subtitle: unProcessedVideoCount, title: 'Upload Errors' },
         { subtitle: commentCount, title: 'Total Comments' },
         { subtitle: viewCount, title: 'Total Views' },
-        { subtitle: shareCount, title: 'Total Share' },
-        { subtitle: phoneVerifiedUserCount, title: 'Phone Number' },
-        { subtitle: unProcessedVideoCount, title: 'Upload Errors' }
+        { subtitle: shareCount, title: 'Total Share' }
     ];
 
     return (
