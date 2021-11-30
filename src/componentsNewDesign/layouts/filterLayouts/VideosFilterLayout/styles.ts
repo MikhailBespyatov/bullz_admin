@@ -1,5 +1,5 @@
 import { grey30 } from 'constants/styles/colors';
-import { filterMargin, lg } from 'constants/styles/sizes';
+import { filterMargin, lg, xxs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { IsClosed } from 'types/data';
 
@@ -14,6 +14,10 @@ export const ComponentWrapper = styled.div`
         margin-bottom: 20px;
         width: 380px;
         justify-content: space-between;
+    }
+
+    @media (max-width: ${xxs}) {
+        width: 100%;
     } ;
 `;
 

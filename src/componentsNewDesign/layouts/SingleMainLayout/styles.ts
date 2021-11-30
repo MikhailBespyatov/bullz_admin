@@ -19,7 +19,6 @@ export const SingleMainWrapper = styled.div`
     }
 
     @media (max-width: ${xxs}) {
-        border-radius: 0;
         padding-left: ${filterMarginMobile};
         padding-right: ${filterMarginMobile};
         padding-top: 14px;

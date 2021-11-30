@@ -2,7 +2,6 @@ import { useMediaQuery } from '@material-ui/core';
 import arrowRight from 'assets/arrow_right.svg';
 import {
     dropdownWrapperWidth,
-    dropdownWrapperWidthMobile,
     rightArrowIconHeight,
     rightArrowIconWidth,
     titlePadding
@@ -23,11 +22,7 @@ import { DefaultValueBoolean } from 'types/form';
 
 export const DropdownColumn: FC = ({ children }) => {
     const isMobile = useMediaQuery(`(max-width: ${xs})`);
-    return !isMobile ? (
-        <Column width={dropdownWrapperWidth}>{children}</Column>
-    ) : (
-        <Column width={dropdownWrapperWidthMobile}>{children}</Column>
-    );
+    return <Column width={isMobile ? '100%' : dropdownWrapperWidth}>{children}</Column>;
 };
 
 export interface Props extends DropdownSectionProps, DefaultValueBoolean {

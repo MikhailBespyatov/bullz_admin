@@ -90,6 +90,7 @@ export interface PropertyBlockProps
     backgroundColor?: string;
     customCopyIcon?: string;
     isLink?: boolean;
+    fontSize?: string;
 }
 
 export const PropertyBlock = ({

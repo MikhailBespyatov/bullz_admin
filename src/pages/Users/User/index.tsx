@@ -10,10 +10,11 @@ import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
 import { defaultUserVideosValuesWithoutDate, Roles } from 'constants/defaults/users';
-import { filterMargin, padding } from 'constants/styles/sizes';
+import { filterMargin, padding, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/User/constants';
 import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
 import { statisticsEvents, statisticsStores } from 'stores/statistics/statistics';
 import { userStores } from 'stores/users/user';
@@ -33,6 +34,7 @@ export const User = () => {
     const user = useStore(usersStores.user);
     const loading = useStore(usersStores.loading);
     const [checked, setChecked] = useState(false);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     // const videos = useStore(videosStores.videos);
     // const videosLoading = useStore(videosEffects.loadItems.pending);
@@ -101,7 +103,7 @@ export const User = () => {
                     <Section marginBottom={filterMargin}>
                         {user?.id ? (
                             <>
-                                <Column marginRight={padding}>
+                                <Column marginRight={isMobile ? '0' : padding}>
                                     <UserDescription {...user} />
                                 </Column>
                             </>

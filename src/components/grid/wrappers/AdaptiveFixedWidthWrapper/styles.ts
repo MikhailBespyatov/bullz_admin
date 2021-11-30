@@ -10,4 +10,8 @@ export const AdaptiveFixedWidthWrapper = styled.div<Props>`
     @media (max-width: ${({ width }) => width || wrapperWidth}) {
         width: ${({ width }) => width || wrapperWidth};
     }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
 `;
