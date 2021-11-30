@@ -21,3 +21,21 @@ export const CatalogContainer: FC<Props> = ({ children, totalRecords, marginRigh
         {children}
     </CatalogContainerWrapper>
 );
+// export const CatalogContainer: FC<Props> = ({ children, totalRecords }) => {
+//     const isMobile = useMediaQuery(`(max-width: ${xs})`);
+//     const marginBottom = isMobile ? cardMargin : filterMargin;
+//     const marginLeft = isMobile ? '10px' : '0';
+//     const marginRight = isMobile ? '8px' : '50px';
+
+//     return (
+//         <CatalogContainerWrapper>
+//             <Section alignCenter marginBottom={marginBottom} marginLeft={marginLeft}>
+//                 <MarginWrapper marginRight={marginRight}>
+//                     <Breadcrumb />
+//                 </MarginWrapper>
+//                 {totalRecords !== undefined && <TotalBadge quantity={totalRecords} />}
+//             </Section>
+//             {children}
+//         </CatalogContainerWrapper>
+//     );
+// };

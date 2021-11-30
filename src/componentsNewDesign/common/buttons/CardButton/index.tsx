@@ -21,8 +21,10 @@ export interface UserCardButtonProps extends Disabled, ReactClick<HTMLButtonElem
     backgroundHover?: string;
     background?: string;
     color?: string;
+    fontSize?: string;
     textHover?: string;
     type?: TextColorsType;
+    padding?: string;
     isLoading?: boolean;
 }
 
@@ -32,10 +34,12 @@ export const CardButton: FC<UserCardButtonProps> = ({
     children,
     isLoading = false,
     disabled,
+    padding,
     color,
     textHover,
     type = 'primary',
     width,
+    fontSize,
     onClick,
     ...props
 }) => (
@@ -44,10 +48,11 @@ export const CardButton: FC<UserCardButtonProps> = ({
         backgroundHover={backgroundHover || 'none'}
         color={disabled ? disabledCardButtonTextColor : color ? color : textColors[type]}
         disabled={disabled}
-        fontSize={cardButtonTextFontSize}
+        fontSize={fontSize || cardButtonTextFontSize}
         height={cardButtonHeight}
         marginBottom={cardButtonMarginBottom}
         minWidth={width || cardButtonMinWidth}
+        padding={padding}
         textHover={textHover || 'none'}
         width={width}
         onClick={disabled ? noop : onClick}

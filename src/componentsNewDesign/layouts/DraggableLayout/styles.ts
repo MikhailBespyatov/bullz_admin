@@ -5,6 +5,7 @@ import {
     trendingVideoWrapperWidth
 } from 'componentsNewDesign/layouts/DraggableLayout/constants';
 import { StyledDivProps } from 'componentsNewDesign/layouts/DraggableLayout/types';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div<StyledDivProps>`
@@ -26,5 +27,11 @@ export const TrendingVideoWrapper = styled.section`
     @media (max-width: ${adaptiveWidth}) {
         width: 100%;
         margin-bottom: 0;
+    }
+
+    @media (max-width: ${xs}) {
+        margin-right: 0;
+        justify-content: space-around;
+        height: auto;
     }
 `;

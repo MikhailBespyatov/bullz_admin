@@ -8,6 +8,7 @@ import {
     flexCenter,
     flexStart
 } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { Active } from 'types/global';
 import { PaddingLeft } from 'types/styles';
@@ -56,6 +57,10 @@ export const PaginationWrapper = styled.div`
     ${flexStart};
     margin-right: ${paginationWrapperMarginRight};
     border-radius: ${paginationCellBorderRadius};
+
+    @media (max-width: ${xs}) {
+        margin-right: 0;
+    } ;
 `;
 
 export const PaginationInput = styled.input`
@@ -73,6 +78,11 @@ export const PaginationInput = styled.input`
 
     :focus-within {
         border: 1px solid #000;
+    }
+
+    @media screen and (max-width: ${xs}) {
+        width: 41px;
+        height: 29px;
     }
 `;
 

@@ -7,9 +7,11 @@ import {
 } from 'componentsNewDesign/modals/Tooltip/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { black2 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
 import { useModal } from 'hooks/modal';
 import React, { FC, MouseEvent as MouseEventReact, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { PopoverType, Title } from 'types/data';
 import { TooltipArrow, TooltipRelativeWrapper, TooltipSpan, TooltipWrapper } from './styles';
 
@@ -22,6 +24,8 @@ export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title }) => 
     const tooltipRef = useRef<HTMLDivElement>(null);
     const childrenProperty = useRefWidthAndHeight(childrenRef);
     const tooltipProperty = useRefWidthAndHeight(tooltipRef);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
+
     //const tooltipShift = useShiftPopover(tooltipRef);
     //const childrenHalfWidth = childrenProperty[0] / 2 + 'px';
     //const tooltipLeft = calculateTooltipLeft(childrenHalfWidth, tooltipProperty[0] + 'px', tooltipShift);
@@ -49,11 +53,21 @@ export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title }) => 
     return (
         <TooltipRelativeWrapper ref={childrenRef} onMouseLeave={close} onMouseMove={onClick}>
             <Portal>
-                <TooltipWrapper ref={tooltipRef} left={tooltipLeft} top={tooltipTop} visible={visible} zIndex="1000">
+                <TooltipWrapper
+                    ref={tooltipRef}
+                    left={isMobile ? `calc(${tooltipLeft} - 50px)` : tooltipLeft}
+                    top={tooltipTop}
+                    visible={visible}
+                    zIndex="1000"
+                >
                     <ContentWrapper backgroundColor={black2} borderRadius="4px" padding="8px 15px">
                         <TooltipSpan>{title}</TooltipSpan>
                     </ContentWrapper>
-                    <TooltipArrow left={arrowLeft} top={arrowTop} type={type} />
+                    <TooltipArrow
+                        left={isMobile ? `calc(${arrowLeft} + 50px)` : arrowLeft}
+                        top={arrowTop}
+                        type={type}
+                    />
                 </TooltipWrapper>
             </Portal>
             {children}

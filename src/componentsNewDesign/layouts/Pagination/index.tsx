@@ -9,9 +9,11 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
 import { grey29 } from 'constants/styles/colors';
+import { xs, xxs } from 'constants/styles/sizes';
 import { useCloseClick } from 'hooks/closeClick';
 import { useModal } from 'hooks/modal';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import {
     arrowImgHeight,
     arrowImgWidth,
@@ -23,6 +25,8 @@ import {
     paginationCellHeight,
     PaginationCellLineHeight,
     paginationLimit,
+    paginationLimitMobile,
+    paginationMobile,
     paginationWrapperHorizontalMargin,
     selectorHorizontalPadding,
     selectorVerticalPadding,
@@ -63,6 +67,7 @@ interface SelectProps {
 const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) => {
     const { visible, close, open } = useModal();
     const componentRef = useRef<HTMLDivElement>(null);
+    const isSmallMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
 
     const [activeItemName, setActiveItemName] = useState(activeItem);
 
@@ -83,7 +88,7 @@ const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) =
         <ContentWrapper
             ref={componentRef}
             backgroundColor={grey29}
-            minWidth="93px"
+            minWidth={isSmallMobile ? '76px' : '93px'}
             padding={`${selectorVerticalPadding} 0`}
             onClick={visible ? close : openClick}
         >
@@ -143,37 +148,73 @@ const SmallPager = ({ activeIndex, total, onChange }: Props) => (
     </>
 );
 
-const BigPager = ({ activeIndex, total, onChange }: Props) => (
-    <>
-        {activeIndex <= paginationLimit
-            ? pagination.map((_, i) => (
-                  <PaginationCell key={i.toString()} active={activeIndex === 2 + i} onClick={() => onChange(2 + i)}>
-                      {i + 2 === paginationLimit + 1 ? threeDots : 2 + i}
-                  </PaginationCell>
-              ))
-            : activeIndex > total - paginationLimit + 1
-            ? pagination
-                  .filter((_, i) => i !== paginationLimit - 1)
-                  .map((_, i) => (
-                      <PaginationCell
-                          key={i.toString()}
-                          active={activeIndex === total - paginationLimit + i + 1}
-                          onClick={() => onChange(total - paginationLimit + i + 1)}
-                      >
-                          {i + 2 === 2 ? '...' : total - paginationLimit + i + 1}
+const BigPager = ({ activeIndex, total, onChange }: Props) => {
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
+
+    return !isMobile ? (
+        <>
+            {activeIndex <= paginationLimit
+                ? pagination.map((_, i) => (
+                      <PaginationCell key={i.toString()} active={activeIndex === 2 + i} onClick={() => onChange(2 + i)}>
+                          {i + 2 === paginationLimit + 1 ? threeDots : 2 + i}
                       </PaginationCell>
                   ))
-            : pagination.map((_, i) => (
-                  <PaginationCell
-                      key={i.toString()}
-                      active={activeIndex === activeIndex - (paginationLimit - 1) / 2 + i}
-                      onClick={() => onChange(activeIndex - (paginationLimit - 1) / 2 + i)}
-                  >
-                      {i === 0 || i === paginationLimit - 1 ? '...' : activeIndex - (paginationLimit - 1) / 2 + i}
-                  </PaginationCell>
-              ))}
-    </>
-);
+                : activeIndex > total - paginationLimit + 1
+                ? pagination
+                      .filter((_, i) => i !== paginationLimit - 1)
+                      .map((_, i) => (
+                          <PaginationCell
+                              key={i.toString()}
+                              active={activeIndex === total - paginationLimit + i + 1}
+                              onClick={() => onChange(total - paginationLimit + i + 1)}
+                          >
+                              {i + 2 === 2 ? '...' : total - paginationLimit + i + 1}
+                          </PaginationCell>
+                      ))
+                : pagination.map((_, i) => (
+                      <PaginationCell
+                          key={i.toString()}
+                          active={activeIndex === activeIndex - (paginationLimit - 1) / 2 + i}
+                          onClick={() => onChange(activeIndex - (paginationLimit - 1) / 2 + i)}
+                      >
+                          {i === 0 || i === paginationLimit - 1 ? '...' : activeIndex - (paginationLimit - 1) / 2 + i}
+                      </PaginationCell>
+                  ))}
+        </>
+    ) : (
+        <>
+            {activeIndex <= paginationLimitMobile
+                ? paginationMobile.map((_, i) => (
+                      <PaginationCell key={i.toString()} active={activeIndex === 2 + i} onClick={() => onChange(2 + i)}>
+                          {i === paginationLimitMobile - 1 ? threeDots : 2 + i}
+                      </PaginationCell>
+                  ))
+                : activeIndex > total - paginationLimitMobile + 1
+                ? paginationMobile
+                      .filter((_, i) => i !== paginationLimitMobile - 1)
+                      .map((_, i) => (
+                          <PaginationCell
+                              key={i.toString()}
+                              active={activeIndex === total - paginationLimitMobile + i + 1}
+                              onClick={() => onChange(total - paginationLimitMobile + i + 1)}
+                          >
+                              {i + 2 === 2 ? '...' : total - paginationLimitMobile + i + 1}
+                          </PaginationCell>
+                      ))
+                : paginationMobile.map((_, i) => (
+                      <PaginationCell
+                          key={i.toString()}
+                          active={activeIndex === activeIndex - (paginationLimitMobile - 1) / 2 + i}
+                          onClick={() => onChange(activeIndex - (paginationLimitMobile - 1) / 2 + i)}
+                      >
+                          {i === 0 || i === paginationLimitMobile - 1
+                              ? '...'
+                              : activeIndex - (paginationLimitMobile - 1) / 2 + i}
+                      </PaginationCell>
+                  ))}
+        </>
+    );
+};
 
 export const Pagination = ({
     currentIndex,
@@ -190,6 +231,8 @@ export const Pagination = ({
 
         return pagesLimit && totalItemsValue >= pagesLimit ? pagesLimit : totalItemsValue;
     }, [defaultSize, totalItems, pagesLimit]);
+
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const [valuePage, setValuePage] = useState('');
     const [size, setSize] = useState(defaultSize);
@@ -219,48 +262,126 @@ export const Pagination = ({
         <>
             {total !== 0 && (
                 <Section alignCenter justifyCenter height={height}>
-                    <MarginWrapper marginRight={paginationWrapperHorizontalMargin}>
-                        <Arrow disabled={currentIndex === 1} onClick={() => onIndexChange(currentIndex - 1)}>
-                            <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />
-                        </Arrow>
-                    </MarginWrapper>
-                    <PaginationWrapper>
-                        <PaginationCell active={1 === currentIndex} onClick={() => onIndexChange(1)}>
-                            1
-                        </PaginationCell>
-                        {total - 2 <= paginationLimit ? (
-                            <SmallPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
-                        ) : (
-                            <BigPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
-                        )}
-                        {total !== 1 && (
-                            <PaginationCell active={total === currentIndex} onClick={() => onIndexChange(total)}>
-                                {total}
-                            </PaginationCell>
-                        )}
-                    </PaginationWrapper>
-
-                    <MarginWrapper marginRight="60px">
-                        <Arrow disabled={currentIndex === total} onClick={() => onIndexChange(currentIndex + 1)}>
-                            <CustomImg height={arrowImgHeight} rotate={180} src={arrowImg} width={arrowImgWidth} />
-                        </Arrow>
-                    </MarginWrapper>
-
-                    <Select activeItem={defaultSize.toString()} selector={sizeValues} onChange={onSizeAndIndexChange} />
-                    <MarginWrapper marginLeft="24px">
-                        <Row alignCenter height={paginationCellHeight} marginBottom="0">
-                            <Span
-                                fontSize={PaginationCellFontSize}
-                                fontWeight={PaginationCellFontWeight}
-                                lineHeight={PaginationCellLineHeight}
-                            >
-                                Go to
-                            </Span>
-                            <MarginWrapper marginLeft="9px">
-                                <PaginationInput value={valuePage} onChange={handlePageSet} onKeyDown={handleKeyDown} />
+                    {!isMobile ? (
+                        <>
+                            <MarginWrapper marginRight={paginationWrapperHorizontalMargin}>
+                                <Arrow disabled={currentIndex === 1} onClick={() => onIndexChange(currentIndex - 1)}>
+                                    <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />
+                                </Arrow>
                             </MarginWrapper>
-                        </Row>
-                    </MarginWrapper>
+                            <PaginationWrapper>
+                                <PaginationCell active={1 === currentIndex} onClick={() => onIndexChange(1)}>
+                                    1
+                                </PaginationCell>
+                                {total - 2 <= paginationLimit ? (
+                                    <SmallPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
+                                ) : (
+                                    <BigPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
+                                )}
+                                {total !== 1 && (
+                                    <PaginationCell
+                                        active={total === currentIndex}
+                                        onClick={() => onIndexChange(total)}
+                                    >
+                                        {total}
+                                    </PaginationCell>
+                                )}
+                            </PaginationWrapper>
+
+                            <MarginWrapper marginRight="60px">
+                                <Arrow
+                                    disabled={currentIndex === total}
+                                    onClick={() => onIndexChange(currentIndex + 1)}
+                                >
+                                    <CustomImg
+                                        height={arrowImgHeight}
+                                        rotate={180}
+                                        src={arrowImg}
+                                        width={arrowImgWidth}
+                                    />
+                                </Arrow>
+                            </MarginWrapper>
+
+                            <Select
+                                activeItem={defaultSize.toString()}
+                                selector={sizeValues}
+                                onChange={onSizeAndIndexChange}
+                            />
+                            <MarginWrapper marginLeft="24px">
+                                <Row alignCenter height={paginationCellHeight} marginBottom="0">
+                                    <Span
+                                        fontSize={PaginationCellFontSize}
+                                        fontWeight={PaginationCellFontWeight}
+                                        lineHeight={PaginationCellLineHeight}
+                                    >
+                                        Go to
+                                    </Span>
+                                    <MarginWrapper marginLeft="9px">
+                                        <PaginationInput
+                                            value={valuePage}
+                                            onChange={handlePageSet}
+                                            onKeyDown={handleKeyDown}
+                                        />
+                                    </MarginWrapper>
+                                </Row>
+                            </MarginWrapper>
+                        </>
+                    ) : (
+                        <Section alignCenter justifyBetween noWrap>
+                            <Row alignCenter noWrap>
+                                <Arrow disabled={currentIndex === 1} onClick={() => onIndexChange(currentIndex - 1)}>
+                                    <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />
+                                </Arrow>
+                                <PaginationWrapper>
+                                    <PaginationCell active={1 === currentIndex} onClick={() => onIndexChange(1)}>
+                                        1
+                                    </PaginationCell>
+                                    {total - 2 <= paginationLimit ? (
+                                        <SmallPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
+                                    ) : (
+                                        <BigPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
+                                    )}
+                                    {total !== 1 && (
+                                        <PaginationCell
+                                            active={total === currentIndex}
+                                            onClick={() => onIndexChange(total)}
+                                        >
+                                            {total}
+                                        </PaginationCell>
+                                    )}
+                                </PaginationWrapper>
+                                <Arrow
+                                    disabled={currentIndex === total}
+                                    onClick={() => onIndexChange(currentIndex + 1)}
+                                >
+                                    <CustomImg
+                                        height={arrowImgHeight}
+                                        rotate={180}
+                                        src={arrowImg}
+                                        width={arrowImgWidth}
+                                    />
+                                </Arrow>
+                            </Row>
+                            <Select
+                                activeItem={defaultSize.toString()}
+                                selector={sizeValues}
+                                onChange={onSizeAndIndexChange}
+                            />
+                            <Row alignCenter noWrap height={paginationCellHeight} marginLeft="4px">
+                                <MarginWrapper marginRight="4px">
+                                    <Span
+                                        noWrap
+                                        fontSize={PaginationCellFontSize}
+                                        fontWeight={PaginationCellFontWeight}
+                                        lineHeight={PaginationCellLineHeight}
+                                    >
+                                        Go to
+                                    </Span>
+                                </MarginWrapper>
+                                <PaginationInput value={valuePage} onChange={handlePageSet} onKeyDown={handleKeyDown} />
+                            </Row>
+                        </Section>
+                    )}
                 </Section>
             )}
         </>

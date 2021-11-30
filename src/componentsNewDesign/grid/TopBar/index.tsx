@@ -1,7 +1,9 @@
-import { ItemActiveBorder, ItemSpan } from 'componentsNewDesign/grid/TopBar/styles';
-import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { useMediaQuery } from '@material-ui/core';
+import { ItemActiveBorder, ItemSpan, Wrapper } from 'componentsNewDesign/grid/TopBar/styles';
+import { Column } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { hoverGrey3 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import React, { useEffect, useState } from 'react';
 
 export interface TopBarProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzValidationInfo {
@@ -12,6 +14,7 @@ export interface TopBarProps extends BULLZ.AdminGetVideoResponse, BULLZ.BullzVal
 
 export const TopBar = ({ content, onChange, defaultActiveItem = content[0] }: TopBarProps) => {
     const [activeItemName, setActiveItemName] = useState(defaultActiveItem);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const onChangeItem = (nameItem: string) => {
         setActiveItemName(nameItem);
@@ -23,7 +26,7 @@ export const TopBar = ({ content, onChange, defaultActiveItem = content[0] }: To
     // console.log('content', content);
 
     return (
-        <Section marginBottom="16px">
+        <Wrapper noWrap={isMobile}>
             {content.map(item => {
                 const isActive = item === activeItemName;
 
@@ -45,6 +48,6 @@ export const TopBar = ({ content, onChange, defaultActiveItem = content[0] }: To
                     </MarginWrapper>
                 );
             })}
-        </Section>
+        </Wrapper>
     );
 };

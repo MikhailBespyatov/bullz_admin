@@ -3,14 +3,17 @@ import {
     lastItemBorderHeight,
     lastItemBorderRadius,
     selectorRightPadding,
-    selectPadding
+    selectPadding,
+    selectZIndex
 } from 'componentsNewDesign/common/inputs/Select/constants';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
-import { black, grey23, white } from 'constants/styles/colors';
+import { black, grey23, grey28, grey30, white } from 'constants/styles/colors';
+import { xs, xxs } from 'constants/styles/sizes';
 import styled, { css } from 'styled-components';
+import { IsClosed } from 'types/data';
 import { Active } from 'types/global';
 import {
     BackgroundColor,
@@ -52,6 +55,17 @@ export const SelectWrapper = styled(ContentWrapper)<SelectWrapperProps>`
     @media (min-width: 1270px) {
         padding: ${({ padding }) => (padding ? padding : selectorRightPadding)};
     }
+
+    @media (max-width: ${xs}) {
+        min-width: 100%;
+        padding: 25px 20px 7px;
+        background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : grey30)};
+        border-radius: 0;
+        :hover {
+            background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : grey30)};
+        }
+        z-index: ${selectZIndex};
+    }
 `;
 
 interface ItemsAbsoluteWrapperProps extends Visibility, MaxSizes {}
@@ -83,6 +97,17 @@ export const TitleSpan = styled(Span)`
     line-height: 13px;
     color: ${white};
     opacity: 0.4;
+
+    @media (max-width: ${xs}) {
+        font-size: 11px;
+        line-height: 19px;
+    }
+
+    @media (max-width: ${xxs}) {
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 8px;
+    }
 `;
 
 export const ItemSpan = styled.span<ItemWrapperProps>`
@@ -92,6 +117,16 @@ export const ItemSpan = styled.span<ItemWrapperProps>`
     line-height: 13px;
     letter-spacing: 0em;
     text-align: left;
+
+    @media (max-width: ${xs}) {
+        font-size: 11px;
+        line-height: 21px;
+    }
+
+    @media (max-width: ${xxs}) {
+        font-size: 18px;
+        line-height: 21px;
+    }
 `;
 
 export const ItemWrapper = styled.div<ItemWrapperProps>`
@@ -114,4 +149,29 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
         border-bottom: 0;
         border-radius: 0 0 ${lastItemBorderRadius} ${lastItemBorderRadius};
     }
+
+    @media (max-width: ${xs}) {
+        padding: 16px 20px;
+        background-color: ${({ active }) => (active ? grey30 : grey28)};
+
+        :last-child {
+            border-radius: 0;
+        }
+    }
+`;
+
+interface MobileItemsWrapper extends IsClosed {
+    customMargin?: number;
+    maxHeight?: string;
+}
+
+export const MobileItemsWrapper = styled.div<MobileItemsWrapper>`
+    margin-top: ${({ isClosed, customMargin }) => (isClosed ? `-${customMargin}px` : '0')};
+    transform: ${({ isClosed }) => (isClosed ? 'scaleY(0)' : 'scaleY(1)')};
+    background-color: ${grey28};
+    width: 100%;
+    transition-property: margin-top, transform;
+    transition-duration: 0.3s, 0.3s;
+    max-height: ${({ maxHeight }) => maxHeight || `none`};
+    overflow: auto;
 `;

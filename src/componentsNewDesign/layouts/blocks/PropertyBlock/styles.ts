@@ -8,6 +8,7 @@ import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapp
 import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { black, grey23, white } from 'constants/styles/colors';
 import { disableDefaultButtonStyleMixin, ellipsisMixin } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Active } from 'types/global';
@@ -31,6 +32,11 @@ export const BlockTitle = styled(Span)`
     color: #7b8193;
     margin-right: 5px;
     ${ellipsisMixin};
+
+    @media (max-width: ${xs}) {
+        font-size: 12px;
+        line-height: 14px;
+    }
 `;
 
 export const BlockSubTitle = styled(Span)`
@@ -41,6 +47,11 @@ export const BlockSubTitle = styled(Span)`
     line-height: 16px;
     color: ${({ color }) => color || white};
     ${ellipsisMixin};
+
+    @media (max-width: ${xs}) {
+        font-size: 14px;
+        line-height: 16px;
+    }
 `;
 
 export const DateSpanWrapper = styled(Row)`

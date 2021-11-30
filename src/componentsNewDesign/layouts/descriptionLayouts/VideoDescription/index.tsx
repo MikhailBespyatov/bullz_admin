@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { ReactComponent as CloseImg } from 'assets/close.svg';
 import whiteLinkIcon from 'assets/copy_icon_white.svg';
 import downloadPopupDoneImg from 'assets/download_popup_done.svg';
@@ -22,6 +23,8 @@ import {
     contentTextLineHeight,
     countTotalVideoCommentsQuantity,
     indicatorsArray,
+    mobilePropertyPadding,
+    mobilePropertyWidth,
     NameEngagementType,
     propertyBlockWidth,
     rejectionReasonText,
@@ -34,6 +37,7 @@ import {
 import {
     Backdrop,
     DownloadPopupWrapper,
+    HashtagsWrapper,
     VideoCommentsWrapper
 } from 'componentsNewDesign/layouts/descriptionLayouts/VideoDescription/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
@@ -47,8 +51,8 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultVideoCommentsValues } from 'constants/defaults/comments';
 import { homeLink, topicsLink, usersLink } from 'constants/routes';
-import { black, grey23, grey27, grey29, white } from 'constants/styles/colors';
-import { cardMargin, descriptionPadding, filterMargin } from 'constants/styles/sizes';
+import { black, grey27, grey29, white } from 'constants/styles/colors';
+import { cardMargin, descriptionPadding, filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
@@ -62,7 +66,7 @@ import { loadingStores } from 'stores/loading';
 import { videosEffects, videosStores } from 'stores/videos/videos';
 import { Title } from 'types/data';
 import { Sizes } from 'types/styles';
-import { getLanguagesName } from 'utils/usefulFunctions';
+import { formatDateISOString, getLanguagesName } from 'utils/usefulFunctions';
 
 // const { updateAsyncModalLoading, openAsyncModal, closeAsyncModal } = modalEvents;
 const { /*invokeGetComments,*/ /*setDefaultCommentValues,*/ updateCommentValues } = videoCommentsEvents;
@@ -79,7 +83,7 @@ const DownloadPopup = ({ setIsOpened, status, url, id }: DownloadPopupProps) => 
     const saveFile = () => {
         saveAs(`${url}`, `${id}`);
     };
-
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     return (
         <>
             <Backdrop
@@ -88,11 +92,11 @@ const DownloadPopup = ({ setIsOpened, status, url, id }: DownloadPopupProps) => 
                 }}
             />
             <DownloadPopupWrapper>
-                <MarginWrapper marginLeft="22px">
+                <MarginWrapper marginLeft={isMobile ? '0' : '22px'}>
                     {status && status === 3 ? (
-                        <CustomImg height="auto" src={downloadPopupDoneImg} width="302px" />
+                        <CustomImg height="auto" src={downloadPopupDoneImg} width={isMobile ? '280px' : '302px'} />
                     ) : (
-                        <CustomImg height="auto" src={downloadPopupLoadingImg} width="302px" />
+                        <CustomImg height="auto" src={downloadPopupLoadingImg} width={isMobile ? '280px' : '302px'} />
                     )}
                 </MarginWrapper>
 
@@ -144,7 +148,7 @@ export const VideoEngagementBlock = ({
     width = '100%',
     title = 'Engagements'
 }: VideoEngagementBlockProps) => (
-    <Column>
+    <Column width={width}>
         <Row alignCenter marginBottom={descriptionPadding} width={width}>
             <ContentText
                 color={subTitleColor}
@@ -270,6 +274,7 @@ export const VideoDescription = ({
     const videoLoading = useStore(videosStores.editLoading);
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const videoSourse = useStore(videosStores.videoSourse);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     //const isFirst = useStore(videoCommentsStores.isFirst);
     const videoComments = useStore(videoCommentsStores.videoComments);
     const totalVideoCommentsQuantity = countTotalVideoCommentsQuantity(videoComments);
@@ -334,9 +339,9 @@ export const VideoDescription = ({
                 backgroundColor={grey29}
                 disabled={isDeleted}
                 marginBottom={filterMargin}
-                marginRight={filterMargin}
+                marginRight={isMobile ? '0' : filterMargin}
             >
-                <Row justifyBetween marginBottom={descriptionPadding} width={videoPlayerWidth}>
+                <Row justifyBetween marginBottom={descriptionPadding} width={isMobile ? '100%' : videoPlayerWidth}>
                     <ContentText
                         uppercase
                         color={
@@ -367,14 +372,20 @@ export const VideoDescription = ({
                     )}
                 </Row>
                 <Section>
-                    <Column marginRight={cardMargin}>
-                        <RelativeWrapper height="100%" width={videoPlayerWidth}>
+                    <Column
+                        alignCenter={isMobile}
+                        marginBottom={isMobile ? '16px' : '0'}
+                        marginRight={isMobile ? '0' : cardMargin}
+                        width={isMobile ? '100%' : 'fit-content'}
+                    >
+                        <RelativeWrapper height="100%" width={isMobile ? '200px' : videoPlayerWidth}>
                             <VideoContainer
-                                height="410px"
-                                minWidth="240px"
+                                height="250px"
+                                minWidth="100px"
                                 screenGrabUrl={screenGrabUrl}
                                 thumbnailUrl={thumbnailUrl}
                                 videoSrc={videoSrc || ''}
+                                width="100%"
                             />
                             {/* <Row alignCenter justifyCenter> */}
                             {/*{videoSrc && hlsIsSupported && !startLoading && <PlayButton onClick={goLoading} />}*/}
@@ -391,107 +402,184 @@ export const VideoDescription = ({
                             {/* </Row> */}
                         </RelativeWrapper>
                     </Column>
-                    <Column>
+                    <Column width="100%">
                         <Section marginBottom="20px">
                             <VideoEngagementBlock
                                 engagementStatistics={engagementStatistics}
                                 title="Engagements BULLZ"
-                                width="300px"
+                                width={isMobile ? '100%' : '300px'}
                             />
                         </Section>
 
-                        <Section noWrap>
-                            <PropertyBlock
-                                copiable
-                                backgroundColor={grey27}
-                                customCopyIcon={whiteLinkIcon}
-                                linkRoute={homeLink}
-                                marginBottom={descriptionPadding}
-                                marginRight={descriptionPadding}
-                                subtitle={id}
-                                success="Video ID was copied"
-                                title="Video ID"
-                                width={propertyBlockWidth}
-                            />
+                        {!isMobile && (
+                            <>
+                                <Section noWrap>
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteLinkIcon}
+                                        linkRoute={homeLink}
+                                        marginBottom={descriptionPadding}
+                                        marginRight={descriptionPadding}
+                                        subtitle={id}
+                                        success="Video ID was copied"
+                                        title="Video ID"
+                                        width={propertyBlockWidth}
+                                    />
 
-                            <PropertyBlock
-                                copiable
-                                backgroundColor={grey27}
-                                customCopyIcon={whiteLinkIcon}
-                                linkRoute={usersLink}
-                                marginBottom={descriptionPadding}
-                                marginRight={descriptionPadding}
-                                subtitle={ownerId}
-                                success="User ID was copied"
-                                title="User ID"
-                                width={propertyBlockWidth}
-                            />
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteLinkIcon}
+                                        linkRoute={usersLink}
+                                        marginBottom={descriptionPadding}
+                                        marginRight={descriptionPadding}
+                                        subtitle={ownerId}
+                                        success="User ID was copied"
+                                        title="User ID"
+                                        width={propertyBlockWidth}
+                                    />
 
-                            <PropertyBlock
-                                copiable
-                                backgroundColor={grey27}
-                                customCopyIcon={whiteLinkIcon}
-                                linkRoute={topicsLink}
-                                marginBottom={descriptionPadding}
-                                marginRight={descriptionPadding}
-                                subtitle={primaryProductId}
-                                success="Topic ID was copied"
-                                title="Topic ID"
-                                width={propertyBlockWidth}
-                            />
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteLinkIcon}
+                                        linkRoute={topicsLink}
+                                        marginBottom={descriptionPadding}
+                                        marginRight={descriptionPadding}
+                                        subtitle={primaryProductId}
+                                        success="Topic ID was copied"
+                                        title="Topic ID"
+                                        width={propertyBlockWidth}
+                                    />
 
-                            <PropertyBlock
-                                copiable
-                                isLink
-                                backgroundColor={grey27}
-                                customCopyIcon={whiteLinkIcon}
-                                //linkRoute={productLink || ''}
-                                marginBottom={descriptionPadding}
-                                subtitle={productLink || ''}
-                                success="Topic link was copied"
-                                title="Topic Link"
-                                width={propertyBlockWidth}
-                            />
-                        </Section>
-                        <Section noWrap>
-                            <PropertyBlock
-                                isDate
-                                backgroundColor={grey27}
-                                marginBottom={descriptionPadding}
-                                marginRight={descriptionPadding}
-                                subtitle={utcUploaded as string}
-                                title="Date of Creation"
-                                width={propertyBlockWidth}
-                            />
+                                    <PropertyBlock
+                                        copiable
+                                        isLink
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteLinkIcon}
+                                        //linkRoute={productLink || ''}
+                                        marginBottom={descriptionPadding}
+                                        subtitle={productLink || ''}
+                                        success="Topic link was copied"
+                                        title="Topic Link"
+                                        width={propertyBlockWidth}
+                                    />
+                                </Section>
+                                <Section noWrap>
+                                    <PropertyBlock
+                                        isDate
+                                        backgroundColor={grey27}
+                                        marginBottom={descriptionPadding}
+                                        marginRight={descriptionPadding}
+                                        subtitle={utcUploaded as string}
+                                        title="Date of Creation"
+                                        width={propertyBlockWidth}
+                                    />
 
-                            <PropertyBlock
-                                backgroundColor={grey27}
-                                marginBottom={descriptionPadding}
-                                marginRight={descriptionPadding}
-                                //subtitle={getFullLanguage(audioLanguages)}
-                                subtitle={languagesOfTheVideo}
-                                title="Audio Language"
-                                width={propertyBlockWidth}
-                            />
+                                    <PropertyBlock
+                                        backgroundColor={grey27}
+                                        marginBottom={descriptionPadding}
+                                        marginRight={descriptionPadding}
+                                        //subtitle={getFullLanguage(audioLanguages)}
+                                        subtitle={languagesOfTheVideo}
+                                        title="Audio Language"
+                                        width={propertyBlockWidth}
+                                    />
 
-                            <PropertyBlock
-                                copiable
-                                backgroundColor={grey27}
-                                customCopyIcon={whiteLinkIcon}
-                                isTrusted={isTrusted}
-                                marginBottom={descriptionPadding}
-                                subtitle={username || ''}
-                                success="Username was copied"
-                                title="Username"
-                                width={propertyBlockWidth}
-                            />
-                        </Section>
-                        <Row>
-                            <Column marginRight={descriptionPadding} width="370px">
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteLinkIcon}
+                                        isTrusted={isTrusted}
+                                        marginBottom={descriptionPadding}
+                                        subtitle={username || ''}
+                                        success="Username was copied"
+                                        title="Username"
+                                        width={propertyBlockWidth}
+                                    />
+                                </Section>
+                            </>
+                        )}
+
+                        {isMobile && (
+                            <>
+                                <Section justifyBetween>
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        linkRoute={homeLink}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={id}
+                                        success="Video ID was copied"
+                                        title="Copy video ID "
+                                        width={mobilePropertyWidth}
+                                    />
+
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        linkRoute={usersLink}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={ownerId}
+                                        success="User ID was copied"
+                                        title="Copy user ID"
+                                        width={mobilePropertyWidth}
+                                    />
+
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        linkRoute={topicsLink}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={primaryProductId}
+                                        success="Topic ID was copied"
+                                        title="Copy topic ID"
+                                        width={mobilePropertyWidth}
+                                    />
+
+                                    <PropertyBlock
+                                        isDate
+                                        backgroundColor={grey27}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={formatDateISOString(utcUploaded)}
+                                        title="Date of Creation"
+                                        width={mobilePropertyWidth}
+                                    />
+
+                                    <PropertyBlock
+                                        backgroundColor={grey27}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={languagesOfTheVideo}
+                                        title="Audio Language"
+                                        width={mobilePropertyWidth}
+                                    />
+
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        isTrusted={isTrusted}
+                                        marginBottom={mobilePropertyPadding}
+                                        subtitle={username || ''}
+                                        success="Username was copied"
+                                        title="Username"
+                                        width={mobilePropertyWidth}
+                                    />
+                                </Section>
+                            </>
+                        )}
+
+                        <HashtagsWrapper>
+                            <Column
+                                marginBottom={isMobile ? '16px' : '0'}
+                                marginRight={isMobile ? '0' : descriptionPadding}
+                                width={isMobile ? '100%' : '370px'}
+                            >
                                 <HashtagsInput
                                     hashTags={hashTags || undefined}
                                     loading={videoLoading || loading}
                                     type="video"
+                                    width={isMobile ? '100%' : 'auto'}
                                     onConfirm={onConfirm}
                                 />
                             </Column>
@@ -507,7 +595,7 @@ export const VideoDescription = ({
                                 </Row>
 
                                 <ContentWrapper
-                                    backgroundColor={grey23}
+                                    backgroundColor={grey27}
                                     height="116px"
                                     minWidth="90px"
                                     padding="8px 10px"
@@ -522,7 +610,7 @@ export const VideoDescription = ({
                                     />
                                 </ContentWrapper>
                             </Column>
-                        </Row>
+                        </HashtagsWrapper>
                     </Column>
                     {/*<Column alignEnd marginLeft="auto">*/}
                     {/*    <Row marginBottom={descriptionPadding}>*/}
@@ -596,7 +684,7 @@ export const VideoDescription = ({
                     ) : null}
                 </Section>
             </DescriptionWrapper>
-            <VideoCommentsWrapper backgroundColor={grey29} marginRight={filterMargin}>
+            <VideoCommentsWrapper backgroundColor={grey29} marginRight={isMobile ? '0' : filterMargin}>
                 {commentsLoading ? (
                     <Section justifyCenter>
                         <Loader size="large" />

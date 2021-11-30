@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import commentsIcon from 'assets/comments_icon.svg';
 import likesIcon from 'assets/likes_icon.svg';
 import savesIcon from 'assets/saves_icon.svg';
@@ -51,6 +52,7 @@ import {
     grey7,
     white
 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { message } from 'stores/alerts';
@@ -95,7 +97,7 @@ export const VideoCard = (video: Props) => {
     } = video;
     const { access } = useStore(userStores.auth);
     const copiedDataId = useStore(copyStores.copiedDataId);
-
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     const screenGrabUrl = streaming?.details?.screenGrabUrl || '';
     const videoSrc = streaming?.details?.hlsUrl;
     // const grading = validation?.wom?.grading?.consensus;
@@ -296,7 +298,7 @@ export const VideoCard = (video: Props) => {
                     <Row alignCenter justifyEnd marginRight="20px">
                         <SimpleButton
                             background="transparent"
-                            color={grey4}
+                            color={blue}
                             padding="0px 0px 0px 20px"
                             textHover={blue}
                             onClick={() => onEditClick(id, hashTags || [])}
@@ -378,6 +380,7 @@ export const VideoCard = (video: Props) => {
                                 backgroundColor={grey27}
                                 backgroundHover={grey32}
                                 color={grey7}
+                                fontSize={isMobile ? '11px' : '12px'}
                                 width={videoCardButtonWidth}
                                 onClick={moreInfoHandleClick}
                             >
@@ -395,6 +398,7 @@ export const VideoCard = (video: Props) => {
                                     backgroundHover={grey32}
                                     color={grey7}
                                     disabled={curationState !== 1}
+                                    fontSize={isMobile ? '11px' : '12px'}
                                     width="100%"
                                 >
                                     Curate
@@ -409,6 +413,7 @@ export const VideoCard = (video: Props) => {
                                     <SimpleButton
                                         background="transparent"
                                         color="#ff3333"
+                                        fontSize={isMobile ? '14px' : '12px'}
                                         padding="6px 10px 16px"
                                         textHover={darkError}
                                         width="80px"

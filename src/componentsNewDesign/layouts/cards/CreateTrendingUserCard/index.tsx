@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { CardHoverOpacityEffect } from 'componentsNewDesign/dynamic/effects';
 import { UserCard } from 'componentsNewDesign/layouts/cards/TrendingUserCard';
 import { cardWrapperMargin } from 'componentsNewDesign/layouts/cards/TrendingUserCard/constants';
@@ -5,14 +6,18 @@ import { CreateTrendingCardHoverModal } from 'componentsNewDesign/modals/CreateT
 import { AbsoluteCenterAlignment } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { TrendingCardWrapper } from 'componentsNewDesign/wrappers/TrendingCardWrapper';
 import { grey23 } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 // import { useStore } from 'effector-react';
 import React from 'react';
 import { trendingsEffects } from 'stores/trendings';
 
-export interface Props extends BULLZ.AdminGetUserCommon {}
+export interface Props extends BULLZ.AdminGetUserCommon {
+    width?: string;
+}
 
-export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUrl }: Props) => {
+export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUrl, width }: Props) => {
     //const loading = useStore(trendingsStores.createLoading);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const selectHandleClick = () => trendingsEffects.createItem({ userId: id });
     return (
@@ -20,8 +25,8 @@ export const CreateTrendingUserCard = ({ id, isTrusted, username, profileImageUr
             <TrendingCardWrapper
                 backgroundColor={grey23}
                 marginBottom={cardWrapperMargin}
-                marginRight={cardWrapperMargin}
-                width="fit-content"
+                marginRight={isMobile ? '0' : cardWrapperMargin}
+                width={width || 'fit-content'}
             >
                 <AbsoluteCenterAlignment zIndex="5">
                     <CardHoverOpacityEffect>

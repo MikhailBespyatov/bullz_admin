@@ -1,7 +1,9 @@
+import { useMediaQuery } from '@material-ui/core';
 import selectIcon from 'assets/select_icon.svg';
 import { ArrowImg } from 'componentsNewDesign/common/imgComponents/ArrowImg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import {
+    mobileItemHeight,
     selectorLeftPadding,
     selectorRightPadding,
     selectorVerticalPadding,
@@ -11,6 +13,7 @@ import {
     ItemsAbsoluteWrapper,
     ItemSpan,
     ItemWrapper,
+    MobileItemsWrapper,
     SelectWrapper,
     SelectWrapperProps,
     TitleSpan
@@ -20,6 +23,7 @@ import { ContentWrapperProps } from 'componentsNewDesign/wrappers/ContentWrapper
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
+import { xs } from 'constants/styles/sizes';
 import { useCloseClick } from 'hooks/closeClick';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
 import { useModal } from 'hooks/modal';
@@ -79,6 +83,8 @@ export const Select = ({
     const componentRef = useRef<HTMLDivElement>(null);
     const selectRef = useRef<HTMLDivElement>(null);
     const [, selectHeight] = useRefWidthAndHeight(selectRef);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
+    const customMargin = mobileItemHeight * selector.length;
 
     const top = selectHeight + parseInt(selectorVerticalPadding) + parseInt(selectorVerticalPadding) + 'px';
 
@@ -119,50 +125,75 @@ export const Select = ({
     // }, []);
 
     return (
-        <SelectWrapper
-            ref={componentRef}
-            backgroundColor={backgroundColor}
-            border={border}
-            padding={padding}
-            paddingBottom={title ? selectorRightPadding : paddingBottom}
-            paddingLeft={paddingLeft}
-            paddingRight={paddingRight}
-            paddingTop={title ? selectorRightPadding : paddingTop}
-            onClick={visible ? close : openClick}
-            {...wrapperStyles}
-            disabled={disabled}
-        >
-            <Column ref={selectRef} width="100%">
-                {title && (
-                    <Row marginBottom={titleMarginBottom}>
-                        <TitleSpan>{title}</TitleSpan>
-                    </Row>
-                )}
-                <Section alignCenter justifyBetween noWrap>
-                    <MarginWrapper marginRight="20px">
-                        <ItemSpan fontStyle="bold" fontWeight="700">
-                            {selector[activeIndex]}
-                        </ItemSpan>
-                    </MarginWrapper>
-                    {!disabled && selector.length !== 1 && <ArrowImg rotate={visible ? 180 : 0} />}
-                </Section>
-            </Column>
-            <ItemsAbsoluteWrapper top={top} visible={visible}>
-                <Column>
+        <>
+            <SelectWrapper
+                ref={componentRef}
+                backgroundColor={backgroundColor}
+                border={border}
+                padding={padding}
+                paddingBottom={title ? selectorRightPadding : paddingBottom}
+                paddingLeft={paddingLeft}
+                paddingRight={paddingRight}
+                paddingTop={title ? selectorRightPadding : paddingTop}
+                onClick={visible ? close : openClick}
+                {...wrapperStyles}
+                disabled={disabled}
+            >
+                <Column ref={selectRef} width="100%">
+                    {title && (
+                        <Row marginBottom={titleMarginBottom}>
+                            <TitleSpan>{title}</TitleSpan>
+                        </Row>
+                    )}
+                    <Section alignCenter justifyBetween noWrap>
+                        <MarginWrapper marginRight="20px">
+                            <ItemSpan fontStyle="bold" fontWeight="700">
+                                {selector[activeIndex]}
+                            </ItemSpan>
+                        </MarginWrapper>
+                        {!disabled && selector.length !== 1 && <ArrowImg rotate={visible ? 180 : 0} />}
+                    </Section>
+                </Column>
+                {!isMobile ? (
+                    <ItemsAbsoluteWrapper top={top} visible={visible}>
+                        <Column>
+                            {selector.map((item, i) => {
+                                const isActive = isMultiple ? values?.some(value => i === value) : i === activeIndex;
+                                return (
+                                    <ItemWrapper key={item} active={isActive} onClick={() => selectClick(i)}>
+                                        <ItemSpan>{item}</ItemSpan>
+                                        <OpacityActiveEffect active={isActive} opacity={0}>
+                                            <CustomImg alt="Select Icon" height="12px" src={selectIcon} width="13px" />
+                                        </OpacityActiveEffect>
+                                    </ItemWrapper>
+                                );
+                            })}
+                            {/*<LastBorderRadiusBlock />*/}
+                        </Column>
+                    </ItemsAbsoluteWrapper>
+                ) : null}
+            </SelectWrapper>
+            {isMobile && (
+                <MobileItemsWrapper customMargin={customMargin} isClosed={!visible}>
                     {selector.map((item, i) => {
-                        const isActive = isMultiple ? values?.some(value => i === value) : i === activeIndex;
+                        const isActive = i === activeIndex;
+                        console.log(isActive);
+
                         return (
-                            <ItemWrapper key={item} active={isActive} onClick={() => selectClick(i)}>
-                                <ItemSpan>{item}</ItemSpan>
-                                <OpacityActiveEffect active={isActive} opacity={0}>
-                                    <CustomImg alt="Select Icon" height="12px" src={selectIcon} width="13px" />
-                                </OpacityActiveEffect>
+                            <ItemWrapper
+                                key={item}
+                                active={isActive}
+                                onClick={() => {
+                                    selectClick(i);
+                                    close();
+                                }}
+                            >
+                                <ItemSpan fontWeight="normal">{item}</ItemSpan>
                             </ItemWrapper>
                         );
                     })}
-                    {/*<LastBorderRadiusBlock />*/}
-                </Column>
-            </ItemsAbsoluteWrapper>
-        </SelectWrapper>
+                </MobileItemsWrapper>
+            )}
+        </>
     );
 };

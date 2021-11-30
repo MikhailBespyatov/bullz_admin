@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { CreateTrendingUserCard } from 'componentsNewDesign/layouts/cards/CreateTrendingUserCard';
 import { UsersFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout';
@@ -6,7 +7,7 @@ import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUse
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { TrendingsModalWrapper } from 'componentsNewDesign/wrappers/TrendingsModalWrapper';
 import { grey29 } from 'constants/styles/colors';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/constants';
 import React, { useEffect } from 'react';
@@ -21,6 +22,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
     const isFirst = useStore(usersStores.isFirst);
     const { visible } = useStore(createUserTrendingModal.modal);
     const loading = useStore(usersStores.loading);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const { closeModal } = createUserTrendingModal;
 
@@ -48,9 +50,15 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
                             <Loader size="large" />
                         </Section>
                     ) : (
-                        <Section marginBottom="42px">
+                        <Section justifyAround={isMobile} marginBottom="42px">
                             {items?.length ? (
-                                items.map(item => <CreateTrendingUserCard key={item.id} {...item} />)
+                                items.map(item => (
+                                    <CreateTrendingUserCard
+                                        key={item.id}
+                                        {...item}
+                                        width={isMobile ? '85px' : 'fit-content'}
+                                    />
+                                ))
                             ) : (
                                 <Empty title={notFoundMessage} />
                             )}

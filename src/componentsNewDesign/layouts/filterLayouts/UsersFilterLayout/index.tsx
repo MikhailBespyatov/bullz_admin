@@ -14,6 +14,11 @@ import {
     searchUserByMobileNumberParameter,
     SelectorKeyType
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/constants';
+import {
+    ContentResetWrapper,
+    FilterMobileWrapper,
+    SearchMobileWrapper
+} from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
@@ -21,7 +26,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { Roles, sortTagsUsersData, sortTagsUsersValues } from 'constants/defaults/users';
 import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import {
@@ -33,7 +38,9 @@ import {
     usernameSearchPlaceholder
 } from 'pages/Users/constants';
 import React, { FC, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { locationEffects, locationStores } from 'stores/location/location';
+import { mobileHeaderStores } from 'stores/mobileHeader';
 import { usersEffects, usersEvents, usersStores } from 'stores/users/users';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
 
@@ -68,6 +75,11 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
 
     const defaultId = useStore(usersStores.getRequestId);
     const [queryParams, setQueryParams] = useQueryParams<UsersQueryParams>(updateQueryValues);
+
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
+
+    const filterVisible = useStore(mobileHeaderStores.filterVisible);
+    const searchVisible = useStore(mobileHeaderStores.searchVisible);
 
     const onUsernameSearch = (name: string) => {
         setId('');
@@ -246,37 +258,78 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
 
     return (
         <>
-            <SearchWrapperLayout alignCenter>
-                <FlexGrow flexGrow="1" marginRight={filterMargin}>
-                    <SearchInput searchParameters={searchParameters} />
-                </FlexGrow>
-                <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
-                    <Select
-                        defaultIndex={sortTagsUsersValues.findIndex(item => item === role)}
-                        selector={sortTagsUsersData}
-                        width="182px"
-                        onChange={onSortChange}
-                    />
-                </MarginWrapper>
-                <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
-                    <NestedSelect
-                        defaultSelectedItem={country || region || locale || undefined}
-                        defaultSelectedItemType={defaultSelectedItemType}
-                        isLoading={regionsListIsLoading}
-                        selector={selectors}
-                        title="Filter by locale or country"
-                        width="300px"
-                        onSelect={onLocaleSelect}
-                    />
-                </MarginWrapper>
-                <Row alignCenter marginRight="20px">
-                    <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
-                        Is trusted
-                    </CheckboxFilter>
-                </Row>
+            {!isMobile && (
+                <SearchWrapperLayout alignCenter>
+                    <FlexGrow flexGrow="1" marginRight={filterMargin}>
+                        <SearchInput searchParameters={searchParameters} />
+                    </FlexGrow>
+                    <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
+                        <Select
+                            defaultIndex={sortTagsUsersValues.findIndex(item => item === role)}
+                            selector={sortTagsUsersData}
+                            width="182px"
+                            onChange={onSortChange}
+                        />
+                    </MarginWrapper>
+                    <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
+                        <NestedSelect
+                            defaultSelectedItem={country || region || locale || undefined}
+                            defaultSelectedItemType={defaultSelectedItemType}
+                            isLoading={regionsListIsLoading}
+                            selector={selectors}
+                            title="Filter by locale or country"
+                            width="300px"
+                            onSelect={onLocaleSelect}
+                        />
+                    </MarginWrapper>
+                    <Row alignCenter marginRight="20px">
+                        <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
+                            Is trusted
+                        </CheckboxFilter>
+                    </Row>
 
-                <ResetSearchButton onClick={resetFilters} />
-            </SearchWrapperLayout>
+                    <ResetSearchButton onClick={resetFilters} />
+                </SearchWrapperLayout>
+            )}
+
+            {isMobile && (
+                <FilterMobileWrapper isClosed={!filterVisible}>
+                    <MarginWrapper>
+                        <Select
+                            defaultIndex={sortTagsUsersValues.findIndex(item => item === role)}
+                            selector={sortTagsUsersData}
+                            width="182px"
+                            onChange={onSortChange}
+                        />
+                    </MarginWrapper>
+                    <MarginWrapper>
+                        <NestedSelect
+                            defaultSelectedItem={country || region || locale || undefined}
+                            defaultSelectedItemType={defaultSelectedItemType}
+                            isLoading={regionsListIsLoading}
+                            selector={selectors}
+                            title="Filter by locale or country"
+                            width="300px"
+                            onSelect={onLocaleSelect}
+                        />
+                    </MarginWrapper>
+                    <MarginWrapper>
+                        <ContentResetWrapper>
+                            <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
+                                Is trusted
+                            </CheckboxFilter>
+                            <ResetSearchButton onClick={resetFilters} />
+                        </ContentResetWrapper>
+                    </MarginWrapper>
+                </FilterMobileWrapper>
+            )}
+
+            {isMobile && (
+                <SearchMobileWrapper isClosed={!searchVisible || filterVisible} paddingTop="25px" width="100%">
+                    <SearchInput searchParameters={searchParameters} />
+                </SearchMobileWrapper>
+            )}
+
             {/*<Section>*/}
             {/*    <SearchCell lg={6}>*/}
             {/*        <Search*/}

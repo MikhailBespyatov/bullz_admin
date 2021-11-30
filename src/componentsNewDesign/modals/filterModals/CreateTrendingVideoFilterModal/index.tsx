@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { Empty } from 'components/layouts/resultLayouts/Empty';
 import { CreateTrendingVideoCard } from 'componentsNewDesign/layouts/cards/CreateVideoUserCard';
@@ -6,7 +7,7 @@ import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUse
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { TrendingsModalWrapper } from 'componentsNewDesign/wrappers/TrendingsModalWrapper';
 import { grey29 } from 'constants/styles/colors';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { notFoundMessage } from 'pages/Users/constants';
 import React, { useEffect } from 'react';
@@ -21,6 +22,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
     const isFirst = useStore(videosStores.isFirst);
     const [visible, { definedPosition }] = useStore(createTrendingVideoModal.modal);
     const loading = useStore(videosStores.initialLoading);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     const { closeModal } = createTrendingVideoModal;
 
@@ -48,7 +50,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
                             <Loader size="large" />
                         </Section>
                     ) : (
-                        <Section marginBottom="81px">
+                        <Section justifyAround={isMobile} marginBottom="81px">
                             {items?.length ? (
                                 items.map(item => (
                                     <CreateTrendingVideoCard

@@ -1,5 +1,6 @@
-import { black, grey17, white } from 'constants/styles/colors';
+import { black, grey17, grey28, white } from 'constants/styles/colors';
 import { disableDefaultInputStyleMixin } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { Active } from 'types/global';
 import { Sizes } from 'types/styles';
@@ -24,6 +25,10 @@ export const Input = styled.input`
     :focus::placeholder {
         color: white;
     }
+
+    @media (max-width: ${xs}) {
+        background-color: ${grey28};
+    }
 `;
 
 interface InputWrapperProps extends Active, Pick<Sizes, 'width'> {}
@@ -40,4 +45,8 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     color: ${white};
 
     ${({ active }) => active && `border-color: ${black};`};
+
+    @media (max-width: ${xs}) {
+        background-color: ${grey28};
+    }
 `;

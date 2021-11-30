@@ -138,14 +138,14 @@ export const TeamVideoCard = ({
                     </Section>
                 </ContentWrapper>
 
-                <ContentWrapper backgroundColor={grey29} borderRadius="0px" width="100%">
-                    <Section alignCenter justifyBetween marginTop="8px">
-                        <Row alignCenter noWrap marginLeft="10px">
-                            {/* <DateContent>{utcUploaded}</DateContent> */}
-
-                            <MarginWrapper /*marginLeft="24px"*/>
-                                <BlockTitle color={grey4}>{audioLanguages}</BlockTitle>
-                            </MarginWrapper>
+                <Section alignCenter justifyBetween marginTop="8px">
+                    <Row alignCenter noWrap marginLeft="10px">
+                        {/* <DateContent>{utcUploaded}</DateContent> */}
+                        <MarginWrapper /*marginLeft="24px"*/>
+                            <BlockTitle color={grey4}>{audioLanguages}</BlockTitle>
+                        </MarginWrapper>
+                    </Row>
+                    {/* <Row alignCenter justifyEnd marginRight="20px">
                         </Row>
                         {/* <Row alignCenter justifyEnd marginRight="20px">
                         <SimpleButton
@@ -157,8 +157,8 @@ export const TeamVideoCard = ({
                             Edit
                         </SimpleButton>
                     </Row> */}
-                    </Section>
-                </ContentWrapper>
+                </Section>
+
                 <ContentWrapper
                     backgroundColor={grey29}
                     borderRadius="0px"

@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import closeIcon from 'assets/close.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
@@ -6,6 +7,7 @@ import {
     modalHorizontalPadding,
     modalVerticalPadding
 } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
+import { xs } from 'constants/styles/sizes';
 import { useNonScrolledBackground } from 'hooks/nonScrolledBackground';
 import React, { FC } from 'react';
 import { Overflow, Sizes, Visibility } from 'types/styles';
@@ -21,6 +23,7 @@ interface Props extends Visibility, Sizes, OnClose, Overflow {
     expanded?: boolean;
     customHeader?: JSX.Element;
     background?: string;
+    noCloseButton?: boolean;
 }
 
 export const ModalCloseButton = ({ onClose }: OnClose) => (
@@ -45,15 +48,18 @@ export const ModalWrapper: FC<Props> = ({
     width,
     height,
     expanded = false,
-    background
+    background,
+    noCloseButton
 }) => {
     // console.log('expanded', expanded);
     useNonScrolledBackground(visible, expanded);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     if (!visible) return null;
 
     return (
-        <ModalBackground>
+        <>
+            <ModalBackground onClick={onClose} />
             <ModalContentWrapper
                 background={background}
                 height={height}
@@ -61,13 +67,19 @@ export const ModalWrapper: FC<Props> = ({
                 padding={modalVerticalPadding + ' ' + modalHorizontalPadding}
                 width={width}
             >
-                {customHeader || (
-                    <AbsoluteWrapper right={modalHorizontalPadding} top={modalVerticalPadding} zIndex="100">
-                        <ModalCloseButton onClose={onClose} />
-                    </AbsoluteWrapper>
-                )}
+                {!noCloseButton
+                    ? customHeader || (
+                          <AbsoluteWrapper
+                              right={isMobile ? '22px' : modalHorizontalPadding}
+                              top={isMobile ? '21px' : modalVerticalPadding}
+                              zIndex="100"
+                          >
+                              <ModalCloseButton onClose={onClose} />
+                          </AbsoluteWrapper>
+                      )
+                    : null}
                 {children}
             </ModalContentWrapper>
-        </ModalBackground>
+        </>
     );
 };

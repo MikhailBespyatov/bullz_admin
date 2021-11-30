@@ -6,7 +6,7 @@ import { SortSelector } from 'componentsNewDesign/common/inputs/SortSelector';
 import { selectorWidth } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
 import { ComponentWrapper } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
-import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { FlexGrow, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { defaultUserVideosValuesWithoutDate } from 'constants/defaults/users';
 import {
@@ -17,10 +17,12 @@ import {
     sortTagsName,
     sortTagsValues
 } from 'constants/filters/sorts';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { sortName1, sortName3 } from 'pages/Home/constants';
 import { CheckboxWrapper } from 'pages/Users/User/styles';
 import React, { FC } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { userVideosEvents, userVideosStores } from 'stores/users/userVideos';
 import { TotalRecords } from 'types/data';
 
@@ -44,6 +46,7 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
     );
     const sortPrefix = useStore(userVideosStores.sortPrefix);
     const sortPostfix = useStore(userVideosStores.sortPostfix);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const onSortModeChange = (isAscending: boolean) => {
         if ((isAscending ? sortPostfix === '+asc' : sortPostfix === '+desc') && sort) {
@@ -122,14 +125,61 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
 
     return (
         <>
-            <Section alignCenter justifyBetween /*noWrap*/>
-                <ComponentWrapper>
+            {!isMobile ? (
+                <Section alignCenter justifyBetween /*noWrap*/>
+                    <ComponentWrapper>
+                        <Select
+                            defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
+                            disabled={defaultChecked}
+                            selector={sortTagsValues}
+                            title={sortTagsName + sortName1}
+                            width={selectorWidth}
+                            onChange={onSortChange}
+                        />
+
+                        <Select
+                            defaultIndex={sortTagsCurationStateValues.findIndex(item => videoCurationState === item)}
+                            disabled={defaultChecked}
+                            selector={sortTagsCurationStateData}
+                            title={sortTagsName + sortName3}
+                            width={selectorWidth}
+                            onChange={onSortCurationStateChange}
+                        />
+
+                        <DateRangePicker
+                            dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
+                            disabled={defaultChecked}
+                            onChange={onDateRangeClick}
+                        />
+                    </ComponentWrapper>
+                    <ComponentWrapper>
+                        {checkboxShowAll && (
+                            <CheckboxWrapper>
+                                <BooleanCheckbox
+                                    showName
+                                    defaultChecked={defaultChecked}
+                                    name="Show all videos"
+                                    onChange={() => {
+                                        resetFilters();
+                                        if (onChangeCheckbox) {
+                                            onChangeCheckbox();
+                                        }
+                                    }}
+                                />
+                            </CheckboxWrapper>
+                        )}
+                        <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
+                        <ResetSearchButton onClick={resetFilters} />
+                    </ComponentWrapper>
+                </Section>
+            ) : (
+                <FlexGrow>
                     <Select
                         defaultIndex={sortPrefixArray.findIndex(item => item === sortPrefix)}
                         disabled={defaultChecked}
                         selector={sortTagsValues}
                         title={sortTagsName + sortName1}
-                        width={selectorWidth}
+                        width="100%"
                         onChange={onSortChange}
                     />
 
@@ -138,7 +188,7 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
                         disabled={defaultChecked}
                         selector={sortTagsCurationStateData}
                         title={sortTagsName + sortName3}
-                        width={selectorWidth}
+                        width="100%"
                         onChange={onSortCurationStateChange}
                     />
 
@@ -147,27 +197,27 @@ export const VideoCardFilterLayout: FC<VideoCardFilterLayoutProps> = ({
                         disabled={defaultChecked}
                         onChange={onDateRangeClick}
                     />
-                </ComponentWrapper>
-                <ComponentWrapper>
-                    {checkboxShowAll && (
-                        <CheckboxWrapper>
-                            <BooleanCheckbox
-                                showName
-                                defaultChecked={defaultChecked}
-                                name="Show all videos"
-                                onChange={() => {
-                                    resetFilters();
-                                    if (onChangeCheckbox) {
-                                        onChangeCheckbox();
-                                    }
-                                }}
-                            />
-                        </CheckboxWrapper>
-                    )}
-                    <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
-                    <ResetSearchButton onClick={resetFilters} />
-                </ComponentWrapper>
-            </Section>
+                    <ComponentWrapper>
+                        {checkboxShowAll && (
+                            <CheckboxWrapper>
+                                <BooleanCheckbox
+                                    showName
+                                    defaultChecked={defaultChecked}
+                                    name="Show all videos"
+                                    onChange={() => {
+                                        resetFilters();
+                                        if (onChangeCheckbox) {
+                                            onChangeCheckbox();
+                                        }
+                                    }}
+                                />
+                            </CheckboxWrapper>
+                        )}
+                        <SortSelector type={sort ? sortPostfix : undefined} onChange={onSortModeChange} />
+                        <ResetSearchButton onClick={resetFilters} />
+                    </ComponentWrapper>
+                </FlexGrow>
+            )}
             {children}
             <Pagination
                 currentIndex={pageIndex + 1}

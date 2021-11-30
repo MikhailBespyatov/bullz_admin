@@ -10,6 +10,7 @@ import {
 } from 'componentsNewDesign/common/inputs/NestedSelect/constants';
 import { NestedSelectItem } from 'componentsNewDesign/common/inputs/NestedSelectItem';
 import {
+    mobileItemHeight,
     selectorLeftPadding,
     selectorRightPadding,
     selectorVerticalPadding,
@@ -18,6 +19,7 @@ import {
 import {
     ItemsAbsoluteWrapper,
     ItemSpan,
+    MobileItemsWrapper,
     SelectWrapper,
     SelectWrapperProps,
     TitleSpan
@@ -29,9 +31,11 @@ import { ContentWrapperProps } from 'componentsNewDesign/wrappers/ContentWrapper
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { noop } from 'constants/functions';
+import { xs } from 'constants/styles/sizes';
 import { useRefWidthAndHeight } from 'hooks/getRefProperty';
 import { useModal } from 'hooks/modal';
 import React, { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Title } from 'types/data';
 
 // interface DropdownListAbsoluteWrapperProps extends StyledAbsoluteWrapperProps {
@@ -110,11 +114,13 @@ export const NestedSelect = ({
     const componentRef = useRef<HTMLDivElement>(null);
     const selectRef = useRef<HTMLDivElement>(null);
     const [, selectHeight] = useRefWidthAndHeight(selectRef);
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
     const top = selectHeight + parseInt(selectorVerticalPadding) + parseInt(selectorVerticalPadding) + 'px';
 
     const [searchInputValue, setSearchInputValue] = useState('');
     const [selectorsList, setSelectorsList] = useState(selector);
     const [backArrowTitle, setBackArrowTitle] = useState('');
+    const customMargin = mobileItemHeight * selector.length;
     const [isSearchable, setIsSearchable] = useState(false);
     const [isNested, setIsNested] = useState(false);
     const [searchPlaceholder, setSearchPlaceholder] = useState('');
@@ -307,54 +313,56 @@ export const NestedSelect = ({
     //console.log(visible);
 
     return (
-        <SelectWrapper
-            ref={componentRef}
-            backgroundColor={backgroundColor}
-            paddingBottom={title ? selectorRightPadding : paddingBottom}
-            paddingLeft={paddingLeft}
-            paddingRight={paddingRight}
-            paddingTop={title ? selectorRightPadding : paddingTop}
-            // onClick={!visible ? open : undefined /*visible ? close : openClick*/}
-            {...wrapperStyles}
-        >
-            <ClickWrapper onClick={visible ? close : open}>
-                <Column ref={selectRef} width="100%">
-                    {title && (
-                        <Row marginBottom={titleMarginBottom}>
-                            <TitleSpan>{title}</TitleSpan>
-                        </Row>
-                    )}
-                    <Section alignCenter justifyBetween noWrap>
-                        <MarginWrapper marginRight="20px">
-                            <ItemSpan fontStyle="bold" fontWeight="700">
-                                {selectedItem || 'Not selected'}
-                            </ItemSpan>
-                        </MarginWrapper>
-                        <ArrowImg rotate={visible ? 180 : 0} />
-                    </Section>
-                </Column>
-            </ClickWrapper>
-            <ItemsAbsoluteWrapper maxHeight="60vh" top={top} visible={visible}>
-                <Column marginBottom="5px" /*marginTop={backArrowTitle ? '65px' : undefined}*/>
-                    {backArrowTitle && (
-                        <BackArrowTitle value={backArrowTitle} onClick={() => onBackArrowTitleClick()} />
-                    )}
-                    {isSearchable && (
-                        <SelectSearchInput
-                            placeholder={searchPlaceholder}
-                            startSearch={startSearch}
-                            value={searchInputValue}
-                            onChange={onChange}
-                        />
-                    )}
-
-                    {isLoading && (
-                        <Section justifyCenter margin="10px 0">
-                            <Loader size="middle" />
+        <>
+            <SelectWrapper
+                ref={componentRef}
+                backgroundColor={backgroundColor}
+                paddingBottom={title ? selectorRightPadding : paddingBottom}
+                paddingLeft={paddingLeft}
+                paddingRight={paddingRight}
+                paddingTop={title ? selectorRightPadding : paddingTop}
+                // onClick={!visible ? open : undefined /*visible ? close : openClick*/}
+                {...wrapperStyles}
+            >
+                <ClickWrapper onClick={visible ? close : open}>
+                    <Column ref={selectRef} width="100%">
+                        {title && (
+                            <Row marginBottom={titleMarginBottom}>
+                                <TitleSpan>{title}</TitleSpan>
+                            </Row>
+                        )}
+                        <Section alignCenter justifyBetween noWrap>
+                            <MarginWrapper marginRight="20px">
+                                <ItemSpan fontStyle="bold" fontWeight="700">
+                                    {selectedItem || 'Not selected'}
+                                </ItemSpan>
+                            </MarginWrapper>
+                            <ArrowImg rotate={visible ? 180 : 0} />
                         </Section>
-                    )}
+                    </Column>
+                </ClickWrapper>
+                {!isMobile ? (
+                    <ItemsAbsoluteWrapper maxHeight="60vh" top={top} visible={visible}>
+                        <Column marginBottom="5px" /*marginTop={backArrowTitle ? '65px' : undefined}*/>
+                            {backArrowTitle && (
+                                <BackArrowTitle value={backArrowTitle} onClick={() => onBackArrowTitleClick()} />
+                            )}
+                            {isSearchable && (
+                                <SelectSearchInput
+                                    placeholder={searchPlaceholder}
+                                    startSearch={startSearch}
+                                    value={searchInputValue}
+                                    onChange={onChange}
+                                />
+                            )}
 
-                    {/* <DropdownListAbsoluteWrapper
+                            {isLoading && (
+                                <Section justifyCenter margin="10px 0">
+                                    <Loader size="middle" />
+                                </Section>
+                            )}
+
+                            {/* <DropdownListAbsoluteWrapper
                 backArrowTitle={backArrowTitle}
                 isLoading={isLoading}
                 isSearchable={isSearchable}
@@ -366,25 +374,66 @@ export const NestedSelect = ({
                 onBackArrowTitleClick={() => onBackArrowTitleClick()}
             > */}
 
-                    {!isLoading &&
-                        selectorsList.map(item => {
-                            const { selectorName, nestedSelectors, selectorType, isFetched } = item;
+                            {!isLoading &&
+                                selectorsList.map(item => {
+                                    const { selectorName, nestedSelectors, selectorType, isFetched } = item;
 
-                            return (
-                                <NestedSelectItem
-                                    key={selectorName}
-                                    active={selectorName === selectedItem && selectorType === selectedItemType}
-                                    isNested={isFetched ? isNested : !!nestedSelectors}
-                                    selectable={!selectorType}
-                                    value={selectorName}
-                                    onArrowClick={() => onArrowClick(item)}
-                                    onSelectorClick={() => onSelectorClick(item)}
-                                />
-                            );
-                        })}
-                </Column>
-                {/* </DropdownListAbsoluteWrapper> */}
-            </ItemsAbsoluteWrapper>
-        </SelectWrapper>
+                                    return (
+                                        <NestedSelectItem
+                                            key={selectorName}
+                                            active={selectorName === selectedItem && selectorType === selectedItemType}
+                                            isNested={isFetched ? isNested : !!nestedSelectors}
+                                            selectable={!selectorType}
+                                            value={selectorName}
+                                            onArrowClick={() => onArrowClick(item)}
+                                            onSelectorClick={() => onSelectorClick(item)}
+                                        />
+                                    );
+                                })}
+                        </Column>
+                        {/* </DropdownListAbsoluteWrapper> */}
+                    </ItemsAbsoluteWrapper>
+                ) : null}
+            </SelectWrapper>
+            {isMobile && (
+                <MobileItemsWrapper customMargin={customMargin} isClosed={!visible} maxHeight="200px">
+                    <Column>
+                        {backArrowTitle && (
+                            <BackArrowTitle value={backArrowTitle} onClick={() => onBackArrowTitleClick()} />
+                        )}
+                        {isSearchable && (
+                            <SelectSearchInput
+                                placeholder={searchPlaceholder}
+                                startSearch={startSearch}
+                                value={searchInputValue}
+                                onChange={onChange}
+                            />
+                        )}
+
+                        {isLoading && (
+                            <Section justifyCenter margin="10px 0">
+                                <Loader size="middle" />
+                            </Section>
+                        )}
+                        {!isLoading &&
+                            selectorsList.map(item => {
+                                const { selectorName, nestedSelectors, selectorType, isFetched } = item;
+
+                                return (
+                                    <NestedSelectItem
+                                        key={selectorName}
+                                        active={selectorName === selectedItem && selectorType === selectedItemType}
+                                        isNested={isFetched ? isNested : !!nestedSelectors}
+                                        selectable={!selectorType}
+                                        value={selectorName}
+                                        onArrowClick={() => onArrowClick(item)}
+                                        onSelectorClick={() => onSelectorClick(item)}
+                                    />
+                                );
+                            })}
+                    </Column>
+                </MobileItemsWrapper>
+            )}
+        </>
     );
 };

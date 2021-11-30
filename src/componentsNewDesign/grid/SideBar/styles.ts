@@ -8,7 +8,7 @@ import { SideBarProps } from 'componentsNewDesign/grid/SideBar/types';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey22, grey28, hoverGrey, white } from 'constants/styles/colors';
+import { grey22, grey24, grey28, hoverGrey, white } from 'constants/styles/colors';
 import {
     bigScreenDisplayNoneMixin,
     disableDefaultButtonStyleMixin,
@@ -18,10 +18,10 @@ import {
     smallScreenDisplayNoneMixin
 } from 'constants/styles/mixins';
 import { transitionTime } from 'constants/styles/others';
-import { lg_1, padding, sideBarWidth, smallSideBarWidth } from 'constants/styles/sizes';
+import { lg_1, padding, sideBarWidth, smallSideBarWidth, xs } from 'constants/styles/sizes';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Expanded } from 'types/data';
+import { Expanded, IsClosed } from 'types/data';
 import { Active } from 'types/global';
 
 export const Wrapper = styled.aside<SideBarProps>`
@@ -43,6 +43,16 @@ export const Wrapper = styled.aside<SideBarProps>`
 
     @media (max-width: ${lg_1}) {
         width: ${({ isExpanded }) => (isExpanded ? sideBarWidth : smallSideBarWidth)};
+    }
+
+    @media (max-width: ${xs}) {
+        top: 80px;
+        width: ${sideBarWidth};
+        margin-left: 0;
+        padding-top: 8px;
+
+        transform: ${({ isClosed }) => (isClosed ? 'translateX(-100%)' : '')};
+        transition: transform 0.3s;
     }
 `;
 
@@ -112,6 +122,10 @@ export const PageName = styled.span<PageNameProps>`
     :hover {
         color: ${hoverGrey};
     }
+
+    @media (max-width: ${xs}) {
+        display: block;
+    }
 `;
 
 export const AdaptiveAbsoluteWrapper = styled(AbsoluteWrapper)<Expanded>`
@@ -119,6 +133,9 @@ export const AdaptiveAbsoluteWrapper = styled(AbsoluteWrapper)<Expanded>`
     flex-direction: column;
     @media (max-width: ${lg_1}) {
         ${({ isExpanded }) => !isExpanded && `position: static;`};
+    }
+    @media (max-width: ${xs}) {
+        position: absolute;
     }
 `;
 
@@ -144,6 +161,11 @@ export const LogoutButton = styled.button<Expanded>`
     opacity: 0.5;
 
     ${smallScreenDisplayNoneMixin};
+    @media (max-width: ${xs}) {
+        display: block;
+        color: ${grey24};
+        text-align: left;
+    }
 `;
 
 export const FixedLogoutWrapper = styled(Row)<Expanded>`
@@ -156,6 +178,11 @@ export const FixedLogoutWrapper = styled(Row)<Expanded>`
 
     @media (max-width: ${lg_1}) {
         ${({ isExpanded }) => !isExpanded && `width: ${smallSideBarWidth}`};
+    }
+    @media (max-width: ${xs}) {
+        width: ${sideBarWidth};
+        background-color: ${grey28};
+        padding-left: 41px;
     }
 `;
 
@@ -183,13 +210,16 @@ export const AdaptiveRow = styled(Link)<Expanded>`
     @media (max-width: ${lg_1}) {
         flex-direction: ${({ isExpanded }) => (isExpanded ? `row` : 'column')};
     }
+    @media (max-width: ${xs}) {
+        flex-direction: row;
+    }
 `;
 
 export const MenuRow = styled(Row)`
     ${bigScreenDisplayNoneMixin};
 `;
 
-export const BlackoutBackground = styled.div`
+export const BlackoutBackground = styled.div<IsClosed>`
     position: fixed;
     top: 0;
     left: 0;
@@ -197,4 +227,12 @@ export const BlackoutBackground = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
     z-index: ${sideBarZIndex - 1};
+
+    transform: ${({ isClosed }) => (isClosed ? 'translateX(-100%)' : '')};
+    transition: transform 0.3s;
+`;
+
+export const MobileSidebarWrapper = styled.div<IsClosed>`
+    transform: ${({ isClosed }) => (isClosed ? 'translateX(-100%)' : '')};
+    transition: transform 0.3s;
 `;
