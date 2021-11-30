@@ -15,6 +15,7 @@ import {
     SelectorKeyType
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/constants';
 import {
+    ContentResetWrapper,
     FilterMobileWrapper,
     SearchMobileWrapper
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/styles';
@@ -25,7 +26,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { Roles, sortTagsUsersData, sortTagsUsersValues } from 'constants/defaults/users';
 import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
-import { filterMargin, xxs } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
 import {
@@ -75,7 +76,7 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
     const defaultId = useStore(usersStores.getRequestId);
     const [queryParams, setQueryParams] = useQueryParams<UsersQueryParams>(updateQueryValues);
 
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const filterVisible = useStore(mobileHeaderStores.filterVisible);
     const searchVisible = useStore(mobileHeaderStores.searchVisible);
@@ -313,12 +314,12 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
                         />
                     </MarginWrapper>
                     <MarginWrapper>
-                        <Row alignCenter justifyEnd>
+                        <ContentResetWrapper>
                             <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
                                 Is trusted
                             </CheckboxFilter>
                             <ResetSearchButton onClick={resetFilters} />
-                        </Row>
+                        </ContentResetWrapper>
                     </MarginWrapper>
                 </FilterMobileWrapper>
             )}

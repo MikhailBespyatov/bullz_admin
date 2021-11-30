@@ -168,7 +168,7 @@ interface MobileItemsWrapper extends IsClosed {
 export const MobileItemsWrapper = styled.div<MobileItemsWrapper>`
     margin-top: ${({ isClosed, customMargin }) => (isClosed ? `-${customMargin}px` : '0')};
     transform: ${({ isClosed }) => (isClosed ? 'scaleY(0)' : 'scaleY(1)')};
-    background-color: white;
+    background-color: ${grey28};
     width: 100%;
     transition-property: margin-top, transform;
     transition-duration: 0.3s, 0.3s;
