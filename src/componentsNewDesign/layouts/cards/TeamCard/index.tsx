@@ -18,7 +18,7 @@ import { Roles } from 'constants/defaults/users';
 import { noop } from 'constants/functions';
 import { asyncError } from 'constants/notifications';
 import { teamsLink, usersLink } from 'constants/routes';
-import { grey27, grey29, grey34, grey7 } from 'constants/styles/colors';
+import { grey27, grey29, grey32, grey7 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { API } from 'services';
@@ -163,7 +163,8 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                     <ContentWrapper padding="10px 18px 0px" width="100%">
                         <Row alignCenter height="100%" justifyBetween={isAdminAccess} justifyCenter={!isAdminAccess}>
                             <CardButton
-                                background={grey34}
+                                background={grey27}
+                                backgroundHover={grey32}
                                 color={grey7}
                                 width={cardButtonWidth}
                                 onClick={moreInfoHandleClick}
@@ -178,7 +179,13 @@ export const TeamCard = ({ id = '', name = '', urlName = '', utcCreated, ownerId
                                         urlName={urlName || ''}
                                         onChange={changeEditableFieldsCallback}
                                     >
-                                        <CardButton background={grey34} color={grey7} width="100%" onClick={noop}>
+                                        <CardButton
+                                            background={grey27}
+                                            backgroundHover={grey32}
+                                            color={grey7}
+                                            width="100%"
+                                            onClick={noop}
+                                        >
                                             Edit Info
                                         </CardButton>
                                     </EditTeamInfoPopover>
