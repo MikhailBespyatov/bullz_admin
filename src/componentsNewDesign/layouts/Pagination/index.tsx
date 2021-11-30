@@ -9,7 +9,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
 import { grey29 } from 'constants/styles/colors';
-import { xs } from 'constants/styles/sizes';
+import { xs, xxs } from 'constants/styles/sizes';
 import { useCloseClick } from 'hooks/closeClick';
 import { useModal } from 'hooks/modal';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
@@ -67,6 +67,7 @@ interface SelectProps {
 const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) => {
     const { visible, close, open } = useModal();
     const componentRef = useRef<HTMLDivElement>(null);
+    const isSmallMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
 
     const [activeItemName, setActiveItemName] = useState(activeItem);
 
@@ -87,7 +88,7 @@ const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) =
         <ContentWrapper
             ref={componentRef}
             backgroundColor={grey29}
-            minWidth="93px"
+            minWidth={isSmallMobile ? '76px' : '93px'}
             padding={`${selectorVerticalPadding} 0`}
             onClick={visible ? close : openClick}
         >
@@ -326,16 +327,11 @@ export const Pagination = ({
                             </MarginWrapper>
                         </>
                     ) : (
-                        <Column alignCenter width="100%">
-                            <Row>
-                                <MarginWrapper>
-                                    <Arrow
-                                        disabled={currentIndex === 1}
-                                        onClick={() => onIndexChange(currentIndex - 1)}
-                                    >
-                                        <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />
-                                    </Arrow>
-                                </MarginWrapper>
+                        <Section alignCenter justifyBetween noWrap>
+                            <Row alignCenter noWrap>
+                                <Arrow disabled={currentIndex === 1} onClick={() => onIndexChange(currentIndex - 1)}>
+                                    <CustomImg height={arrowImgHeight} src={arrowImg} width={arrowImgWidth} />
+                                </Arrow>
                                 <PaginationWrapper>
                                     <PaginationCell active={1 === currentIndex} onClick={() => onIndexChange(1)}>
                                         1
@@ -354,48 +350,37 @@ export const Pagination = ({
                                         </PaginationCell>
                                     )}
                                 </PaginationWrapper>
-                                <MarginWrapper marginRight="0">
-                                    <Arrow
-                                        disabled={currentIndex === total}
-                                        onClick={() => onIndexChange(currentIndex + 1)}
-                                    >
-                                        <CustomImg
-                                            height={arrowImgHeight}
-                                            rotate={180}
-                                            src={arrowImg}
-                                            width={arrowImgWidth}
-                                        />
-                                    </Arrow>
-                                </MarginWrapper>
-                            </Row>
-                            <Row>
-                                <MarginWrapper marginTop="10px">
-                                    <Select
-                                        activeItem={defaultSize.toString()}
-                                        selector={sizeValues}
-                                        onChange={onSizeAndIndexChange}
+                                <Arrow
+                                    disabled={currentIndex === total}
+                                    onClick={() => onIndexChange(currentIndex + 1)}
+                                >
+                                    <CustomImg
+                                        height={arrowImgHeight}
+                                        rotate={180}
+                                        src={arrowImg}
+                                        width={arrowImgWidth}
                                     />
-                                </MarginWrapper>
-                                <MarginWrapper marginLeft="24px" marginTop="10px">
-                                    <Row alignCenter height={paginationCellHeight} marginBottom="0">
-                                        <Span
-                                            fontSize={PaginationCellFontSize}
-                                            fontWeight={PaginationCellFontWeight}
-                                            lineHeight={PaginationCellLineHeight}
-                                        >
-                                            Go to
-                                        </Span>
-                                        <MarginWrapper marginLeft="9px">
-                                            <PaginationInput
-                                                value={valuePage}
-                                                onChange={handlePageSet}
-                                                onKeyDown={handleKeyDown}
-                                            />
-                                        </MarginWrapper>
-                                    </Row>
-                                </MarginWrapper>
+                                </Arrow>
                             </Row>
-                        </Column>
+                            <Select
+                                activeItem={defaultSize.toString()}
+                                selector={sizeValues}
+                                onChange={onSizeAndIndexChange}
+                            />
+                            <Row alignCenter noWrap height={paginationCellHeight} marginLeft="4px">
+                                <MarginWrapper marginRight="4px">
+                                    <Span
+                                        noWrap
+                                        fontSize={PaginationCellFontSize}
+                                        fontWeight={PaginationCellFontWeight}
+                                        lineHeight={PaginationCellLineHeight}
+                                    >
+                                        Go to
+                                    </Span>
+                                </MarginWrapper>
+                                <PaginationInput value={valuePage} onChange={handlePageSet} onKeyDown={handleKeyDown} />
+                            </Row>
+                        </Section>
                     )}
                 </Section>
             )}
