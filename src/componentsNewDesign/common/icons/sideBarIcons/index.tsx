@@ -1,6 +1,7 @@
 import blacklistedIconImg from 'assets/icons/sideBarIcons/blacklisted_icon.svg';
 import commentsIconImg from 'assets/icons/sideBarIcons/comments_icon.svg';
 import dashboardIconImg from 'assets/icons/sideBarIcons/dashboard_icon.svg';
+import deletedUsersIconImg from 'assets/icons/sideBarIcons/deleted_users_icon.svg';
 import logoutIconImg from 'assets/icons/sideBarIcons/logout_icon_1.svg';
 import marketingToolIconImg from 'assets/icons/sideBarIcons/marketing_tool_icon.svg';
 import productsIconImg from 'assets/icons/sideBarIcons/products_icon.svg';
@@ -45,6 +46,14 @@ export const UsersIcon = ({ active, isExpanded }: Props) => (
     <OpacityActiveEffect active={active}>
         <AdaptiveWrapper isExpanded={isExpanded}>
             <CustomImg height="18px" src={usersIconImg} width="13px" />
+        </AdaptiveWrapper>
+    </OpacityActiveEffect>
+);
+
+export const DeletedUsersIcon = ({ active, isExpanded }: Props) => (
+    <OpacityActiveEffect active={active}>
+        <AdaptiveWrapper isExpanded={isExpanded}>
+            <CustomImg height="19px" src={deletedUsersIconImg} width="17px" />
         </AdaptiveWrapper>
     </OpacityActiveEffect>
 );

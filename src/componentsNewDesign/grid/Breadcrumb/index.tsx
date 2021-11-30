@@ -10,7 +10,11 @@ export const Breadcrumb = () => {
     const location = useLocation();
     const locationsArray = location.pathname.split('/');
 
-    const section = capitalizeChar(locationsArray[1] || '');
+    const section = capitalizeChar(
+        locationsArray[1]
+            .split('_')
+            .reduce((firstWord, secondWord) => `${capitalizeChar(firstWord)} ${capitalizeChar(secondWord)}`)
+    );
     const subsections = locationsArray.filter((_, i) => i > 1);
 
     return (

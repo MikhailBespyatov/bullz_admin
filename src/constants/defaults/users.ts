@@ -62,3 +62,25 @@ export const defaultBlacklistedUsersValues: BULLZ.QueryBlacklistedUsersRequest =
     limit: defaultLimit,
     returnQueryCount: true
 };
+
+export const defaultDeletedUsersValues: BULLZ.QueryDeletedUsersRequest = {
+    pageIndex: defaultPage,
+    limit: defaultLimit,
+    returnQueryCount: true,
+    fromUtcDeleted: undefined,
+    toUtcDeleted: undefined,
+    deletedUserId: undefined,
+    deleterUserId: undefined,
+    deletionReasons: undefined
+};
+
+export const ReasonDeletion = {
+    0: 'None',
+    1: 'Spamming',
+    2: 'Copyright',
+    3: 'Inappropriate',
+    4: 'Collusion',
+    5: 'FakeAccount',
+    6: 'Requested',
+    7: 'SelfDeletion'
+};

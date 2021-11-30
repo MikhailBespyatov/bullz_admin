@@ -5,14 +5,15 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { filterMargin } from 'constants/styles/sizes';
 import React, { FC } from 'react';
 import { TotalRecords } from 'types/data';
+import { MarginRight } from 'types/styles';
 import { CatalogContainerWrapper } from './styles';
 
-interface Props extends TotalRecords {}
+interface Props extends TotalRecords, MarginRight {}
 
-export const CatalogContainer: FC<Props> = ({ children, totalRecords }) => (
+export const CatalogContainer: FC<Props> = ({ children, totalRecords, marginRight }) => (
     <CatalogContainerWrapper>
         <Section alignCenter marginBottom={filterMargin}>
-            <MarginWrapper marginRight="50px">
+            <MarginWrapper marginRight={marginRight || '50px'}>
                 <Breadcrumb />
             </MarginWrapper>
             {totalRecords !== undefined && <TotalBadge quantity={totalRecords} />}
