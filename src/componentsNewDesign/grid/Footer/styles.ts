@@ -2,16 +2,7 @@ import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constan
 import { modalHorizontalPadding } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
 import { grey, grey28 } from 'constants/styles/colors';
 import { flexCenter, flexStart } from 'constants/styles/mixins';
-import {
-    borderWidth,
-    footerHeight,
-    lg_1,
-    padding,
-    sideBarWidth,
-    smallSideBarWidth,
-    xs,
-    xxs
-} from 'constants/styles/sizes';
+import { borderWidth, footerHeight, lg_1, padding, sideBarWidth, smallSideBarWidth, xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
 export const Wrapper = styled.footer`
@@ -34,9 +25,9 @@ export const Wrapper = styled.footer`
         padding-left: calc(2 * ${padding} + ${smallSideBarWidth});
     }
 
-    @media (max-width: ${xxs}) {
-        padding: 20px 0;
-        height: fit-content;
+    @media (max-width: ${xs}) {
+        padding: 0 10px;
+        align-items: center;
     }
 `;
 

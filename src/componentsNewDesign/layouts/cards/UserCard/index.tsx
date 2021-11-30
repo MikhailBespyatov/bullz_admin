@@ -23,7 +23,7 @@ import { defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
 import { darkError, grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
-import { xxs } from 'constants/styles/sizes';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { MouseEvent } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -76,7 +76,7 @@ export const UserCard = ({
 }: UserCardProps) => {
     const { access } = useStore(userStores.auth);
     const copiedDataId = useStore(copyStores.copiedDataId);
-    const isMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
     const propertyMarginBottomMobile = isMobile ? propertyBlockMarginBottomMobile : propertyBlockMarginBottom;
     const propertyHalfWidth = isMobile ? propertyBlockHalfWidthMobile : propertyBlockHalfWidth;
     const propertyBlockWrapper = isMobile ? '16px 8px 0' : '18px 18px 10px';
