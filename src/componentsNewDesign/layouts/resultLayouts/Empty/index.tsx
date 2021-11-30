@@ -52,7 +52,7 @@ export const Empty = ({
             </Section>
         </ContentWrapper>
 
-        <Row marginBottom="23px" marginTop="37px" width={titleWidth || 'fit-content'}>
+        <Row justifyCenter marginBottom="23px" marginTop="37px" width={titleWidth || 'fit-content'}>
             <TitleSpan fontSize={titleFontSize} fontWeight={titleFontWeight} lineHeight={titleLineHeight}>
                 {title}
             </TitleSpan>
