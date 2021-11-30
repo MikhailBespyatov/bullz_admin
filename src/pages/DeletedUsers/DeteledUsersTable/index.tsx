@@ -1,6 +1,8 @@
+import history from 'browserHistory';
 import { tableDataBorder } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { deletedUsersLink } from 'constants/routes';
 import { grey23 } from 'constants/styles/colors';
 import React from 'react';
 import { TableProps } from '../types';
@@ -39,15 +41,27 @@ export const DeletedUsersTable = ({
             })}
         </TableHeader>
         <TableBody>
-            {data?.map(({ cells }, index) => (
-                <RowWrapper key={index.toString()} alignCenter noWrap borderBottom={tableDataBorder}>
-                    {cells.map((cell, index) => (
-                        <Row key={index.toString()} justifyCenter width={columnSizes[index]}>
-                            {cell}
-                        </Row>
-                    ))}
-                </RowWrapper>
-            ))}
+            {data?.map(({ cells, routeId }, index) => {
+                const onClick = () => {
+                    history.push(`${deletedUsersLink}/${routeId}`);
+                };
+
+                return (
+                    <RowWrapper
+                        key={index.toString()}
+                        alignCenter
+                        noWrap
+                        borderBottom={tableDataBorder}
+                        onClick={onClick}
+                    >
+                        {cells.map((cell, index) => (
+                            <Row key={index.toString()} justifyCenter width={columnSizes[index]}>
+                                {cell}
+                            </Row>
+                        ))}
+                    </RowWrapper>
+                );
+            })}
         </TableBody>
     </ContentWrapper>
 );

@@ -17,6 +17,7 @@ import {
     createTopicLink,
     createUserLink,
     dashboardLink,
+    deletedUserLink,
     deletedUsersLink,
     deleteUserLink,
     error401Link,
@@ -47,6 +48,7 @@ import { CreateTeam } from 'pages/CreateTeam';
 import { CreateUser } from 'pages/CreateUser';
 import { Dashboard } from 'pages/Dashboard';
 import { DeletedUsers } from 'pages/DeletedUsers';
+import { DeletedUser } from 'pages/DeletedUsers/DeletedUser';
 import { DeleteUser } from 'pages/DeleteUser';
 import { Home } from 'pages/Home';
 import { Video } from 'pages/Home/Video';
@@ -133,6 +135,12 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={DeletedUsers}
                         path={deletedUsersLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={DeletedUser}
+                        path={deletedUserLink}
                     />
                     <PrivateRoute
                         exact
