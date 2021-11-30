@@ -6,7 +6,7 @@ import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWr
 import { searchProductByIdParameter } from 'componentsNewDesign/layouts/filterLayouts/ProductsFilterLayout/constants';
 import { selectorWidth } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout/constants';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
-import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
 import { sortTagsName, sortTagsProductsData, sortTagsProductsValues } from 'constants/filters/sorts';
@@ -20,7 +20,7 @@ import { useMediaQuery } from 'react-responsive';
 import { mobileHeaderStores } from 'stores/mobileHeader';
 import { productsEffects, productsEvents, productsStores } from 'stores/products/products';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
-import { FilterMobileWrapper, SearchMobileWrapper } from './styles';
+import { ContentResetWrapper, FilterMobileWrapper, SearchMobileWrapper } from './styles';
 
 const { updateValues, setDefaultValues, setIsFirstToFalse, setId } = productsEvents;
 const { loadItemById } = productsEffects;
@@ -161,9 +161,9 @@ export const ProductsFilterLayout: FC<Props> = ({ totalRecords, children, withou
                             onChange={onSortChange}
                         />
                     </MarginWrapper>
-                    <Row justifyEnd>
+                    <ContentResetWrapper>
                         <ResetSearchButton onClick={resetFilters} />
-                    </Row>
+                    </ContentResetWrapper>
                 </FilterMobileWrapper>
             )}
 
