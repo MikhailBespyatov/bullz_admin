@@ -1,5 +1,5 @@
 import { headerHeight } from 'componentsNewDesign/grid/Header/constants';
-import { grey28 } from 'constants/styles/colors';
+import { grey28, grey30 } from 'constants/styles/colors';
 import { flexStart } from 'constants/styles/mixins';
 import { footerHeight, lg, lg_1, padding, sideBarWidth, smallSideBarWidth, xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
@@ -23,5 +23,7 @@ export const Container = styled.div`
     @media (max-width: ${xs}) {
         padding: 0;
         padding-top: ${headerHeight};
+        height: 100%;
+        background-color: ${grey30};
     }
 `;

@@ -1,5 +1,6 @@
 import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ellipsisMixin } from 'constants/styles/mixins';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import {
     BackgroundColor,
@@ -39,6 +40,10 @@ export const TableWrapper = styled.div<TableProps>`
     ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
     ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
     ${({ border }) => border && `border: ${border}`};
+
+    @media (max-width: ${xs}) {
+        padding: 0;
+    }
 `;
 
 export const Table = styled.table<TableProps>`
@@ -59,6 +64,19 @@ export const TableRow = styled.tr<TableProps>`
     ${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
 
     text-align: center;
+
+    @media (max-width: ${xs}) {
+        height: 34px;
+        th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
 `;
 
 export const TableHeader = styled.th<TableProps>`
@@ -71,6 +89,10 @@ export const TableHeader = styled.th<TableProps>`
     }
     &:last-child {
         border-radius: 0px 8px 0px 0px;
+    }
+
+    @media (max-width: ${xs}) {
+        font-size: 10px;
     }
 `;
 export const TableData = styled.td<TableProps>`

@@ -53,7 +53,7 @@ export const Empty = ({
                 width={isMobile ? '100%' : imageWrapperWidth || 'fit-content'}
             >
                 <Section alignCenter justifyCenter height="100%">
-                    <CustomImg height={imageHeight} src={imageSrc} width={isMobile ? '300px' : imageWidth} />
+                    <CustomImg height={imageHeight} src={imageSrc} width={isMobile ? '200px' : imageWidth} />
                 </Section>
             </ContentWrapper>
 

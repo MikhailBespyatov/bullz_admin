@@ -26,28 +26,32 @@ import {
     parseVerifyDescription,
     parseVerifySuccessMessage,
     parseVerifyTitle,
+    propertyBlockHalfWidth,
     removeRoleTitle,
     rolesAbsentMessage
 } from 'componentsNewDesign/layouts/cards/UserCard/constants';
 import { VideoCard } from 'componentsNewDesign/layouts/cards/VideoCard';
 import {
     backImgDiameter,
+    marginRightWrapperMobile,
     propertyBlockWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { TitleText } from 'componentsNewDesign/modals/AsyncModal/styles';
 import { RolesPopover } from 'componentsNewDesign/modals/popovers/RolesPopover';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
-import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { assignedUserRoles, assignedUserRolesForSuperAdmin, defaultUserRoles, Roles } from 'constants/defaults/users';
 import { asyncError, videosNotFoundMessage } from 'constants/notifications';
 import { usersLink } from 'constants/routes';
 import { getRedirectUrlToWom } from 'constants/services';
 import { blue, errorColor, grey27, grey29, hoverGrey2, lightBlack, white } from 'constants/styles/colors';
+import { md } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { contentDeleteUserAsyncModal } from 'pages/DeleteUser/constants';
 import React, { useMemo } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { userReportModal } from 'stores/initialize/initialize.modal.store';
@@ -84,6 +88,7 @@ export const UserDescription = ({
     isTrusted
 }: Props) => {
     const { access } = useStore(userStores.auth);
+    const isMobile = useMediaQuery({ query: `(max-width: ${md})` });
 
     const assignedRoles = useMemo(
         () =>
@@ -293,7 +298,7 @@ export const UserDescription = ({
         window.open(getRedirectUrlToWom(id));
     };
 
-    return (
+    return !isMobile ? (
         <ContentWrapper backgroundColor={grey29} /*height="280px"*/ padding="16px 32px" /*width="1120px"*/>
             <Column width="100%">
                 <Section justifyBetween marginBottom="28px">
@@ -562,6 +567,282 @@ export const UserDescription = ({
                         </Column>
                     </Row>
                 </Section>
+            </Column>
+        </ContentWrapper>
+    ) : (
+        <ContentWrapper backgroundColor={grey29} /*height="280px"*/ padding="16px 9px" /*width="1120px"*/>
+            <Column width="100%">
+                <Column justifyBetween width="100%">
+                    <Row alignCenter marginBottom="10px">
+                        <Column marginRight="24px">
+                            <CustomImg
+                                pointer
+                                height={backImgDiameter}
+                                src={backArrowImg}
+                                width={backImgDiameter}
+                                onClick={onBack}
+                            />
+                        </Column>
+                        <TitleText>User info</TitleText>
+                    </Row>
+                    <SuperAdministratorLayout>
+                        <MarginWrapper marginRight={marginRightWrapperMobile}>
+                            <CardButton
+                                background={lightBlack}
+                                backgroundHover={hoverGrey2}
+                                color={blue}
+                                textHover={white}
+                                onClick={onFindInWOM}
+                            >
+                                Find in WOM admin system
+                            </CardButton>
+                        </MarginWrapper>
+                    </SuperAdministratorLayout>
+                    <Row alignCenter justifyAround width="100%">
+                        <AdministratorLayout>
+                            <Column marginRight={marginRightWrapperMobile}>
+                                <GenerateReportButton onClick={() => userReportModal.openModal({ id })} />
+                            </Column>
+                        </AdministratorLayout>
+                        {isDisabled ? (
+                            <MarginWrapper marginRight={marginRightWrapperMobile}>
+                                <BlockInformationText>This User is Blocked or Deleted</BlockInformationText>
+                            </MarginWrapper>
+                        ) : (
+                            <AdministratorLayout>
+                                <Column marginRight={marginRightWrapperMobile}>
+                                    <CardButton
+                                        background={lightBlack}
+                                        backgroundHover={hoverGrey2}
+                                        color={blue}
+                                        fontSize="10px"
+                                        height="28px"
+                                        padding="6px"
+                                        textHover={white}
+                                        width="35px"
+                                        onClick={() => callVerifyModal(!isTrusted)}
+                                    >
+                                        {isTrusted ? 'Unverify' : 'Verify'}
+                                    </CardButton>
+                                </Column>
+                                <Column marginRight={marginRightWrapperMobile}>
+                                    <RolesPopover
+                                        disabled={!assignedRoles.length}
+                                        setSubject={callAssignModal}
+                                        subjects={assignedRoles}
+                                        title={assignRoleTitle}
+                                        type="down"
+                                    >
+                                        <CardButton
+                                            background={lightBlack}
+                                            backgroundHover={hoverGrey2}
+                                            color={blue}
+                                            disabled={!assignedRoles.length}
+                                            fontSize="10px"
+                                            height="28px"
+                                            padding="6px"
+                                            textHover={white}
+                                            width="66px"
+                                        >
+                                            Assign Role
+                                        </CardButton>
+                                    </RolesPopover>
+                                </Column>
+                            </AdministratorLayout>
+                        )}
+                        <AdministratorLayout>
+                            <CardButton
+                                background={errorColor}
+                                backgroundHover={hoverGrey2}
+                                color={white}
+                                fontSize="10px"
+                                height="28px"
+                                marginRight={marginRightWrapperMobile}
+                                padding="6px"
+                                textHover={white}
+                                type="danger"
+                                width="42px"
+                                onClick={() => callDisableModal(!isDisabled)}
+                            >
+                                {isDisabled ? 'Unblock' : 'Block'}
+                            </CardButton>
+                        </AdministratorLayout>
+                        {!isDisabled && (
+                            <AdministratorLayout>
+                                <CardButton
+                                    background={errorColor}
+                                    backgroundHover={hoverGrey2}
+                                    color={white}
+                                    fontSize="10px"
+                                    height="28px"
+                                    padding="6px"
+                                    textHover={white}
+                                    type="danger"
+                                    width="44px"
+                                    onClick={() => callDeleteUserModal(id)}
+                                >
+                                    Delete
+                                </CardButton>
+                            </AdministratorLayout>
+                        )}
+                    </Row>
+                </Column>
+                <FlexGrow alignCenter noWrap marginBottom="0">
+                    <Column marginBottom="30px" marginTop="16px">
+                        <AvatarImg
+                            isAccountVerified={isAccountVerified}
+                            isDisabled={isDisabled}
+                            isTrusted={isTrusted}
+                            src={profileImageUrl || ''}
+                        />
+                    </Column>
+                    <Row>
+                        <Column width="100%">
+                            <Section alignCenter justifyBetween>
+                                <SuperAdministratorLayout>
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteCopyIcon}
+                                        fontSize="10px"
+                                        marginBottom="8px"
+                                        notVerified={!isAccountVerified}
+                                        subtitle={email}
+                                        success={copyEmailMessage}
+                                        title="EMAIL ADDRESS"
+                                        width={propertyBlockHalfWidth}
+                                    />
+                                </SuperAdministratorLayout>
+                                <SuperAdministratorLayout>
+                                    <PropertyBlock
+                                        copiable
+                                        backgroundColor={grey27}
+                                        customCopyIcon={whiteCopyIcon}
+                                        marginBottom="8px"
+                                        subtitle={mobileNumber}
+                                        success={copyPhoneMessage}
+                                        title="Phone"
+                                        width={propertyBlockHalfWidth}
+                                    />
+                                </SuperAdministratorLayout>
+                                <PropertyBlock
+                                    copiable
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    customCopyIcon={whiteCopyIcon}
+                                    marginBottom="8px"
+                                    subtitle={username || ''}
+                                    success={copyUsernameMessage}
+                                    title="User Name"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    copiable
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    customCopyIcon={whiteCopyIcon}
+                                    linkRoute={usersLink}
+                                    marginBottom="8px"
+                                    subtitle={id}
+                                    success={copyUserIdMessage}
+                                    title="Id"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    copiable
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    customCopyIcon={whiteCopyIcon}
+                                    marginBottom="8px"
+                                    subtitle={facilitatorId}
+                                    success={copyFacilitatorIdMessage}
+                                    title="Facilitator ID"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    marginBottom="8px"
+                                    subtitle={freeStakingRemaining?.toString()}
+                                    title="Free stakes remaining"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                {/*<UserPropertyWrapper>*/}
+                                {/*    <PropertyBlock subtitle={locale || ''} title="LOCALE" width={propertyBlockWidth} />*/}
+                                {/*</UserPropertyWrapper>*/}
+                                <ChangeablePropertyBlock
+                                    backgroundColor={grey27}
+                                    disabled={access !== Roles.Administrator && access !== Roles.SuperAdministrator}
+                                    searchPlaceholder="Input a locale"
+                                    selector={localeSelector.nestedSelectors?.map(
+                                        ({ selectorName }) => selectorName || ''
+                                    )}
+                                    subtitle={locale || ''}
+                                    title="LOCALE"
+                                    width={propertyBlockHalfWidth}
+                                    onSave={onLocaleSave}
+                                />
+                                <PropertyBlock
+                                    isDate
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    marginBottom="8px"
+                                    subtitle={utcCreated}
+                                    title="Created account"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    isDate
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    marginBottom="8px"
+                                    subtitle={utcUpdated}
+                                    title="Updated account"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    isDate
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    marginBottom="8px"
+                                    subtitle={utcLastAuthentication}
+                                    title="Last logged in"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+
+                                    subtitle={location?.countryName || ''}
+                                    title="Country"
+                                    width={propertyBlockHalfWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={grey27}
+                                    // titleUppercase
+                                    subtitle={location?.area?.region || ''}
+                                    title="Region"
+                                    width={propertyBlockHalfWidth}
+                                />
+                            </Section>
+                            <Row marginTop="16px">
+                                {roles?.length
+                                    ? roles.map((item: string) => (
+                                          <MarginWrapper key={item} marginBottom="8px" marginRight="8px">
+                                              <ClosableTag
+                                                  subject={item}
+                                                  untouchable={
+                                                      defaultUserRoles.includes(item) || access > Roles.Administrator
+                                                  }
+                                                  onClose={callRemoveRoleModal}
+                                              />
+                                          </MarginWrapper>
+                                      ))
+                                    : rolesAbsentMessage}
+                            </Row>
+                        </Column>
+                    </Row>
+                </FlexGrow>
             </Column>
         </ContentWrapper>
     );
