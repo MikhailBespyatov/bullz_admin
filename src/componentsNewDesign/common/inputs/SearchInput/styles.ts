@@ -24,6 +24,7 @@ export const InputWrapper = styled.div<InputProps>`
 
     @media (max-width: ${xs}) {
         width: ${({ width }) => (width ? width : '100%')};
+        max-width: 440px;
         padding-left: 0;
         margin-left: 19px;
         margin-right: 26px;
