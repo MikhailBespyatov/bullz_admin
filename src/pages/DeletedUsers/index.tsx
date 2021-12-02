@@ -24,11 +24,11 @@ import { ReasonTypes } from './types';
 export const DeletedUsers = () => {
     const { items, totalRecords } = useStore(deletedUsersStores.deletedUsers);
     const loading = useStore(deletedUsersStores.loading);
-    const sortableItems = items ? items : [];
+    const sortableItems = items ? items.map(item => ({ ...item, deleterName: item.deleterInfo?.userName })) : [];
     const { sortedItems, requestSort, sortConfig } = useSortableData(sortableItems);
 
     const dataTable: DataTable[] | undefined = sortedItems?.map(
-        ({ userId, email, mobileNumber, deleterInfo, comment, reasons }) => ({
+        ({ userId, email, mobileNumber, deleterName, comment, reasons }) => ({
             cells: [
                 <Section key={userId} alignCenter justifyCenter>
                     <TableDataSpan>{userId}</TableDataSpan>
@@ -42,7 +42,7 @@ export const DeletedUsers = () => {
                     <TableDataSpan>{mobileNumber}</TableDataSpan>
                 </Section>,
                 <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{deleterInfo?.userName}</TableDataSpan>
+                    <TableDataSpan>{deleterName}</TableDataSpan>
                 </Section>,
 
                 <Section key={userId} alignCenter justifyCenter>
