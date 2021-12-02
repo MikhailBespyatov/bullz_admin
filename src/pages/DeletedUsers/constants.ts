@@ -2,7 +2,7 @@ export const columns = [
     { title: 'User ID' },
     { title: 'Email Address' },
     { title: 'Phone Number', field: 'mobileNumber', isSorted: true },
-    { title: 'Deleted By', field: 'deleterInfo?.userName', isSorted: true },
+    { title: 'Deleted By', field: 'deleterName', isSorted: true },
     { title: 'Comment' },
     { title: 'Reason' }
 ];
