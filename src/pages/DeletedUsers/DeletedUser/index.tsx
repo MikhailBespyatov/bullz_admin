@@ -57,6 +57,8 @@ export const DeletedUser = () => {
     const comment = user?.comment;
     const mobileNumber = user?.mobileNumber;
     const reasons = user?.reasons;
+    const videoIds = user?.videoIds;
+    const totalVideos = `User Videos (${videoIds?.length ? videoIds?.length : '0'})`;
 
     useEffect(() => {
         deletedUsersEffects.loadItems({ ...defaultDeletedUsersValues, deletedUserId });
@@ -187,7 +189,7 @@ export const DeletedUser = () => {
                                 <Section justifyCenter>
                                     <Loader size="large" />
                                 </Section>
-                            ) : (
+                            ) : itemsStatistics?.length ? (
                                 <>
                                     <Section marginBottom="20px">
                                         <StatisticsTable items={itemsStatistics} removeItem="userId" />
@@ -199,20 +201,20 @@ export const DeletedUser = () => {
                                         onSizeChange={onStatisticsCurrentPageChange}
                                     />
                                 </>
-                            )}
+                            ) : null}
                         </DropdownSection>
                     </DropdownColumn>
                 </AdministratorLayout>
             </Section>
             <DropdownColumn>
-                <DropdownSection title="User Videos">
+                <DropdownSection title={totalVideos}>
                     {loading ? (
                         <Section justifyCenter marginBottom="20px">
                             <Loader size="large" />
                         </Section>
-                    ) : (
-                        <Column>{items?.map(item => item.videoIds)}</Column>
-                    )}
+                    ) : videoIds?.length ? (
+                        videoIds.map(videoId => <Column key={videoId}>{videoId}</Column>)
+                    ) : null}
                 </DropdownSection>
             </DropdownColumn>
         </SingleMainLayout>
