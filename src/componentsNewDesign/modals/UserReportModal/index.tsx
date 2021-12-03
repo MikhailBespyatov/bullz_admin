@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import whiteCopyIcon from 'assets/copy_icon_white_transparent.svg';
 import { ReportStatusBadge } from 'componentsNewDesign/common/badges/ReportStatusBadge';
 import { SuggestionBadge } from 'componentsNewDesign/common/badges/SuggestionBadge';
@@ -22,6 +23,7 @@ import { Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { ModalCloseButton, ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
 import { black } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import * as _ from 'lodash';
 import React, { ReactNode, useEffect, useRef } from 'react';
@@ -65,7 +67,7 @@ const EngagementTable = (engagement: BULLZ.EngagementsOnContent, array: Engageme
 export const UserReportWrapper = () => {
     const { access } = useStore(userStores.auth);
     const reportRef = useRef<HTMLPreElement | null>(null);
-
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
     const copiedData = reportRef.current
         ? reportRef.current?.innerText.replaceAll('\n\n', '\n').replaceAll('_', ' ')
         : undefined;
@@ -105,12 +107,12 @@ export const UserReportWrapper = () => {
             customHeader={
                 <>
                     <ModalHeader>
-                        <SectionWithPadding alignCenter justifyBetween marginBottom="10px">
+                        <SectionWithPadding alignCenter justifyBetween noWrap marginBottom="10px">
                             {/*<MarginWrapper marginLeft={modalVerticalPadding}>*/}
                             <ReportStatusBadge level={userLevel} title="Report" />
                             {/*</MarginWrapper>*/}
-                            <Row alignCenter>
-                                <MarginWrapper marginRight="24px">
+                            <Row alignCenter noWrap={isMobile}>
+                                <MarginWrapper marginRight={isMobile ? '20px' : '24px'}>
                                     <CopyTextButton
                                         customCopyIcon={whiteCopyIcon}
                                         diameter="25px"

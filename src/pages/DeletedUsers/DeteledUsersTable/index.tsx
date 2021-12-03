@@ -16,7 +16,7 @@ export const DeletedUsersTable = ({
     onSort,
     sortState
 }: TableProps) => (
-    <ContentWrapper border={tableDataBorder} width="fit-content">
+    <ContentWrapper border={tableDataBorder} minWidth="100%" width="fit-content">
         <TableHeader alignCenter noWrap backgroundColor={backgroundColor || grey23} height="32px">
             {columns.map(({ title, isSorted, field }, index) => {
                 const lastItemGrow = index === columns.length - 1 ? '1' : '0';

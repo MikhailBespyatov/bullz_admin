@@ -58,6 +58,11 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 8px;
   }
 
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+   }
+
+
   .ant-layout-header {
     background: ${yeayColor};
   }

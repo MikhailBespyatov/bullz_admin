@@ -1,6 +1,7 @@
 import { bodyModalHeight, modalWidth } from 'componentsNewDesign/modals/UserReportModal/constants';
 import { Column, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { modalVerticalPadding } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
+import { xs, xxs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 
 export const ModalHeader = styled(Column)`
@@ -9,10 +10,18 @@ export const ModalHeader = styled(Column)`
     top: 10px;
     left: 0;
     width: ${modalWidth};
+
+    @media screen and (max-width: ${xs}) {
+        width: 100%;
+    }
 `;
 
 export const SectionWithPadding = styled(Section)`
     padding: 0 ${modalVerticalPadding};
+
+    @media screen and (max-width: ${xs}) {
+        padding: 0 16px;
+    }
 `;
 
 export const ReportBody = styled(Column)`
@@ -45,5 +54,9 @@ export const Report = styled.pre`
 
     ${Parameter} {
         // margin-left: 2em;
+    }
+
+    @media screen and (max-width: ${xxs}) {
+        height: 250px;
     }
 `;
