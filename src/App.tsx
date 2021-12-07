@@ -20,6 +20,8 @@ import {
     deletedUserLink,
     deletedUsersLink,
     deleteUserLink,
+    emitterLink,
+    emittersLink,
     error401Link,
     error403Link,
     homeLink,
@@ -50,6 +52,8 @@ import { Dashboard } from 'pages/Dashboard';
 import { DeletedUsers } from 'pages/DeletedUsers';
 import { DeletedUser } from 'pages/DeletedUsers/DeletedUser';
 import { DeleteUser } from 'pages/DeleteUser';
+import { Emitters } from 'pages/Emitters';
+import { Emitter } from 'pages/Emitters/Emitter';
 import { Home } from 'pages/Home';
 import { Video } from 'pages/Home/Video';
 import { MarketingTools } from 'pages/MarketingTools';
@@ -141,6 +145,18 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={DeletedUser}
                         path={deletedUserLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={Emitters}
+                        path={emittersLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={Emitter}
+                        path={emitterLink}
                     />
                     <PrivateRoute
                         exact

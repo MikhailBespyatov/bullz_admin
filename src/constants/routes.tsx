@@ -2,6 +2,7 @@ import {
     BlacklistedIcon,
     DashboardIcon,
     DeletedUsersIcon,
+    EmittersIcon,
     MarketingToolsIcon,
     TeamsIcon,
     TopicsIcon,
@@ -20,6 +21,8 @@ export const homeLink = '/videos';
 export const videoLink = '/videos/:videoId';
 export const usersLink = '/users';
 export const userLink = '/users/:userId';
+export const emittersLink = '/emitters';
+export const emitterLink = '/emitters/:emitterId';
 //export const productsLink = '/products';
 //export const productLink = '/products/:productId';
 export const topicsLink = '/topics';
@@ -55,6 +58,7 @@ export const blacklistedUsersLinkName = 'Blacklisted';
 export const marketingToolsLinkName = 'Marketing Tools';
 export const topicsLinkName = 'Topics';
 export const deletedUsersLinkName = 'Deleted Users';
+export const emittersLinkName = 'Emitters';
 
 export const createUserLinkName = 'Create user';
 export const deleteUserLinkName = 'Delete users in bulk';
@@ -96,6 +100,12 @@ export const routesArray: RoutesArray[] = [
         renderIcon: (active: boolean, isExpanded: boolean) => (
             <DeletedUsersIcon active={active} isExpanded={isExpanded} />
         ),
+        accessList: [Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]
+    },
+    {
+        path: emittersLink,
+        name: emittersLinkName,
+        renderIcon: (active: boolean, isExpanded: boolean) => <EmittersIcon active={active} isExpanded={isExpanded} />,
         accessList: [Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]
     },
     {
