@@ -7,6 +7,11 @@ export const getUsers = (data: BULLZ.QueryAllUsersRequest, cancelToken?: CancelT
         cancelToken,
         data
     });
+export const getEmitters = (data: BULLZ.AdminGetEmittersRequest) =>
+    axios({
+        url: '/engagement/emitters/query',
+        data
+    });
 
 export const getUserById = (data: BULLZ.AdminGetUserRequest, cancelToken?: CancelToken) =>
     axios<BULLZ.AdminGetUserCommon>({

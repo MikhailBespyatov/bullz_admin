@@ -343,6 +343,10 @@ declare namespace BULLZ {
          */
         id?: string; // objectId
     }
+
+    export interface AdminGetEmittersRequest {
+        count: number; // objectId
+    }
     /**
      * adminGetVideoResponse
      */
