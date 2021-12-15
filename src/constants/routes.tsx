@@ -23,6 +23,7 @@ export const usersLink = '/users';
 export const userLink = '/users/:userId';
 export const emittersLink = '/emitters';
 export const emitterLink = '/emitters/:emitterId';
+export const createEmitterLink = '/emitters/create_emitter';
 //export const productsLink = '/products';
 //export const productLink = '/products/:productId';
 export const topicsLink = '/topics';

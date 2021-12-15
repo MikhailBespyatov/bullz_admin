@@ -26,7 +26,7 @@ export const Emitters = () => {
     const emittersList = useStore(emittersStores.emitters);
     const loading = useStore(emittersStores.loading);
 
-    const onCreateButtonClick = () => history.push('/');
+    const onCreateButtonClick = () => history.push('/emitters/create_emitter');
 
     const dataTable: DataTable[] | undefined = emittersList.map(
         ({

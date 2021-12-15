@@ -13,6 +13,7 @@ import { Roles } from 'constants/defaults/users';
 import {
     authLink,
     blacklistedUsersLink,
+    createEmitterLink,
     createTeamLink,
     createTopicLink,
     createUserLink,
@@ -53,6 +54,7 @@ import { DeletedUsers } from 'pages/DeletedUsers';
 import { DeletedUser } from 'pages/DeletedUsers/DeletedUser';
 import { DeleteUser } from 'pages/DeleteUser';
 import { Emitters } from 'pages/Emitters';
+import { CreateEmitter } from 'pages/Emitters/CreateEmitter';
 import { Emitter } from 'pages/Emitters/Emitter';
 import { Home } from 'pages/Home';
 import { Video } from 'pages/Home/Video';
@@ -151,6 +153,12 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={Emitters}
                         path={emittersLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={CreateEmitter}
+                        path={createEmitterLink}
                     />
                     <PrivateRoute
                         exact
