@@ -2,7 +2,7 @@ import { ModalButton } from 'componentsNewDesign/common/buttons/ModalButton';
 import { ContentText } from 'componentsNewDesign/modals/AsyncModal/styles';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { ModalWrapper } from 'componentsNewDesign/wrappers/ModalWrapper';
-import { black, errorColor } from 'constants/styles/colors';
+import { errorColor, grey27 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { removeTrendingModal } from 'stores/initialize/initialize.modal.store';
@@ -18,9 +18,6 @@ export const AsyncDeleteTrendingModal = () => {
     return (
         <ModalWrapper height="230px" visible={visible} width="580px" onClose={onCancel}>
             <Column alignCenter width="100%">
-                {/* <Row marginBottom="20px">
-                    <TitleText>{title}</TitleText>
-                </Row> */}
                 <Row marginBottom="38px">
                     <ContentText>
                         Are you sure you want to remove{' '}
@@ -34,7 +31,7 @@ export const AsyncDeleteTrendingModal = () => {
                             Cancel
                         </ModalButton>
                     </Column>
-                    <ModalButton background={black} onClick={okHandler}>
+                    <ModalButton background={grey27} onClick={okHandler}>
                         {loading ? 'Loading...' : 'Ok'}
                     </ModalButton>
                 </Row>

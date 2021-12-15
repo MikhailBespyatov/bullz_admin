@@ -8,8 +8,7 @@ import { copyTopicLinkMessage } from 'componentsNewDesign/layouts/cards/ProductC
 import {
     productCardWidth,
     propertyBlockHorizontalPadding,
-    propertyBlockWidth,
-    propertyBlockWidthMobile
+    propertyBlockWidth
 } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import { EditProductPopover } from 'componentsNewDesign/modals/popovers/products/EditProductPopover';
 import { UploadProductImgPopover } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover';
@@ -18,7 +17,7 @@ import { DescriptionWrapper } from 'componentsNewDesign/wrappers/DescriptionWrap
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { grey27, grey29, grey7, hoverGrey2 } from 'constants/styles/colors';
-import { descriptionPadding, filterMargin, filterMarginMobile, xxs } from 'constants/styles/sizes';
+import { descriptionPadding, filterMargin, filterMarginMobile, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { loadingStores } from 'stores/loading';
@@ -58,7 +57,7 @@ export const ProductDescription = ({
         } catch {}
     };
 
-    const isMobile = useMediaQuery(`(max-width: ${xxs})`);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     // const deleteOkHandler = async (subject: SubjectType) => {
     //     try {
@@ -119,7 +118,7 @@ export const ProductDescription = ({
                             />
                         </AlignCenter>
                     </ContentWrapper> */}
-                    <Column marginRight={descriptionPadding}>
+                    <Column marginBottom="8px" marginRight={descriptionPadding}>
                         <Row marginBottom="8px" marginTop="8px">
                             <Span fontSize="10px" fontWeight="500" lineHeight="12px">
                                 {name}
@@ -233,26 +232,25 @@ export const ProductDescription = ({
                         />
                     </Section>
 
-                    <Section noWrap height="100%" marginBottom="4px">
-                        <MarginWrapper marginRight="8px">
-                            <PropertyBlock
-                                copiable
-                                isLink
-                                backgroundColor={grey27}
-                                horizontalPadding={propertyBlockHorizontalPadding}
-                                subtitle={link || ''}
-                                success={copyTopicLinkMessage}
-                                title="Topic link"
-                                width={propertyBlockWidthMobile}
-                            />
-                        </MarginWrapper>
+                    <Section justifyBetween noWrap height="100%" marginBottom="4px">
+                        <PropertyBlock
+                            copiable
+                            isLink
+                            backgroundColor={grey27}
+                            horizontalPadding={propertyBlockHorizontalPadding}
+                            marginRight="8px"
+                            subtitle={link || ''}
+                            success={copyTopicLinkMessage}
+                            title="Topic link"
+                            width="50vh"
+                        />
                         <PropertyBlock
                             backgroundColor={grey27}
                             horizontalPadding={propertyBlockHorizontalPadding}
                             marginBottom="0"
                             subtitle={primaryReferenceCount.toString()}
                             title="Referenced count"
-                            width={propertyBlockWidthMobile}
+                            width="50vh"
                         />
                     </Section>
                     <ManagerLayout>

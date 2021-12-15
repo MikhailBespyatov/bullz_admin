@@ -6,6 +6,7 @@ import { FilterParameters, selectorsArray } from 'componentsNewDesign/common/inp
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { selectPadding } from 'componentsNewDesign/common/inputs/Select/constants';
+import { TrendingsNestedSelect } from 'componentsNewDesign/common/inputs/TrendingsNestedSelect';
 import { TrendingsSearchInput } from 'componentsNewDesign/common/inputs/TrendingsSearchInput';
 import { TrendingsSelect } from 'componentsNewDesign/common/inputs/TrendingsSelect';
 import { Footer, TrendingsFooter } from 'componentsNewDesign/grid/Footer';
@@ -19,6 +20,7 @@ import {
     SelectorKeyType
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/constants';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
+import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
 import { Column, FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
@@ -134,8 +136,6 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
     };
 
     const onLocaleSelect = ({ selectorType, selectorName, selectorCode }: FilterParameters) => {
-        //console.log('received { selectorType, selectorName }', { selectorType, selectorName });
-
         const newValues: LocaleSelectorProps = { country: '', region: '', locale: '' };
 
         Object.keys(newValues);
@@ -225,8 +225,6 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, limit, role, username, isTrusted, email, mobileNumber, defaultId, country, region, locale]);
 
-    //console.log(countries);
-
     const selectors = location
         ? selectorsArray(
               location.map(({ countryName, countryCode, region }) => ({
@@ -244,8 +242,6 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
               }))
           )
         : [];
-
-    //console.log('FilterLayout', selectors[1].nestedSelectors);
 
     return !isMobile ? (
         <>
@@ -280,37 +276,13 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
 
                 <ResetSearchButton onClick={resetFilters} />
             </SearchWrapperLayout>
-            {/*<Section>*/}
-            {/*    <SearchCell lg={6}>*/}
-            {/*        <Search*/}
-            {/*            defaultValue={username}*/}
-            {/*            placeholder={usernameSearchPlaceholder}*/}
-            {/*            onSearch={onUsernameSearch}*/}
-            {/*        />*/}
-            {/*    </SearchCell>*/}
-            {/*    <SearchCell removePaddingRight lg={6}>*/}
-            {/*        <Search defaultValue={defaultId} placeholder={userIdSearchPlaceholder} onSearch={onIdSearch} />*/}
-            {/*    </SearchCell>*/}
-            {/*</Section>*/}
-            {/*<Section alignCenter>*/}
-            {/*    <Radio*/}
-            {/*        defaultValue={role}*/}
-            {/*        tagsValues={sortTagsUsersValues}*/}
-            {/*        title={sortTagsName + sortName1}*/}
-            {/*        onChange={onSortChange}*/}
-            {/*    />*/}
-            {/*</Section>*/}
-            {/*<Section>*/}
-            {/*    <Button icon={<RedoOutlined />} type="primary" onClick={resetFilters}>*/}
-            {/*        Reset filter settings*/}
-            {/*    </Button>*/}
-            {/*</Section>*/}
             {children}
             {withoutFooter ? (
                 <TrendingsFooter>
                     <Pagination
                         currentIndex={pageIndex + 1}
                         defaultSize={limit}
+                        height={paginationHeight}
                         pagesLimit={100}
                         totalItems={totalRecords}
                         onSizeChange={onCurrentPageChange}
@@ -341,9 +313,19 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
                         width="100%"
                         onChange={onSortChange}
                     />
+                    <TrendingsNestedSelect
+                        backgroundColor="transparent"
+                        defaultSelectedItem={country || region || locale || undefined}
+                        defaultSelectedItemType={defaultSelectedItemType}
+                        isLoading={regionsListIsLoading}
+                        selector={selectors}
+                        title="Filter by locale or country"
+                        width="100%"
+                        onSelect={onLocaleSelect}
+                    />
                     <Section alignCenter justifyEnd>
                         <TrendingsCheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
-                            Is trusted
+                            Only is trusted
                         </TrendingsCheckboxFilter>
                         <ResetSearchButton fontSize="11px" lineHeight="13px" onClick={resetFilters} />
                     </Section>
@@ -352,13 +334,16 @@ export const TrendingsUsersFilterLayout: FC<Props> = ({ totalRecords, children, 
 
             {children}
             {withoutFooter ? (
-                <Pagination
-                    currentIndex={pageIndex + 1}
-                    defaultSize={limit}
-                    pagesLimit={100}
-                    totalItems={totalRecords}
-                    onSizeChange={onCurrentPageChange}
-                />
+                <TrendingsFooter>
+                    <Pagination
+                        currentIndex={pageIndex + 1}
+                        defaultSize={limit}
+                        height={paginationHeight}
+                        pagesLimit={100}
+                        totalItems={totalRecords}
+                        onSizeChange={onCurrentPageChange}
+                    />
+                </TrendingsFooter>
             ) : (
                 <Footer>
                     <Pagination

@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core';
 import closeIcon from 'assets/close.svg';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
@@ -6,6 +7,7 @@ import {
     modalHorizontalPadding,
     modalVerticalPadding
 } from 'componentsNewDesign/wrappers/TrendingsModalWrapper/constant';
+import { xs } from 'constants/styles/sizes';
 import { useNonScrolledBackground } from 'hooks/nonScrolledBackground';
 import React, { FC } from 'react';
 import { Overflow, Sizes, Visibility } from 'types/styles';
@@ -47,27 +49,37 @@ export const TrendingsModalWrapper: FC<Props> = ({
     expanded = false,
     background
 }) => {
-    // console.log('expanded', expanded);
     useNonScrolledBackground(visible, expanded);
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     if (!visible) return null;
 
     return (
-        <ModalBackground>
+        <>
+            <ModalBackground onClick={onClose} />
+
             <ModalContentWrapper
                 background={background}
                 height={height}
                 overflow={overflow}
-                padding={`${modalVerticalPadding} ${modalHorizontalPadding} 0 ${modalHorizontalPadding}`}
+                padding={
+                    isMobile
+                        ? '22px 9px 0'
+                        : `${modalVerticalPadding} ${modalHorizontalPadding} 0 ${modalHorizontalPadding}`
+                }
                 width={width}
             >
                 {customHeader || (
-                    <AbsoluteWrapper right={modalHorizontalPadding} top={modalVerticalPadding} zIndex="100">
+                    <AbsoluteWrapper
+                        right={isMobile ? '12px' : modalHorizontalPadding}
+                        top={isMobile ? '22px' : modalVerticalPadding}
+                        zIndex="100"
+                    >
                         <ModalCloseButton onClose={onClose} />
                     </AbsoluteWrapper>
                 )}
                 {children}
             </ModalContentWrapper>
-        </ModalBackground>
+        </>
     );
 };

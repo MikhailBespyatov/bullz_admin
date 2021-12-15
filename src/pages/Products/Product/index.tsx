@@ -140,8 +140,9 @@ export const Product = () => {
                     </Section>
                     <ProductDescription {...product} {...affiliateLinks.defaultEntry} />
                     {/* * wrapper for dropdown sections (first-child) */}
-                    <DropdownColumn>
-                        {/* <DropdownSection title="Affiliate links">
+                    <Section marginBottom="70px">
+                        <DropdownColumn>
+                            {/* <DropdownSection title="Affiliate links">
                             {linksLoading ? (
                                 <Section justifyCenter>
                                     <Loader size="large" />
@@ -153,26 +154,27 @@ export const Product = () => {
                                 />
                             )}
                         </DropdownSection> */}
-                        <DropdownSection title="Topic Videos">
-                            <ProductVideosFilterLayout totalRecords={totalRecords}>
-                                {videosLoading ? (
-                                    <Section justifyCenter>
-                                        <Loader size="large" />
-                                    </Section>
-                                ) : (
-                                    <>
-                                        <Section>
-                                            {items?.length ? (
-                                                items.map(item => <VideoCard key={item.id} {...item} />)
-                                            ) : (
-                                                <Empty title={videosNotFoundMessage} />
-                                            )}
+                            <DropdownSection title="Topic Videos">
+                                <ProductVideosFilterLayout totalRecords={totalRecords}>
+                                    {videosLoading ? (
+                                        <Section justifyCenter>
+                                            <Loader size="large" />
                                         </Section>
-                                    </>
-                                )}
-                            </ProductVideosFilterLayout>
-                        </DropdownSection>
-                    </DropdownColumn>
+                                    ) : (
+                                        <>
+                                            <Section>
+                                                {items?.length ? (
+                                                    items.map(item => <VideoCard key={item.id} {...item} />)
+                                                ) : (
+                                                    <Empty title={videosNotFoundMessage} />
+                                                )}
+                                            </Section>
+                                        </>
+                                    )}
+                                </ProductVideosFilterLayout>
+                            </DropdownSection>
+                        </DropdownColumn>
+                    </Section>
                 </Column>
             ) : (
                 <Empty title={notFoundMessage} />

@@ -1,4 +1,5 @@
 import { black } from 'constants/styles/colors';
+import { xs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { Active } from 'types/global';
 import { PaddingLeft, TextProperties } from 'types/styles';
@@ -17,5 +18,9 @@ export const ItemWrapper = styled.div<ItemWrapperProps>`
     :hover {
         background-color: ${black};
         cursor: pointer;
+    }
+
+    @media screen and (max-width: ${xs}) {
+        min-width: 100%;
     }
 `;

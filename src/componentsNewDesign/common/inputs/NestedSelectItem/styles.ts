@@ -49,6 +49,10 @@ export const NestedItemSpan = styled(ContentText)<NestedItemSpanProps>`
     ${ellipsisMixin}
     ${itemTransparentBackground}
     ${itemDefaultTextColor}
+
+    @media screen and (max-width: ${xs}) {
+        width: auto;
+    }
 `;
 
 export const ArrowClickableWrapper = styled(ClickableWrapper)<NestedItemSpanProps>`

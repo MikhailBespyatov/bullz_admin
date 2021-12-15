@@ -26,7 +26,7 @@ export const Wrapper = styled.footer`
     }
 
     @media (max-width: ${xs}) {
-        padding: 0 10px;
+        padding: 0 4px;
         align-items: center;
     }
 `;
@@ -47,8 +47,8 @@ export const TrendingsWrapper = styled.footer`
     margin-right: -${modalHorizontalPadding};
 
     @media screen and (max-width: ${xs}) {
-        height: 85px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        margin-left: -13px;
+        margin-right: -9px;
+        padding: 0 8px;
     }
 `;

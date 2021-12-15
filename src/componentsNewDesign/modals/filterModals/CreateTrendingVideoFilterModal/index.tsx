@@ -2,7 +2,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { Empty } from 'components/layouts/resultLayouts/Empty';
 import { CreateTrendingVideoCard } from 'componentsNewDesign/layouts/cards/CreateVideoUserCard';
-import { VideosFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/VideosFilterLayout';
+import { TrendingsVideosFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/TrendingsVideosFilterLayout';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { TrendingsModalWrapper } from 'componentsNewDesign/wrappers/TrendingsModalWrapper';
@@ -41,7 +41,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
                 onClose={() => closeModal()}
                 //onOk={() => closeModal()}
             >
-                <VideosFilterLayout withoutFooter totalRecords={totalRecords}>
+                <TrendingsVideosFilterLayout withoutFooter totalRecords={totalRecords}>
                     <Section marginBottom={filterMargin}>
                         <Title>{title}</Title>
                     </Section>
@@ -65,7 +65,7 @@ export const CreateTrendingVideoFilterModal = ({ title = 'Create trending video'
                             )}
                         </Section>
                     )}
-                </VideosFilterLayout>
+                </TrendingsVideosFilterLayout>
             </TrendingsModalWrapper>
         </>
     );

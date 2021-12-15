@@ -13,22 +13,25 @@ import { grey23 } from 'constants/styles/colors';
 import React, { FC } from 'react';
 import { Text } from './style';
 
-export const UploadImageButton: FC<SimpleButtonProps> = props => (
-    <SimpleButton
-        background={grey23}
-        fontSize={uploadImgBtnTxtFontSize}
-        height={uploadImgBtnHeight}
-        width={uploadImgBtnWidth}
-        {...props}
-    >
-        <Column alignCenter>
-            <CustomImg
-                alt="Upload image button"
-                height={uploadImageIconWidthAndHeight}
-                src={uploadImageIcon}
-                width={uploadImageIconWidthAndHeight}
-            />
-            <Text>Upload Image</Text>
-        </Column>
-    </SimpleButton>
-);
+export const UploadImageButton: FC<SimpleButtonProps> = props => {
+    const { width } = props;
+    return (
+        <SimpleButton
+            background={grey23}
+            fontSize={uploadImgBtnTxtFontSize}
+            height={uploadImgBtnHeight}
+            width={width ? width : uploadImgBtnWidth}
+            {...props}
+        >
+            <Column alignCenter>
+                <CustomImg
+                    alt="Upload image button"
+                    height={uploadImageIconWidthAndHeight}
+                    src={uploadImageIcon}
+                    width={uploadImageIconWidthAndHeight}
+                />
+                <Text>Upload Image</Text>
+            </Column>
+        </SimpleButton>
+    );
+};

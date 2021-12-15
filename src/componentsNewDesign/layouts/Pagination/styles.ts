@@ -47,6 +47,10 @@ export const PaginationCell = styled.button<PaginationCellProps>`
     color: ${({ active }) => (active ? white : grey7)};
     margin-right: ${PaginationCellMarginRight};
     ${({ disabled }) => disabled && 'opacity: 0.5'};
+
+    @media screen and (max-width: ${xs}) {
+        margin-right: 4px;
+    }
 `;
 
 export const Arrow = styled(PaginationCell)<ArrowProps>`
@@ -81,7 +85,7 @@ export const PaginationInput = styled.input`
     }
 
     @media screen and (max-width: ${xs}) {
-        width: 41px;
+        width: 30px;
         height: 29px;
     }
 `;

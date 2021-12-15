@@ -80,6 +80,9 @@ export const ItemsAbsoluteWrapper = styled(AbsoluteWrapper)<ItemsAbsoluteWrapper
     overflow: auto;
     z-index: ${sideBarZIndex + 2};
     ${({ visible }) => !visible && 'visibility: hidden;'};
+    @media screen and (max-width: ${xs}) {
+        top: 68px;
+    }
 `;
 
 export const LastBorderRadiusBlock = styled.div`
