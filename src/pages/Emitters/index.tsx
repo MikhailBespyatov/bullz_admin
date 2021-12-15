@@ -78,11 +78,11 @@ export const Emitters = () => {
                 </Section>,
 
                 <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{isActive.toString()}</TableDataSpan>
+                    <TableDataSpan>{isActive ? 'Yes' : 'No'}</TableDataSpan>
                 </Section>,
 
                 <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{isPast.toString()}</TableDataSpan>
+                    <TableDataSpan>{isPast ? 'Yes' : 'No'}</TableDataSpan>
                 </Section>,
 
                 <Section key={userId} alignCenter justifyCenter>

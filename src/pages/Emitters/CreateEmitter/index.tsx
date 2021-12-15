@@ -126,7 +126,7 @@ export const CreateEmitter = () => {
                                     <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
                                         Total Shares
                                     </ContentText>
-                                    <Section marginTop="5px">
+                                    <Section marginBottom="16px" marginTop="5px">
                                         <InputWrapper borderBottom={inputBorderBottom}>
                                             <Input
                                                 placeholder={totalSharesPlaceholder}
@@ -140,7 +140,7 @@ export const CreateEmitter = () => {
                                     <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
                                         Total Likes
                                     </ContentText>
-                                    <Section marginTop="5px">
+                                    <Section marginBottom="16px" marginTop="5px">
                                         <InputWrapper borderBottom={inputBorderBottom}>
                                             <Input
                                                 placeholder={totalLikesPlaceholder}
