@@ -2,6 +2,7 @@ export const registerSuccessMessage = 'You successfully registered a user!';
 export const successMessage = 'Success!';
 export const editSuccessMessage = 'Editing was successful!';
 export const swapSuccessMessage = 'You successfully updated trending!';
+export const successCreatedEmitterMessage = 'You have successfully created new Emitter';
 
 export const errorDataMessage = 'Your data is incorrect!';
 export const errorEmptyMessage = 'Fill the fields!';

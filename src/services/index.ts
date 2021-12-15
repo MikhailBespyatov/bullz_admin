@@ -3,6 +3,7 @@ import * as trendings from './admin-trending';
 import * as adminUsers from './admin-users';
 import * as adminVideos from './admin-video';
 import * as curation from './curation';
+import * as emitters from './emitters';
 import * as location from './location';
 import * as manageProducts from './manage-product';
 import * as media from './media';
@@ -29,5 +30,6 @@ export const API = {
     team,
     statistics,
     location,
-    promotions
+    promotions,
+    emitters
 };

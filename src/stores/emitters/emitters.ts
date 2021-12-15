@@ -1,11 +1,16 @@
 import axios, { CancelTokenSource } from 'axios';
 import { defaultEmittersValues } from 'constants/defaults/emitters';
+import { successCreatedEmitterMessage } from 'constants/notifications';
 import { createEffect, createEvent, createStore, forward, restore } from 'effector';
 import { API } from 'services';
+import { message } from 'stores/alerts';
+import { initializeErrorStore } from 'stores/initialize/initialize.error.store';
 import { initializeIsFirstStore } from 'stores/initialize/initialize.isFirst.store';
 import { initializeToggleStore } from '../initialize/initialize.toggle.store';
 
 const [loading, updateLoading] = initializeToggleStore();
+
+const [registerError, setRegisterError] = initializeErrorStore();
 
 let cancelToken: CancelTokenSource | undefined;
 
@@ -16,9 +21,8 @@ const loadItems = createEffect({
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data = await API.adminUsers.getEmitters({ count });
+            const data = await API.emitters.getEmitters({ count });
             updateLoading();
-            console.log(data);
 
             return data;
         } catch {
@@ -62,7 +66,7 @@ const loadItemById = createEffect({
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data = await API.adminUsers.getEmitterById({ id });
+            const data = await API.emitters.getEmitterById({ id });
             updateLoading();
 
             if (data) return data;
@@ -71,6 +75,25 @@ const loadItemById = createEffect({
         } catch {
             updateLoading();
             return {};
+        }
+    }
+});
+
+const createEmitter = createEffect({
+    handler: async (values: any) => {
+        try {
+            updateLoading();
+            await API.emitters.createEmitter(values);
+            updateLoading();
+
+            setRegisterError('');
+            message.success(successCreatedEmitterMessage);
+            return true;
+        } catch ({ data: { message } }) {
+            setRegisterError(message);
+
+            updateLoading();
+            return false;
         }
     }
 });
@@ -86,6 +109,6 @@ export const emittersEvents = {
     updateValues
 };
 
-export const emittersEffects = { loadItems, loadItemById };
+export const emittersEffects = { loadItems, loadItemById, createEmitter };
 
-export const emittersStores = { emitters, loading, values, getRequestId, isFirst, emitterInfo };
+export const emittersStores = { emitters, loading, values, getRequestId, isFirst, emitterInfo, registerError };
