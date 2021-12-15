@@ -7,7 +7,6 @@ import {
     modalContentWrapperVerticalPadding
 } from 'componentsNewDesign/wrappers/ModalWrapper/constant';
 import { grey29 } from 'constants/styles/colors';
-import { absoluteCenterAlignmentMixin } from 'constants/styles/mixins';
 import { sideBarWidth, xxl_1 } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { Overflow } from 'types/styles';
@@ -35,10 +34,14 @@ interface ModalContentWrapperProps extends Overflow {
 }
 
 export const ModalContentWrapper = styled(ContentWrapper)<ModalContentWrapperProps>`
-    ${absoluteCenterAlignmentMixin};
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: ${sideBarZIndex + 1};
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    min-width: 310px;
     max-width: 80vw;
     max-height: 80vh;
     overflow: ${({ overflow }) => overflow || 'auto'};

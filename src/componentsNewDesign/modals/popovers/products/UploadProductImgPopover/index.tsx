@@ -1,9 +1,14 @@
+import { useMediaQuery } from '@material-ui/core';
 import { Upload } from 'antd';
+import { UploadImageButton } from 'componentsNewDesign/common/buttons/UploadImageButton';
 import { getBase64 } from 'componentsNewDesign/modals/formModals/products/ProductImageEditorModal/constants';
 import { ApplyPopoverLayout } from 'componentsNewDesign/modals/popovers/ApplyPopoverLayout';
+import { UploadWrapper } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover/styles';
+import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { asyncError } from 'constants/notifications';
-import { filterMargin } from 'constants/styles/sizes';
+import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import React, { FC, useState } from 'react';
 import { message } from 'stores/alerts';
@@ -11,16 +16,13 @@ import { modalEffects, modalStores } from 'stores/modals/asyncModal';
 import { productsEvents } from 'stores/products/products';
 import { Id, PopoverType } from 'types/data';
 import { Disabled, ProductCardEditableFields } from 'types/form';
-import { UploadImageButton } from 'componentsNewDesign/common/buttons/UploadImageButton';
-import { UploadWrapper } from 'componentsNewDesign/modals/popovers/products/UploadProductImgPopover/styles';
-import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
-import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 
 export interface PopoverProps extends Disabled, PopoverType, Id {}
 
 export const UploadProductImgPopover: FC<PopoverProps> = ({ id, ...rest }) => {
     const loading = useStore(modalStores.loading);
     // const { visible, open, close } = useModal();
+    const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
     //const [previewVisible, setPreviewVisible] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -73,7 +75,7 @@ export const UploadProductImgPopover: FC<PopoverProps> = ({ id, ...rest }) => {
             loading={loading}
             modalChildren={
                 <Column alignCenter justifyCenter width="100%">
-                    <Row justifyCenter marginBottom={filterMargin} width="256px">
+                    <Row justifyCenter marginBottom={filterMargin} width={isMobile ? '150px' : '256px'}>
                         {fileList.length >= 1 ? (
                             <Row>
                                 <Upload
@@ -86,7 +88,7 @@ export const UploadProductImgPopover: FC<PopoverProps> = ({ id, ...rest }) => {
                             </Row>
                         ) : (
                             <RelativeWrapper>
-                                <UploadImageButton />
+                                <UploadImageButton width="100%" />
                                 <AbsoluteWrapper left="0" top="0" width="100%">
                                     <UploadWrapper>
                                         <Upload

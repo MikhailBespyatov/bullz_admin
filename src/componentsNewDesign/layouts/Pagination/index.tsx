@@ -9,7 +9,7 @@ import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { defaultLimit } from 'constants/defaults/filterSettings';
 import { grey29 } from 'constants/styles/colors';
-import { xs, xxs } from 'constants/styles/sizes';
+import { xs } from 'constants/styles/sizes';
 import { useCloseClick } from 'hooks/closeClick';
 import { useModal } from 'hooks/modal';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
@@ -67,7 +67,7 @@ interface SelectProps {
 const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) => {
     const { visible, close, open } = useModal();
     const componentRef = useRef<HTMLDivElement>(null);
-    const isSmallMobile = useMediaQuery({ query: `(max-width: ${xxs})` });
+    const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const [activeItemName, setActiveItemName] = useState(activeItem);
 
@@ -88,7 +88,7 @@ const Select = ({ selector, activeItem = selector[0], onChange }: SelectProps) =
         <ContentWrapper
             ref={componentRef}
             backgroundColor={grey29}
-            minWidth={isSmallMobile ? '76px' : '93px'}
+            minWidth={isMobile ? '76px' : '93px'}
             padding={`${selectorVerticalPadding} 0`}
             onClick={visible ? close : openClick}
         >
@@ -176,9 +176,7 @@ const BigPager = ({ activeIndex, total, onChange }: Props) => {
                           key={i.toString()}
                           active={activeIndex === activeIndex - (paginationLimit - 1) / 2 + i}
                           onClick={() => onChange(activeIndex - (paginationLimit - 1) / 2 + i)}
-                      >
-                          {i === 0 || i === paginationLimit - 1 ? '...' : activeIndex - (paginationLimit - 1) / 2 + i}
-                      </PaginationCell>
+                      ></PaginationCell>
                   ))}
         </>
     ) : (
@@ -198,7 +196,7 @@ const BigPager = ({ activeIndex, total, onChange }: Props) => {
                               active={activeIndex === total - paginationLimitMobile + i + 1}
                               onClick={() => onChange(total - paginationLimitMobile + i + 1)}
                           >
-                              {i + 2 === 2 ? '...' : total - paginationLimitMobile + i + 1}
+                              {i + 2 === 2 ? `...` : total - paginationLimitMobile + i + 1}
                           </PaginationCell>
                       ))
                 : paginationMobile.map((_, i) => (
@@ -207,9 +205,7 @@ const BigPager = ({ activeIndex, total, onChange }: Props) => {
                           active={activeIndex === activeIndex - (paginationLimitMobile - 1) / 2 + i}
                           onClick={() => onChange(activeIndex - (paginationLimitMobile - 1) / 2 + i)}
                       >
-                          {i === 0 || i === paginationLimitMobile - 1
-                              ? '...'
-                              : activeIndex - (paginationLimitMobile - 1) / 2 + i}
+                          {activeIndex === total ? threeDots : activeIndex - (paginationLimitMobile - 1) / 2 + i}
                       </PaginationCell>
                   ))}
         </>
@@ -334,9 +330,9 @@ export const Pagination = ({
                                 </Arrow>
                                 <PaginationWrapper>
                                     <PaginationCell active={1 === currentIndex} onClick={() => onIndexChange(1)}>
-                                        1
+                                        {1 === currentIndex || total === currentIndex ? '1' : '...'}
                                     </PaginationCell>
-                                    {total - 2 <= paginationLimit ? (
+                                    {total - 2 <= paginationLimitMobile ? (
                                         <SmallPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
                                     ) : (
                                         <BigPager activeIndex={currentIndex} total={total} onChange={onIndexChange} />
@@ -346,7 +342,7 @@ export const Pagination = ({
                                             active={total === currentIndex}
                                             onClick={() => onIndexChange(total)}
                                         >
-                                            {total}
+                                            {total === currentIndex || 1 === currentIndex ? total : '...'}
                                         </PaginationCell>
                                     )}
                                 </PaginationWrapper>

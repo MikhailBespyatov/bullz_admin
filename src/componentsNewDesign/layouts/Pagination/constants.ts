@@ -30,7 +30,7 @@ export const testArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // * only odd whole non zero number
 export const paginationLimit = 5;
-export const paginationLimitMobile = 3;
+export const paginationLimitMobile = 1;
 
 export const pagination = Array.from({ length: paginationLimit }, () => 1);
 export const paginationMobile = Array.from({ length: paginationLimitMobile }, () => 1);

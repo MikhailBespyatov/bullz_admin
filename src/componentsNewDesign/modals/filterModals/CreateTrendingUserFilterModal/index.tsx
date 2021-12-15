@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@material-ui/core';
 import { Loader } from 'components/common/dynamic/Loader';
 import { CreateTrendingUserCard } from 'componentsNewDesign/layouts/cards/CreateTrendingUserCard';
-import { UsersFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout';
+import { TrendingsUsersFilterLayout } from 'componentsNewDesign/layouts/filterLayouts/TrendingsUsersFilterLayout';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
 import { Title } from 'componentsNewDesign/modals/filterModals/CreateTrendingUserFilterModal/styles';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
@@ -41,7 +41,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
                 onClose={() => closeModal()}
                 //onOk={() => closeModal()}
             >
-                <UsersFilterLayout withoutFooter totalRecords={totalRecords}>
+                <TrendingsUsersFilterLayout withoutFooter totalRecords={totalRecords}>
                     <Section marginBottom={filterMargin}>
                         <Title>{title}</Title>
                     </Section>
@@ -64,7 +64,7 @@ export const CreateTrendingUserFilterModal = ({ title = 'Create trending user' }
                             )}
                         </Section>
                     )}
-                </UsersFilterLayout>
+                </TrendingsUsersFilterLayout>
             </TrendingsModalWrapper>
         </>
     );
