@@ -32,45 +32,6 @@ const loadItems = createEffect({
     }
 });
 
-const loadItemById = createEffect({
-    handler: async (id: string) => {
-        try {
-            cancelToken && cancelToken.cancel();
-            cancelToken = axios.CancelToken.source();
-
-            updateLoading();
-            const data: BULLZ.AdminGetUserCommon = await API.adminUsers.getUserById(
-                {
-                    id: id
-                },
-                cancelToken.token
-            );
-            updateLoading();
-
-            if (data)
-                return {
-                    currentPageIndex: 0,
-                    items: [data],
-                    totalPages: 1,
-                    totalRecords: 1
-                };
-
-            return {
-                currentPageIndex: 0,
-                totalPages: 0,
-                totalRecords: 0
-            };
-        } catch {
-            updateLoading();
-            return {
-                currentPageIndex: 0,
-                totalPages: 0,
-                totalRecords: 0
-            };
-        }
-    }
-});
-
 const { isFirst, setIsFirstToFalse, setIsFirstToTrue } = initializeIsFirstStore();
 
 const updateValues = createEvent<BULLZ.QueryAllUsersRequestValues>();
@@ -92,6 +53,30 @@ const getRequestId = restore(setId, '');
 
 const emitters = createStore<any>([]).on(loadItems.doneData, (_, state) => state);
 
+// ====== EMITTER DETAILS ======
+
+const loadItemById = createEffect({
+    handler: async (id: any) => {
+        try {
+            cancelToken && cancelToken.cancel();
+            cancelToken = axios.CancelToken.source();
+
+            updateLoading();
+            const data = await API.adminUsers.getEmitterById({ id });
+            updateLoading();
+
+            if (data) return data;
+
+            return {};
+        } catch {
+            updateLoading();
+            return {};
+        }
+    }
+});
+
+const emitterInfo = createStore({}).on(loadItemById.doneData, (_, state) => state);
+
 export const emittersEvents = {
     invokeGetEmitters,
     setDefaultValues,
@@ -103,4 +88,4 @@ export const emittersEvents = {
 
 export const emittersEffects = { loadItems, loadItemById };
 
-export const emittersStores = { emitters, loading, values, getRequestId, isFirst };
+export const emittersStores = { emitters, loading, values, getRequestId, isFirst, emitterInfo };

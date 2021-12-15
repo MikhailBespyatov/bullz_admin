@@ -14,56 +14,59 @@ import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { defaultDeletedUsersValues, Roles } from 'constants/defaults/users';
 import { grey29, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
-import { statisticsEvents } from 'stores/statistics/statistics';
-import { deletedUsersEffects, deletedUsersStores } from 'stores/users/deletedUsers';
-import { userStores } from 'stores/users/user';
+import { emittersEffects, emittersStores } from 'stores/emitters/emitters';
 import {
-    deletedUserMarginRight,
-    deletedUserPrimaryMargin,
-    deletedUserSinglePadding,
+    emitterMarginRight,
+    emitterPrimaryMargin,
+    emitterSinglePadding,
     propertyBackground,
     propertyHeight,
     propertyWidth
 } from './constants';
 
 export const Emitter = () => {
-    const deletedUserIdArr = history.location.pathname.split('/');
-    const deletedUserId = deletedUserIdArr[deletedUserIdArr.length - 1];
-
-    const { items } = useStore(deletedUsersStores.deletedUsers);
-    const user = items && items[0];
-    const loading = useStore(deletedUsersStores.loading);
-    const { access } = useStore(userStores.auth);
-    const userId = user?.userId;
-    const userName = `@${user?.userName}`;
-    const email = user?.email;
-    const deleterName = user?.deleterInfo?.userName;
+    const emitterIdArr = history.location.pathname.split('/');
+    const emitterId = emitterIdArr[emitterIdArr.length - 1];
+    const emitter = useStore(emittersStores.emitterInfo);
+    const {
+        id: emitId,
+        isActive,
+        isPast,
+        videoId,
+        userId,
+        utcCreated,
+        utcUpdated,
+        utcEmitStart,
+        utcEmitEnd,
+        viewsTotalTarget,
+        viewsEmitted,
+        viewsProgress,
+        likesTotalTarget,
+        likesEmitted,
+        likesProgress,
+        sharesTotalTarget,
+        sharesEmitted,
+        sharesProgress
+    }: any = emitter;
+    const loading = useStore(emittersStores.loading);
 
     useEffect(() => {
-        deletedUsersEffects.loadItems({ ...defaultDeletedUsersValues, deletedUserId });
-    }, [deletedUserId]);
+        emittersEffects.loadItemById(emitterId);
+    }, [emitterId]);
 
     const onBack = () => history.goBack();
 
-    useEffect(() => {
-        access < Roles.ContentManager &&
-            statisticsEvents.overrideValues({
-                userId: deletedUserId
-            });
-    }, [deletedUserId, access]);
-
     return (
         <SingleMainLayout>
-            <Section marginRight={deletedUserMarginRight}>
+            <Section marginRight={emitterMarginRight}>
                 <ContentWrapper
                     backgroundColor={grey29}
-                    marginBottom={deletedUserPrimaryMargin}
-                    marginRight={deletedUserMarginRight}
-                    padding={deletedUserSinglePadding}
+                    marginBottom={emitterPrimaryMargin}
+                    marginRight={emitterMarginRight}
+                    padding={emitterSinglePadding}
                     width="100%"
                 >
                     {loading ? (
@@ -91,39 +94,158 @@ export const Emitter = () => {
                                 <PropertyBlock
                                     copiable
                                     backgroundColor={propertyBackground}
-                                    marginRight={deletedUserPrimaryMargin}
+                                    marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={userId}
+                                    subtitle={emitId || '-'}
                                     success={copyUserIdMessage}
+                                    title="emit id"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    copiable
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={videoId || '-'}
+                                    success={copyUsernameMessage}
+                                    title="video id"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    copiable
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={userId || '-'}
+                                    success={copyEmailMessage}
                                     title="user id"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
-                                    copiable
+                                    isDate
                                     backgroundColor={propertyBackground}
-                                    marginRight={deletedUserPrimaryMargin}
+                                    marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={userName || '-'}
-                                    success={copyUsernameMessage}
-                                    title="user name"
+                                    subtitle={`${new Date(utcCreated).toLocaleString()}` || '-'}
+                                    title="date created"
+                                    width={propertyWidth}
+                                />
+
+                                <PropertyBlock
+                                    isDate
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${utcUpdated ? new Date(utcUpdated).toLocaleString() : '-'}`}
+                                    title="date updated"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
-                                    copiable
+                                    isDate
                                     backgroundColor={propertyBackground}
-                                    marginRight={deletedUserPrimaryMargin}
+                                    marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={email || '-'}
-                                    success={copyEmailMessage}
-                                    title="Email Address"
+                                    subtitle={`${new Date(utcEmitStart).toLocaleString()}` || '-'}
+                                    title="emit start date"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    isDate
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${new Date(utcEmitEnd).toLocaleString()}` || '-'}
+                                    title="emit end date"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
-                                    marginRight={deletedUserPrimaryMargin}
+                                    marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={deleterName || '-'}
-                                    title="deleted by"
+                                    subtitle={`${isActive}` || '-'}
+                                    title="is active"
+                                    width={propertyWidth}
+                                />
+
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${isPast}` || '-'}
+                                    title="is past"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${viewsTotalTarget}` || '-'}
+                                    title="Total target views"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${viewsEmitted}` || '-'}
+                                    title="views emitted"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${viewsProgress}` || '-'}
+                                    title="progress views"
+                                    width={propertyWidth}
+                                />
+
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${sharesTotalTarget}` || '-'}
+                                    title="total target shares"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${sharesEmitted}` || '-'}
+                                    title="shares emitted"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${sharesProgress}` || '-'}
+                                    title="progress shares"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${likesTotalTarget}` || '-'}
+                                    title="total target likes"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${likesEmitted}` || '-'}
+                                    title="likes emitted"
+                                    width={propertyWidth}
+                                />
+                                <PropertyBlock
+                                    backgroundColor={propertyBackground}
+                                    marginRight={emitterPrimaryMargin}
+                                    minHeight={propertyHeight}
+                                    subtitle={`${likesProgress}` || '-'}
+                                    title="progress likes"
                                     width={propertyWidth}
                                 />
                             </Section>
