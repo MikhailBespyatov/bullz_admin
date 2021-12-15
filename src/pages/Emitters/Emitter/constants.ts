@@ -8,3 +8,7 @@ export const propertyHeight = '55px';
 export const propertyWidth = '233px';
 export const largePropertyWidth = '474px';
 export const propertyBackground = `${grey27}`;
+
+export const copyVideIdMessage = 'Video ID copied!';
+export const copyEmitIdMessage = 'Emit ID copied!';
+export const copyUserIdMessage = 'User ID copied!';

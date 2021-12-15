@@ -4,11 +4,7 @@ import { Loader } from 'components/common/dynamic/Loader';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
-import {
-    copyEmailMessage,
-    copyUserIdMessage,
-    copyUsernameMessage
-} from 'componentsNewDesign/layouts/cards/UserCard/constants';
+import { copyUserIdMessage } from 'componentsNewDesign/layouts/cards/UserCard/constants';
 import { backImgDiameter } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
 import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
@@ -19,6 +15,8 @@ import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
 import { emittersEffects, emittersStores } from 'stores/emitters/emitters';
 import {
+    copyEmitIdMessage,
+    copyVideIdMessage,
     emitterMarginRight,
     emitterPrimaryMargin,
     emitterSinglePadding,
@@ -94,36 +92,40 @@ export const Emitter = () => {
                                 <PropertyBlock
                                     copiable
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={emitId || '-'}
-                                    success={copyUserIdMessage}
+                                    success={copyEmitIdMessage}
                                     title="emit id"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
                                     copiable
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={videoId || '-'}
-                                    success={copyUsernameMessage}
+                                    success={copyVideIdMessage}
                                     title="video id"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
                                     copiable
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={userId || '-'}
-                                    success={copyEmailMessage}
+                                    success={copyUserIdMessage}
                                     title="user id"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
                                     isDate
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${new Date(utcCreated).toLocaleString()}` || '-'}
@@ -134,6 +136,7 @@ export const Emitter = () => {
                                 <PropertyBlock
                                     isDate
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${utcUpdated ? new Date(utcUpdated).toLocaleString() : '-'}`}
@@ -143,6 +146,7 @@ export const Emitter = () => {
                                 <PropertyBlock
                                     isDate
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${new Date(utcEmitStart).toLocaleString()}` || '-'}
@@ -152,6 +156,7 @@ export const Emitter = () => {
                                 <PropertyBlock
                                     isDate
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${new Date(utcEmitEnd).toLocaleString()}` || '-'}
@@ -160,23 +165,26 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={`${isActive}` || '-'}
+                                    subtitle={isActive ? 'Yes' : 'No'}
                                     title="is active"
                                     width={propertyWidth}
                                 />
 
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
-                                    subtitle={`${isPast}` || '-'}
+                                    subtitle={isPast ? 'Yes' : 'No'}
                                     title="is past"
                                     width={propertyWidth}
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${viewsTotalTarget}` || '-'}
@@ -185,6 +193,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${viewsEmitted}` || '-'}
@@ -193,6 +202,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${viewsProgress}` || '-'}
@@ -202,6 +212,7 @@ export const Emitter = () => {
 
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${sharesTotalTarget}` || '-'}
@@ -210,6 +221,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${sharesEmitted}` || '-'}
@@ -218,6 +230,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${sharesProgress}` || '-'}
@@ -226,6 +239,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${likesTotalTarget}` || '-'}
@@ -234,6 +248,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${likesEmitted}` || '-'}
@@ -242,6 +257,7 @@ export const Emitter = () => {
                                 />
                                 <PropertyBlock
                                     backgroundColor={propertyBackground}
+                                    marginBottom={'16px'}
                                     marginRight={emitterPrimaryMargin}
                                     minHeight={propertyHeight}
                                     subtitle={`${likesProgress}` || '-'}
