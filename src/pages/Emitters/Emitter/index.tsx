@@ -12,6 +12,7 @@ import { AsyncDeleteEmitterModal } from 'componentsNewDesign/modals/AsyncDeleteE
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Flex, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { emittersLink } from 'constants/routes';
 import { errorColor, grey23, grey24, grey29, grey7, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
@@ -99,6 +100,7 @@ export const Emitter = () => {
                                         color={grey7}
                                         marginRight="8px"
                                         padding="8px"
+                                        onClick={() => history.push(`${emittersLink}/update_emitter/${emitterId}`)}
                                     >
                                         Edit
                                     </SimpleButton>

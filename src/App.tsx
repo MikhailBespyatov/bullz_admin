@@ -36,6 +36,7 @@ import {
     topicLink,
     topicsLink,
     trendingsLink,
+    updateEmitterLink,
     userLink,
     usersLink,
     videoLink
@@ -56,6 +57,7 @@ import { DeleteUser } from 'pages/DeleteUser';
 import { Emitters } from 'pages/Emitters';
 import { CreateEmitter } from 'pages/Emitters/CreateEmitter';
 import { Emitter } from 'pages/Emitters/Emitter';
+import { UpdateEmitter } from 'pages/Emitters/UpdateEmitter';
 import { Home } from 'pages/Home';
 import { Video } from 'pages/Home/Video';
 import { MarketingTools } from 'pages/MarketingTools';
@@ -159,6 +161,12 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={CreateEmitter}
                         path={createEmitterLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={UpdateEmitter}
+                        path={updateEmitterLink}
                     />
                     <PrivateRoute
                         exact

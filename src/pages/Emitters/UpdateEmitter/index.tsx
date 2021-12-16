@@ -2,7 +2,6 @@ import arrow from 'assets/back_arrow_icon.svg';
 import history from 'browserHistory';
 import { CustomImage } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
 import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
-import { TextInput } from 'componentsNewDesign/common/inputs/TextInput';
 import { Input, InputWrapper } from 'componentsNewDesign/common/inputs/TextInput/styles';
 import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { PromotionCardButton } from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
@@ -13,9 +12,10 @@ import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrap
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { errorEmptyMessage } from 'constants/notifications';
 import { black, grey28, white } from 'constants/styles/colors';
-import React, { useState } from 'react';
+import { useStore } from 'effector-react';
+import React, { useEffect, useState } from 'react';
 import { message } from 'stores/alerts';
-import { emittersEffects } from 'stores/emitters/emitters';
+import { emittersEffects, emittersStores } from 'stores/emitters/emitters';
 import {
     arrowDiameter,
     inputBorderBottom,
@@ -24,21 +24,37 @@ import {
     totalLikesPlaceholder,
     totalSharesPlaceholder,
     totalViewsPlaceholder,
-    videoIdPlaceholder,
     wrapperPadding
 } from './constants';
 import { EmitterCardWrapper } from './styles';
 
-export const CreateEmitter = () => {
-    const [videoId, setVideoId] = useState('');
+export const UpdateEmitter = () => {
     const [views, setViews] = useState<number>(0);
     const [shares, setShares] = useState<number>(0);
     const [likes, setLikes] = useState<number>(0);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    const emitterIdArr = history.location.pathname.split('/');
+    const emitterId = emitterIdArr[emitterIdArr.length - 1];
+    const emitter = useStore(emittersStores.emitterInfo);
+
+    const { utcEmitStart, utcEmitEnd, viewsTotalTarget, likesTotalTarget, sharesTotalTarget }: any = emitter;
+
+    useEffect(() => {
+        emittersEffects.loadItemById(emitterId);
+    }, [emitterId]);
+
+    useEffect(() => {
+        setViews(viewsTotalTarget);
+        setShares(sharesTotalTarget);
+        setLikes(likesTotalTarget);
+        setStartDate(utcEmitStart);
+        setEndDate(utcEmitEnd);
+    }, [emitter, likesTotalTarget, sharesTotalTarget, utcEmitEnd, utcEmitStart, viewsTotalTarget]);
+
     const onBackArrowClick = () => {
-        history.push('/emitters');
+        history.goBack();
     };
 
     const onDateRangeClick = (dateRange: [string, string]) => {
@@ -46,21 +62,20 @@ export const CreateEmitter = () => {
         setEndDate(dateRange[1]);
     };
 
-    const onCreateButtonClick = () => {
-        if (videoId && views && shares && likes && startDate && endDate) {
+    const onUpdateButtonClick = () => {
+        if (views && shares && likes && startDate && endDate) {
             const newEmit = {
-                videoId,
+                id: emitterId,
                 totalViews: views,
                 totalShares: shares,
                 totalLikes: likes,
                 utcStart: startDate,
                 utcEnd: endDate
             };
-            const res = emittersEffects.createEmitter(newEmit);
+            const res = emittersEffects.updateEmitter(newEmit);
             res.then(val => {
                 if (val) {
-                    history.push('/emitters');
-                    setVideoId('');
+                    history.goBack();
                     setViews(0);
                     setShares(0);
                     setLikes(0);
@@ -83,24 +98,12 @@ export const CreateEmitter = () => {
                                 <CustomImage src={arrow} width={arrowDiameter} />
                             </MarginWrapper>
                             <ContentText fontSize="16px" fontWeight="700">
-                                Create Emitter
+                                Update Emitter
                             </ContentText>
                         </ClickableWrapper>
                     </Section>
                     <Section noWrap>
                         <Column marginLeft="25px" marginRight="25px" width="465px">
-                            <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
-                                Video Id
-                            </ContentText>
-                            <Section marginBottom="16px" marginTop="5px">
-                                <TextInput
-                                    borderBottom={inputBorderBottom}
-                                    placeholder={videoIdPlaceholder}
-                                    value={videoId}
-                                    onChange={value => setVideoId(value)}
-                                />
-                            </Section>
-
                             <ContentText fontSize={textFontSize} fontWeight={textFontWeight}>
                                 Total Views
                             </ContentText>
@@ -155,8 +158,8 @@ export const CreateEmitter = () => {
                             </Row>
 
                             <Section>
-                                <PromotionCardButton background={white} color={black} onClick={onCreateButtonClick}>
-                                    Create Emitter
+                                <PromotionCardButton background={white} color={black} onClick={onUpdateButtonClick}>
+                                    Update Emitter
                                 </PromotionCardButton>
                             </Section>
                         </Column>
