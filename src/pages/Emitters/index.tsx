@@ -1,5 +1,6 @@
 import emptyStateImage from 'assets/icons/blacklist_empty_state_icon_white.svg';
 import history from 'browserHistory';
+import { TotalBadge } from 'componentsNewDesign/common/badges/TotalBadge';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Breadcrumb } from 'componentsNewDesign/grid/Breadcrumb';
@@ -17,7 +18,7 @@ import { DataTable } from 'types/data';
 import { Loader } from '../../components/common/dynamic/Loader';
 import { EmittersFilterLayout } from '../../componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout';
 import { MainLayout } from '../../componentsNewDesign/layouts/MainLayout';
-import { Section } from '../../componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Flex, Section } from '../../componentsNewDesign/wrappers/grid/FlexWrapper';
 import { emittersStores } from '../../stores/emitters/emitters';
 import { EmittersTable } from './EmittersTable';
 import { TableDataSpan, TableWrapper } from './styles';
@@ -28,7 +29,7 @@ export const Emitters = () => {
 
     const onCreateButtonClick = () => history.push('/emitters/create_emitter');
 
-    const dataTable: DataTable[] | undefined = emittersList.map(
+    const dataTable: DataTable[] | undefined = emittersList.items?.map(
         ({
             videoId,
             id,
@@ -127,12 +128,18 @@ export const Emitters = () => {
 
     return (
         <MainLayout>
-            <EmittersFilterLayout>
+            <EmittersFilterLayout totalRecords={emittersList.totalRecords}>
                 <CatalogContainerWrapper>
                     <Section alignCenter justifyBetween marginBottom={filterMargin}>
-                        <MarginWrapper marginRight={'50px'}>
-                            <Breadcrumb />
-                        </MarginWrapper>
+                        <Flex alignCenter>
+                            <MarginWrapper>
+                                <Breadcrumb />
+                            </MarginWrapper>
+                            {emittersList.totalRecords !== undefined && (
+                                <TotalBadge quantity={emittersList.totalRecords} />
+                            )}
+                        </Flex>
+
                         <SimpleButton
                             background={white}
                             backgroundHover={grey32}

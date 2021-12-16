@@ -176,7 +176,9 @@ const BigPager = ({ activeIndex, total, onChange }: Props) => {
                           key={i.toString()}
                           active={activeIndex === activeIndex - (paginationLimit - 1) / 2 + i}
                           onClick={() => onChange(activeIndex - (paginationLimit - 1) / 2 + i)}
-                      ></PaginationCell>
+                      >
+                          {activeIndex - (paginationLimit - 1) / 2 + i}
+                      </PaginationCell>
                   ))}
         </>
     ) : (

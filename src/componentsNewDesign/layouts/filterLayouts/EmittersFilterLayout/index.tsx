@@ -26,8 +26,8 @@ import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
 const { setId, updateValues, invokeGetEmitters, setIsFirstToFalse } = emittersEvents;
 const { loadItemById } = emittersEffects;
 
-const updateQueryValues = () => {
-    updateValues(10);
+const updateQueryValues = ({ ...params }) => {
+    updateValues(params);
 };
 
 interface Props extends TotalRecords, WithoutFooter {}
@@ -108,11 +108,10 @@ export const EmittersFilterLayout: FC<Props> = ({ totalRecords, children, withou
     useEffect(() => {
         setQueryParams({
             pageIndex,
-            limit,
-            userId: defaultId !== '' ? defaultId : undefined
+            limit
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, limit, defaultId]);
+    }, [pageIndex, limit]);
 
     return (
         <>

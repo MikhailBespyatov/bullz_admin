@@ -25,7 +25,8 @@ export const accessRoles = Object.keys(Roles).filter(role => isNaN(Number(role))
 export const sortTagsValuesUsersDefault = sortTagsUsersValues[1];
 
 export const defaultEmittersValues = {
-    count: 20
+    limit: 20,
+    pageIndex: 0
 };
 
 export const sortTagsWomStageValuesDefault = sortTagsWomStageValues[0];
