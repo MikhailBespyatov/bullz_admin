@@ -26,7 +26,8 @@ export const sortTagsValuesUsersDefault = sortTagsUsersValues[1];
 
 export const defaultEmittersValues = {
     limit: 20,
-    pageIndex: 0
+    pageIndex: 0,
+    returnQueryCount: true
 };
 
 export const sortTagsWomStageValuesDefault = sortTagsWomStageValues[0];

@@ -1,9 +1,8 @@
 import axios from './axios';
 
-export const getEmitters = (data: BULLZ.AdminGetEmittersRequest) =>
+export const getEmitters = (data: BULLZ.AdminQueryPostsRequest) =>
     axios({
         url: '/engagement/emitters/query',
-
         data
     });
 export const getEmitterById = (data: BULLZ.AdminGetEmitterInfoRequest) =>
@@ -15,5 +14,11 @@ export const getEmitterById = (data: BULLZ.AdminGetEmitterInfoRequest) =>
 export const createEmitter = (data: BULLZ.CreatePromotionRequest) =>
     axios({
         url: '/engagement/emitters/create',
+        data
+    });
+
+export const deleteEmitter = (data: BULLZ.AdminGetEmitterInfoRequest) =>
+    axios({
+        url: '/engagement/emitters/delete',
         data
     });
