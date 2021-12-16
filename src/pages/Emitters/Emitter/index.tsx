@@ -1,19 +1,22 @@
 import backArrowImg from 'assets/back_arrow.svg';
 import history from 'browserHistory';
 import { Loader } from 'components/common/dynamic/Loader';
+import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
 import { copyUserIdMessage } from 'componentsNewDesign/layouts/cards/UserCard/constants';
 import { backImgDiameter } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
 import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
+import { AsyncDeleteEmitterModal } from 'componentsNewDesign/modals/AsyncDeleteEmitterModal';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
-import { Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Flex, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { grey29, white } from 'constants/styles/colors';
+import { errorColor, grey23, grey24, grey29, grey7, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import React, { useEffect } from 'react';
 import { emittersEffects, emittersStores } from 'stores/emitters/emitters';
+import { deleteEmitterModal } from 'stores/initialize/initialize.modal.store';
 import {
     copyEmitIdMessage,
     copyVideIdMessage,
@@ -59,6 +62,7 @@ export const Emitter = () => {
 
     return (
         <SingleMainLayout>
+            <AsyncDeleteEmitterModal />
             <Section marginRight={emitterMarginRight}>
                 <ContentWrapper
                     backgroundColor={grey29}
@@ -73,19 +77,41 @@ export const Emitter = () => {
                         </Section>
                     ) : (
                         <>
-                            <Section alignCenter marginBottom="28px">
-                                <MarginWrapper marginRight="24px">
-                                    <CustomImg
-                                        pointer
-                                        height={backImgDiameter}
-                                        src={backArrowImg}
-                                        width={backImgDiameter}
-                                        onClick={onBack}
-                                    />
-                                </MarginWrapper>
-                                <Span color={white} fontSize="18px" fontWeight="600" lineHeight="21px">
-                                    Emitter Info
-                                </Span>
+                            <Section alignCenter justifyBetween marginBottom="28px">
+                                <Flex>
+                                    <MarginWrapper marginRight="24px">
+                                        <CustomImg
+                                            pointer
+                                            height={backImgDiameter}
+                                            src={backArrowImg}
+                                            width={backImgDiameter}
+                                            onClick={onBack}
+                                        />
+                                    </MarginWrapper>
+                                    <Span color={white} fontSize="18px" fontWeight="600" lineHeight="21px">
+                                        Emitter Info
+                                    </Span>
+                                </Flex>
+                                <Flex>
+                                    <SimpleButton
+                                        background={grey23}
+                                        backgroundHover={grey24}
+                                        color={grey7}
+                                        marginRight="8px"
+                                        padding="8px"
+                                    >
+                                        Edit
+                                    </SimpleButton>
+                                    <SimpleButton
+                                        background={errorColor}
+                                        backgroundHover={grey24}
+                                        color={white}
+                                        padding="8px"
+                                        onClick={() => deleteEmitterModal.openModal({ emitterId })}
+                                    >
+                                        Delete
+                                    </SimpleButton>
+                                </Flex>
                             </Section>
 
                             <Section marginBottom="17px">

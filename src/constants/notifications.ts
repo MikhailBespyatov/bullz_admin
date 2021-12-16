@@ -4,6 +4,8 @@ export const editSuccessMessage = 'Editing was successful!';
 export const swapSuccessMessage = 'You successfully updated trending!';
 export const successCreatedEmitterMessage = 'You have successfully created new Emitter';
 
+export const deletedSuccess = 'Deleted successfully';
+
 export const errorDataMessage = 'Your data is incorrect!';
 export const errorEmptyMessage = 'Fill the fields!';
 export const errorNotEntryAllowed = 'You have no rights to enter!';

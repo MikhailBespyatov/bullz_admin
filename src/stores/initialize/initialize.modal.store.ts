@@ -41,6 +41,14 @@ const initializeGenericStore = <T>(initialState: T) => {
 
 export type subjectType = 'tag' | 'video' | 'user';
 
+export interface DeleteEmitterModal {
+    emitterId?: string;
+}
+
+export const deleteEmitterModal = initializeGenericStore<DeleteEmitterModal>({
+    emitterId: ''
+});
+
 export interface RemoveTrendingModal {
     id?: string;
     subject?: subjectType;
@@ -73,7 +81,7 @@ export interface UserReportProps {
     id?: string;
 }
 
-export const userReportModal = initializeGenericStore<UserReportProps>({});
+export const userReportModal = initializeGenericStore<any>({});
 
 export const simpleModal = initializeStoreModal();
 

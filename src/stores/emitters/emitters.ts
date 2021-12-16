@@ -1,15 +1,18 @@
 import axios, { CancelTokenSource } from 'axios';
+import history from 'browserHistory';
 import { defaultEmittersValues } from 'constants/defaults/emitters';
 import { defaultPage } from 'constants/defaults/filterSettings';
-import { successCreatedEmitterMessage } from 'constants/notifications';
+import { deletedSuccess, successCreatedEmitterMessage } from 'constants/notifications';
 import { createEffect, createEvent, createStore, forward, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
 import { initializeErrorStore } from 'stores/initialize/initialize.error.store';
 import { initializeIsFirstStore } from 'stores/initialize/initialize.isFirst.store';
+import { deleteEmitterModal } from 'stores/initialize/initialize.modal.store';
 import { initializeToggleStore } from '../initialize/initialize.toggle.store';
 
 const [loading, updateLoading] = initializeToggleStore();
+const [deleteLoading, updateDeleteLoading] = initializeToggleStore();
 
 const [registerError, setRegisterError] = initializeErrorStore();
 
@@ -22,7 +25,7 @@ const loadItems = createEffect({
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data = await API.emitters.getEmitters(values);
+            const data = await API.emitters.getEmitters({ ...values, returnQueryCount: true });
             updateLoading();
 
             return data;
@@ -103,6 +106,28 @@ const createEmitter = createEffect({
     }
 });
 
+const deleteEmitter = createEffect({
+    handler: async (id: any) => {
+        try {
+            updateDeleteLoading();
+            await API.emitters.deleteEmitter({ id });
+            updateDeleteLoading();
+
+            setRegisterError('');
+            history.push('/emitters');
+            deleteEmitterModal.closeModal();
+
+            message.success(deletedSuccess);
+            return true;
+        } catch ({ data: { message } }) {
+            setRegisterError(message);
+
+            updateDeleteLoading();
+            return false;
+        }
+    }
+});
+
 const emitterInfo = createStore({}).on(loadItemById.doneData, (_, state) => state);
 
 export const emittersEvents = {
@@ -114,6 +139,15 @@ export const emittersEvents = {
     updateValues
 };
 
-export const emittersEffects = { loadItems, loadItemById, createEmitter };
+export const emittersEffects = { loadItems, loadItemById, createEmitter, deleteEmitter };
 
-export const emittersStores = { emitters, loading, values, getRequestId, isFirst, emitterInfo, registerError };
+export const emittersStores = {
+    emitters,
+    loading,
+    values,
+    getRequestId,
+    isFirst,
+    emitterInfo,
+    registerError,
+    deleteLoading
+};
