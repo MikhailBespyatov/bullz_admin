@@ -98,6 +98,7 @@ export const Emitter = () => {
                                         background={grey23}
                                         backgroundHover={grey24}
                                         color={grey7}
+                                        disabled={isPast ? true : false}
                                         marginRight="8px"
                                         padding="8px"
                                         onClick={() => history.push(`${emittersLink}/update_emitter/${emitterId}`)}
