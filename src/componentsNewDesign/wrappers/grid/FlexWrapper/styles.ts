@@ -2,7 +2,7 @@ import { FlexGrowProps, FlexProps } from 'componentsNewDesign/wrappers/grid/Flex
 import { flexCenter, flexStart } from 'constants/styles/mixins';
 import styled from 'styled-components';
 
-const Flex = styled.div<FlexProps>`
+export const Flex = styled.div<FlexProps>`
     ${flexStart};
     ${({ widthMaxContent }) => widthMaxContent && 'width: max-content;'};
     ${({ alignCenter }) => alignCenter && `align-items: center;`};

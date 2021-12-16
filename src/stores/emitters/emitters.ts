@@ -1,5 +1,6 @@
 import axios, { CancelTokenSource } from 'axios';
 import { defaultEmittersValues } from 'constants/defaults/emitters';
+import { defaultPage } from 'constants/defaults/filterSettings';
 import { successCreatedEmitterMessage } from 'constants/notifications';
 import { createEffect, createEvent, createStore, forward, restore } from 'effector';
 import { API } from 'services';
@@ -15,13 +16,13 @@ const [registerError, setRegisterError] = initializeErrorStore();
 let cancelToken: CancelTokenSource | undefined;
 
 const loadItems = createEffect({
-    handler: async (count: number) => {
+    handler: async (values: any) => {
         try {
             cancelToken && cancelToken.cancel();
             cancelToken = axios.CancelToken.source();
 
             updateLoading();
-            const data = await API.emitters.getEmitters({ count });
+            const data = await API.emitters.getEmitters(values);
             updateLoading();
 
             return data;
@@ -43,7 +44,11 @@ const invokeGetEmitters = createEvent();
 const setDefaultValues = createEvent();
 
 const values = createStore<any>(defaultEmittersValues)
-    .on(updateValues, (_, count) => count)
+    .on(updateValues, (state, values: any) => ({
+        ...state,
+        pageIndex: defaultPage,
+        ...values
+    }))
     .on(invokeGetEmitters, state => state)
     .on(setDefaultValues, () => defaultEmittersValues);
 
@@ -55,7 +60,7 @@ forward({
 const setId = createEvent<string>();
 const getRequestId = restore(setId, '');
 
-const emitters = createStore<any>([]).on(loadItems.doneData, (_, state) => state);
+const emitters = createStore<any>({}).on(loadItems.doneData, (_, state) => state);
 
 // ====== EMITTER DETAILS ======
 

@@ -57,6 +57,8 @@ const updateQueryValues = ({ userId, ...params }: UsersQueryParams) => {
         setId(userId);
         loadItemById(userId);
     } else {
+        console.log(params, 'PARAMS');
+
         updateValues(params);
     }
 };
