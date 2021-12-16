@@ -2,7 +2,7 @@ import axios, { CancelTokenSource } from 'axios';
 import history from 'browserHistory';
 import { defaultEmittersValues } from 'constants/defaults/emitters';
 import { defaultPage } from 'constants/defaults/filterSettings';
-import { deletedSuccess, successCreatedEmitterMessage } from 'constants/notifications';
+import { deletedSuccess, successCreatedEmitterMessage, successUpdatedEmitterMessage } from 'constants/notifications';
 import { createEffect, createEvent, createStore, forward, restore } from 'effector';
 import { API } from 'services';
 import { message } from 'stores/alerts';
@@ -106,6 +106,25 @@ const createEmitter = createEffect({
     }
 });
 
+const updateEmitter = createEffect({
+    handler: async (values: any) => {
+        try {
+            updateLoading();
+            await API.emitters.updateEmitter(values);
+            updateLoading();
+
+            setRegisterError('');
+            message.success(successUpdatedEmitterMessage);
+            return true;
+        } catch ({ data: { message } }) {
+            setRegisterError(message);
+
+            updateLoading();
+            return false;
+        }
+    }
+});
+
 const deleteEmitter = createEffect({
     handler: async (id: any) => {
         try {
@@ -139,7 +158,7 @@ export const emittersEvents = {
     updateValues
 };
 
-export const emittersEffects = { loadItems, loadItemById, createEmitter, deleteEmitter };
+export const emittersEffects = { loadItems, loadItemById, createEmitter, deleteEmitter, updateEmitter };
 
 export const emittersStores = {
     emitters,

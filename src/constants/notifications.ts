@@ -4,6 +4,8 @@ export const editSuccessMessage = 'Editing was successful!';
 export const swapSuccessMessage = 'You successfully updated trending!';
 export const successCreatedEmitterMessage = 'You have successfully created new Emitter';
 
+export const successUpdatedEmitterMessage = 'You have successfully updated Emitter';
+
 export const deletedSuccess = 'Deleted successfully';
 
 export const errorDataMessage = 'Your data is incorrect!';

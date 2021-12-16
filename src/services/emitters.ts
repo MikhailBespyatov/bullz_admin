@@ -22,3 +22,9 @@ export const deleteEmitter = (data: BULLZ.AdminGetEmitterInfoRequest) =>
         url: '/engagement/emitters/delete',
         data
     });
+
+export const updateEmitter = (data: BULLZ.CreatePromotionRequest) =>
+    axios({
+        url: '/engagement/emitters/update',
+        data
+    });
