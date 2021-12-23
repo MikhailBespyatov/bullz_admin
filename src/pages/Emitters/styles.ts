@@ -1,11 +1,17 @@
+import { Img } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { pink2, purple2 } from 'constants/styles/colors';
 import styled from 'styled-components';
 
 export const TableDataSpan = styled(Span)`
     font-weight: 500;
-    font-size: 13px;
-    line-height: 15px;
+    font-size: 12px;
+    ${({ color }) => color && `color: ${color}`};
+`;
+
+export const TableDataImg = styled(Img)`
+    width: 42px;
+    height: 42px;
 `;
 
 export const Reason = styled.div`
@@ -26,4 +32,5 @@ export const Reason = styled.div`
 export const TableWrapper = styled.div`
     min-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
 `;

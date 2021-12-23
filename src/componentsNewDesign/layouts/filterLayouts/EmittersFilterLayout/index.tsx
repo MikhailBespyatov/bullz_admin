@@ -1,73 +1,91 @@
 import { ResetSearchButton } from 'componentsNewDesign/common/buttons/ResetButton';
+import { CheckboxFilter } from 'componentsNewDesign/common/inputs/CheckboxFilter';
+import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Footer, TrendingsFooter } from 'componentsNewDesign/grid/Footer';
 import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWrapperLayout';
 import {
-    defaultSearchParameters,
+    searchEmitterByEmitterIdParameter,
     searchEmitterByUserIdParameter,
     searchEmitterByVideoIdParameter
 } from 'componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout/constants';
-import { SearchMobileWrapper } from 'componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout/styles';
+import {
+    ComponentWrapper,
+    SearchMobileWrapper
+} from 'componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
-import { FlexGrow } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
-import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
-import { emittersSearchByUserIdPlaceholder, emittersSearchByVideoIdPlaceholder } from 'pages/Emitters/constants';
+import {
+    emittersSearchByEmitterIdPlaceholder,
+    emittersSearchByUserIdPlaceholder,
+    emittersSearchByVideoIdPlaceholder
+} from 'pages/Emitters/constants';
 import React, { FC, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { emittersEffects, emittersEvents, emittersStores } from 'stores/emitters/emitters';
 import { mobileHeaderStores } from 'stores/mobileHeader';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
 
-const { setId, updateValues, invokeGetEmitters, setIsFirstToFalse } = emittersEvents;
+const { setId, updateValues, invokeGetEmitters, setIsFirstToFalse, setDefaultValues } = emittersEvents;
 const { loadItemById } = emittersEffects;
 
-const updateQueryValues = ({ ...params }) => {
-    updateValues(params);
+const updateQueryValues = ({ videoId, ...params }: any) => {
+    if (videoId) {
+        setId(videoId);
+        loadItemById(videoId);
+    } else {
+        updateValues({
+            ...params
+        });
+    }
 };
 
 interface Props extends TotalRecords, WithoutFooter {}
 
 export const EmittersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFooter }) => {
     const isFirst = useStore(emittersStores.isFirst);
-    const { pageIndex, limit } = useStore(emittersStores.values);
+    const { pageIndex, limit, userId, videoId, emitId, fromUtcCreated, toUtcCreated, isActive, isPast } = useStore(
+        emittersStores.values
+    );
 
-    const defaultId = useStore(emittersStores.getRequestId);
     const [queryParams, setQueryParams] = useQueryParams(updateQueryValues);
-    console.log(queryParams);
 
     const isMobile = useMediaQuery({ query: `(max-width: ${xs})` });
 
     const filterVisible = useStore(mobileHeaderStores.filterVisible);
     const searchVisible = useStore(mobileHeaderStores.searchVisible);
 
-    const onUsernameSearch = (name: string) => {
-        setId('');
-        emittersEvents.updateValues({
-            ...defaultSearchParameters,
-            username: name,
-            pageIndex: defaultPage
+    const isMd = useMediaQuery({ query: `(max-width: 781px)` });
+
+    const onVideoIdSearch = (id: string) => {
+        updateValues({
+            emitId: undefined,
+            userId: undefined,
+            videoId: id || undefined
         });
+        setId('');
+    };
+    const onEmitterIdSearch = (id: string) => {
+        updateValues({
+            userId: undefined,
+            videoId: undefined,
+            emitId: id || undefined
+        });
+        setId('');
     };
 
-    const onIdSearch = (id: string) => {
-        setId(id);
-        if (id) {
-            updateValues({
-                username: undefined,
-                email: undefined,
-                mobileNumber: undefined
-            });
-            loadItemById(id);
-        } else {
-            updateValues({
-                pageIndex: defaultPage
-            });
-        }
+    const onUserIdSearch = (id: string) => {
+        updateValues({
+            emitId: undefined,
+            videoId: undefined,
+            userId: id || undefined
+        });
+        setId('');
     };
 
     const resetFilters = () => {
@@ -81,19 +99,63 @@ export const EmittersFilterLayout: FC<Props> = ({ totalRecords, children, withou
             limit: pageSize || defaultLimit
         });
 
+    const onDateRangeClick = (dateRange: [string, string]) =>
+        updateValues({
+            fromUtcCreated: dateRange[0],
+            toUtcCreated: dateRange[1],
+            pageIndex: defaultPage
+        });
+
+    const onActiveChange = (isActive: boolean) => {
+        isActive
+            ? updateValues({
+                  isActive,
+                  pageIndex: defaultPage
+              })
+            : updateValues({
+                  isActive: undefined,
+                  pageIndex: defaultPage
+              });
+    };
+
+    const onPastChange = (isPast: boolean) => {
+        isPast
+            ? updateValues({
+                  isPast,
+                  pageIndex: defaultPage
+              })
+            : updateValues({
+                  isPast: undefined,
+                  pageIndex: defaultPage
+              });
+    };
+
+    useEffect(() => {
+        if (isFirst && !queryParams.videoId) {
+            setDefaultValues();
+            setIsFirstToFalse();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const searchParameters: SearchParameters[] = [
         {
             searchBy: searchEmitterByVideoIdParameter,
-            defaultValue: '',
+            defaultValue: videoId,
             placeholder: emittersSearchByVideoIdPlaceholder,
-            onSearch: onUsernameSearch
+            onSearch: onVideoIdSearch
         },
         {
             searchBy: searchEmitterByUserIdParameter,
-            defaultValue: defaultId,
+            defaultValue: userId,
             placeholder: emittersSearchByUserIdPlaceholder,
-            onSearch: onIdSearch,
-            regExp: mongoDbObjectIdRegExp
+            onSearch: onUserIdSearch
+        },
+        {
+            searchBy: searchEmitterByEmitterIdParameter,
+            defaultValue: emitId,
+            placeholder: emittersSearchByEmitterIdPlaceholder,
+            onSearch: onEmitterIdSearch
         }
     ];
 
@@ -108,10 +170,17 @@ export const EmittersFilterLayout: FC<Props> = ({ totalRecords, children, withou
     useEffect(() => {
         setQueryParams({
             pageIndex,
-            limit
+            limit,
+            userId,
+            videoId,
+            emitId,
+            fromUtcCreated,
+            toUtcCreated,
+            isActive,
+            isPast
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, limit]);
+    }, [pageIndex, limit, userId, videoId, emitId, fromUtcCreated, toUtcCreated, isActive, isPast]);
 
     return (
         <>
@@ -120,6 +189,22 @@ export const EmittersFilterLayout: FC<Props> = ({ totalRecords, children, withou
                     <FlexGrow flexGrow="1" marginRight={filterMargin}>
                         <SearchInput searchParameters={searchParameters} />
                     </FlexGrow>
+                    <Row alignCenter marginRight="20px" marginTop={isMd ? '20px' : '0'}>
+                        <CheckboxFilter defaultChecked={isActive || undefined} onChange={onActiveChange}>
+                            Is active
+                        </CheckboxFilter>
+                    </Row>
+                    <Row alignCenter marginRight="20px" marginTop={isMd ? '20px' : '0'}>
+                        <CheckboxFilter defaultChecked={isPast || undefined} onChange={onPastChange}>
+                            Is past
+                        </CheckboxFilter>
+                    </Row>
+                    <ComponentWrapper>
+                        <DateRangePicker
+                            dateRange={[fromUtcCreated || '', toUtcCreated || '']}
+                            onChange={onDateRangeClick}
+                        />
+                    </ComponentWrapper>
                     <ResetSearchButton onClick={resetFilters} />
                 </SearchWrapperLayout>
             )}

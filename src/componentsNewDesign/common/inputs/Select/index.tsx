@@ -177,7 +177,6 @@ export const Select = ({
                 <MobileItemsWrapper customMargin={customMargin} isClosed={!visible}>
                     {selector.map((item, i) => {
                         const isActive = i === activeIndex;
-                        console.log(isActive);
 
                         return (
                             <ItemWrapper

@@ -1,45 +1,55 @@
 import emptyStateImage from 'assets/icons/blacklist_empty_state_icon_white.svg';
 import history from 'browserHistory';
 import { TotalBadge } from 'componentsNewDesign/common/badges/TotalBadge';
+import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
+import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Breadcrumb } from 'componentsNewDesign/grid/Breadcrumb';
+import { StyledLink } from 'componentsNewDesign/layouts/blocks/PropertyBlock/styles';
+import { copyUserIdMessage } from 'componentsNewDesign/layouts/cards/UserCard/constants';
 import { CatalogContainerWrapper } from 'componentsNewDesign/layouts/containers/CatalogContainer/styles';
 import { Empty } from 'componentsNewDesign/layouts/resultLayouts/Empty';
+import { Tooltip } from 'componentsNewDesign/modals/Tooltip';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { black, grey23, grey27, grey29, grey32, white } from 'constants/styles/colors';
+import { black, errorColor, green2, grey23, grey27, grey29, grey32, white } from 'constants/styles/colors';
 import { filterMargin } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
+import { useSortableData } from 'hooks/useSortableData';
 import { emptyStateImageWrapperDiameter } from 'pages/Blacklisted/constants';
 import { columns, columnSizes } from 'pages/Emitters/constants';
+import { copyEmitIdMessage, copyVideoIdMessage } from 'pages/Emitters/Emitter/constants';
 import React from 'react';
 import { DataTable } from 'types/data';
+import { formatDateISOString, getEllipsisStartAndEnd } from 'utils/usefulFunctions';
 import { Loader } from '../../components/common/dynamic/Loader';
 import { EmittersFilterLayout } from '../../componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout';
 import { MainLayout } from '../../componentsNewDesign/layouts/MainLayout';
 import { Flex, Section } from '../../componentsNewDesign/wrappers/grid/FlexWrapper';
 import { emittersStores } from '../../stores/emitters/emitters';
 import { EmittersTable } from './EmittersTable';
-import { TableDataSpan, TableWrapper } from './styles';
+import { TableDataImg, TableDataSpan, TableWrapper } from './styles';
 
 export const Emitters = () => {
     const emittersList = useStore(emittersStores.emitters);
+    const sortableItems = emittersList.items ? emittersList.items.map((item: any) => ({ ...item })) : [];
+
+    const { sortedItems, requestSort, sortConfig } = useSortableData(sortableItems);
+
     const loading = useStore(emittersStores.loading);
 
     const onCreateButtonClick = () => history.push('/emitters/create_emitter');
 
-    const dataTable: DataTable[] | undefined = emittersList.items?.map(
+    const dataTable: DataTable[] | undefined = sortedItems?.map(
         ({
             videoId,
             id,
             userId,
             utcCreated,
-            utcUpdated,
             utcEmitStart,
             utcEmitEnd,
             isActive,
-            isPast,
             viewsTotalTarget,
             viewsEmitted,
             viewsProgress,
@@ -48,78 +58,117 @@ export const Emitters = () => {
             likesProgress,
             sharesTotalTarget,
             sharesEmitted,
-            sharesProgress
+            sharesProgress,
+            video,
+            user
         }: any) => ({
             cells: [
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{id}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <TableDataImg src={video.thumbnailUrl} />
+                </Section>,
+                <Section key={id} alignCenter justifyCenter>
+                    <Tooltip background="white" color="black" title={videoId} width="initial">
+                        <StyledLink className="link" to={`videos/${videoId}`}>
+                            <TableDataSpan className="link">{getEllipsisStartAndEnd(videoId)}</TableDataSpan>
+                        </StyledLink>
+                    </Tooltip>
+                    <ContentWrapper marginLeft="16px" minWidth="18px">
+                        <CopyButton subject={videoId} success={copyVideoIdMessage} />
+                    </ContentWrapper>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{videoId}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <TableDataSpan>{user.userName}</TableDataSpan>
+                    {user.isTrusted && (
+                        <MarginWrapper marginLeft="8px">
+                            <Tooltip title="Account is trusted">
+                                <TrustedIcon />
+                            </Tooltip>
+                        </MarginWrapper>
+                    )}
+                </Section>,
+                <Section key={id} alignCenter justifyCenter>
+                    <Tooltip background="white" color="black" title={userId} width="initial">
+                        <StyledLink className="link" to={`users/${userId}`}>
+                            <TableDataSpan className="link">{getEllipsisStartAndEnd(userId)}</TableDataSpan>
+                        </StyledLink>
+                    </Tooltip>
+                    <ContentWrapper marginLeft="16px" minWidth="18px">
+                        <CopyButton subject={userId} success={copyUserIdMessage} />
+                    </ContentWrapper>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{userId}</TableDataSpan>
-                </Section>,
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{new Date(utcCreated).toLocaleString()}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{utcUpdated ? new Date(utcUpdated).toLocaleString() : '-'}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{new Date(utcEmitStart).toLocaleString()}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{new Date(utcEmitEnd).toLocaleString()}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <ContentWrapper
+                        backgroundColor={isActive ? green2 : errorColor}
+                        borderRadius="50%"
+                        height="8px"
+                        marginRight="16px"
+                        minWidth="8px"
+                    ></ContentWrapper>
+                    <Tooltip background="white" color="black" title={id} width="initial">
+                        <TableDataSpan>{getEllipsisStartAndEnd(id)}</TableDataSpan>
+                    </Tooltip>
+                    <ContentWrapper marginLeft="16px" minWidth="18px">
+                        <CopyButton subject={id} success={copyEmitIdMessage} />
+                    </ContentWrapper>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{isActive ? 'Yes' : 'No'}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <TableDataSpan>{formatDateISOString(utcCreated)}</TableDataSpan>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{isPast ? 'Yes' : 'No'}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <TableDataSpan>{formatDateISOString(utcEmitStart)}</TableDataSpan>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{viewsTotalTarget}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <TableDataSpan>{formatDateISOString(utcEmitEnd)}</TableDataSpan>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{viewsEmitted}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <Section justifyBetween marginBottom="10px" marginLeft="30px" marginRight="30px">
+                        <TableDataSpan>{viewsEmitted}</TableDataSpan>
+                        <TableDataSpan color="#919195">{viewsTotalTarget}</TableDataSpan>
+                    </Section>
+                    <ContentWrapper backgroundColor="black" height="4px">
+                        <ContentWrapper
+                            backgroundColor="white"
+                            height="4px"
+                            minWidth={`${viewsProgress * 100}%`}
+                            width={`${viewsProgress * 100}%`}
+                        ></ContentWrapper>
+                    </ContentWrapper>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{viewsProgress}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <Section justifyBetween marginBottom="10px" marginLeft="30px" marginRight="30px">
+                        <TableDataSpan>{sharesEmitted}</TableDataSpan>
+                        <TableDataSpan color="#919195">{sharesTotalTarget}</TableDataSpan>
+                    </Section>
+                    <ContentWrapper backgroundColor="black" height="4px">
+                        <ContentWrapper
+                            backgroundColor="white"
+                            height="4px"
+                            minWidth={`${sharesProgress * 100}%`}
+                            width={`${sharesProgress * 100}%`}
+                        ></ContentWrapper>
+                    </ContentWrapper>
                 </Section>,
 
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{likesTotalTarget}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{likesEmitted}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{likesProgress}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{sharesTotalTarget}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{sharesEmitted}</TableDataSpan>
-                </Section>,
-
-                <Section key={userId} alignCenter justifyCenter>
-                    <TableDataSpan>{sharesProgress}</TableDataSpan>
+                <Section key={id} alignCenter justifyCenter>
+                    <Section justifyBetween marginBottom="10px" marginLeft="30px" marginRight="30px">
+                        <TableDataSpan>{likesEmitted}</TableDataSpan>
+                        <TableDataSpan color="#919195">{likesTotalTarget}</TableDataSpan>
+                    </Section>
+                    <ContentWrapper backgroundColor="black" height="4px">
+                        <ContentWrapper
+                            backgroundColor="white"
+                            height="4px"
+                            minWidth={`${likesProgress * 100}%`}
+                            width={`${likesProgress * 100}%`}
+                        ></ContentWrapper>
+                    </ContentWrapper>
                 </Section>
             ],
             routeId: id
@@ -172,8 +221,8 @@ export const Emitters = () => {
                                     columnSizes={columnSizes}
                                     columns={columns}
                                     data={dataTable}
-                                    // sortState={sortConfig}
-                                    // onSort={requestSort}
+                                    sortState={sortConfig}
+                                    onSort={requestSort}
                                 ></EmittersTable>
                             </TableWrapper>
                         ) : (

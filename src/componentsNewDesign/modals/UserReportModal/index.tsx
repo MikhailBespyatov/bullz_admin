@@ -91,7 +91,6 @@ export const UserReportWrapper = () => {
         userLevel
     } = useStore(usersStores.userReport);
     const loading = useStore(usersEffects.generateUserReport.pending);
-    console.log(userLevel);
 
     const onClose = () => {
         userReportModal.closeModal();

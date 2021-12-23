@@ -30,6 +30,7 @@ export const CopyButton = ({ subject, success, customCopyIcon, diameter }: CopyB
     return (
         <ButtonImg
             pointer
+            className={'copyButton'}
             disabled={disabled}
             height={diameter}
             src={customCopyIcon || copyIcon}

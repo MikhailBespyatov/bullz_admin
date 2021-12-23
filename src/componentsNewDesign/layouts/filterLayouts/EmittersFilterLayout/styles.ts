@@ -1,5 +1,6 @@
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { grey30 } from 'constants/styles/colors';
+import { filterMargin, lg, xxs } from 'constants/styles/sizes';
 import styled from 'styled-components';
 import { IsClosed } from 'types/data';
 
@@ -33,4 +34,22 @@ export const ContentResetWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: end;
+`;
+
+export const ComponentWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 0px;
+    margin-bottom: ${filterMargin};
+
+    @media (max-width: ${lg}) {
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        width: 380px;
+        justify-content: space-between;
+    }
+
+    @media (max-width: ${xxs}) {
+        width: 100%;
+    } ;
 `;
