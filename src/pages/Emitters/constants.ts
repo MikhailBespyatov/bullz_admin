@@ -1,47 +1,34 @@
 export const emittersSearchByUserIdPlaceholder = 'Search emitters by user id';
 export const emittersSearchByVideoIdPlaceholder = 'Search emitters by video id';
+export const emittersSearchByEmitterIdPlaceholder = 'Search emitters by emitter id';
 
 export const notFoundMessage = 'Users not found';
 
 export const columns = [
-    { title: 'Emit ID' },
+    { title: 'Video' },
     { title: 'Video ID' },
+    { title: 'Username' },
     { title: 'User ID' },
-    { title: 'Date Created' },
-    { title: 'Date Updated' },
-    { title: 'Emit Start Date' },
-    { title: 'Emit End Date' },
-    { title: 'Is Active' },
-    { title: 'Is Past' },
-    { title: 'Total Target Views' },
-    { title: 'Views Emitted' },
-    { title: 'Progress Views' },
-    { title: 'Total Target Likes' },
-    { title: 'Likes Emitted' },
-    { title: 'Progress Likes' },
-    { title: 'Total Target Shares' },
-    { title: 'Shares Emitted' },
-    { title: 'Progress Shares' }
+    { title: 'Emit ID' },
+    { title: 'Date Created', field: 'utcCreated', isSorted: true },
+    { title: 'Emit Start Date', field: 'utcEmitStart', isSorted: true },
+    { title: 'Emit End Date', field: 'utcEmitEnd', isSorted: true },
+    { title: 'Total Views' },
+    { title: 'Total Shares' },
+    { title: 'Total Likes' }
 ];
 export const columnSizes = [
-    '191px',
-    '189px',
-    '191px',
-    '191px',
-    '256px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px',
-    '189px'
+    '100px',
+    '150px',
+    '177px',
+    '178px',
+    '175px',
+    '140px',
+    '140px',
+    '140px',
+    '197px',
+    '197px',
+    '197px'
 ];
 export const tableDataFontSize = '13px';
 export const tableDataLineHeight = '15px';

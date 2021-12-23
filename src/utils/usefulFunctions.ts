@@ -340,3 +340,6 @@ export function isValidHttpUrl(string: string) {
 
 export const getEllipsisAddress = (str: string, quantity = 12) =>
     str.length < quantity ? str : '...' + str.substring(str.length - quantity, str.length);
+
+export const getEllipsisStartAndEnd = (str: string, quantity = 12) =>
+    str.length < quantity ? str : str.substring(0, 4) + '...' + str.substring(str.length - 5, str.length);

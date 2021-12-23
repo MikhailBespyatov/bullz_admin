@@ -1,11 +1,11 @@
 import { Span } from 'componentsNewDesign/common/typography/Span';
+import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
+import { tooltipArrowDiameter, tooltipArrowHalfDiameter } from 'componentsNewDesign/modals/Tooltip/constants';
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { black2, white } from 'constants/styles/colors';
 import styled from 'styled-components';
 import { PopoverType } from 'types/data';
-import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
-import { tooltipArrowDiameter, tooltipArrowHalfDiameter } from 'componentsNewDesign/modals/Tooltip/constants';
 import { Visibility } from 'types/styles';
 
 export const TooltipWrapper = styled(AbsoluteWrapper)<Visibility>`
@@ -22,7 +22,7 @@ export const TooltipSpan = styled(Span)`
     font-size: 13px;
     line-height: 15px;
     text-align: center;
-    color: ${white};
+    ${({ color }) => (color ? color : white)};
 `;
 
 export const TooltipArrow = styled(AbsoluteWrapper)<PopoverType>`
@@ -33,6 +33,6 @@ export const TooltipArrow = styled(AbsoluteWrapper)<PopoverType>`
     transform: ${({ type }) => (type === 'top' ? 'rotate(-45deg)' : 'rotate(135deg)')};
     z-index: ${sideBarZIndex + 1};
     border: ${tooltipArrowHalfDiameter} solid transparent;
-    border-bottom: ${tooltipArrowHalfDiameter} solid ${black2};
-    border-left: ${tooltipArrowHalfDiameter} solid ${black2};
+    border-bottom: ${tooltipArrowHalfDiameter} solid ${({ background }) => (background ? background : black2)};
+    border-left: ${tooltipArrowHalfDiameter} solid ${({ background }) => (background ? background : black2)};
 `;

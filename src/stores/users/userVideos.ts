@@ -100,8 +100,6 @@ forward({
     to: [loadItems]
 });
 
-//values.watch(updateValues, state => console.log(state));
-
 export const userVideosEvents = {
     updateValues,
     setIsFirstToFalse,

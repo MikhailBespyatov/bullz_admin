@@ -1,48 +1,57 @@
 import backArrowImg from 'assets/back_arrow.svg';
 import history from 'browserHistory';
 import { Loader } from 'components/common/dynamic/Loader';
+import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
+import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';
 import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
+import { ContentText } from 'componentsNewDesign/common/typography/ContentText/styles';
 import { Span } from 'componentsNewDesign/common/typography/Span';
-import { PropertyBlock } from 'componentsNewDesign/layouts/blocks/PropertyBlock';
+import { BlockTitle } from 'componentsNewDesign/layouts/blocks/PropertyBlock/styles';
+import { UserCard } from 'componentsNewDesign/layouts/cards/UserCard';
 import { copyUserIdMessage } from 'componentsNewDesign/layouts/cards/UserCard/constants';
+import { VideoCard } from 'componentsNewDesign/layouts/cards/VideoCard';
+import { successMessageColor } from 'componentsNewDesign/layouts/cards/VideoCard/constants';
 import { backImgDiameter } from 'componentsNewDesign/layouts/descriptionLayouts/UserDescription/constants';
 import { SingleMainLayout } from 'componentsNewDesign/layouts/SingleMainLayout';
 import { AsyncDeleteEmitterModal } from 'componentsNewDesign/modals/AsyncDeleteEmitterModal';
+import { Tooltip } from 'componentsNewDesign/modals/Tooltip';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
-import { Flex, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { Flex, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
-import { emittersLink } from 'constants/routes';
-import { errorColor, grey23, grey24, grey29, grey7, white } from 'constants/styles/colors';
+import { errorColor, grey24, grey29, white } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
+import { TableDataSpan } from 'pages/DeletedUsers/styles';
 import React, { useEffect } from 'react';
 import { emittersEffects, emittersStores } from 'stores/emitters/emitters';
 import { deleteEmitterModal } from 'stores/initialize/initialize.modal.store';
+import { usersEffects, usersStores } from 'stores/users/users';
+import { videosEffects, videosStores } from 'stores/videos/videos';
+import { formatDateISOString } from 'utils/usefulFunctions';
 import {
     copyEmitIdMessage,
-    copyVideIdMessage,
+    copyVideoIdMessage,
     emitterMarginRight,
     emitterPrimaryMargin,
-    emitterSinglePadding,
-    propertyBackground,
-    propertyHeight,
-    propertyWidth
+    emitterSinglePadding
 } from './constants';
 
 export const Emitter = () => {
     const emitterIdArr = history.location.pathname.split('/');
     const emitterId = emitterIdArr[emitterIdArr.length - 1];
     const emitter = useStore(emittersStores.emitterInfo);
+    const user = useStore(usersStores.users);
+    const video = useStore(videosStores.videos);
+
     const {
         id: emitId,
-        isActive,
         isPast,
         videoId,
         userId,
         utcCreated,
-        utcUpdated,
         utcEmitStart,
         utcEmitEnd,
+        isActive,
         viewsTotalTarget,
         viewsEmitted,
         viewsProgress,
@@ -51,13 +60,22 @@ export const Emitter = () => {
         likesProgress,
         sharesTotalTarget,
         sharesEmitted,
-        sharesProgress
+        sharesProgress,
+        user: userInfo
     }: any = emitter;
     const loading = useStore(emittersStores.loading);
 
     useEffect(() => {
         emittersEffects.loadItemById(emitterId);
     }, [emitterId]);
+
+    useEffect(() => {
+        userId && usersEffects.loadItemById(userId);
+    }, [userId]);
+
+    useEffect(() => {
+        videoId && videosEffects.loadItemById(videoId);
+    }, [videoId]);
 
     const onBack = () => history.goBack();
 
@@ -68,7 +86,6 @@ export const Emitter = () => {
                 <ContentWrapper
                     backgroundColor={grey29}
                     marginBottom={emitterPrimaryMargin}
-                    marginRight={emitterMarginRight}
                     padding={emitterSinglePadding}
                     width="100%"
                 >
@@ -79,7 +96,7 @@ export const Emitter = () => {
                     ) : (
                         <>
                             <Section alignCenter justifyBetween marginBottom="28px">
-                                <Flex>
+                                <Flex alignCenter>
                                     <MarginWrapper marginRight="24px">
                                         <CustomImg
                                             pointer
@@ -92,24 +109,45 @@ export const Emitter = () => {
                                     <Span color={white} fontSize="18px" fontWeight="600" lineHeight="21px">
                                         Emitter Info
                                     </Span>
+                                    <MarginWrapper marginLeft="12px">
+                                        <ContentText color="#999999">
+                                            {`${new Date(utcEmitStart).toLocaleDateString('en-us', {
+                                                year: 'numeric',
+                                                month: 'short',
+                                                day: 'numeric'
+                                            })} - ${new Date(utcEmitEnd).toLocaleDateString('en-us', {
+                                                year: 'numeric',
+                                                month: 'short',
+                                                day: 'numeric'
+                                            })}`}
+                                        </ContentText>
+                                    </MarginWrapper>
+                                    <Row alignCenter justifyEnd /*maxWidth="212px"*/ width="50px">
+                                        <ContentText uppercase color={isPast ? errorColor : successMessageColor}>
+                                            {isPast && 'Past'}
+                                            {isActive && 'Active'}
+                                        </ContentText>
+                                    </Row>
                                 </Flex>
                                 <Flex>
-                                    <SimpleButton
+                                    {/* <SimpleButton
                                         background={grey23}
                                         backgroundHover={grey24}
                                         color={grey7}
                                         disabled={isPast ? true : false}
+                                        height="45px"
                                         marginRight="8px"
-                                        padding="8px"
+                                        width="100px"
                                         onClick={() => history.push(`${emittersLink}/update_emitter/${emitterId}`)}
                                     >
                                         Edit
-                                    </SimpleButton>
+                                    </SimpleButton> */}
                                     <SimpleButton
                                         background={errorColor}
                                         backgroundHover={grey24}
                                         color={white}
-                                        padding="8px"
+                                        height="45px"
+                                        width="100px"
                                         onClick={() => deleteEmitterModal.openModal({ emitterId })}
                                     >
                                         Delete
@@ -117,186 +155,140 @@ export const Emitter = () => {
                                 </Flex>
                             </Section>
 
-                            <Section marginBottom="17px">
-                                <PropertyBlock
-                                    copiable
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={emitId || '-'}
-                                    success={copyEmitIdMessage}
-                                    title="emit id"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    copiable
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={videoId || '-'}
-                                    success={copyVideIdMessage}
-                                    title="video id"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    copiable
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={userId || '-'}
-                                    success={copyUserIdMessage}
-                                    title="user id"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    isDate
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${new Date(utcCreated).toLocaleString()}` || '-'}
-                                    title="date created"
-                                    width={propertyWidth}
-                                />
+                            <Section justifyBetween marginBottom="17px">
+                                <ContentWrapper marginBottom="20px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>Video ID</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>{videoId}</TableDataSpan>
+                                        <MarginWrapper marginLeft="8px">
+                                            <CopyButton subject={videoId} success={copyVideoIdMessage} />
+                                        </MarginWrapper>
+                                    </Row>
+                                </ContentWrapper>
 
-                                <PropertyBlock
-                                    isDate
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${utcUpdated ? new Date(utcUpdated).toLocaleString() : '-'}`}
-                                    title="date updated"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    isDate
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${new Date(utcEmitStart).toLocaleString()}` || '-'}
-                                    title="emit start date"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    isDate
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${new Date(utcEmitEnd).toLocaleString()}` || '-'}
-                                    title="emit end date"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={isActive ? 'Yes' : 'No'}
-                                    title="is active"
-                                    width={propertyWidth}
-                                />
+                                <ContentWrapper marginBottom="20px" minWidth="105px" width="105px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>Username</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>{userInfo?.userName}</TableDataSpan>
+                                        {userInfo?.isTrusted && (
+                                            <MarginWrapper marginLeft="8px">
+                                                <Tooltip title="Account is trusted">
+                                                    <TrustedIcon />
+                                                </Tooltip>
+                                            </MarginWrapper>
+                                        )}
+                                    </Row>
+                                </ContentWrapper>
 
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={isPast ? 'Yes' : 'No'}
-                                    title="is past"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${viewsTotalTarget}` || '-'}
-                                    title="Total target views"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${viewsEmitted}` || '-'}
-                                    title="views emitted"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${viewsProgress}` || '-'}
-                                    title="progress views"
-                                    width={propertyWidth}
-                                />
+                                <ContentWrapper marginBottom="20px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>User ID</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>{userId}</TableDataSpan>
+                                        <MarginWrapper marginLeft="8px">
+                                            <CopyButton subject={userId} success={copyUserIdMessage} />
+                                        </MarginWrapper>
+                                    </Row>
+                                </ContentWrapper>
 
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${sharesTotalTarget}` || '-'}
-                                    title="total target shares"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${sharesEmitted}` || '-'}
-                                    title="shares emitted"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${sharesProgress}` || '-'}
-                                    title="progress shares"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${likesTotalTarget}` || '-'}
-                                    title="total target likes"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${likesEmitted}` || '-'}
-                                    title="likes emitted"
-                                    width={propertyWidth}
-                                />
-                                <PropertyBlock
-                                    backgroundColor={propertyBackground}
-                                    marginBottom={'16px'}
-                                    marginRight={emitterPrimaryMargin}
-                                    minHeight={propertyHeight}
-                                    subtitle={`${likesProgress}` || '-'}
-                                    title="progress likes"
-                                    width={propertyWidth}
-                                />
+                                <ContentWrapper marginBottom="20px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>Emit ID</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>{emitId}</TableDataSpan>
+                                        <MarginWrapper marginLeft="8px">
+                                            <CopyButton subject={emitId} success={copyEmitIdMessage} />
+                                        </MarginWrapper>
+                                    </Row>
+                                </ContentWrapper>
+
+                                <ContentWrapper marginBottom="20px" minWidth="85px" width="85px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>Date Created</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>{formatDateISOString(utcCreated)}</TableDataSpan>
+                                    </Row>
+                                </ContentWrapper>
+
+                                {/* <ContentWrapper marginBottom="20px" minWidth="85px" width="85px">
+                                    <ContentWrapper marginBottom="10px">
+                                        <BlockTitle>Date Updated</BlockTitle>
+                                    </ContentWrapper>
+                                    <Row>
+                                        <TableDataSpan>
+                                            {utcUpdated ? formatDateISOString(utcUpdated) : '-'}
+                                        </TableDataSpan>
+                                    </Row>
+                                </ContentWrapper> */}
+
+                                <Section justifyBetween>
+                                    <ContentWrapper marginBottom="20px">
+                                        <ContentWrapper marginBottom="10px">
+                                            <BlockTitle>Total Views Emitted</BlockTitle>
+                                        </ContentWrapper>
+                                        <Section justifyBetween marginBottom="10px" marginRight="30px">
+                                            <TableDataSpan>{viewsEmitted}</TableDataSpan>
+                                            <TableDataSpan color="#919195">{viewsTotalTarget}</TableDataSpan>
+                                        </Section>
+                                        <ContentWrapper backgroundColor="black" height="4px" minWidth="290px">
+                                            <ContentWrapper
+                                                backgroundColor="white"
+                                                height="4px"
+                                                minWidth={`${viewsProgress * 100}%`}
+                                                width={`${viewsProgress * 100}%`}
+                                            ></ContentWrapper>
+                                        </ContentWrapper>
+                                    </ContentWrapper>
+
+                                    <ContentWrapper marginBottom="20px">
+                                        <ContentWrapper marginBottom="10px">
+                                            <BlockTitle>Total Shares Emitted</BlockTitle>
+                                        </ContentWrapper>
+                                        <Section justifyBetween marginBottom="10px" marginRight="30px">
+                                            <TableDataSpan>{sharesEmitted}</TableDataSpan>
+                                            <TableDataSpan color="#919195">{sharesTotalTarget}</TableDataSpan>
+                                        </Section>
+                                        <ContentWrapper backgroundColor="black" height="4px" minWidth="290px">
+                                            <ContentWrapper
+                                                backgroundColor="white"
+                                                height="4px"
+                                                minWidth={`${sharesProgress * 100}%`}
+                                                width={`${sharesProgress * 100}%`}
+                                            ></ContentWrapper>
+                                        </ContentWrapper>
+                                    </ContentWrapper>
+
+                                    <ContentWrapper marginBottom="20px">
+                                        <ContentWrapper marginBottom="10px">
+                                            <BlockTitle>Total Likes Emitted</BlockTitle>
+                                        </ContentWrapper>
+                                        <Section justifyBetween marginBottom="10px" marginRight="30px">
+                                            <TableDataSpan>{likesEmitted}</TableDataSpan>
+                                            <TableDataSpan color="#919195">{likesTotalTarget}</TableDataSpan>
+                                        </Section>
+                                        <ContentWrapper backgroundColor="black" height="4px" minWidth="290px">
+                                            <ContentWrapper
+                                                backgroundColor="white"
+                                                height="4px"
+                                                minWidth={`${likesProgress * 100}%`}
+                                                width={`${likesProgress * 100}%`}
+                                            ></ContentWrapper>
+                                        </ContentWrapper>
+                                    </ContentWrapper>
+                                </Section>
                             </Section>
                         </>
                     )}
                 </ContentWrapper>
+                {video.items?.length && <VideoCard {...video?.items[0]} />}
+                {user.items?.length && <UserCard {...user?.items[0]} />}
             </Section>
         </SingleMainLayout>
     );

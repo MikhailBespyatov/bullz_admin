@@ -13,11 +13,12 @@ import { useModal } from 'hooks/modal';
 import React, { FC, MouseEvent as MouseEventReact, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { PopoverType, Title } from 'types/data';
+import { Background, Color, Sizes } from 'types/styles';
 import { TooltipArrow, TooltipRelativeWrapper, TooltipSpan, TooltipWrapper } from './styles';
 
-export interface TooltipProps extends PopoverType, Pick<Title, 'title'> {}
+export interface TooltipProps extends PopoverType, Background, Color, Sizes, Pick<Title, 'title'> {}
 
-export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title }) => {
+export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title, background, color, width }) => {
     const isTopType = type === 'top';
     const { visible, open, close } = useModal();
     const childrenRef = useRef<HTMLDivElement>(null);
@@ -51,7 +52,7 @@ export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title }) => 
     };
 
     return (
-        <TooltipRelativeWrapper ref={childrenRef} onMouseLeave={close} onMouseMove={onClick}>
+        <TooltipRelativeWrapper ref={childrenRef} width={width} onMouseLeave={close} onMouseMove={onClick}>
             <Portal>
                 <TooltipWrapper
                     ref={tooltipRef}
@@ -60,10 +61,15 @@ export const Tooltip: FC<TooltipProps> = ({ children, type = 'top', title }) => 
                     visible={visible}
                     zIndex="1000"
                 >
-                    <ContentWrapper backgroundColor={black2} borderRadius="4px" padding="8px 15px">
-                        <TooltipSpan>{title}</TooltipSpan>
+                    <ContentWrapper
+                        backgroundColor={background ? background : black2}
+                        borderRadius="4px"
+                        padding="8px 15px"
+                    >
+                        <TooltipSpan color={color}>{title}</TooltipSpan>
                     </ContentWrapper>
                     <TooltipArrow
+                        background={background}
                         left={isMobile ? `calc(${arrowLeft} + 50px)` : arrowLeft}
                         top={arrowTop}
                         type={type}

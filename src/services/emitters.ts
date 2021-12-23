@@ -1,3 +1,4 @@
+import { CancelToken } from 'axios';
 import axios from './axios';
 
 export const getEmitters = (data: BULLZ.AdminQueryPostsRequest) =>
@@ -5,9 +6,10 @@ export const getEmitters = (data: BULLZ.AdminQueryPostsRequest) =>
         url: '/engagement/emitters/query',
         data
     });
-export const getEmitterById = (data: BULLZ.AdminGetEmitterInfoRequest) =>
+export const getEmitterById = (data: BULLZ.AdminGetEmitterInfoRequest, cancelToken?: CancelToken) =>
     axios<BULLZ.AdminGetUserCommon>({
         url: '/engagement/emitters/get',
+        cancelToken,
         data
     });
 

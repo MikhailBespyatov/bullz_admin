@@ -15,8 +15,6 @@ interface SuggestionProps extends UserLevel {
     text: string;
 }
 
-console.log(suggestionObj);
-
 export const SuggestionBadge = ({ text, level }: SuggestionProps) => (
     <ContentWrapper backgroundColor={suggestionObj[level].backgroundColor} padding={badgePadding} width="100%">
         <Column width="100%">

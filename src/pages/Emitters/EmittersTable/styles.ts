@@ -1,5 +1,5 @@
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { grey13, grey27, white } from 'constants/styles/colors';
+import { grey13, grey27, grey28, white } from 'constants/styles/colors';
 import styled, { css } from 'styled-components';
 import { BackgroundColor, BorderProperties, Color } from 'types/styles';
 
@@ -71,6 +71,36 @@ export const RowWrapper = styled(Section)<RowWrapperProps>`
         background-color: ${grey27};
         cursor: pointer;
     }
+    &:hover > div {
+        background-color: ${grey27} !important;
+        cursor: pointer;
+    }
+
+    & > div:first-child {
+        background-color: ${grey28};
+        padding-bottom: 7px;
+        padding-top: 7px;
+    }
+
+    & > div:nth-child(even) {
+        background-color: ${grey28};
+        padding-bottom: 19px;
+        padding-top: 19px;
+    }
+
+    & > div:nth-child(2),
+    & > div:nth-child(4),
+    & > div:nth-child(5) {
+        padding-bottom: 17px;
+        padding-top: 17px;
+    }
+
+    & > div:nth-child(9),
+    & > div:nth-child(10),
+    & > div:nth-child(11) {
+        padding-bottom: 12px;
+        padding-top: 12px;
+    }
 `;
 
 interface HeaderRow {
@@ -78,6 +108,6 @@ interface HeaderRow {
 }
 
 export const HeaderRow = styled(Row)<HeaderRow>`
-    min-width: 130px;
+    min-width: 100px;
     ${({ flexGrow }) => flexGrow && `flex-grow: ${flexGrow}`}
 `;

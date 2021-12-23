@@ -1,4 +1,4 @@
 import { IsClosed } from 'types/data';
-import { AbsoluteLocation, Sizes, ZIndex } from 'types/styles';
+import { AbsoluteLocation, Background, Sizes, ZIndex } from 'types/styles';
 
-export interface AbsoluteWrapperProps extends AbsoluteLocation, IsClosed, Sizes, ZIndex {}
+export interface AbsoluteWrapperProps extends AbsoluteLocation, IsClosed, Sizes, ZIndex, Background {}

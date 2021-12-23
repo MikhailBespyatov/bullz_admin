@@ -1,7 +1,11 @@
+import InfoIcon from 'assets/icons/info.svg';
 import history from 'browserHistory';
+import { CustomImg } from 'componentsNewDesign/common/imgComponents/CustomImg';
 import { tableDataBorder } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
+import { Tooltip } from 'componentsNewDesign/modals/Tooltip';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { emittersLink } from 'constants/routes';
 import { grey23 } from 'constants/styles/colors';
 import React from 'react';
@@ -28,6 +32,40 @@ export const EmittersTable = ({
 
                 return (
                     <HeaderRow key={title} justifyCenter flexGrow={lastItemGrow} width={columnSizes[index]}>
+                        {index === 8 && (
+                            <MarginWrapper marginRight="5px">
+                                <Tooltip
+                                    background="white"
+                                    color="black"
+                                    title="The total number of views emitted out of the total targeted views"
+                                >
+                                    <CustomImg height="12px" src={InfoIcon} width="12px" />
+                                </Tooltip>
+                            </MarginWrapper>
+                        )}
+                        {index === 9 && (
+                            <MarginWrapper marginRight="5px">
+                                <Tooltip
+                                    background="white"
+                                    color="black"
+                                    title="The total number of shares emitted out of the total targeted shares"
+                                >
+                                    <CustomImg height="12px" src={InfoIcon} width="12px" />
+                                </Tooltip>
+                            </MarginWrapper>
+                        )}
+                        {index === 10 && (
+                            <MarginWrapper marginRight="5px">
+                                <Tooltip
+                                    background="white"
+                                    color="black"
+                                    title="The total number of likes emitted out of the total targeted likes"
+                                >
+                                    <CustomImg height="12px" src={InfoIcon} width="12px" />
+                                </Tooltip>
+                            </MarginWrapper>
+                        )}
+
                         <TableHeaderColumnSpan
                             ascending={ascending}
                             descending={descending}
@@ -42,7 +80,8 @@ export const EmittersTable = ({
         </TableHeader>
         <TableBody>
             {data?.map(({ cells, routeId }, index) => {
-                const onClick = () => {
+                const onClick = (e: any) => {
+                    if (e.target.classList.contains('copyButton') || e.target.classList.contains('link')) return;
                     history.push(`${emittersLink}/${routeId}`);
                 };
 
