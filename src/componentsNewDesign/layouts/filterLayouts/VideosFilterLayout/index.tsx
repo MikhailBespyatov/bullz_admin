@@ -310,6 +310,7 @@ export const VideosFilterLayout: FC<Props> = ({ totalRecords, children, withoutF
                     />
 
                     <DateRangePicker
+                        withPortal
                         dateRange={[fromCreatedDateTime || '', toCreatedDateTime || '']}
                         onChange={onDateRangeClick}
                     />

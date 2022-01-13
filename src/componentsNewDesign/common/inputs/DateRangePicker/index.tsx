@@ -24,9 +24,10 @@ interface DatePickerProps extends Disabled {
     onChange: (date: string) => void;
     isStartType?: boolean;
     selectsRange?: boolean;
+    withPortal?: boolean;
 }
 
-const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange }: DatePickerProps) => {
+const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange, withPortal }: DatePickerProps) => {
     const [isCalendarOpened, updateIsCalendarOpened] = useToggle();
 
     const fromPropsStartDate = useMemo(() => (date[0] ? new Date(date[0]) : undefined), [date]);
@@ -84,7 +85,7 @@ const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange }: Dat
             open={!disabled && isCalendarOpened}
             popperModifiers={{ flip: { flipVariations: false, behavior: 'clockwise' } }}
             popperPlacement="bottom"
-            portalId="portal-root"
+            portalId={withPortal ? 'portal-root' : undefined}
             selected={isStartType ? startDateValue : endDateValue}
             selectsEnd={!isStartType}
             selectsRange={selectsRange}
@@ -108,9 +109,10 @@ const DataPickerIcon = () => (
 
 export interface DateRangePickerProps extends Disabled, OnDataRangeChange {
     dateRange: [string, string];
+    withPortal?: boolean;
 }
 
-export const DateRangePicker = ({ dateRange, onChange, disabled }: DateRangePickerProps) => {
+export const DateRangePicker = ({ dateRange, onChange, disabled, withPortal }: DateRangePickerProps) => {
     const [dateRangeValue, setDateRangeValue] = useState(dateRange);
     const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
@@ -142,12 +144,23 @@ export const DateRangePicker = ({ dateRange, onChange, disabled }: DateRangePick
         <>
             <Section alignCenter noWrap>
                 <DataPickerWrapper>
-                    <DatePicker isStartType date={dateRangeValue} disabled={disabled} onChange={onChangeFrom} />
+                    <DatePicker
+                        isStartType
+                        date={dateRangeValue}
+                        disabled={disabled}
+                        withPortal={withPortal}
+                        onChange={onChangeFrom}
+                    />
                 </DataPickerWrapper>
             </Section>
             <Section alignCenter noWrap>
                 <DataPickerWrapper>
-                    <DatePicker date={dateRangeValue} disabled={disabled} onChange={onChangeTo} />
+                    <DatePicker
+                        date={dateRangeValue}
+                        disabled={disabled}
+                        withPortal={withPortal}
+                        onChange={onChangeTo}
+                    />
                 </DataPickerWrapper>
             </Section>
         </>
