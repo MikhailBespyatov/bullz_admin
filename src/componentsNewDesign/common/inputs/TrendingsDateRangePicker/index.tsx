@@ -85,7 +85,6 @@ const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange }: Dat
             open={!disabled && isCalendarOpened}
             popperModifiers={{ flip: { flipVariations: false, behavior: 'clockwise' } }}
             popperPlacement="bottom"
-            portalId="portal-root"
             selected={isStartType ? startDateValue : endDateValue}
             selectsEnd={!isStartType}
             selectsRange={selectsRange}
@@ -140,7 +139,7 @@ export const TrendingsDateRangePicker = ({ dateRange, onChange, disabled }: Date
             </DataPickerWrapper>
         </Section>
     ) : (
-        <Section alignCenter justifyBetween noWrap>
+        <Section alignEnd justifyBetween noWrap>
             <DataPickerWrapper>
                 <DatePicker isStartType date={dateRangeValue} disabled={disabled} onChange={onChangeFrom} />
             </DataPickerWrapper>

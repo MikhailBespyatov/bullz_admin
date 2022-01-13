@@ -15,7 +15,7 @@ import { CreateTrendingVideoFilterModal } from 'componentsNewDesign/modals/filte
 import { AbsoluteWrapper } from 'componentsNewDesign/wrappers/grid/AbsoluteWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
-import { trendingVideoLimit } from 'constants/defaults/trendings';
+import { trendingUserLimit, trendingVideoLimit } from 'constants/defaults/trendings';
 import { grey23, white } from 'constants/styles/colors';
 import { xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
@@ -86,7 +86,6 @@ export const Trendings = () => {
 
     const removeVideoItemsWithDuplicatedPositions = (array: BULLZ.GetTrendingOverridesResponse[]) => {
         let uniqPositions: number[] = [];
-        //console.log('remove func');
 
         array.forEach(item => {
             //console.log('item.position', item.position);
@@ -113,8 +112,6 @@ export const Trendings = () => {
     useEffect(() => {
         videos.items && removeVideoItemsWithDuplicatedPositions(videos.items);
     }, [videos]);
-
-    //console.log('Trendings videos items ', videos.items);
 
     return (
         <SingleMainLayout>
@@ -188,7 +185,7 @@ export const Trendings = () => {
             <TrendingContainer
                 features={
                     <TrendingButton
-                        disabled={(users?.items?.length || 0) >= 15}
+                        disabled={(users?.items?.length || 0) >= trendingUserLimit}
                         onClick={() => createUserTrendingModal.openModal()}
                     >
                         Add user
