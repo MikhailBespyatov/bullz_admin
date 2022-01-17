@@ -25,7 +25,7 @@ import React, { useState } from 'react';
 import { modalEvents, modalStores } from 'stores/modals/asyncModal';
 import { usersEffects } from 'stores/users/users';
 
-const { deleteUsersById } = usersEffects;
+const { deleteUsersById, blockUsersById } = usersEffects;
 const { closeDeleteOrBlockUserModal, openStatusModal } = modalEvents;
 
 export const DeleteOrBlockUserModal = () => {
@@ -37,9 +37,9 @@ export const DeleteOrBlockUserModal = () => {
     const title = action === 'delete' ? `Deleting ${username}` : `Blocking ${username}`;
     const buttonText = action === 'delete' ? 'Delete' : 'Block';
 
-    const [selectedReasons, setSelectedReasons] = useState<BULLZ.UserDeletionReason[]>([]);
+    const [selectedReasons, setSelectedReasons] = useState<BULLZ.UserDisablingReason[]>([]);
 
-    const onCheckboxChange = (value: BULLZ.UserDeletionReason) => {
+    const onCheckboxChange = (value: BULLZ.UserDisablingReason) => {
         !selectedReasons.some(reason => value === reason)
             ? setSelectedReasons([...selectedReasons, value])
             : setSelectedReasons(selectedReasons.filter(reason => value !== reason));
@@ -73,7 +73,19 @@ export const DeleteOrBlockUserModal = () => {
                 });
         }
 
-        //  if (action === 'block') ...
+        if (action === 'block') {
+            const idsArray = await blockUsersById({ users: [{ userId, reasons: selectedReasons, comment }] });
+            !!idsArray.length && onOk && onOk(userId);
+
+            onClose();
+
+            !!idsArray.length &&
+                openStatusModal({
+                    status: 'success',
+                    title: 'Blocked',
+                    content: `${username} is successfully blocked.`
+                });
+        }
     };
 
     if (!visible) return null;

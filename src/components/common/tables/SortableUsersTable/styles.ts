@@ -51,8 +51,9 @@ export const TableHeader = styled(Section)<TableHeaderProps>`
     border-radius: 4px 4px 0px 0px;
 `;
 
-export const TableBody = styled(Column)`
+export const TableBody = styled(Column)<BackgroundColor>`
     width: 100%;
+    ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
 `;
 
 interface RowWrapperProps extends Pick<BorderProperties, 'borderBottom'> {}

@@ -120,6 +120,52 @@ const deleteUsersById = createEffect({
     }
 });
 
+const blockUsersById = createEffect({
+    handler: async (data: BULLZ.AdminDisableUsersRequest) => {
+        try {
+            updateEditLoading();
+            const { isSuccess, message: messageResponse = '' } = await API.adminUsers.blockUsersById(data);
+            updateEditLoading();
+
+            //* show success notification only for bulk user deleting, for single user deleting have StatusModal:
+            isSuccess && !!data.users?.length && messageResponse && message.success(messageResponse);
+
+            if (isSuccess && !!data.users?.length) {
+                return data.users.map(item => item.userId);
+            }
+
+            return [];
+        } catch {
+            message.error(errorDeletionUsersMessage);
+            updateEditLoading();
+            return [];
+        }
+    }
+});
+
+const enableUsersById = createEffect({
+    handler: async (data: BULLZ.AdminEnableUsersRequest) => {
+        try {
+            updateEditLoading();
+            const { isSuccess, message: messageResponse = '' } = await API.adminUsers.enableUsersById(data);
+            updateEditLoading();
+
+            //* show success notification only for bulk user deleting, for single user deleting have StatusModal:
+            isSuccess && !!data.users?.length && messageResponse && message.success(messageResponse);
+
+            if (isSuccess && !!data.users?.length) {
+                return data.users.map(item => item);
+            }
+
+            return [];
+        } catch {
+            message.error(errorDeletionUsersMessage);
+            updateEditLoading();
+            return [];
+        }
+    }
+});
+
 const editInfoItem = createStore<BULLZ.AdminGetUserCommon>({}).on(
     loadEditInfoItemById.doneData,
     (_, newState) => newState
@@ -453,7 +499,14 @@ export const usersEvents = {
     setIsFirstToTrue,
     invokeGetItems
 };
-export const usersEffects = { loadItemById, loadSingleItemById, deleteUsersById, generateUserReport };
+export const usersEffects = {
+    loadItemById,
+    loadSingleItemById,
+    deleteUsersById,
+    generateUserReport,
+    enableUsersById,
+    blockUsersById
+};
 export const usersStores = {
     users,
     user,

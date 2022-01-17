@@ -256,6 +256,26 @@ export const UserDescription = ({
             onOk: deleteOkHandler
         });
     };
+
+    const callEnableModal = (id: SubjectType) =>
+        openAsyncModal({
+            visible: true,
+            title: parseDisableTitle(false),
+            content: parseDisableDescription(false, username || ''),
+            subject: id,
+            onOk: disableOkHandler
+        });
+
+    const callBlockUserModal = (userId: string) => {
+        openDeleteOrBlockUserModal({
+            userId,
+            username: username || '',
+            action: 'block',
+            reasonsList: deleteReasonsList,
+            onOk: deleteOkHandler
+        });
+    };
+
     const onBack = () => history.goBack();
 
     const localeOkHandler = async (subject: SubjectType) => {
@@ -332,19 +352,24 @@ export const UserDescription = ({
                             </Column>
                         </AdministratorLayout>
                         {isDisabled ? (
-                            <MarginWrapper marginRight="8px">
-                                <BlockInformationText>This User is Blocked or Deleted</BlockInformationText>
-                            </MarginWrapper>
+                            <Row alignCenter>
+                                <MarginWrapper marginRight="8px">
+                                    <BlockInformationText>This User is Blocked or Deleted</BlockInformationText>
+                                </MarginWrapper>
+                                <CardButton
+                                    marginRight="8px"
+                                    type="danger"
+                                    onClick={() => {
+                                        callEnableModal(id);
+                                    }}
+                                >
+                                    Unblock
+                                </CardButton>
+                            </Row>
                         ) : (
                             <AdministratorLayout>
                                 <Column marginRight="8px">
-                                    <CardButton
-                                        background={lightBlack}
-                                        backgroundHover={hoverGrey2}
-                                        color={blue}
-                                        textHover={white}
-                                        onClick={() => callVerifyModal(!isTrusted)}
-                                    >
+                                    <CardButton onClick={() => callVerifyModal(!isTrusted)}>
                                         {isTrusted ? 'Unverify' : 'Verify'}
                                     </CardButton>
                                 </Column>
@@ -356,38 +381,28 @@ export const UserDescription = ({
                                         title={assignRoleTitle}
                                         type="down"
                                     >
-                                        <CardButton
-                                            background={lightBlack}
-                                            backgroundHover={hoverGrey2}
-                                            color={blue}
-                                            disabled={!assignedRoles.length}
-                                            textHover={white}
-                                        >
-                                            Assign Role
-                                        </CardButton>
+                                        <CardButton disabled={!assignedRoles.length}>Assign Role</CardButton>
                                     </RolesPopover>
                                 </Column>
                             </AdministratorLayout>
                         )}
-                        <AdministratorLayout>
-                            <CardButton
-                                background={errorColor}
-                                backgroundHover={hoverGrey2}
-                                color={white}
-                                marginRight="8px"
-                                textHover={white}
-                                onClick={() => callDisableModal(!isDisabled)}
-                            >
-                                {isDisabled ? 'Unblock' : 'Block'}
-                            </CardButton>
-                        </AdministratorLayout>
                         {!isDisabled && (
                             <AdministratorLayout>
                                 <CardButton
                                     background={errorColor}
                                     backgroundHover={hoverGrey2}
                                     color={white}
-                                    textHover={white}
+                                    marginRight="8px"
+                                    type="danger"
+                                    onClick={() => callBlockUserModal(id)}
+                                >
+                                    Block
+                                </CardButton>
+                                <CardButton
+                                    background={errorColor}
+                                    backgroundHover={hoverGrey2}
+                                    color={white}
+                                    type="danger"
                                     onClick={() => callDeleteUserModal(id)}
                                 >
                                     Delete

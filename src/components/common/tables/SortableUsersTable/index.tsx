@@ -2,13 +2,28 @@ import history from 'browserHistory';
 import { tableDataBorder } from 'componentsNewDesign/layouts/descriptionLayouts/ProductDescription/constants';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
-import { deletedUsersLink } from 'constants/routes';
 import { grey23 } from 'constants/styles/colors';
+import { SortConfig } from 'hooks/useSortableData';
 import React from 'react';
-import { TableProps } from '../types';
+import { DataTable } from 'types/data';
+import { BackgroundColor } from 'types/styles';
 import { HeaderRow, RowWrapper, TableBody, TableHeader, TableHeaderColumnSpan } from './styles';
 
-export const DeletedUsersTable = ({
+interface Columns {
+    title: string;
+    isSorted?: boolean;
+    field?: string;
+}
+
+interface TableProps extends BackgroundColor {
+    columns: Columns[];
+    columnSizes?: string[];
+    data?: DataTable[];
+    onSort?: (value: string) => void;
+    sortState?: SortConfig | null;
+}
+
+export const SortableUsersTable = ({
     columns,
     columnSizes = new Array<string>(columns.length).fill('200px'),
     data,
@@ -41,9 +56,9 @@ export const DeletedUsersTable = ({
             })}
         </TableHeader>
         <TableBody>
-            {data?.map(({ cells, routeId }, index) => {
+            {data?.map(({ cells, route }, index) => {
                 const onClick = () => {
-                    history.push(`${deletedUsersLink}/${routeId}`);
+                    history.push(`${route}`);
                 };
 
                 return (

@@ -13,6 +13,8 @@ import { Roles } from 'constants/defaults/users';
 import {
     authLink,
     blacklistedUsersLink,
+    blockedUserLink,
+    blockedUsersLink,
     createEmitterLink,
     createTeamLink,
     createTopicLink,
@@ -47,6 +49,8 @@ import { Error401 } from 'pages/401';
 import { Error403 } from 'pages/403';
 import { Login } from 'pages/Auth';
 import { Blacklisted } from 'pages/Blacklisted';
+import { BlockedUsers } from 'pages/BlockedUsers';
+import { BlockedUser } from 'pages/BlockedUsers/BlockedUser';
 import { CreateProduct } from 'pages/CreateProduct';
 import { CreateTeam } from 'pages/CreateTeam';
 import { CreateUser } from 'pages/CreateUser';
@@ -149,6 +153,18 @@ const App = () => {
                         accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
                         component={DeletedUser}
                         path={deletedUserLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={BlockedUsers}
+                        path={blockedUsersLink}
+                    />
+                    <PrivateRoute
+                        exact
+                        accessList={[Roles.SuperAdministrator, Roles.Administrator, Roles.ContentManager]}
+                        component={BlockedUser}
+                        path={blockedUserLink}
                     />
                     <PrivateRoute
                         exact
