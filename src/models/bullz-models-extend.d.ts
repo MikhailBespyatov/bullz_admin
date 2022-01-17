@@ -3,6 +3,11 @@ declare namespace BULLZ {
         removeValues: string[];
     }
 
+    export interface AdminGetUserCommon {
+        email?: string;
+        mobileNumber?: string;
+    }
+
     interface Pagination {
         pageIndex?: number;
         limit?: number;

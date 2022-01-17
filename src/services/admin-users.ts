@@ -39,3 +39,20 @@ export const getDeletedUsers = (data: BULLZ.QueryDeletedUsersRequest, cancelToke
         cancelToken,
         data
     });
+export const getBlockedUsers = (data: BULLZ.QueryDisabledUsersRequest, cancelToken?: CancelToken) =>
+    axios<BULLZ.QueryDisabledUsersResponse>({
+        url: '/admin/user/query-disabled',
+        cancelToken,
+        data
+    });
+
+export const blockUsersById = (data: BULLZ.AdminDisableUsersRequest) =>
+    axios<BULLZ.MessageResponseBase>({
+        url: '/admin/user/disable',
+        data
+    });
+export const enableUsersById = (data: BULLZ.AdminEnableUsersRequest) =>
+    axios<BULLZ.MessageResponseBase>({
+        url: '/admin/user/enable',
+        data
+    });

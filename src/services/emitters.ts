@@ -6,7 +6,7 @@ export const getEmitters = (data: BULLZ.AdminQueryPostsRequest) =>
         url: '/engagement/emitters/query',
         data
     });
-export const getEmitterById = (data: BULLZ.AdminGetEmitterInfoRequest, cancelToken?: CancelToken) =>
+export const getEmitterById = (data: BULLZ.GetEngagementEmittersRequest, cancelToken?: CancelToken) =>
     axios<BULLZ.AdminGetUserCommon>({
         url: '/engagement/emitters/get',
         cancelToken,
@@ -19,7 +19,7 @@ export const createEmitter = (data: BULLZ.CreatePromotionRequest) =>
         data
     });
 
-export const deleteEmitter = (data: BULLZ.AdminGetEmitterInfoRequest) =>
+export const deleteEmitter = (data: BULLZ.GetEngagementEmittersRequest) =>
     axios({
         url: '/engagement/emitters/delete',
         data

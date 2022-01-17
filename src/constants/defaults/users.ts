@@ -74,6 +74,17 @@ export const defaultDeletedUsersValues: BULLZ.QueryDeletedUsersRequest = {
     deletionReasons: undefined
 };
 
+export const defaultDisabledUsersValues: BULLZ.QueryDisabledUsersRequest = {
+    pageIndex: defaultPage,
+    limit: defaultLimit,
+    returnQueryCount: true,
+    fromUtcDisabled: undefined,
+    toUtcDisabled: undefined,
+    disablerUserId: undefined,
+    disabledUserId: undefined,
+    disablingReasons: undefined
+};
+
 export const ReasonDeletion = {
     0: 'None',
     1: 'Spamming',

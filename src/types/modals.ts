@@ -69,7 +69,7 @@ export interface DeleteOrBlockUserModalProps {
     userId: string;
     username: string;
     reasonsList: Array<{
-        value: BULLZ.UserDeletionReason;
+        value: BULLZ.UserDisablingReason;
         data: string;
     }>;
     onOk?: OkHandlerType;

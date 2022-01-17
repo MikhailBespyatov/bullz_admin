@@ -119,6 +119,26 @@ declare namespace BULLZ {
         userIds?: string /* objectId */[] | null;
     }
     /**
+     * adminDisableUsersRequest
+     */
+    export interface AdminDisableUsersRequest {
+        /**
+         * list1
+         * The users to be disabled.
+         */
+        users?: /* disableUserInfo */ DisableUserInfo[] | null;
+    }
+    /**
+     * adminEnableUsersRequest
+     */
+    export interface AdminEnableUsersRequest {
+        /**
+         * list1
+         * The users to be disabled.
+         */
+        users?: string /* objectId */[] | null;
+    }
+    /**
      * adminGetCountriesRequest
      */
     export interface AdminGetCountriesRequest {}
@@ -268,6 +288,10 @@ declare namespace BULLZ {
         isAccountVerified?: boolean;
         location?: /* location */ Location;
         /**
+         * boolean
+         */
+        isTrusted?: boolean;
+        /**
          * objectId
          * example:
          * 000000000000000000000000
@@ -319,10 +343,6 @@ declare namespace BULLZ {
          */
         isFreeStakingEligible?: boolean;
         /**
-         * boolean
-         */
-        isTrusted?: boolean;
-        /**
          * roles
          */
         roles?: string /* string */[] | null;
@@ -330,6 +350,14 @@ declare namespace BULLZ {
          * boolean
          */
         isDisabled?: boolean;
+        /**
+         * list1
+         */
+        disablingInfo?: /* userDisablingInfo */ UserDisablingInfo[] | null;
+        /**
+         * list1
+         */
+        enablingInfo?: /* userEnablingInfo */ UserEnablingInfo[] | null;
     }
     /**
      * adminGetUserRequest
@@ -341,14 +369,6 @@ declare namespace BULLZ {
          * example:
          * 000000000000000000000000
          */
-        id?: string; // objectId
-    }
-
-    export interface AdminGetEmittersRequest {
-        count: number; // objectId
-    }
-
-    export interface AdminGetEmitterInfoRequest {
         id?: string; // objectId
     }
     /**
@@ -743,6 +763,179 @@ declare namespace BULLZ {
         password: string;
     }
     /**
+     * bigQueryUserResponse
+     */
+    export interface BigQueryUserResponse {
+        /**
+         * string
+         */
+        username?: string | null;
+        /**
+         * string
+         */
+        email?: string | null;
+        /**
+         * string
+         */
+        mobileNumber?: string | null;
+        /**
+         * cultureInfo
+         * example:
+         * en-GB
+         */
+        locale?: string | null; // string
+        /**
+         * dateTime
+         */
+        utcCreated?: string; // date-time
+        /**
+         * string
+         */
+        country?: string | null;
+        /**
+         * string
+         */
+        region?: string | null;
+        /**
+         * string
+         */
+        city?: string | null;
+        /**
+         * string
+         */
+        urlInYasy?: string | null;
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+    }
+    /**
+     * bigQueryUsersRequest
+     */
+    export interface BigQueryUsersRequest {
+        /**
+         * uri
+         * Example: https://afjmjt-beta.yeay.com/users/
+         */
+        yasyUrlToUser?: string | null; // uri
+        /**
+         * string
+         * Regex for search users by username.
+         */
+        username?: string | null;
+        /**
+         * string
+         * Return the user by email address (fuzzy match).
+         */
+        email?: string | null;
+        /**
+         * string
+         * Return the user by mobile phone number
+         */
+        mobileNumber?: string | null;
+        /**
+         * nullable1
+         * True if only trusted users have to be returned otherwise false.
+         */
+        isTrusted?: boolean | null;
+        /**
+         * nullable1
+         * Sorts the users by latest active. Null to not apply the sort.
+         */
+        sortByActivityAsc?: boolean | null;
+        /**
+         * string
+         * Filter by user role.
+         */
+        role?: string | null;
+        /**
+         * cultureInfo
+         * Filter by user locale
+         * example:
+         * en-GB
+         */
+        locale?: string | null; // string
+        /**
+         * countryInfo
+         * Filter user by Country
+         * example:
+         * string
+         */
+        country?: string | null; // string
+        /**
+         * string
+         * Filter user by Region
+         */
+        region?: string | null;
+        /**
+         * string
+         * Sorts the results by field ascending (UtcCreated+asc) or descending (UtcCreated+desc).<br />
+         * Supported fields: UtcCreated, UtcLastAuthentication, UtcUpdated.
+         */
+        sortByField?: string | null;
+        /**
+         * dateTime
+         * Filter users created/updated/lastAuthenticated after this time.
+         */
+        fromUtcDateTime?: string; // date-time
+        /**
+         * dateTime
+         * Filter users created/updated/lastAuthenticated before this time.
+         */
+        toUtcDateTime?: string; // date-time
+        /**
+         * string
+         * Filter the results by date field.<br />
+         * Supported fields: UtcCreated, UtcLastAuthentication, UtcUpdated.
+         */
+        filterByDate?: string | null;
+        /**
+         * int32
+         */
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
+    }
+    /**
+     * bigQueryUsersResponse
+     */
+    export interface BigQueryUsersResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* bigQueryUserResponse */ BigQueryUserResponse[] | null;
+    }
+    /**
      * blockUserRequest
      */
     export interface BlockUserRequest {
@@ -825,6 +1018,10 @@ declare namespace BULLZ {
          */
         userName?: string | null;
         /**
+         * string
+         */
+        oldUserName?: string | null;
+        /**
          * boolean
          */
         isTrusted?: boolean;
@@ -844,7 +1041,7 @@ declare namespace BULLZ {
         VideoCurationState /* int32 */;
         curationEndedReason?: /**
          * curationEndedReason
-         * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+         * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
          */
         CurationEndedReason /* int32 */;
         reportedReason?: /**
@@ -991,6 +1188,80 @@ declare namespace BULLZ {
         highPositivity?: number; // double
     }
     /**
+     * countQueryResponse
+     */
+    export interface CountQueryResponse {
+        /**
+         * int32
+         */
+        queryCount?: number; // int32
+    }
+    /**
+     * countQueryUsersRequest
+     */
+    export interface CountQueryUsersRequest {
+        /**
+         * string
+         * Regex for search users by username.
+         */
+        username?: string | null;
+        /**
+         * string
+         * Return the user by email address (fuzzy match).
+         */
+        email?: string | null;
+        /**
+         * string
+         * Return the user by mobile phone number
+         */
+        mobileNumber?: string | null;
+        /**
+         * nullable1
+         * True if only trusted users have to be returned otherwise false.
+         */
+        isTrusted?: boolean | null;
+        /**
+         * string
+         * Filter by user role.
+         */
+        role?: string | null;
+        /**
+         * cultureInfo
+         * Filter by user locale
+         * example:
+         * en-GB
+         */
+        locale?: string | null; // string
+        /**
+         * countryInfo
+         * Filter user by Country
+         * example:
+         * string
+         */
+        country?: string | null; // string
+        /**
+         * string
+         * Filter user by Region
+         */
+        region?: string | null;
+        /**
+         * dateTime
+         * Filter users created/updated/lastAuthenticated after this time.
+         */
+        fromUtcDateTime?: string; // date-time
+        /**
+         * dateTime
+         * Filter users created/updated/lastAuthenticated before this time.
+         */
+        toUtcDateTime?: string; // date-time
+        /**
+         * string
+         * Filter the results by date field.<br />
+         * Supported fields: UtcCreated, UtcLastAuthentication, UtcUpdated.
+         */
+        filterByDate?: string | null;
+    }
+    /**
      * countryResponse
      */
     export interface CountryResponse {
@@ -1029,6 +1300,10 @@ declare namespace BULLZ {
          * int32
          */
         totalShares?: number; // int32
+        /**
+         * int32
+         */
+        totalLikes?: number; // int32
     }
     /**
      * createManagedProductAffiliateLinkRequest
@@ -1541,9 +1816,9 @@ declare namespace BULLZ {
     }
     /**
      * curationEndedReason
-     * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+     * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
      */
-    export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11; // int32
+    export type CurationEndedReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12; // int32
     /**
      * deleteEngagementEmittersRequest
      */
@@ -1661,6 +1936,28 @@ declare namespace BULLZ {
         deleterInfo?: /* shortUserInfo */ ShortUserInfo;
     }
     /**
+     * disableUserInfo
+     */
+    export interface DisableUserInfo {
+        /**
+         * objectId
+         * The id of user to be disabled.
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * list1
+         * Reason to delete
+         */
+        reasons?: /* userDisablingReason */ UserDisablingReason /* int32 */[] | null;
+        /**
+         * string
+         * An admin can leave the comment blank
+         */
+        comment?: string | null;
+    }
+    /**
      * domainSearchKey
      * <br/><br/>Values:<br/>0 = None<br/>1 = User<br/>2 = Video<br/>3 = HashTag<br/>4 = Product<br/>5 = Topic
      */
@@ -1720,6 +2017,18 @@ declare namespace BULLZ {
         /**
          * int32
          */
+        likesTotalTarget?: number; // int32
+        /**
+         * int32
+         */
+        likesEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        likesProgress?: number; // double
+        /**
+         * int32
+         */
         sharesTotalTarget?: number; // int32
         /**
          * int32
@@ -1735,6 +2044,51 @@ declare namespace BULLZ {
          * 000000000000000000000000
          */
         id: string; // objectId
+    }
+    /**
+     * engagementEmitterUserInfo
+     */
+    export interface EngagementEmitterUserInfo {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * string
+         */
+        userName?: string | null;
+        /**
+         * cultureInfo
+         * example:
+         * en-GB
+         */
+        locale?: string | null; // string
+        /**
+         * boolean
+         */
+        isTrusted?: boolean;
+        /**
+         * string
+         */
+        avatar?: string | null;
+    }
+    /**
+     * engagementEmitterVideoInfo
+     */
+    export interface EngagementEmitterVideoInfo {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        engagement?: /* videoEngagement */ VideoEngagement;
+        /**
+         * string
+         */
+        thumbnailUrl?: string | null;
     }
     /**
      * error400BadRequest
@@ -1999,6 +2353,91 @@ declare namespace BULLZ {
          * boolean
          */
         isAccountVerified?: boolean;
+    }
+    /**
+     * getEngagementEmitterResponse
+     */
+    export interface GetEngagementEmitterResponse {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        id?: string; // objectId
+        /**
+         * boolean
+         */
+        isActive?: boolean;
+        /**
+         * boolean
+         */
+        isPast?: boolean;
+        /**
+         * int32
+         */
+        likesEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        likesProgress?: number; // double
+        /**
+         * int32
+         */
+        likesTotalTarget?: number; // int32
+        /**
+         * int32
+         */
+        sharesEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        sharesProgress?: number; // double
+        /**
+         * int32
+         */
+        sharesTotalTarget?: number; // int32
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string; // objectId
+        /**
+         * dateTime
+         */
+        utcCreated?: string; // date-time
+        /**
+         * dateTime
+         */
+        utcEmitEnd?: string; // date-time
+        /**
+         * dateTime
+         */
+        utcEmitStart?: string; // date-time
+        /**
+         * nullable1
+         */
+        utcUpdated?: string | null; // date-time
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
+        /**
+         * int32
+         */
+        viewsEmitted?: number; // int32
+        /**
+         * decimal
+         */
+        viewsProgress?: number; // double
+        /**
+         * int32
+         */
+        viewsTotalTarget?: number; // int32
+        video?: /* engagementEmitterVideoInfo */ EngagementEmitterVideoInfo;
+        user?: /* engagementEmitterUserInfo */ EngagementEmitterUserInfo;
     }
     /**
      * getEngagementEmittersRequest
@@ -2596,6 +3035,10 @@ declare namespace BULLZ {
          * int32
          */
         totalShares?: number; // int32
+        /**
+         * int32
+         */
+        totalLikes?: number; // int32
     }
     /**
      * getTrendVideosResponse
@@ -3257,6 +3700,31 @@ declare namespace BULLZ {
      * identityType
      */
     export type IdentityType = 0 | 1 | 2 | 3; // int32
+    /**
+     * initializeWebRecorderRequest
+     */
+    export interface InitializeWebRecorderRequest {
+        /**
+         * string
+         */
+        organizationPublicId?: string | null;
+        remoteProduct?: /* remoteProductDescription */ RemoteProductDescription;
+    }
+    /**
+     * initializeWebRecorderResponse
+     */
+    export interface InitializeWebRecorderResponse {
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        productId?: string; // objectId
+        /**
+         * boolean
+         */
+        isCreatedNew?: boolean;
+    }
     /**
      * joinTeamRequest
      */
@@ -4473,13 +4941,254 @@ declare namespace BULLZ {
         items?: /* deletedUserResponse */ DeletedUserResponse[] | null;
     }
     /**
+     * queryDisabledUsersRequest
+     */
+    export interface QueryDisabledUsersRequest {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        disabledUserId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        disablerUserId?: string | null; // objectId
+        /**
+         * nullable1
+         */
+        fromUtcDisabled?: string | null; // date-time
+        /**
+         * nullable1
+         */
+        toUtcDisabled?: string | null; // date-time
+        /**
+         * list1
+         * Values:
+         * 0 = None
+         * 1 = Spamming
+         * 2 = Copyright
+         * 3 = Inappropriate
+         * 4 = Collusion
+         * 5 = FakeAccount
+         * 6 = Requested
+         */
+        disablingReasons?: /* userDisablingReason */ UserDisablingReason /* int32 */[] | null;
+        /**
+         * string
+         */
+        email?: string | null;
+        /**
+         * string
+         */
+        mobileNumber?: string | null;
+        /**
+         * int32
+         */
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
+    }
+    /**
+     * queryDisabledUsersResponse
+     */
+    export interface QueryDisabledUsersResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* adminGetUserCommon */ AdminGetUserCommon[] | null;
+    }
+    /**
+     * queryEnabledUsersRequest
+     */
+    export interface QueryEnabledUsersRequest {
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        enabledUserId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        enablerUserId?: string | null; // objectId
+        /**
+         * nullable1
+         */
+        fromUtcEnabled?: string | null; // date-time
+        /**
+         * nullable1
+         */
+        toUtcEnabled?: string | null; // date-time
+        /**
+         * string
+         */
+        email?: string | null;
+        /**
+         * string
+         */
+        mobileNumber?: string | null;
+        /**
+         * int32
+         */
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
+    }
+    /**
+     * queryEnabledUsersResponse
+     */
+    export interface QueryEnabledUsersResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* adminGetUserCommon */ AdminGetUserCommon[] | null;
+    }
+    /**
+     * queryEngagementEmitterResponse
+     */
+    export interface QueryEngagementEmitterResponse {
+        /**
+         * dictionary2
+         */
+        queryStatistics?: {
+            [name: string]: string;
+        } | null;
+        /**
+         * int32
+         */
+        totalPages?: number; // int32
+        /**
+         * int32
+         */
+        currentPageIndex?: number; // int32
+        /**
+         * int32
+         */
+        totalRecords?: number; // int32
+        /**
+         * int32
+         */
+        returnedRecords?: number; // int32
+        /**
+         * list1
+         */
+        items?: /* getEngagementEmitterResponse */ GetEngagementEmitterResponse[] | null;
+    }
+    /**
      * queryEngagementEmittersRequest
      */
     export interface QueryEngagementEmittersRequest {
         /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        emitId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string | null; // objectId
+        /**
+         * nullable1
+         * example:
+         * 000000000000000000000000
+         */
+        userId?: string | null; // objectId
+        /**
+         * nullable1
+         */
+        fromUtcCreated?: string | null; // date-time
+        /**
+         * nullable1
+         */
+        toUtcCreated?: string | null; // date-time
+        /**
+         * boolean
+         */
+        isActive?: boolean;
+        /**
+         * boolean
+         */
+        isPast?: boolean;
+        /**
+         * string
+         */
+        sort?: string | null;
+        /**
          * int32
          */
-        count?: number; // int32
+        pageIndex: number; // int32
+        /**
+         * int32
+         */
+        limit: number; // int32
+        /**
+         * boolean
+         */
+        returnQueryCount?: boolean;
     }
     /**
      * queryFacilitatorInfoResponse
@@ -5974,6 +6683,31 @@ declare namespace BULLZ {
      */
     export interface RegisterAggregatedEventResponse {}
     /**
+     * remoteProductDescription
+     */
+    export interface RemoteProductDescription {
+        /**
+         * string
+         */
+        publicId?: string | null;
+        /**
+         * string
+         */
+        name?: string | null;
+        /**
+         * string
+         */
+        brand?: string | null;
+        /**
+         * string
+         */
+        url?: string | null;
+        /**
+         * string
+         */
+        imageUrl?: string | null;
+    }
+    /**
      * removeTeamMemberRequest
      */
     export interface RemoveTeamMemberRequest {
@@ -6235,7 +6969,7 @@ declare namespace BULLZ {
         isApproved?: boolean;
         reason?: /**
          * curationEndedReason
-         * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage
+         * Bullz video curation ended reason. Currently has only rejection reasons. May be extended to support acceptance reasons.<br/><br/>Values:<br/>0 = None<br/>1 = DeclineRequested<br/>2 = Inappropriate<br/>3 = GraphicContent<br/>4 = Violence<br/>5 = Copyright<br/>6 = TestVideo<br/>7 = IncorrectFormat<br/>8 = UserRequested<br/>9 = Other<br/>10 = NotProductRecommendation<br/>11 = WrongLanguage<br/>12 = QualityGuidelines
          */
         CurationEndedReason /* int32 */;
     }
@@ -6549,6 +7283,10 @@ declare namespace BULLZ {
          * int32
          */
         totalShares?: number; // int32
+        /**
+         * int32
+         */
+        totalLikes?: number; // int32
     }
     /**
      * updatePostRequest
@@ -6728,6 +7466,23 @@ declare namespace BULLZ {
          * <br/><br/>Values:<br/>0 = None<br/>100 = Tag<br/>200 = Video<br/>300 = User
          */
         TrendingType /* int32 */;
+    }
+    /**
+     * updateUserVideoRequest
+     */
+    export interface UpdateUserVideoRequest {
+        /**
+         * objectId
+         * Id of the video.
+         * example:
+         * 000000000000000000000000
+         */
+        videoId?: string; // objectId
+        /**
+         * string
+         * Link of topic.
+         */
+        link?: string | null;
     }
     /**
      * updateVideoCuratorRequest
@@ -6971,6 +7726,48 @@ declare namespace BULLZ {
      * userDeletionReason
      */
     export type UserDeletionReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // int32
+    /**
+     * userDisablingInfo
+     */
+    export interface UserDisablingInfo {
+        /**
+         * dateTime
+         */
+        utcDisabled?: string; // date-time
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        disablerId?: string; // objectId
+        /**
+         * list1
+         */
+        reasons?: /* userDisablingReason */ UserDisablingReason /* int32 */[] | null;
+        /**
+         * string
+         */
+        comment?: string | null;
+    }
+    /**
+     * userDisablingReason
+     */
+    export type UserDisablingReason = 0 | 1 | 2 | 3 | 4 | 5 | 6; // int32
+    /**
+     * userEnablingInfo
+     */
+    export interface UserEnablingInfo {
+        /**
+         * dateTime
+         */
+        utcEnabled?: string; // date-time
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        enablerId?: string; // objectId
+    }
     /**
      * userFollowHashTagRequest
      */
@@ -7538,6 +8335,53 @@ declare namespace BULLZ {
      */
     export type VideoDetailsValidationWOMRejectionReason = 0 | 1 | 2; // int32
     /**
+     * videoEngagement
+     */
+    export interface VideoEngagement {
+        /**
+         * int32
+         */
+        likeCount?: number; // int32
+        /**
+         * int32
+         */
+        viewCount?: number; // int32
+        /**
+         * int32
+         */
+        shareCount?: number; // int32
+        /**
+         * int32
+         */
+        commentCount?: number; // int32
+        /**
+         * int32
+         */
+        saveCount?: number; // int32
+        /**
+         * int32
+         */
+        clickCount?: number; // int32
+        /**
+         * int32
+         */
+        ratingCount?: number; // int32
+        /**
+         * int32
+         */
+        buyCount?: number; // int32
+        /**
+         * int32
+         */
+        total?: number; // int32
+        /**
+         * objectId
+         * example:
+         * 000000000000000000000000
+         */
+        lastSyncSessionId?: string; // objectId
+    }
+    /**
      * videoEngagementScore
      */
     export interface VideoEngagementScore {
@@ -7555,6 +8399,10 @@ declare namespace BULLZ {
          * int32
          */
         maxShareCount?: number; // int32
+        /**
+         * int32
+         */
+        maxLikeCount?: number; // int32
     }
     /**
      * videoExclusivityResponse
@@ -8137,6 +8985,26 @@ declare namespace Paths {
             }
         }
     }
+    namespace AdminUserDisable {
+        namespace Post {
+            export type RequestBody = /* adminDisableUsersRequest */ Components.Schemas.AdminDisableUsersRequest;
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminUserEnable {
+        namespace Post {
+            export type RequestBody = /* adminEnableUsersRequest */ Components.Schemas.AdminEnableUsersRequest;
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
     namespace AdminUserGet {
         namespace Post {
             export type RequestBody = /* adminGetUserRequest */ Components.Schemas.AdminGetUserRequest;
@@ -8173,6 +9041,36 @@ declare namespace Paths {
             export type RequestBody = /* queryBlacklistedUsersRequest */ Components.Schemas.QueryBlacklistedUsersRequest;
             namespace Responses {
                 export type $200 = /* queryBlacklistedUsersResponse */ Components.Schemas.QueryBlacklistedUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminUserQueryDeleted {
+        namespace Post {
+            export type RequestBody = /* queryDeletedUsersRequest */ Components.Schemas.QueryDeletedUsersRequest;
+            namespace Responses {
+                export type $200 = /* queryDeletedUsersResponse */ Components.Schemas.QueryDeletedUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminUserQueryDisabled {
+        namespace Post {
+            export type RequestBody = /* queryDisabledUsersRequest */ Components.Schemas.QueryDisabledUsersRequest;
+            namespace Responses {
+                export type $200 = /* queryDisabledUsersResponse */ Components.Schemas.QueryDisabledUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace AdminUserQueryEnabled {
+        namespace Post {
+            export type RequestBody = /* queryEnabledUsersRequest */ Components.Schemas.QueryEnabledUsersRequest;
+            namespace Responses {
+                export type $200 = /* queryEnabledUsersResponse */ Components.Schemas.QueryEnabledUsersResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }
@@ -8436,6 +9334,76 @@ declare namespace Paths {
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace EngagementEmittersCreate {
+        namespace Post {
+            export type RequestBody = /* createEngagementEmitterRequest */ Components.Schemas.CreateEngagementEmitterRequest;
+            namespace Responses {
+                export type $200 = /* engagementEmitter */ Components.Schemas.EngagementEmitter;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementEmittersDelete {
+        namespace Post {
+            export type RequestBody = /* deleteEngagementEmittersRequest */ Components.Schemas.DeleteEngagementEmittersRequest;
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementEmittersGet {
+        namespace Post {
+            export type RequestBody = /* getEngagementEmittersRequest */ Components.Schemas.GetEngagementEmittersRequest;
+            namespace Responses {
+                export type $200 = /* getEngagementEmitterResponse */ Components.Schemas.GetEngagementEmitterResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementEmittersQuery {
+        namespace Post {
+            export type RequestBody = /* queryEngagementEmittersRequest */ Components.Schemas.QueryEngagementEmittersRequest;
+            namespace Responses {
+                export type $200 = /* queryEngagementEmitterResponse */ Components.Schemas.QueryEngagementEmitterResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementEmittersUpdate {
+        namespace Post {
+            export type RequestBody = /* updateEngagementEmitterRequest */ Components.Schemas.UpdateEngagementEmitterRequest;
+            namespace Responses {
+                export type $200 = /* engagementEmitter */ Components.Schemas.EngagementEmitter;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementGetScores {
+        namespace Post {
+            export type RequestBody = /* getEngagementScoresRequest */ Components.Schemas.GetEngagementScoresRequest;
+            namespace Responses {
+                export type $200 = /* videoEngagementScore */ Components.Schemas.VideoEngagementScore;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementGetTotalEmitted {
+        namespace Post {
+            export type RequestBody = /* getTotalEmittedEngagementRequest */ Components.Schemas.GetTotalEmittedEngagementRequest;
+            namespace Responses {
+                export type $200 = /* getTotalEmittedEngagementResponse */ Components.Schemas.GetTotalEmittedEngagementResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
             }
         }
     }
@@ -8725,6 +9693,28 @@ declare namespace Paths {
             export type RequestBody = /* createMarketingStatisticsRequest */ Components.Schemas.CreateMarketingStatisticsRequest;
             namespace Responses {
                 export type $200 = /* marketingStatisticsResponse */ Components.Schemas.MarketingStatisticsResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace SuperAdminUserBigQuery {
+        namespace Post {
+            export type RequestBody = /* bigQueryUsersRequest */ Components.Schemas.BigQueryUsersRequest;
+            namespace Responses {
+                export type $200 = /* bigQueryUsersResponse */ Components.Schemas.BigQueryUsersResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace SuperAdminUserBigQueryCount {
+        namespace Post {
+            export type RequestBody = /* countQueryUsersRequest */ Components.Schemas.CountQueryUsersRequest;
+            namespace Responses {
+                export type $200 = /* countQueryResponse */ Components.Schemas.CountQueryResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
@@ -9409,6 +10399,18 @@ declare namespace Paths {
             }
         }
     }
+    namespace VideoUpdate {
+        namespace Post {
+            export type RequestBody = /* updateUserVideoRequest */ Components.Schemas.UpdateUserVideoRequest;
+            namespace Responses {
+                export type $200 = /* messageResponseBase */ Components.Schemas.MessageResponseBase;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+                export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+                export type $409 = /* error409ConflictResponse */ Components.Schemas.Error409ConflictResponse;
+            }
+        }
+    }
     namespace VoucherGet {
         namespace Post {
             export type RequestBody = /* getVoucherTransactionRequest */ Components.Schemas.GetVoucherTransactionRequest;
@@ -9472,6 +10474,16 @@ declare namespace Paths {
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
                 export type $404 = /* error404NotFoundResponse */ Components.Schemas.Error404NotFoundResponse;
+            }
+        }
+    }
+    namespace WebRecorderRemoteProductInitialize {
+        namespace Post {
+            export type RequestBody = /* initializeWebRecorderRequest */ Components.Schemas.InitializeWebRecorderRequest;
+            namespace Responses {
+                export type $200 = /* initializeWebRecorderResponse */ Components.Schemas.InitializeWebRecorderResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
             }
         }
     }

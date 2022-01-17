@@ -12,7 +12,7 @@
 */
 
 export const deleteReasonsList: Array<{
-    value: BULLZ.UserDeletionReason;
+    value: BULLZ.UserDisablingReason;
     data: string;
 }> = [
     {

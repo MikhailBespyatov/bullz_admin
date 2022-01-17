@@ -106,4 +106,5 @@ export interface DataTable extends Alignment {
     cells: React.ReactNode[];
     isCheckedRow?: boolean;
     routeId?: string;
+    route?: string;
 }
