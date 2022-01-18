@@ -103,5 +103,9 @@ export const reasonRadioArray: Array<{
     {
         value: 11,
         data: 'Wrong Language'
+    },
+    {
+        value: 12,
+        data: 'Quality Guidelines'
     }
 ];
