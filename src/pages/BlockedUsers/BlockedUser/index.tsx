@@ -168,6 +168,7 @@ export const BlockedUser = () => {
                             </Section>
                             <Section marginBottom="16px">
                                 <PropertyBlock
+                                    notEllipsisSubtitle
                                     backgroundColor={propertyBackground}
                                     marginRight="16px"
                                     minHeight={propertyHeight}
