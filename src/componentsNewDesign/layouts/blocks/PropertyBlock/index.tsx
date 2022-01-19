@@ -91,6 +91,7 @@ export interface PropertyBlockProps
     customCopyIcon?: string;
     isLink?: boolean;
     fontSize?: string;
+    notEllipsisSubtitle?: boolean;
 }
 
 export const PropertyBlock = ({
@@ -106,6 +107,7 @@ export const PropertyBlock = ({
     isTrusted,
     backgroundColor,
     isLink,
+    notEllipsisSubtitle,
     ...props
 }: PropertyBlockProps) => (
     <BlockWrapper backgroundColor={backgroundColor} {...props}>
@@ -141,7 +143,11 @@ export const PropertyBlock = ({
                 ) : (
                     <SubtitleIdLink id={subtitle} linkRoute={linkRoute}>
                         <BlockSubTitle color={white}>
-                            {subtitle !== defaultMongoDBId && !!subtitle ? getEllipsisAddress(subtitle) : 'Empty'}
+                            {subtitle !== defaultMongoDBId && !!subtitle
+                                ? notEllipsisSubtitle
+                                    ? subtitle
+                                    : getEllipsisAddress(subtitle)
+                                : 'Empty'}
                         </BlockSubTitle>
                         {isTrusted && (
                             <MarginWrapper marginLeft="8px">
