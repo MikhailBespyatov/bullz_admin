@@ -10,6 +10,7 @@ import { ContentText } from 'componentsNewDesign/common/typography/ContentText/s
 import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import {
     arrowDiameter,
+    getTargetRegionsArray,
     imageRequiredMessage,
     imageWrapperBorderRadius,
     imageWrapperHeight,
@@ -23,18 +24,24 @@ import {
     textFontWeight,
     wrapperPadding
 } from 'componentsNewDesign/layouts/cards/PromotionCard/constants';
-import { ImageContainer, PromotionCardButton } from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
+import {
+    ImageContainer,
+    ItemClickableWrapper,
+    LocationsListWrapper,
+    PromotionCardButton
+} from 'componentsNewDesign/layouts/cards/PromotionCard/styles';
 import { UploadPromotionImgPopover } from 'componentsNewDesign/modals/popovers/marketingTools/UploadPromotionImgPopover';
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
 import { Column, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
+import { RelativeWrapper } from 'componentsNewDesign/wrappers/grid/RelativeWrapper';
 import { ScrollableWrapper } from 'componentsNewDesign/wrappers/ScrollableWrapper';
 import { marketingToolsLink } from 'constants/routes';
 import { black, errorColor, green2, grey23, grey28, white } from 'constants/styles/colors';
 import { useField } from 'effector-forms/dist';
 import { useStore } from 'effector-react';
-import React, { KeyboardEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { promotionForm } from 'stores/forms/promotionForm';
 import {
@@ -42,6 +49,7 @@ import {
     informationalModal,
     promotionCreatedCongratsModal
 } from 'stores/initialize/initialize.modal.store';
+import { locationEffects, locationStores } from 'stores/location/location';
 import { promotionsEffects, promotionsEvents, promotionsStores } from 'stores/promotions/promotions';
 
 const { /*createPromotion,*/ updatePromotion } = promotionsEffects;
@@ -49,6 +57,7 @@ const { invokeGetItems } = promotionsEvents;
 const { openModal: openCongratsModal } = promotionCreatedCongratsModal;
 const { openModal: openInfoModal } = informationalModal;
 const { openModal: openConfirmActivationModal } = confirmPromotionActivationModal;
+const { loadListOfCountries } = locationEffects;
 
 interface ParamsProps {
     promotionId: string;
@@ -61,6 +70,7 @@ export const PromotionCard = () => {
     /*isValid: isEndDateValid ,validate: validateEndDate*/
     const { promotionId } = useParams<ParamsProps>();
     const { items: promotions } = useStore(promotionsStores.promotions);
+    const { countries } = useStore(locationStores.countriesList);
     const [isCardLoading, setIsCardLoading] = useState(false);
     const isUpdatePending = useStore(updatePromotion.pending);
     const [currentlyActivePromotion, setCurrentlyActivePromotion] = useState<BULLZ.GetAdminPromotionResponse>({});
@@ -86,14 +96,44 @@ export const PromotionCard = () => {
 
     const [location, setLocation] = useState<string>('');
 
-    const addNewLocation = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            !targetRegions.some((item: string) => e.currentTarget.value === item) &&
-                onTargetRegionsChange([...targetRegions, e.currentTarget.value]);
-            setLocation('');
+    const [locationsList, setLocationsList] = useState<BULLZ.CountryResponse[]>();
+
+    const onLocationChange = (value: string) => {
+        setLocation(value);
+
+        if (value.length > 1) {
+            const locationsList = countries?.filter(item =>
+                item.countryName?.toLowerCase().includes(value.toLowerCase())
+            );
+            setLocationsList(locationsList);
         }
     };
-    const removeLocation = (name: string) => onTargetRegionsChange(targetRegions.filter(i => i !== name));
+
+    const addNewLocation = ({ countryCode, countryName }: BULLZ.CountryResponse) => {
+        !targetRegions.some(item => countryName === item.countryName) &&
+            onTargetRegionsChange([...targetRegions, { countryCode, countryName }]);
+        setLocation('');
+    };
+
+    const clearLocationInput = () => {
+        setLocation('');
+        setLocationsList([]);
+    };
+
+    // const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    //     if (e.key === 'Enter') {
+    //         addNewLocation(e.currentTarget.value);
+    //         setLocationsList([]);
+    //     }
+    // };
+
+    const onLocationSelect = (countryCode: string, countryName: string) => {
+        addNewLocation({ countryCode, countryName });
+        setLocationsList([]);
+    };
+
+    const removeLocation = (name: string) =>
+        onTargetRegionsChange(targetRegions.filter(item => item.countryName !== name));
 
     const onDateRangeClick = (dateRange: [string, string]) => {
         onStartDateChange(dateRange[0]);
@@ -136,7 +176,7 @@ export const PromotionCard = () => {
             id: id,
             userAgeRanges: ageRanges.length ? ageRanges : undefined, //! no in design
             userGenders: userGenders.length ? userGenders : undefined, //! no in design
-            geoLocations: targetRegions.length ? targetRegions : undefined,
+            geoLocations: targetRegions.length ? targetRegions.map(item => item.countryCode || '') : [],
             pageLocation: pageRoute,
             isActive: isPromotionActive ? !toggleButtonIsActive : toggleButtonIsActive
             //name: promotionName //! There is no name in update request
@@ -167,7 +207,6 @@ export const PromotionCard = () => {
             const selectedPromotion = promotions?.find(item => item.id === promotionId);
 
             setId(promotionId);
-            selectedPromotion?.location && setTargetRegions(selectedPromotion.location);
             selectedPromotion?.pageLocation && setPageRoute(selectedPromotion.pageLocation);
             selectedPromotion?.isActive !== undefined && setIsPromotionActive(selectedPromotion.isActive);
             selectedPromotion?.icon && setImageUrl(selectedPromotion?.icon);
@@ -176,6 +215,15 @@ export const PromotionCard = () => {
             selectedPromotion?.isActive
                 ? setToggleButtonText('Deactivate Promotion')
                 : setToggleButtonText('Activate Promotion');
+
+            if (selectedPromotion?.location?.length && countries?.length) {
+                const targetRegions: BULLZ.CountryResponse[] = getTargetRegionsArray(
+                    countries,
+                    selectedPromotion.location
+                );
+
+                setTargetRegions(targetRegions);
+            }
 
             setIsCardLoading(false);
         }
@@ -190,6 +238,12 @@ export const PromotionCard = () => {
         invokeGetItems();
         setToggleButtonIsActive(false);
     }, [promotionId]);
+
+    useEffect(() => {
+        loadListOfCountries();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -229,7 +283,7 @@ export const PromotionCard = () => {
                             padding="8px"
                             width={imageWrapperWidth}
                         >
-                            <ImageContainer>
+                            <ImageContainer withDecoration={!imageUrl}>
                                 {imageUrl ? (
                                     <Section alignCenter justifyCenter height="100%">
                                         <UploadPromotionImgPopover id={id} type="down">
@@ -285,29 +339,48 @@ export const PromotionCard = () => {
                                 Target regions
                             </ContentText>
                             <Section marginTop="5px">
-                                <TextInput
-                                    borderBottom={inputBorderBottom}
-                                    placeholder={targetRegionsPlaceholder}
-                                    value={location}
-                                    onChange={setLocation}
-                                    onClick={() => setLocation('')}
-                                    onKeyDown={addNewLocation}
-                                />
+                                <RelativeWrapper>
+                                    <TextInput
+                                        borderBottom={inputBorderBottom}
+                                        placeholder={targetRegionsPlaceholder}
+                                        value={location}
+                                        onChange={onLocationChange}
+                                        onClick={clearLocationInput}
+                                        //onKeyDown={onKeyDown}
+                                    />
+                                    {!!location && !!locationsList?.length && (
+                                        <LocationsListWrapper>
+                                            {locationsList?.map(item => {
+                                                const { countryCode, countryName } = item;
+                                                return countryName && countryCode ? (
+                                                    <ItemClickableWrapper
+                                                        key={countryCode}
+                                                        onClick={() => onLocationSelect(countryCode, countryName)}
+                                                    >
+                                                        {countryName}
+                                                    </ItemClickableWrapper>
+                                                ) : undefined;
+                                            })}
+                                        </LocationsListWrapper>
+                                    )}
+                                </RelativeWrapper>
                             </Section>
                             <Section marginBottom="16px">
                                 {!!targetRegions?.length && (
                                     <ContentWrapper height="50px" padding={regionTagsPadding} width="100%">
                                         <ScrollableWrapper maxHeight="50px" overflowY="scroll" width="100%">
-                                            {targetRegions.map((item: string) => (
-                                                <RemovableHashtag
-                                                    key={item}
-                                                    subject={item}
-                                                    text={item}
-                                                    type="video"
-                                                    untouchable={false}
-                                                    onRemove={removeLocation}
-                                                />
-                                            ))}
+                                            {targetRegions.map((item: BULLZ.CountryResponse) =>
+                                                item.countryName ? (
+                                                    <RemovableHashtag
+                                                        key={item.countryName}
+                                                        subject={item.countryName}
+                                                        text={item.countryName}
+                                                        type="video"
+                                                        untouchable={false}
+                                                        onRemove={removeLocation}
+                                                    />
+                                                ) : undefined
+                                            )}
                                         </ScrollableWrapper>
                                     </ContentWrapper>
                                 )}

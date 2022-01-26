@@ -1,6 +1,7 @@
 import axios, { CancelTokenSource } from 'axios';
 import { createEffect, createEvent, createStore } from 'effector';
 import { API } from 'services';
+import { message } from 'stores/alerts';
 import { initializeIsFirstStore } from 'stores/initialize/initialize.isFirst.store';
 import { initializeToggleStore } from 'stores/initialize/initialize.toggle.store';
 import { defaultPromotionsValues } from '../../constants/defaults/promotion';
@@ -34,6 +35,8 @@ const updatePromotion = createEffect({
             updateLoading();
             const response = await API.promotions.updatePromotion(values);
             updateLoading();
+
+            response.isSuccess && message.success('Promotion was updated');
 
             return response;
         } catch {
