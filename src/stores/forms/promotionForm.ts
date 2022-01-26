@@ -64,7 +64,7 @@ export const promotionForm = createForm({
             // ]
         },
         targetRegions: {
-            init: [] as string[]
+            init: [] as BULLZ.CountryResponse[]
             // validateOn: ['change'],
             // rules: [
             //     {

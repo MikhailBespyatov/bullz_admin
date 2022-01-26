@@ -65,7 +65,7 @@ export const UploadPromotionImgPopover: FC<PopoverProps> = ({ id, ...rest }) => 
             promotionId = await createPromotion({
                 userAgeRanges: ageRanges, //! no in design
                 userGenders, //! no in design
-                location: targetRegions,
+                location: targetRegions.length ? targetRegions.map(item => item.countryCode || '') : [],
                 pageLocation: pageRoute
                 //name: promotionName, //! There is no promotionName in create request
                 //isActive: isPromotionActive, //! There is no status in create request

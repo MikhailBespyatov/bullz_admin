@@ -13,3 +13,11 @@ export const imageRequiredMessage = 'Please upload an image';
 export const textFontSize = '12px';
 export const textFontWeight = '500';
 export const regionTagsPadding = '10px 13px 13px 0px';
+
+export const getTargetRegionsArray = (countriesList: BULLZ.CountryResponse[], countryCodes: string[]) => {
+    const targetRegionsArray = countryCodes
+        .map(countryCode => countriesList.find(item => item?.countryCode?.toLowerCase() === countryCode.toLowerCase()))
+        .filter((item): item is BULLZ.CountryResponse => !!item?.countryCode && !!item.countryName);
+
+    return targetRegionsArray;
+};
