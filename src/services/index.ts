@@ -10,6 +10,7 @@ import * as media from './media';
 import * as playlist from './playlist';
 import * as promotions from './promotions';
 import * as statistics from './statistics';
+import * as superAdmin from './super-admin';
 import * as team from './team';
 import * as user from './user';
 import * as video from './video';
@@ -31,5 +32,6 @@ export const API = {
     statistics,
     location,
     promotions,
-    emitters
+    emitters,
+    superAdmin
 };

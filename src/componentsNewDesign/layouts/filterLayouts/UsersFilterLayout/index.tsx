@@ -1,11 +1,14 @@
 import { ResetSearchButton } from 'componentsNewDesign/common/buttons/ResetButton';
+import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { CheckboxFilter } from 'componentsNewDesign/common/inputs/CheckboxFilter';
+import { DateRangePicker } from 'componentsNewDesign/common/inputs/DateRangePicker';
 import { NestedSelect } from 'componentsNewDesign/common/inputs/NestedSelect';
 import { FilterParameters, selectorsArray } from 'componentsNewDesign/common/inputs/NestedSelect/constants';
 import { SearchInput } from 'componentsNewDesign/common/inputs/SearchInput';
 import { Select } from 'componentsNewDesign/common/inputs/Select';
 import { Footer, TrendingsFooter } from 'componentsNewDesign/grid/Footer';
 import { SearchWrapperLayout } from 'componentsNewDesign/layouts/blocks/SearchWrapperLayout';
+import { BigQueryModal } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/BigQueryModal';
 import {
     defaultSearchParameters,
     LocaleSelectorProps,
@@ -21,11 +24,12 @@ import {
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/styles';
 import { Pagination } from 'componentsNewDesign/layouts/Pagination';
 import { paginationHeight } from 'componentsNewDesign/layouts/Pagination/constants';
-import { FlexGrow, Row } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
+import { FlexGrow, Row, Section } from 'componentsNewDesign/wrappers/grid/FlexWrapper';
 import { MarginWrapper } from 'componentsNewDesign/wrappers/grid/MarginWrapper';
 import { defaultLimit, defaultPage } from 'constants/defaults/filterSettings';
-import { Roles, sortTagsUsersData, sortTagsUsersValues } from 'constants/defaults/users';
+import { Roles, sortByDate, sortTagsUsersData, sortTagsUsersValues } from 'constants/defaults/users';
 import { mongoDbObjectIdRegExp } from 'constants/regularExpressions';
+import { black, white } from 'constants/styles/colors';
 import { filterMargin, xs } from 'constants/styles/sizes';
 import { useStore } from 'effector-react';
 import { useQueryParams } from 'hooks/queryParams';
@@ -37,12 +41,14 @@ import {
     userIdSearchPlaceholder,
     usernameSearchPlaceholder
 } from 'pages/Users/constants';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { locationEffects, locationStores } from 'stores/location/location';
 import { mobileHeaderStores } from 'stores/mobileHeader';
+import { superAdminEffects } from 'stores/superAdmin';
 import { usersEffects, usersEvents, usersStores } from 'stores/users/users';
 import { SearchParameters, TotalRecords, WithoutFooter } from 'types/data';
+import { daysBeforeDate } from 'utils/usefulFunctions';
 
 const { setId, updateValues, invokeGetItems, setIsFirstToFalse } = usersEvents;
 const { loadItemById } = usersEffects;
@@ -65,13 +71,26 @@ interface Props extends TotalRecords, WithoutFooter {}
 
 export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFooter }) => {
     const isFirst = useStore(usersStores.isFirst);
-    const { pageIndex, limit, role, username, isTrusted, email, mobileNumber, country, region, locale } = useStore(
-        usersStores.values
-    );
+    const {
+        pageIndex,
+        limit,
+        role,
+        username,
+        isTrusted,
+        email,
+        mobileNumber,
+        country,
+        region,
+        locale,
+        fromUtcDateTime,
+        toUtcDateTime,
+        filterByDate
+    } = useStore(usersStores.values);
     const defaultSelectedItemType = country ? 'country' : region ? 'region' : 'locale';
     const location = useStore(locationStores.locationList);
     const regionsListIsLoading = useStore(locationEffects.loadListOfRegionsByCountry.pending);
     //console.log('defaultSelectedItemType', defaultSelectedItemType);
+    const [bigQueryModalOpened, setBigQueryModalOpened] = useState(false);
 
     const defaultId = useStore(usersStores.getRequestId);
     const [queryParams, setQueryParams] = useQueryParams<UsersQueryParams>(updateQueryValues);
@@ -80,6 +99,20 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
 
     const filterVisible = useStore(mobileHeaderStores.filterVisible);
     const searchVisible = useStore(mobileHeaderStores.searchVisible);
+
+    const bigQueryCountValues = {
+        fromUtcDateTime: fromUtcDateTime,
+        toUtcDateTime: toUtcDateTime,
+        filterByDate: filterByDate,
+        role: role,
+        username: username,
+        isTrusted: isTrusted,
+        email: email,
+        mobileNumber: mobileNumber,
+        country: country,
+        region: region,
+        locale: locale
+    };
 
     const onUsernameSearch = (name: string) => {
         setId('');
@@ -165,6 +198,36 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
         });
     };
 
+    const onDateSelect = (index: number) => {
+        if (index === 0) {
+            updateValues({
+                fromUtcDateTime: undefined,
+                toUtcDateTime: undefined,
+                filterByDate: undefined,
+                pageIndex: defaultPage
+            });
+        } else {
+            updateValues({
+                filterByDate: sortByDate[index],
+                pageIndex: defaultPage
+            });
+        }
+    };
+
+    const onDateRangeClick = (dateRange: [string, string]) => {
+        const dayCount = 30;
+        const defaultDateFrom = dateRange[1] && daysBeforeDate(dateRange[1], dayCount);
+        const defaultDateTo = new Date().toISOString();
+        const dateFrom = dateRange[0] !== '' ? dateRange[0] : defaultDateFrom;
+        const dateTo = dateRange[1] !== '' ? dateRange[1] : defaultDateTo;
+
+        updateValues({
+            fromUtcDateTime: dateFrom,
+            toUtcDateTime: dateTo,
+            pageIndex: defaultPage
+        });
+    };
+
     const resetFilters = () => {
         setQueryParams({});
         document.location.reload();
@@ -207,6 +270,15 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
             regExp: mobileNumberRegExp
         }
     ];
+
+    const onDownloadClick = () => {
+        superAdminEffects.getBigQueryCount(bigQueryCountValues);
+        setBigQueryModalOpened(true);
+    };
+
+    const onCloseBigQueryModal = () => {
+        setBigQueryModalOpened(false);
+    };
 
     useEffect(() => {
         if (isFirst && !queryParams.userId) {
@@ -259,37 +331,63 @@ export const UsersFilterLayout: FC<Props> = ({ totalRecords, children, withoutFo
     return (
         <>
             {!isMobile && (
-                <SearchWrapperLayout alignCenter>
-                    <FlexGrow flexGrow="1" marginRight={filterMargin}>
-                        <SearchInput searchParameters={searchParameters} />
-                    </FlexGrow>
-                    <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
-                        <Select
-                            defaultIndex={sortTagsUsersValues.findIndex(item => item === role)}
-                            selector={sortTagsUsersData}
-                            width="182px"
-                            onChange={onSortChange}
-                        />
-                    </MarginWrapper>
-                    <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
-                        <NestedSelect
-                            defaultSelectedItem={country || region || locale || undefined}
-                            defaultSelectedItemType={defaultSelectedItemType}
-                            isLoading={regionsListIsLoading}
-                            selector={selectors}
-                            title="Filter by locale or country"
-                            width="300px"
-                            onSelect={onLocaleSelect}
-                        />
-                    </MarginWrapper>
-                    <Row alignCenter marginRight="20px">
-                        <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
-                            Is trusted
-                        </CheckboxFilter>
-                    </Row>
+                <>
+                    <SearchWrapperLayout alignCenter>
+                        <Section justifyBetween>
+                            <FlexGrow flexGrow="1" marginRight={filterMargin}>
+                                <SearchInput searchParameters={searchParameters} />
+                            </FlexGrow>
+                            <SimpleButton background={black} color={white} onClick={onDownloadClick}>
+                                Download Results as CSV
+                            </SimpleButton>
+                        </Section>
+                        <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
+                            <Select
+                                defaultIndex={sortTagsUsersValues.findIndex(item => item === role)}
+                                selector={sortTagsUsersData}
+                                width="182px"
+                                onChange={onSortChange}
+                            />
+                        </MarginWrapper>
+                        <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
+                            <NestedSelect
+                                defaultSelectedItem={country || region || locale || undefined}
+                                defaultSelectedItemType={defaultSelectedItemType}
+                                isLoading={regionsListIsLoading}
+                                selector={selectors}
+                                title="Filter by locale or country"
+                                width="300px"
+                                onSelect={onLocaleSelect}
+                            />
+                        </MarginWrapper>
+                        <Row alignCenter marginRight="20px">
+                            <MarginWrapper /* marginBottom={filterMargin} */ marginRight={filterMargin}>
+                                <Select
+                                    defaultIndex={
+                                        filterByDate ? sortByDate.findIndex(item => item === filterByDate) : 0
+                                    }
+                                    selector={sortByDate}
+                                    title="Filter by date"
+                                    width="182px"
+                                    onChange={onDateSelect}
+                                />
+                            </MarginWrapper>
+                            <MarginWrapper marginRight="20px">
+                                <DateRangePicker
+                                    dateRange={[fromUtcDateTime || '', toUtcDateTime || '']}
+                                    disabled={!filterByDate}
+                                    onChange={onDateRangeClick}
+                                />
+                            </MarginWrapper>
+                            <CheckboxFilter defaultChecked={isTrusted || undefined} onChange={onTrustedChange}>
+                                Is trusted
+                            </CheckboxFilter>
+                        </Row>
 
-                    <ResetSearchButton onClick={resetFilters} />
-                </SearchWrapperLayout>
+                        <ResetSearchButton onClick={resetFilters} />
+                    </SearchWrapperLayout>
+                    {bigQueryModalOpened && <BigQueryModal onClose={onCloseBigQueryModal} />}
+                </>
             )}
 
             {isMobile && (

@@ -18,12 +18,14 @@ import React from 'react';
 import { modalEvents, modalStores } from 'stores/modals/asyncModal';
 
 export const StatusModal = () => {
-    const { visible, status, title, content, buttonText, onClick } = useStore(modalStores.statusModal);
+    const { visible, status, title, content, buttonText, onClick, onCloseClick } = useStore(modalStores.statusModal);
     const backgroundImage = status === 'inProcess' ? inProcessBackground : successBackground;
     const isMobile = useMediaQuery(`(max-width: ${xs})`);
 
-    const onButtonClick = () => onClick && onClick;
-    const onClose = () => modalEvents.closeStatusModal();
+    const onClose = () => {
+        modalEvents.closeStatusModal();
+        if (onCloseClick) onCloseClick();
+    };
 
     if (!visible) return null;
 
@@ -47,7 +49,7 @@ export const StatusModal = () => {
 
                 <ContentText>{content}</ContentText>
 
-                {!!buttonText && <StyledButton onClick={onButtonClick}>{buttonText}</StyledButton>}
+                {!!buttonText && <StyledButton onClick={onClick}>{buttonText}</StyledButton>}
             </ModalContentWrapper>
         </>
     );
