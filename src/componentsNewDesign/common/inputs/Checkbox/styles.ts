@@ -11,6 +11,9 @@ export const Label = styled.label`
     ${flexCenter};
     width: 100%;
     height: 100%;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
 
     &:hover {
         cursor: pointer;

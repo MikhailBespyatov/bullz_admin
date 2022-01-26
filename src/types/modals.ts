@@ -10,7 +10,6 @@ import {
     TeamCardEditableChange,
     VideoCardEditableChange
 } from 'types/form';
-import { NoopClick } from 'types/global';
 import { Visibility } from 'types/styles';
 import { noop, OkHandlerType, SubjectType } from 'types/types';
 
@@ -82,5 +81,6 @@ export interface StatusModalProps {
     title: string;
     content: string;
     buttonText?: string;
-    onClick?: NoopClick;
+    onClick?: noop;
+    onCloseClick?: noop;
 }

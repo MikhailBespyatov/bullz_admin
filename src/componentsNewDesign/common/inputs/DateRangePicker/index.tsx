@@ -99,7 +99,7 @@ const DatePicker = ({ isStartType, date, onChange, disabled, selectsRange, withP
     );
 };
 
-const DataPickerIcon = () => (
+export const DataPickerIcon = () => (
     <DataPickerIconWrapper>
         <Section alignCenter justifyCenter height="100%">
             <CustomImg src={dataPickerIcon} width="15px" />

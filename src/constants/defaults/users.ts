@@ -34,6 +34,8 @@ export const defaultUsersValues: BULLZ.QueryAllUsersRequest = {
 
 export const sortTagsWomStageValuesDefault = sortTagsWomStageValues[0];
 
+export const sortByDate = ['None', 'UtcCreated', 'UtcLastAuthentication', 'UtcUpdated'];
+
 export const defaultUserVideosValuesWithoutDate: BULLZ.QueryAllVideosRequest = {
     creatorId: undefined,
     isDeleted: false,
