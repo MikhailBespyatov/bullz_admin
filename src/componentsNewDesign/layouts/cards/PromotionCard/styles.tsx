@@ -1,7 +1,7 @@
 import dashedBorder from 'assets/dashed_border.svg';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { ClickableWrapper } from 'componentsNewDesign/wrappers/ClicableWrapper';
-import { grey11, white } from 'constants/styles/colors';
+import { white } from 'constants/styles/colors';
 import { flexCenter } from 'constants/styles/mixins';
 import styled, { css } from 'styled-components';
 
@@ -40,7 +40,6 @@ export const LocationsListWrapper = styled.div`
     position: absolute;
     max-height: 180px;
     min-width: 200px;
-    padding-right: 10px;
     border-radius: 0px 0px 8px 8px;
     background-color: #161616;
     border: 1px solid #252525;
@@ -66,6 +65,6 @@ export const ItemClickableWrapper = styled(ClickableWrapper)`
     color: inherit;
 
     :hover {
-        background-color: ${grey11};
+        background-color: #282828;
     }
 `;
