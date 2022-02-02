@@ -30,3 +30,14 @@ export const updateEmitter = (data: BULLZ.CreatePromotionRequest) =>
         url: '/engagement/emitters/update',
         data
     });
+
+export const switchEmittersState = (data: BULLZ.SwitchEmitterStateRequest) =>
+    axios<BULLZ.GetServiceStateResponse>({
+        url: '/engagement/switch-state',
+        data
+    });
+
+export const getEmittersState = () =>
+    axios<BULLZ.GetServiceStateResponse>({
+        url: '/engagement/get-service-state'
+    });
