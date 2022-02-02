@@ -3,6 +3,7 @@ import history from 'browserHistory';
 import { TotalBadge } from 'componentsNewDesign/common/badges/TotalBadge';
 import { CopyButton } from 'componentsNewDesign/common/buttons/CopyButton';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
+import { ToggleButton } from 'componentsNewDesign/common/buttons/ToggleButton';
 import { TrustedIcon } from 'componentsNewDesign/common/icons/TrustedIcon';
 import { Span } from 'componentsNewDesign/common/typography/Span';
 import { Breadcrumb } from 'componentsNewDesign/grid/Breadcrumb';
@@ -20,18 +21,19 @@ import { useSortableData } from 'hooks/useSortableData';
 import { emptyStateImageWrapperDiameter } from 'pages/Blacklisted/constants';
 import { columns, columnSizes } from 'pages/Emitters/constants';
 import { copyEmitIdMessage, copyVideoIdMessage } from 'pages/Emitters/Emitter/constants';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DataTable } from 'types/data';
 import { formatDateISOString, getEllipsisStartAndEnd } from 'utils/usefulFunctions';
 import { Loader } from '../../components/common/dynamic/Loader';
 import { EmittersFilterLayout } from '../../componentsNewDesign/layouts/filterLayouts/EmittersFilterLayout';
 import { MainLayout } from '../../componentsNewDesign/layouts/MainLayout';
-import { Flex, Section } from '../../componentsNewDesign/wrappers/grid/FlexWrapper';
-import { emittersStores } from '../../stores/emitters/emitters';
+import { Flex, Row, Section } from '../../componentsNewDesign/wrappers/grid/FlexWrapper';
+import { emittersEffects, emittersStores } from '../../stores/emitters/emitters';
 import { EmittersTable } from './EmittersTable';
 import { TableDataImg, TableDataSpan, TableWrapper } from './styles';
 
 export const Emitters = () => {
+    const { isEnabled } = useStore(emittersStores.emittersState);
     const emittersList = useStore(emittersStores.emitters);
     const sortableItems = emittersList.items ? emittersList.items.map((item: any) => ({ ...item })) : [];
 
@@ -40,6 +42,14 @@ export const Emitters = () => {
     const loading = useStore(emittersStores.loading);
 
     const onCreateButtonClick = () => history.push('/emitters/create_emitter');
+
+    const onToggleClick = () => {
+        emittersEffects.switchEmitterState({ enabled: !isEnabled });
+    };
+
+    useEffect(() => {
+        emittersEffects.getEmittersState();
+    }, []);
 
     const dataTable: DataTable[] | undefined = sortedItems?.map(
         ({
@@ -188,21 +198,27 @@ export const Emitters = () => {
                                 <TotalBadge quantity={emittersList.totalRecords} />
                             )}
                         </Flex>
-
-                        <SimpleButton
-                            background={white}
-                            backgroundHover={grey32}
-                            borderRadius="4px"
-                            color={black}
-                            fontSize="10px"
-                            fontWeight="400"
-                            height="30px"
-                            textHover={white}
-                            width="95px"
-                            onClick={onCreateButtonClick}
-                        >
-                            Create Emitter
-                        </SimpleButton>
+                        <Row alignCenter>
+                            <Span>{isEnabled ? 'Disable' : 'Enable'}</Span>
+                            <Row alignCenter marginLeft="10px" marginRight="20px">
+                                <ToggleButton value={!isEnabled} onChange={onToggleClick} />
+                            </Row>
+                            <SimpleButton
+                                background={white}
+                                backgroundHover={grey32}
+                                borderRadius="4px"
+                                color={black}
+                                disabled={!isEnabled}
+                                fontSize="10px"
+                                fontWeight="400"
+                                height="30px"
+                                textHover={white}
+                                width="95px"
+                                onClick={onCreateButtonClick}
+                            >
+                                Create Emitter
+                            </SimpleButton>
+                        </Row>
                     </Section>
                     <ContentWrapper backgroundColor={grey29} padding="9px 19px">
                         <MarginWrapper marginBottom="18px">

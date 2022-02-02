@@ -2453,14 +2453,7 @@ declare namespace BULLZ {
     /**
      * getEngagementScoresRequest
      */
-    export interface GetEngagementScoresRequest {
-        /**
-         * objectId
-         * example:
-         * 000000000000000000000000
-         */
-        videoId?: string; // objectId
-    }
+    export interface GetEngagementScoresRequest {}
     /**
      * getLanguageTrendingRequest
      */
@@ -2824,6 +2817,23 @@ declare namespace BULLZ {
          * string
          */
         pageLocation?: string | null;
+    }
+    /**
+     * getServiceStateResponse
+     */
+    export interface GetServiceStateResponse {
+        /**
+         * boolean
+         */
+        isEnabled?: boolean;
+        /**
+         * nullable1
+         */
+        utcLastDisabled?: string | null; // date-time
+        /**
+         * nullable1
+         */
+        utcLastEnabled?: string | null; // date-time
     }
     /**
      * getTeamDetailRequest
@@ -6978,6 +6988,15 @@ declare namespace BULLZ {
      */
     export interface SubmitVideoCurationResponse {}
     /**
+     * switchEmitterStateRequest
+     */
+    export interface SwitchEmitterStateRequest {
+        /**
+         * boolean
+         */
+        enabled?: boolean;
+    }
+    /**
      * teamInfoResponse
      */
     export interface TeamInfoResponse {
@@ -7752,7 +7771,7 @@ declare namespace BULLZ {
     /**
      * userDisablingReason
      */
-    export type UserDisablingReason = 0 | 1 | 2 | 3 | 4 | 5 | 6; // int32
+    export type UserDisablingReason = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // int32
     /**
      * userEnablingInfo
      */
@@ -8385,12 +8404,6 @@ declare namespace BULLZ {
      * videoEngagementScore
      */
     export interface VideoEngagementScore {
-        /**
-         * objectId
-         * example:
-         * 000000000000000000000000
-         */
-        videoId?: string; // objectId
         /**
          * int32
          */
@@ -9397,11 +9410,30 @@ declare namespace Paths {
             }
         }
     }
+    namespace EngagementGetServiceState {
+        namespace Post {
+            namespace Responses {
+                export type $200 = /* getServiceStateResponse */ Components.Schemas.GetServiceStateResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
     namespace EngagementGetTotalEmitted {
         namespace Post {
             export type RequestBody = /* getTotalEmittedEngagementRequest */ Components.Schemas.GetTotalEmittedEngagementRequest;
             namespace Responses {
                 export type $200 = /* getTotalEmittedEngagementResponse */ Components.Schemas.GetTotalEmittedEngagementResponse;
+                export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
+                export interface $401 {}
+            }
+        }
+    }
+    namespace EngagementSwitchState {
+        namespace Post {
+            export type RequestBody = /* switchEmitterStateRequest */ Components.Schemas.SwitchEmitterStateRequest;
+            namespace Responses {
+                export type $200 = /* getServiceStateResponse */ Components.Schemas.GetServiceStateResponse;
                 export type $400 = /* error400BadRequest */ Components.Schemas.Error400BadRequest;
                 export interface $401 {}
             }

@@ -98,7 +98,7 @@ const createEmitter = createEffect({
             message.success(successCreatedEmitterMessage);
             return true;
         } catch ({ data: { message } }) {
-            setRegisterError(message);
+            setRegisterError(message as string);
 
             updateLoading();
             return false;
@@ -117,7 +117,7 @@ const updateEmitter = createEffect({
             message.success(successUpdatedEmitterMessage);
             return true;
         } catch ({ data: { message } }) {
-            setRegisterError(message);
+            setRegisterError(message as string);
 
             updateLoading();
             return false;
@@ -139,7 +139,7 @@ const deleteEmitter = createEffect({
             message.success(deletedSuccess);
             return true;
         } catch ({ data: { message } }) {
-            setRegisterError(message);
+            setRegisterError(message as string);
 
             updateDeleteLoading();
             return false;
@@ -148,6 +148,30 @@ const deleteEmitter = createEffect({
 });
 
 const emitterInfo = createStore({}).on(loadItemById.doneData, (_, state) => state);
+
+const switchEmitterState = createEffect({
+    handler: async (value: BULLZ.SwitchEmitterStateRequest) => {
+        try {
+            return await API.emitters.switchEmittersState(value);
+        } catch {
+            return {};
+        }
+    }
+});
+
+const getEmittersState = createEffect({
+    handler: async () => {
+        try {
+            return await API.emitters.getEmittersState();
+        } catch {
+            return {};
+        }
+    }
+});
+
+const emittersState = createStore<BULLZ.GetServiceStateResponse>({})
+    .on(getEmittersState.doneData, (_, newState) => newState)
+    .on(switchEmitterState.doneData, (_, newState) => newState);
 
 export const emittersEvents = {
     invokeGetEmitters,
@@ -158,7 +182,15 @@ export const emittersEvents = {
     updateValues
 };
 
-export const emittersEffects = { loadItems, loadItemById, createEmitter, deleteEmitter, updateEmitter };
+export const emittersEffects = {
+    loadItems,
+    loadItemById,
+    createEmitter,
+    deleteEmitter,
+    updateEmitter,
+    switchEmitterState,
+    getEmittersState
+};
 
 export const emittersStores = {
     emitters,
@@ -168,5 +200,6 @@ export const emittersStores = {
     isFirst,
     emitterInfo,
     registerError,
-    deleteLoading
+    deleteLoading,
+    emittersState
 };
