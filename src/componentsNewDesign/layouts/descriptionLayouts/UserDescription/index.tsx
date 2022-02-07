@@ -427,6 +427,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            notEllipsisSubtitle
                                             backgroundColor={grey27}
                                             customCopyIcon={whiteCopyIcon}
                                             notVerified={!isAccountVerified}
@@ -441,6 +442,7 @@ export const UserDescription = ({
                                     <UserPropertyWrapper>
                                         <PropertyBlock
                                             copiable
+                                            notEllipsisSubtitle
                                             backgroundColor={grey27}
                                             customCopyIcon={whiteCopyIcon}
                                             subtitle={mobileNumber}
@@ -453,8 +455,9 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         copiable
-                                        backgroundColor={grey27}
+                                        notEllipsisSubtitle
                                         // titleUppercase
+                                        backgroundColor={grey27}
                                         customCopyIcon={whiteCopyIcon}
                                         subtitle={username || ''}
                                         success={copyUsernameMessage}
@@ -465,8 +468,9 @@ export const UserDescription = ({
                                 <UserPropertyWrapper>
                                     <PropertyBlock
                                         copiable
-                                        backgroundColor={grey27}
+                                        notEllipsisSubtitle
                                         // titleUppercase
+                                        backgroundColor={grey27}
                                         customCopyIcon={whiteCopyIcon}
                                         linkRoute={usersLink}
                                         subtitle={id}
@@ -545,8 +549,9 @@ export const UserDescription = ({
                                 </UserPropertyWrapper>
                                 <UserPropertyWrapper>
                                     <PropertyBlock
-                                        backgroundColor={grey27}
+                                        notEllipsisSubtitle
                                         // titleUppercase
+                                        backgroundColor={grey27}
                                         subtitle={location?.countryName || ''}
                                         title="Country"
                                         width={propertyBlockWidth}
@@ -554,8 +559,9 @@ export const UserDescription = ({
                                 </UserPropertyWrapper>
                                 <UserPropertyWrapper>
                                     <PropertyBlock
-                                        backgroundColor={grey27}
+                                        notEllipsisSubtitle
                                         // titleUppercase
+                                        backgroundColor={grey27}
                                         subtitle={location?.area?.region || ''}
                                         title="Region"
                                         width={propertyBlockWidth}
@@ -715,6 +721,7 @@ export const UserDescription = ({
                                 <SuperAdministratorLayout>
                                     <PropertyBlock
                                         copiable
+                                        notEllipsisSubtitle
                                         backgroundColor={grey27}
                                         customCopyIcon={whiteCopyIcon}
                                         fontSize="10px"
@@ -740,8 +747,9 @@ export const UserDescription = ({
                                 </SuperAdministratorLayout>
                                 <PropertyBlock
                                     copiable
-                                    backgroundColor={grey27}
+                                    notEllipsisSubtitle
                                     // titleUppercase
+                                    backgroundColor={grey27}
                                     customCopyIcon={whiteCopyIcon}
                                     marginBottom="8px"
                                     subtitle={username || ''}
@@ -751,8 +759,9 @@ export const UserDescription = ({
                                 />
                                 <PropertyBlock
                                     copiable
-                                    backgroundColor={grey27}
+                                    notEllipsisSubtitle
                                     // titleUppercase
+                                    backgroundColor={grey27}
                                     customCopyIcon={whiteCopyIcon}
                                     linkRoute={usersLink}
                                     marginBottom="8px"
@@ -763,8 +772,9 @@ export const UserDescription = ({
                                 />
                                 <PropertyBlock
                                     copiable
-                                    backgroundColor={grey27}
+                                    notEllipsisSubtitle
                                     // titleUppercase
+                                    backgroundColor={grey27}
                                     customCopyIcon={whiteCopyIcon}
                                     marginBottom="8px"
                                     subtitle={facilitatorId}
@@ -823,16 +833,18 @@ export const UserDescription = ({
                                     width={propertyBlockHalfWidth}
                                 />
                                 <PropertyBlock
-                                    backgroundColor={grey27}
+                                    notEllipsisSubtitle
                                     // titleUppercase
 
+                                    backgroundColor={grey27}
                                     subtitle={location?.countryName || ''}
                                     title="Country"
                                     width={propertyBlockHalfWidth}
                                 />
                                 <PropertyBlock
-                                    backgroundColor={grey27}
+                                    notEllipsisSubtitle
                                     // titleUppercase
+                                    backgroundColor={grey27}
                                     subtitle={location?.area?.region || ''}
                                     title="Region"
                                     width={propertyBlockHalfWidth}
