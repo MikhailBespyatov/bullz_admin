@@ -1,5 +1,8 @@
+import tooltipIcon from 'assets/icons/tooltip_icon.svg';
+import Axios from 'axios';
 import { SimpleButton } from 'componentsNewDesign/common/buttons/SimpleButton';
 import { HorizontalLine } from 'componentsNewDesign/common/dividers/HorizontalLine';
+import { CustomImage } from 'componentsNewDesign/common/imgComponents/CustomImg/styles';
 import { BooleanCheckbox } from 'componentsNewDesign/common/inputs/Checkbox';
 import { DataPickerIcon } from 'componentsNewDesign/common/inputs/DateRangePicker';
 import { Span } from 'componentsNewDesign/common/typography/Span';
@@ -7,7 +10,8 @@ import { Loader } from 'componentsNewDesign/dynamic/Loader';
 import { sideBarZIndex } from 'componentsNewDesign/grid/SideBar/constants';
 import {
     BigQueryDescription,
-    BigQueryTitle
+    BigQueryTitle,
+    ImageWrapper
 } from 'componentsNewDesign/layouts/filterLayouts/UsersFilterLayout/BigQueryModal/styles';
 import { StatusModal } from 'componentsNewDesign/modals/StatusModal';
 import { ContentWrapper } from 'componentsNewDesign/wrappers/ContentWrapper';
@@ -19,14 +23,14 @@ import { ModalBackground } from 'componentsNewDesign/wrappers/ModalWrapper/style
 import { blue, grey27, grey29 } from 'constants/styles/colors';
 import { useStore } from 'effector-react';
 import { saveAs } from 'file-saver';
+import { useToggle } from 'hooks/toggle';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { modalEvents } from 'stores/modals/asyncModal';
-import { superAdminEffects, superAdminStores } from 'stores/superAdmin';
+import { superAdminEffects, superAdminEvents, superAdminStores } from 'stores/superAdmin';
 import { usersStores } from 'stores/users/users';
 import { noop } from 'types/types';
-import { convertToCSV, getDateFromString } from 'utils/usefulFunctions';
-import { basyUrlToUser, inProcessModal, primaryMargin, successModal } from './constants';
-
+import { convertToCSV, getDateFromString, getFilteredData } from 'utils/usefulFunctions';
+import { basyUrlToUser, inProcessModal, PAGE_LIMIT, primaryMargin, successModal } from './constants';
 interface Props {
     onClose: noop;
 }
@@ -49,13 +53,23 @@ export const BigQueryModal = ({ onClose }: Props) => {
     const { queryCount } = useStore(superAdminStores.bigQueryCount);
     const [statusModalIsOpen, setStatusModalIsOpen] = useState(false);
     const [checkboxActive, setCheckboxActive] = useState(false);
+    const [withoutDisabledUsers, toggleWithoutDisabledUsers] = useToggle(false);
+    const [withoutDeletedUsers, toggleWithoutDeletedUsers] = useState(false);
     const loading = useStore(superAdminStores.loading);
-    const { items } = useStore(superAdminStores.bigQuery);
+    const items = useStore(superAdminStores.bigQuery);
+
+    const source = useMemo(() => Axios.CancelToken.source(), []);
+
+    const data = useMemo(() => getFilteredData(items, withoutDeletedUsers, withoutDisabledUsers), [
+        items,
+        withoutDeletedUsers,
+        withoutDisabledUsers
+    ]);
+
     const csvData = useMemo(() => {
-        const data = items ? items : [];
         const csv = convertToCSV(data);
         return new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    }, [items]);
+    }, [data]);
 
     const bigQueryValues = {
         role: role,
@@ -66,7 +80,7 @@ export const BigQueryModal = ({ onClose }: Props) => {
         country: country,
         region: region,
         locale: locale,
-        limit: 50000,
+        limit: PAGE_LIMIT,
         pageIndex: 0,
         yasyUrlToUser: basyUrlToUser,
         fromUtcDateTime,
@@ -76,24 +90,41 @@ export const BigQueryModal = ({ onClose }: Props) => {
 
     const onStatusModalClose = () => {
         setStatusModalIsOpen(false);
+        source.cancel();
+        superAdminEvents.resetBigQuery();
         onClose();
     };
     const onDownloadBigQuery = () => {
-        console.log(csvData);
         saveAs(csvData, 'data.csv');
     };
 
-    const memoizedOnStatusModalClose = useCallback(onStatusModalClose, [onClose]);
+    const memoizedOnStatusModalClose = useCallback(onStatusModalClose, [onClose, source]);
     const memoizedOnDownloadBigQuery = useCallback(onDownloadBigQuery, [csvData]);
 
-    const onDownload = () => {
-        superAdminEffects.getBigQuery(bigQueryValues);
-        setStatusModalIsOpen(true);
-        modalEvents.openStatusModal({ ...inProcessModal, status: 'inProcess', onCloseClick: onStatusModalClose });
+    const onDownload = async () => {
+        if (queryCount) {
+            superAdminEvents.updateLoading();
+
+            setStatusModalIsOpen(true);
+            modalEvents.openStatusModal({ ...inProcessModal, status: 'inProcess', onCloseClick: onStatusModalClose });
+
+            const pageCount = new Array(Math.ceil(queryCount / PAGE_LIMIT)).fill(null);
+
+            await Promise.all(
+                pageCount.map((_, index) =>
+                    superAdminEffects.getBigQuery({
+                        value: { ...bigQueryValues, pageIndex: index },
+                        cancelToken: source.token
+                    })
+                )
+            );
+
+            superAdminEvents.updateLoading();
+        }
     };
 
     useEffect(() => {
-        if (statusModalIsOpen && !loading) {
+        if (statusModalIsOpen && !loading && items.length === queryCount) {
             modalEvents.openStatusModal({
                 ...successModal,
                 status: 'success',
@@ -101,7 +132,7 @@ export const BigQueryModal = ({ onClose }: Props) => {
                 onClick: memoizedOnDownloadBigQuery
             });
         }
-    }, [loading, statusModalIsOpen, memoizedOnDownloadBigQuery, memoizedOnStatusModalClose]);
+    }, [loading, statusModalIsOpen, memoizedOnDownloadBigQuery, memoizedOnStatusModalClose, items, queryCount]);
 
     return statusModalIsOpen ? (
         <StatusModal />
@@ -119,9 +150,12 @@ export const BigQueryModal = ({ onClose }: Props) => {
                             </Section>
                             <HorizontalLine background="rgba(0, 0, 0, 0.1)" />
                             <ContentWrapper padding="16px 24px">
-                                <MarginWrapper marginBottom={primaryMargin}>
+                                <Row marginBottom={primaryMargin}>
                                     <BigQueryTitle>Selected Count is {queryCount}</BigQueryTitle>
-                                </MarginWrapper>
+                                    <ImageWrapper>
+                                        <CustomImage alt="tooltip icon" src={tooltipIcon} width="13px" />
+                                    </ImageWrapper>
+                                </Row>
 
                                 <Row marginBottom={primaryMargin}>
                                     {role && (
@@ -184,6 +218,19 @@ export const BigQueryModal = ({ onClose }: Props) => {
                                 >
                                     <BigQueryDescription>{locale || 'Not chosen'}</BigQueryDescription>
                                 </ContentWrapper>
+
+                                <Section alignCenter>
+                                    <Row alignCenter marginBottom={primaryMargin}>
+                                        <BooleanCheckbox showName name="Deleted" onChange={toggleWithoutDeletedUsers} />
+                                    </Row>
+                                    <Row alignCenter marginBottom={primaryMargin} marginLeft={primaryMargin}>
+                                        <BooleanCheckbox
+                                            showName
+                                            name="Disabled"
+                                            onChange={toggleWithoutDisabledUsers}
+                                        />
+                                    </Row>
+                                </Section>
 
                                 <MarginWrapper marginBottom={primaryMargin}>
                                     <BooleanCheckbox

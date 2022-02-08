@@ -1,3 +1,4 @@
+import { CancelToken } from 'axios';
 import axios from 'services/axios';
 
 export const getBigQueryCount = (data: BULLZ.CountQueryUsersRequest) =>
@@ -6,8 +7,9 @@ export const getBigQueryCount = (data: BULLZ.CountQueryUsersRequest) =>
         data
     });
 
-export const getBigQuery = (data: BULLZ.BigQueryUsersRequest) =>
+export const getBigQuery = (data: BULLZ.BigQueryUsersRequest, cancelToken?: CancelToken) =>
     axios<BULLZ.BigQueryUsersResponse>({
         url: '/super-admin/user/big-query',
-        data
+        data,
+        cancelToken
     });

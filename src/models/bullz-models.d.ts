@@ -805,6 +805,14 @@ declare namespace BULLZ {
          */
         urlInYasy?: string | null;
         /**
+         * boolean
+         */
+        isDisabled?: boolean;
+        /**
+         * boolean
+         */
+        isDeleted?: boolean;
+        /**
          * objectId
          * example:
          * 000000000000000000000000

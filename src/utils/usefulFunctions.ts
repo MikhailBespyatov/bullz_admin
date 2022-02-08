@@ -360,3 +360,15 @@ export const daysBeforeDate = (dateISO: string, daysBefore: number) => {
     const dateOffset = 24 * 60 * 60 * 1000 * daysBefore;
     return new Date(new Date(dateISO).getTime() - dateOffset).toISOString();
 };
+
+export const getFilteredData = (
+    data: BULLZ.BigQueryUserResponse[],
+    withoutDeletedUsers: boolean,
+    withoutDisabledUsers: boolean
+) => {
+    if (withoutDeletedUsers && withoutDisabledUsers) return data.filter(item => !item.isDeleted && !item.isDisabled);
+    else if (withoutDeletedUsers) return data.filter(item => !item.isDeleted);
+    else if (withoutDisabledUsers) return data.filter(item => !item.isDisabled);
+
+    return data;
+};
