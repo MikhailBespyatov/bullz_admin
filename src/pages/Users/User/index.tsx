@@ -149,7 +149,7 @@ export const User = () => {
                                     totalRecords={userVideos.totalRecords}
                                     onChangeCheckbox={onChangeCheckbox}
                                 >
-                                    <UserVideos videos={userVideos?.items || undefined} />
+                                    <UserVideos isUserVideos videos={userVideos?.items || undefined} />
                                 </VideoCardFilterLayout>
                             )}
                         </DropdownSection>
