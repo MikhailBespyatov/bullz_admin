@@ -12,4 +12,5 @@ export interface CardWrapperProps
     isSelected?: boolean;
     isDeleted?: boolean;
     padding?: string;
+    border?: string;
 }

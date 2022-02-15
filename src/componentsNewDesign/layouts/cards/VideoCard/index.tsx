@@ -76,9 +76,10 @@ export interface Props
     extends Omit<BULLZ.AdminGetProductVideoResponse, 'userInfo'>,
         Omit<BULLZ.AdminGetVideoResponse, 'userInfo'> {
     isBlocked?: boolean; // TODO have no end point yet
+    isUserVideos?: boolean;
 }
 
-export const VideoCard = (video: Props) => {
+export const VideoCard = ({ isUserVideos, ...video }: Props) => {
     const {
         id = '',
         ownerId,
@@ -163,7 +164,8 @@ export const VideoCard = (video: Props) => {
 
     return (
         <CardWrapper
-            backgroundColor={grey29}
+            backgroundColor={(isUserVideos && grey29) || undefined}
+            border={grey27}
             disabled={isDeleted}
             isSelected={copiedDataId === id}
             onClick={onCardClick} /*width="100%"*/

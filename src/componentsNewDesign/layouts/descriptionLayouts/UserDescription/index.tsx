@@ -875,13 +875,14 @@ export const UserDescription = ({
 
 interface UserVideosProps {
     videos?: BULLZ.AdminGetVideoResponse[];
+    isUserVideos?: boolean;
 }
 
-export const UserVideos = ({ videos = [] }: UserVideosProps) => (
+export const UserVideos = ({ videos = [], isUserVideos }: UserVideosProps) => (
     <>
         <Section>
             {videos.length ? (
-                videos.map(item => <VideoCard key={item.id} {...item} />)
+                videos.map(item => <VideoCard key={item.id} isUserVideos={isUserVideos} {...item} />)
             ) : (
                 <Empty title={videosNotFoundMessage} />
             )}
