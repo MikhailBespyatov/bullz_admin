@@ -345,13 +345,12 @@ export const getEllipsisStartAndEnd = (str: string, quantity = 12) =>
     str.length < quantity ? str : str.substring(0, 4) + '...' + str.substring(str.length - 5, str.length);
 
 export const convertToCSV = (objArray: any) => {
-    let csvData =
-        "'username', 'utcCreated', 'urlInBasy', 'region', 'mobileNumber', 'locale', 'id', 'email', 'country', 'city'\r\n";
-    for (let i = 0; i < objArray.length; i++) {
-        const region = objArray[i].region ? objArray[i].region.split(',').join(' ') : '';
-        const data = `${objArray[i].username},${objArray[i].utcCreated},${objArray[i].urlInYasy},${region},${objArray[i].mobileNumber},${objArray[i].locale},${objArray[i].id},${objArray[i].email},${objArray[i].country},${objArray[i].city}\r\n`;
+    let csvData = 'username,  id, utcCreated, urlInBasy, mobileNumber, email, locale, country, region, city\r\n';
+    objArray.forEach((item: any) => {
+        const region = item.region ? item.region.split(',').join(' ') : '';
+        const data = `${item.username},${item.id},${item.utcCreated},${item.urlInYasy},${item.mobileNumber},${item.email},${item.locale},${item.country},${region},${item.city}\r\n`;
         csvData += data;
-    }
+    });
 
     return csvData;
 };
