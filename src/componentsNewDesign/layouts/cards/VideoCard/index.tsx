@@ -164,8 +164,8 @@ export const VideoCard = ({ isUserVideos, ...video }: Props) => {
 
     return (
         <CardWrapper
-            backgroundColor={(isUserVideos && grey29) || undefined}
-            border={grey27}
+            backgroundColor={grey29}
+            border={(isUserVideos && grey27) || undefined}
             disabled={isDeleted}
             isSelected={copiedDataId === id}
             onClick={onCardClick} /*width="100%"*/
